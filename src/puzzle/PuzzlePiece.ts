@@ -1,27 +1,18 @@
 import * as Phaser from 'phaser';
 
+export type PieceState = 'tray' | 'drag' | 'placed';
+
 export class PuzzlePiece extends Phaser.GameObjects.Image {
-  readonly targetX: number;
-  readonly targetY: number;
-  placed = false;
+  readonly row: number;
+  readonly col: number;
+  state: PieceState = 'tray';
+  trayIndex = 0;
 
-  constructor(
-    scene: Phaser.Scene,
-    x: number,
-    y: number,
-    texture: string,
-    frame: string,
-    targetX: number,
-    targetY: number,
-  ) {
-    super(scene, x, y, texture, frame);
-    this.targetX = targetX;
-    this.targetY = targetY;
+  constructor(scene: Phaser.Scene, texture: string, frame: string, row: number, col: number) {
+    super(scene, 0, 0, texture, frame);
+    this.row = row;
+    this.col = col;
     scene.add.existing(this);
-    this.setInteractive({ draggable: true, useHandCursor: true });
-  }
-
-  distanceToTarget(): number {
-    return Phaser.Math.Distance.Between(this.x, this.y, this.targetX, this.targetY);
+    this.setInteractive({ useHandCursor: true });
   }
 }

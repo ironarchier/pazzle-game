@@ -94,7 +94,24 @@ export const IMAGE_SIZE = 600;
 export const GRID_SIZE = 4;
 export const PIECE_SIZE = IMAGE_SIZE / GRID_SIZE;
 export const SNAP_DISTANCE = 40;
+export const SNAP_DURATION = 120;
 
-export const BOARD_TOP = 110;
-export const TRAY_TOP = 750;
-export const TRAY_BOTTOM = 1250;
+export const HEADER_HEIGHT = 112;
+export const HEADER_PADDING = 28;
+
+export const TRAY_HEIGHT = 220;
+export const TRAY_PADDING = 24;
+export const TRAY_SLOT_WIDTH = 120;
+export const TRAY_PIECE_SCALE = 0.62;
+export const TRAY_ANIMATION_DURATION = 250;
+export const GESTURE_THRESHOLD = 12;
+
+export const GAME_DEPTH = {
+  board: 0,
+  placedPieces: 1,
+  tray: 2,
+  trayPieces: 3,
+  draggedPiece: 4,
+  header: 5,
+  overlay: 6,
+};

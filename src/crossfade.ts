@@ -36,10 +36,10 @@ export function crossfade(game: Phaser.Game, change: () => void): void {
   });
 }
 
-export function goToScene(from: Phaser.Scene, key: string, data?: object): void {
+export function goToScene(from: Phaser.Scene, key: string, data: object = {}): void {
   crossfade(from.game, () => from.scene.start(key, data));
 }
 
-export function restartScene(scene: Phaser.Scene, data?: object): void {
+export function restartScene(scene: Phaser.Scene, data: object = {}): void {
   crossfade(scene.game, () => scene.scene.restart(data));
 }

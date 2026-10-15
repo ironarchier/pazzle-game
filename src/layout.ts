@@ -1,7 +1,7 @@
 import * as Phaser from 'phaser';
 import { GAME_HEIGHT, GAME_WIDTH } from './constants';
 
-function onResize(scene: Phaser.Scene, handler: () => void): void {
+export function onResize(scene: Phaser.Scene, handler: () => void): void {
   handler();
   scene.scale.on(Phaser.Scale.Events.RESIZE, handler);
   scene.events.once(Phaser.Scenes.Events.SHUTDOWN, () => scene.scale.off(Phaser.Scale.Events.RESIZE, handler));
