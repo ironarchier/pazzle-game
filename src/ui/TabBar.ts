@@ -1,5 +1,6 @@
 import * as Phaser from 'phaser';
 import { FONT_FAMILY, HOVER_DURATION, HOVER_EASE, TAB_BAR_HEIGHT, TAB_HOVER_INSET, TAB_MAX_WIDTH } from '../constants';
+import { playClick } from '../audio';
 import { getTheme, toCss } from '../theme';
 import type { IconDrawer } from './icons';
 import { tweenColor } from './tweenColor';
@@ -39,7 +40,10 @@ export class TabBar<T extends string> extends Phaser.GameObjects.Container {
 
       hitArea.on('pointerover', () => this.setHovered(item, true));
       hitArea.on('pointerout', () => this.setHovered(item, false));
-      hitArea.on('pointerup', () => onSelect(config.id));
+      hitArea.on('pointerup', () => {
+        if (config.id !== this.activeId) playClick();
+        onSelect(config.id);
+      });
 
       this.add([pill, icon, label, hitArea]);
       this.items.push(item);

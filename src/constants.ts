@@ -65,6 +65,12 @@ export const TOGGLE_TRACK_WIDTH = 100;
 export const TOGGLE_TRACK_HEIGHT = 56;
 export const TOGGLE_HOVER_PADDING = 24;
 
+export const BACK_LINK_FONT_SIZE = 32;
+export const BACK_LINK_CHEVRON_SIZE = 11;
+export const BACK_LINK_CHEVRON_WIDTH = 4;
+export const BACK_LINK_GAP = 12;
+export const BACK_LINK_HEIGHT = 64;
+
 export const HOVER_DURATION = 200;
 export const HOVER_EASE = 'Cubic.easeOut';
 export const TRANSITION_DURATION = 450;
@@ -75,6 +81,13 @@ export const BUTTON_HOVER_SCALE = 1.04;
 export const BUTTON_PRESS_SCALE = 0.95;
 export const PIECE_HOVER_SCALE = 1.03;
 export const PIECE_DRAG_SCALE = 1.05;
+
+export const CLICK_SOUND = {
+  startFrequency: 1000,
+  endFrequency: 600,
+  duration: 0.08,
+  volume: 0.15,
+};
 
 export const TEXTURE_KEY = 'puzzle-image';
 export const IMAGE_SIZE = 600;

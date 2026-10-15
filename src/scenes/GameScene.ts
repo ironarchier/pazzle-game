@@ -22,7 +22,7 @@ import {
 import { goToScene, restartScene } from '../crossfade';
 import { centerLayout } from '../layout';
 import { applyTheme, getTheme, toCss } from '../theme';
-import { tweenColor } from '../ui/tweenColor';
+import { BackLink } from '../ui/BackLink';
 
 export class GameScene extends Phaser.Scene {
   private pieces: PuzzlePiece[] = [];
@@ -55,19 +55,7 @@ export class GameScene extends Phaser.Scene {
       .setOrigin(0.5);
     this.updateProgress();
 
-    const menuLink = this.add
-      .text(this.boardLeft, 55, '‹ Меню', { fontFamily: FONT_FAMILY, fontSize: '36px', color: toCss(theme.accent) })
-      .setOrigin(0, 0.5)
-      .setInteractive({ useHandCursor: true });
-    let menuLinkColor = theme.accent;
-    const fadeMenuLink = (color: number) =>
-      tweenColor(this, menuLink, menuLinkColor, color, (c) => {
-        menuLinkColor = c;
-        menuLink.setColor(toCss(c));
-      });
-    menuLink.on('pointerover', () => fadeMenuLink(theme.accentHover));
-    menuLink.on('pointerout', () => fadeMenuLink(theme.accent));
-    menuLink.on('pointerup', () => goToScene(this, 'Menu'));
+    new BackLink(this, this.boardLeft, 55, 'Меню', () => goToScene(this, 'Menu'));
   }
 
   private createTexture(): void {

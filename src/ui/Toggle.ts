@@ -9,6 +9,7 @@ import {
   TOGGLE_TRACK_WIDTH,
   TOGGLE_WIDTH,
 } from '../constants';
+import { playClick } from '../audio';
 import { getTheme, toCss } from '../theme';
 import { tweenColor } from './tweenColor';
 
@@ -61,6 +62,7 @@ export class Toggle extends Phaser.GameObjects.Container {
       this.fadeTrack();
       this.moveKnob(true);
       onChange(this.value);
+      playClick();
     });
 
     this.add([hoverBg, text, this.track, this.knob, hitArea]);

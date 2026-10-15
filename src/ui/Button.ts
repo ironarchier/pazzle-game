@@ -8,6 +8,7 @@ import {
   HOVER_DURATION,
   HOVER_EASE,
 } from '../constants';
+import { playClick } from '../audio';
 import { getTheme, toCss } from '../theme';
 import { tweenColor } from './tweenColor';
 
@@ -39,6 +40,7 @@ export class Button extends Phaser.GameObjects.Container {
     hitArea.on('pointerdown', () => this.scaleTo(BUTTON_PRESS_SCALE));
     hitArea.on('pointerup', () => {
       this.scaleTo(BUTTON_HOVER_SCALE);
+      playClick();
       onClick();
     });
 
