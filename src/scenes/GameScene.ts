@@ -10,7 +10,7 @@ import {
   HEADER_PADDING,
   HOVER_DURATION,
   HOVER_EASE,
-  IMAGE_KEY,
+  LEVELS,
   IMAGE_HEIGHT,
   IMAGE_WIDTH,
   PIECE_BEVEL,
@@ -38,6 +38,7 @@ import { goToScene, restartScene } from '../crossfade';
 import { playJoin, playPlace } from '../audio';
 import { vibrate } from '../haptics';
 import { onResize } from '../layout';
+import { getCurrentLevel, setCurrentLevel } from '../progress';
 import { createPiecePath, generateEdges, type PieceEdges } from '../puzzle/pieceShape';
 import { PuzzlePiece } from '../puzzle/PuzzlePiece';
 import { applyTheme, getTheme } from '../theme';
@@ -57,6 +58,7 @@ interface Gesture {
 }
 
 export class GameScene extends Phaser.Scene {
+  private level = 0;
   private pieces: PuzzlePiece[] = [];
   private tray: PuzzlePiece[] = [];
   private trayScroll = 0;
@@ -77,6 +79,16 @@ export class GameScene extends Phaser.Scene {
 
   constructor() {
     super('Game');
+  }
+
+  init(data: { level?: number }): void {
+    this.level = data.level ?? getCurrentLevel();
+    setCurrentLevel(this.level);
+  }
+
+  preload(): void {
+    const key = this.imageKey();
+    if (!this.textures.exists(key)) this.load.image(key, LEVELS[this.level].image);
   }
 
   create(): void {
@@ -160,18 +172,16 @@ export class GameScene extends Phaser.Scene {
   }
 
   private getSourceImage(): HTMLCanvasElement {
-    if (!this.textures.exists(PUZZLE_SOURCE_KEY)) {
-      const image = this.textures.get(IMAGE_KEY).getSourceImage() as HTMLImageElement;
-      const texture = this.createCanvasTexture(PUZZLE_SOURCE_KEY, IMAGE_WIDTH, IMAGE_HEIGHT);
-      const crop = Math.min(image.width / IMAGE_WIDTH, image.height / IMAGE_HEIGHT);
-      const sw = IMAGE_WIDTH * crop;
-      const sh = IMAGE_HEIGHT * crop;
-      const sx = (image.width - sw) / 2;
-      const sy = (image.height - sh) / 2;
-      texture.context.drawImage(image, sx, sy, sw, sh, 0, 0, IMAGE_WIDTH, IMAGE_HEIGHT);
-      texture.refresh();
-    }
-    return this.textures.get(PUZZLE_SOURCE_KEY).getSourceImage() as HTMLCanvasElement;
+    const image = this.textures.get(this.imageKey()).getSourceImage() as HTMLImageElement;
+    const texture = this.createCanvasTexture(PUZZLE_SOURCE_KEY, IMAGE_WIDTH, IMAGE_HEIGHT);
+    const crop = Math.min(image.width / IMAGE_WIDTH, image.height / IMAGE_HEIGHT);
+    const sw = IMAGE_WIDTH * crop;
+    const sh = IMAGE_HEIGHT * crop;
+    const sx = (image.width - sw) / 2;
+    const sy = (image.height - sh) / 2;
+    texture.context.drawImage(image, sx, sy, sw, sh, 0, 0, IMAGE_WIDTH, IMAGE_HEIGHT);
+    texture.refresh();
+    return texture.getSourceImage() as HTMLCanvasElement;
   }
 
   private createCanvasTexture(key: string, width: number, height: number): Phaser.Textures.CanvasTexture {
@@ -637,8 +647,18 @@ export class GameScene extends Phaser.Scene {
       .setOrigin(0.5)
       .setDepth(depth);
 
-    new Button(this, width / 2, height / 2 + 40, 'Ещё раз', () => restartScene(this)).setDepth(depth);
+    const next = this.level + 1;
+    if (next < LEVELS.length) {
+      setCurrentLevel(next);
+      new Button(this, width / 2, height / 2 + 40, 'Дальше', () => restartScene(this, { level: next })).setDepth(depth);
+    } else {
+      new Button(this, width / 2, height / 2 + 40, 'Ещё раз', () => restartScene(this, { level: this.level })).setDepth(depth);
+    }
     new Button(this, width / 2, height / 2 + 180, 'В меню', () => goToScene(this, 'Menu')).setDepth(depth);
+  }
+
+  private imageKey(): string {
+    return `level-${this.level + 1}`;
   }
 
   private frameName(row: number, col: number): string {

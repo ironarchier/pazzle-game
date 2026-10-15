@@ -89,8 +89,11 @@ export const SOUNDS = {
 };
 export const SOUND_DETUNE = 60;
 
-export const IMAGE_KEY = 'puzzle-image';
-export const IMAGE_PATH = 'images/puzzle.jpg';
+export const LEVELS = [
+  { image: 'images/level-1.jpg' },
+  { image: 'images/level-2.jpg' },
+];
+export const PROGRESS_STORAGE_KEY = 'pazzle-game:level';
 export const PUZZLE_SOURCE_KEY = 'puzzle-source';
 export const PIECES_KEY = 'puzzle-pieces';
 export const GRID_COLS = 4;
