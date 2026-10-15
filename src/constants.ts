@@ -82,36 +82,72 @@ export const BUTTON_PRESS_SCALE = 0.95;
 export const PIECE_HOVER_SCALE = 1.03;
 export const PIECE_DRAG_SCALE = 1.05;
 
-export const CLICK_SOUND = {
-  startFrequency: 1000,
-  endFrequency: 600,
-  duration: 0.08,
-  volume: 0.15,
+export const SOUNDS = {
+  click: 'click',
+  place: ['place-1', 'place-2', 'place-3', 'place-4', 'place-5'],
+  join: ['join-1', 'join-2', 'join-3', 'join-4'],
 };
+export const SOUND_DETUNE = 60;
 
-export const TEXTURE_KEY = 'puzzle-image';
+export const IMAGE_KEY = 'puzzle-image';
+export const PIECES_KEY = 'puzzle-pieces';
 export const IMAGE_SIZE = 600;
 export const GRID_SIZE = 4;
 export const PIECE_SIZE = IMAGE_SIZE / GRID_SIZE;
+export const KNOB_SIZE = 0.25;
+export const KNOB_VARIATION = {
+  shift: 0.06,
+  width: 0.1,
+  height: 0.12,
+  wave: 0.15,
+};
+export const PIECE_BEVEL = {
+  width: 3,
+  offset: 1.5,
+  light: 'rgba(255, 255, 255, 0.35)',
+  dark: 'rgba(0, 0, 0, 0.3)',
+  outline: 'rgba(0, 0, 0, 0.18)',
+};
+export const PIECE_SHADOW = {
+  color: 'rgba(0, 0, 0, 0.35)',
+  blur: 10,
+  offsetY: 4,
+};
+export const PIECE_HIT_ALPHA = 200;
+export const PIECE_MARGIN = Math.ceil(PIECE_SIZE * KNOB_SIZE * (1 + KNOB_VARIATION.height)) + PIECE_SHADOW.blur + PIECE_SHADOW.offsetY;
+export const PIECE_FRAME_SIZE = PIECE_SIZE + PIECE_MARGIN * 2;
 export const SNAP_DISTANCE = 40;
 export const SNAP_DURATION = 120;
+export const SNAP_VIBRATION = 30;
+
+export const SPARKLE_KEY = 'sparkle';
+export const SPARKLE_TEXTURE_SIZE = 32;
+export const SPARKLE = {
+  count: 14,
+  lifespan: { min: 450, max: 800 },
+  speed: { min: 20, max: 90 },
+  scale: { start: 0.9, end: 0 },
+  tints: [0xffffff, 0xfff4c2, 0xffd966],
+};
 
 export const HEADER_HEIGHT = 112;
 export const HEADER_PADDING = 28;
 
 export const TRAY_HEIGHT = 220;
 export const TRAY_PADDING = 24;
-export const TRAY_SLOT_WIDTH = 120;
-export const TRAY_PIECE_SCALE = 0.62;
+export const TRAY_SLOT_WIDTH = 140;
+export const TRAY_PIECE_SCALE = 0.55;
 export const TRAY_ANIMATION_DURATION = 250;
 export const GESTURE_THRESHOLD = 12;
 
 export const GAME_DEPTH = {
   board: 0,
   placedPieces: 1,
-  tray: 2,
-  trayPieces: 3,
-  draggedPiece: 4,
-  header: 5,
-  overlay: 6,
+  boardPieces: 2,
+  sparkles: 3,
+  tray: 4,
+  trayPieces: 5,
+  draggedPiece: 6,
+  header: 7,
+  overlay: 8,
 };
