@@ -1,15 +1,18 @@
 import * as Phaser from 'phaser';
 import {
+  BOARD_PADDING,
   FONT_FAMILY,
   GAME_DEPTH,
   GESTURE_THRESHOLD,
-  GRID_SIZE,
+  GRID_COLS,
+  GRID_ROWS,
   HEADER_HEIGHT,
   HEADER_PADDING,
   HOVER_DURATION,
   HOVER_EASE,
   IMAGE_KEY,
-  IMAGE_SIZE,
+  IMAGE_HEIGHT,
+  IMAGE_WIDTH,
   PIECE_BEVEL,
   PIECE_DRAG_SCALE,
   PIECE_FRAME_SIZE,
@@ -18,6 +21,7 @@ import {
   PIECE_SHADOW,
   PIECE_SIZE,
   PIECES_KEY,
+  PUZZLE_SOURCE_KEY,
   SNAP_DISTANCE,
   SNAP_DURATION,
   SNAP_VIBRATION,
@@ -34,7 +38,6 @@ import { goToScene, restartScene } from '../crossfade';
 import { playJoin, playPlace } from '../audio';
 import { vibrate } from '../haptics';
 import { onResize } from '../layout';
-import { drawPuzzleImage } from '../puzzle/drawPuzzleImage';
 import { createPiecePath, generateEdges, type PieceEdges } from '../puzzle/pieceShape';
 import { PuzzlePiece } from '../puzzle/PuzzlePiece';
 import { applyTheme, getTheme } from '../theme';
@@ -61,6 +64,9 @@ export class GameScene extends Phaser.Scene {
   private gesture?: Gesture;
   private boardX = 0;
   private boardY = 0;
+  private boardWidth = IMAGE_WIDTH;
+  private boardHeight = IMAGE_HEIGHT;
+  private boardScale = 1;
   private scaleTweens = new Map<PuzzlePiece, Phaser.Tweens.Tween>();
   private moveTweens = new Map<PuzzlePiece, Phaser.Tweens.Tween>();
 
@@ -97,7 +103,7 @@ export class GameScene extends Phaser.Scene {
   }
 
   private createTextures(): void {
-    this.createPiecesTexture(this.getSourceImage(), generateEdges(GRID_SIZE, GRID_SIZE));
+    this.createPiecesTexture(this.getSourceImage(), generateEdges(GRID_ROWS, GRID_COLS));
     this.createSparkleTexture();
   }
 
@@ -128,7 +134,7 @@ export class GameScene extends Phaser.Scene {
   }
 
   private sparkle(x: number, y: number): void {
-    const half = PIECE_SIZE / 2;
+    const half = this.cellSize / 2;
     const emitter = this.add
       .particles(x, y, SPARKLE_KEY, {
         lifespan: SPARKLE.lifespan,
@@ -154,14 +160,18 @@ export class GameScene extends Phaser.Scene {
   }
 
   private getSourceImage(): HTMLCanvasElement {
-    if (!this.textures.exists(IMAGE_KEY)) {
-      const texture = this.textures.createCanvas(IMAGE_KEY, IMAGE_SIZE, IMAGE_SIZE);
-      if (texture) {
-        drawPuzzleImage(texture.context, IMAGE_SIZE);
-        texture.refresh();
-      }
+    if (!this.textures.exists(PUZZLE_SOURCE_KEY)) {
+      const image = this.textures.get(IMAGE_KEY).getSourceImage() as HTMLImageElement;
+      const texture = this.createCanvasTexture(PUZZLE_SOURCE_KEY, IMAGE_WIDTH, IMAGE_HEIGHT);
+      const crop = Math.min(image.width / IMAGE_WIDTH, image.height / IMAGE_HEIGHT);
+      const sw = IMAGE_WIDTH * crop;
+      const sh = IMAGE_HEIGHT * crop;
+      const sx = (image.width - sw) / 2;
+      const sy = (image.height - sh) / 2;
+      texture.context.drawImage(image, sx, sy, sw, sh, 0, 0, IMAGE_WIDTH, IMAGE_HEIGHT);
+      texture.refresh();
     }
-    return this.textures.get(IMAGE_KEY).getSourceImage() as HTMLCanvasElement;
+    return this.textures.get(PUZZLE_SOURCE_KEY).getSourceImage() as HTMLCanvasElement;
   }
 
   private createCanvasTexture(key: string, width: number, height: number): Phaser.Textures.CanvasTexture {
@@ -172,12 +182,11 @@ export class GameScene extends Phaser.Scene {
   }
 
   private createPiecesTexture(source: HTMLCanvasElement, edges: PieceEdges[][]): void {
-    const size = PIECE_FRAME_SIZE * GRID_SIZE;
-    const texture = this.createCanvasTexture(PIECES_KEY, size, size);
+    const texture = this.createCanvasTexture(PIECES_KEY, PIECE_FRAME_SIZE * GRID_COLS, PIECE_FRAME_SIZE * GRID_ROWS);
     const ctx = texture.context;
 
-    for (let row = 0; row < GRID_SIZE; row++) {
-      for (let col = 0; col < GRID_SIZE; col++) {
+    for (let row = 0; row < GRID_ROWS; row++) {
+      for (let col = 0; col < GRID_COLS; col++) {
         const frameX = col * PIECE_FRAME_SIZE;
         const frameY = row * PIECE_FRAME_SIZE;
         const cellX = frameX + PIECE_MARGIN;
@@ -227,8 +236,8 @@ export class GameScene extends Phaser.Scene {
   }
 
   private createPieces(): void {
-    for (let row = 0; row < GRID_SIZE; row++) {
-      for (let col = 0; col < GRID_SIZE; col++) {
+    for (let row = 0; row < GRID_ROWS; row++) {
+      for (let col = 0; col < GRID_COLS; col++) {
         const piece = new PuzzlePiece(this, PIECES_KEY, this.frameName(row, col), row, col)
           .setScale(TRAY_PIECE_SCALE)
           .setDepth(GAME_DEPTH.trayPieces);
@@ -264,19 +273,33 @@ export class GameScene extends Phaser.Scene {
     this.trayBg.fillStyle(theme.border, 1);
     this.trayBg.fillRect(0, trayTop, width, 2);
 
-    const prevBoardX = this.boardX;
-    const prevBoardY = this.boardY;
-    this.boardX = (width - IMAGE_SIZE) / 2;
-    this.boardY = HEADER_HEIGHT + (trayTop - HEADER_HEIGHT - IMAGE_SIZE) / 2;
+    const prev = { x: this.boardX, y: this.boardY, scale: this.boardScale };
+    const areaHeight = trayTop - HEADER_HEIGHT;
+    this.boardScale = Math.min(
+      (width - BOARD_PADDING * 2) / IMAGE_WIDTH,
+      (areaHeight - BOARD_PADDING * 2) / IMAGE_HEIGHT,
+    );
+    this.boardWidth = IMAGE_WIDTH * this.boardScale;
+    this.boardHeight = IMAGE_HEIGHT * this.boardScale;
+    this.boardX = (width - this.boardWidth) / 2;
+    this.boardY = HEADER_HEIGHT + (areaHeight - this.boardHeight) / 2;
     this.board.clear();
     this.board.fillStyle(theme.board, 1);
-    this.board.fillRect(this.boardX, this.boardY, IMAGE_SIZE, IMAGE_SIZE);
+    this.board.fillRect(this.boardX, this.boardY, this.boardWidth, this.boardHeight);
 
     for (const piece of this.pieces) {
-      if (piece.state === 'placed') piece.setPosition(...this.targetOf(piece));
-      else if (piece.state === 'board') {
-        this.moveTweens.get(piece)?.stop();
-        piece.setPosition(piece.x + this.boardX - prevBoardX, piece.y + this.boardY - prevBoardY);
+      if (piece.state !== 'placed' && piece.state !== 'board') continue;
+      const moveTween = this.moveTweens.get(piece);
+      if (piece.state === 'placed') moveTween?.complete();
+      else moveTween?.stop();
+      this.scaleTweens.get(piece)?.stop();
+      if (piece.state === 'placed') {
+        piece.setPosition(...this.targetOf(piece)).setScale(this.boardScale);
+      } else {
+        const ratio = this.boardScale / prev.scale;
+        piece
+          .setPosition(this.boardX + (piece.x - prev.x) * ratio, this.boardY + (piece.y - prev.y) * ratio)
+          .setScale(this.boardScale);
       }
     }
 
@@ -413,7 +436,7 @@ export class GameScene extends Phaser.Scene {
 
   private pickUp(piece: PuzzlePiece): void {
     const fromTray = piece.state === 'tray';
-    const scale = piece.group.length > 1 ? 1 : PIECE_DRAG_SCALE;
+    const scale = this.dragScale(piece.group);
     for (const member of piece.group) {
       member.state = 'drag';
       member.setDepth(GAME_DEPTH.draggedPiece);
@@ -429,7 +452,7 @@ export class GameScene extends Phaser.Scene {
 
   private dragTo(piece: PuzzlePiece, x: number, y: number): void {
     const { group } = piece;
-    const half = (PIECE_FRAME_SIZE * (group.length > 1 ? 1 : PIECE_DRAG_SCALE)) / 2;
+    const half = (PIECE_FRAME_SIZE * this.dragScale(group)) / 2;
     const offsetsX = group.map((m) => m.x - piece.x);
     const offsetsY = group.map((m) => m.y - piece.y);
     const clampedX = Phaser.Math.Clamp(x, half - Math.min(...offsetsX), this.scale.width - half - Math.max(...offsetsX));
@@ -473,13 +496,15 @@ export class GameScene extends Phaser.Scene {
 
   private isOverBoard({ x, y }: PuzzlePiece): boolean {
     return (
-      x >= this.boardX && x <= this.boardX + IMAGE_SIZE && y >= this.boardY && y <= this.boardY + IMAGE_SIZE
+      x >= this.boardX &&
+      x <= this.boardX + this.boardWidth &&
+      y >= this.boardY &&
+      y <= this.boardY + this.boardHeight
     );
   }
 
   private canPlace({ row, col }: PuzzlePiece): boolean {
-    const last = GRID_SIZE - 1;
-    if (row === 0 || col === 0 || row === last || col === last) return true;
+    if (row === 0 || col === 0 || row === GRID_ROWS - 1 || col === GRID_COLS - 1) return true;
     return this.pieces.some(
       (p) => p.state === 'placed' && Math.abs(p.row - row) + Math.abs(p.col - col) === 1,
     );
@@ -490,7 +515,7 @@ export class GameScene extends Phaser.Scene {
     for (const member of piece.group) {
       member.state = 'board';
       member.setDepth(GAME_DEPTH.boardPieces);
-      this.scalePiece(member, 1);
+      this.scalePiece(member, this.boardScale);
     }
 
     const joined = this.joinNeighbors(piece);
@@ -530,8 +555,8 @@ export class GameScene extends Phaser.Scene {
       for (const other of this.pieces) {
         if (other.state !== 'board' || group.includes(other)) continue;
         if (Math.abs(other.row - member.row) + Math.abs(other.col - member.col) !== 1) continue;
-        const dx = other.x - (other.col - member.col) * PIECE_SIZE - member.x;
-        const dy = other.y - (other.row - member.row) * PIECE_SIZE - member.y;
+        const dx = other.x - (other.col - member.col) * this.cellSize - member.x;
+        const dy = other.y - (other.row - member.row) * this.cellSize - member.y;
         const distance = Math.hypot(dx, dy);
         if (distance <= bestDistance) {
           best = { other, dx, dy };
@@ -563,7 +588,7 @@ export class GameScene extends Phaser.Scene {
       piece.state = 'placed';
       piece.disableInteractive();
       piece.setDepth(GAME_DEPTH.placedPieces);
-      this.scalePiece(piece, 1);
+      this.scalePiece(piece, this.boardScale);
 
       const [x, y] = this.targetOf(piece);
       this.movePiece(piece, x, y, SNAP_DURATION, () => {
@@ -578,9 +603,18 @@ export class GameScene extends Phaser.Scene {
 
   private targetOf(piece: PuzzlePiece): [number, number] {
     return [
-      this.boardX + piece.col * PIECE_SIZE + PIECE_SIZE / 2,
-      this.boardY + piece.row * PIECE_SIZE + PIECE_SIZE / 2,
+      this.boardX + (piece.col + 0.5) * this.cellSize,
+      this.boardY + (piece.row + 0.5) * this.cellSize,
     ];
+  }
+
+  private get cellSize(): number {
+    return PIECE_SIZE * this.boardScale;
+  }
+
+  // Группу не увеличиваем при перетаскивании, иначе между её деталями появятся зазоры
+  private dragScale(group: PuzzlePiece[]): number {
+    return group.length > 1 ? this.boardScale : this.boardScale * PIECE_DRAG_SCALE;
   }
 
   private movePiece(piece: PuzzlePiece, x: number, y: number, duration: number, onComplete?: () => void): void {

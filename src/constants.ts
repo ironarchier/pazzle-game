@@ -90,10 +90,15 @@ export const SOUNDS = {
 export const SOUND_DETUNE = 60;
 
 export const IMAGE_KEY = 'puzzle-image';
+export const IMAGE_PATH = 'images/puzzle.jpg';
+export const PUZZLE_SOURCE_KEY = 'puzzle-source';
 export const PIECES_KEY = 'puzzle-pieces';
-export const IMAGE_SIZE = 600;
-export const GRID_SIZE = 4;
-export const PIECE_SIZE = IMAGE_SIZE / GRID_SIZE;
+export const GRID_COLS = 4;
+export const GRID_ROWS = 4;
+export const PIECE_SIZE = 250;
+export const IMAGE_WIDTH = PIECE_SIZE * GRID_COLS;
+export const IMAGE_HEIGHT = PIECE_SIZE * GRID_ROWS;
+export const BOARD_PADDING = 20;
 export const KNOB_SIZE = 0.25;
 export const KNOB_VARIATION = {
   shift: 0.06,
@@ -136,7 +141,8 @@ export const HEADER_PADDING = 28;
 export const TRAY_HEIGHT = 220;
 export const TRAY_PADDING = 24;
 export const TRAY_SLOT_WIDTH = 140;
-export const TRAY_PIECE_SCALE = 0.55;
+export const TRAY_PIECE_SIZE = 85;
+export const TRAY_PIECE_SCALE = TRAY_PIECE_SIZE / PIECE_SIZE;
 export const TRAY_ANIMATION_DURATION = 250;
 export const GESTURE_THRESHOLD = 12;
 
