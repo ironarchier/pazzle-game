@@ -1,11 +1,12 @@
-import { SETTINGS_STORAGE_KEY } from './constants';
+import { SETTINGS_STORAGE_KEY, type ThemeName } from './constants';
 
 export interface Settings {
   sound: boolean;
   music: boolean;
+  theme: ThemeName;
 }
 
-const DEFAULT_SETTINGS: Settings = { sound: true, music: true };
+const DEFAULT_SETTINGS: Settings = { sound: true, music: true, theme: 'light' };
 
 let current = loadSettings();
 

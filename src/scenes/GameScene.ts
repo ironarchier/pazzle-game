@@ -4,24 +4,32 @@ import { PuzzlePiece } from '../puzzle/PuzzlePiece';
 import { Button } from '../ui/Button';
 import {
   BOARD_TOP,
-  COLORS,
   FONT_FAMILY,
   GAME_HEIGHT,
   GAME_WIDTH,
   GRID_SIZE,
+  HOVER_DURATION,
+  HOVER_EASE,
   IMAGE_SIZE,
+  PIECE_DRAG_SCALE,
+  PIECE_HOVER_SCALE,
   PIECE_SIZE,
   SNAP_DISTANCE,
   TEXTURE_KEY,
   TRAY_BOTTOM,
   TRAY_TOP,
 } from '../constants';
+import { goToScene, restartScene } from '../crossfade';
 import { centerLayout } from '../layout';
+import { applyTheme, getTheme, toCss } from '../theme';
+import { tweenColor } from '../ui/tweenColor';
 
 export class GameScene extends Phaser.Scene {
   private pieces: PuzzlePiece[] = [];
   private topDepth = 1;
   private boardLeft = 0;
+  private draggedPiece?: PuzzlePiece;
+  private pieceScaleTweens = new Map<PuzzlePiece, Phaser.Tweens.Tween>();
   private progressText!: Phaser.GameObjects.Text;
 
   constructor() {
@@ -29,9 +37,12 @@ export class GameScene extends Phaser.Scene {
   }
 
   create(): void {
+    applyTheme(this);
     centerLayout(this);
+    const theme = getTheme();
 
     this.pieces = [];
+    this.pieceScaleTweens.clear();
     this.topDepth = 1;
     this.boardLeft = (GAME_WIDTH - IMAGE_SIZE) / 2;
 
@@ -40,15 +51,23 @@ export class GameScene extends Phaser.Scene {
     this.createPieces();
 
     this.progressText = this.add
-      .text(GAME_WIDTH / 2, 55, '', { fontFamily: FONT_FAMILY, fontSize: '40px', color: COLORS.text })
+      .text(GAME_WIDTH / 2, 55, '', { fontFamily: FONT_FAMILY, fontSize: '40px', color: toCss(theme.text) })
       .setOrigin(0.5);
     this.updateProgress();
 
-    this.add
-      .text(this.boardLeft, 55, '‹ Меню', { fontFamily: FONT_FAMILY, fontSize: '36px', color: COLORS.textMuted })
+    const menuLink = this.add
+      .text(this.boardLeft, 55, '‹ Меню', { fontFamily: FONT_FAMILY, fontSize: '36px', color: toCss(theme.accent) })
       .setOrigin(0, 0.5)
-      .setInteractive({ useHandCursor: true })
-      .on('pointerup', () => this.scene.start('Menu'));
+      .setInteractive({ useHandCursor: true });
+    let menuLinkColor = theme.accent;
+    const fadeMenuLink = (color: number) =>
+      tweenColor(this, menuLink, menuLinkColor, color, (c) => {
+        menuLinkColor = c;
+        menuLink.setColor(toCss(c));
+      });
+    menuLink.on('pointerover', () => fadeMenuLink(theme.accentHover));
+    menuLink.on('pointerout', () => fadeMenuLink(theme.accent));
+    menuLink.on('pointerup', () => goToScene(this, 'Menu'));
   }
 
   private createTexture(): void {
@@ -72,15 +91,16 @@ export class GameScene extends Phaser.Scene {
   }
 
   private drawBoard(): void {
+    const theme = getTheme();
     const g = this.add.graphics();
-    g.fillStyle(0x000000, 0.3);
+    g.fillStyle(theme.board, 1);
     g.fillRect(this.boardLeft, BOARD_TOP, IMAGE_SIZE, IMAGE_SIZE);
-    g.fillStyle(0xffffff, 0.05);
+    g.fillStyle(theme.surface, 1);
     g.fillRoundedRect(20, TRAY_TOP, GAME_WIDTH - 40, TRAY_BOTTOM - TRAY_TOP, 24);
 
     this.add.image(this.boardLeft, BOARD_TOP, TEXTURE_KEY).setOrigin(0).setAlpha(0.15);
 
-    g.lineStyle(2, 0xffffff, 0.15);
+    g.lineStyle(2, theme.textMuted, 0.3);
     for (let i = 0; i <= GRID_SIZE; i++) {
       const offset = i * PIECE_SIZE;
       g.lineBetween(this.boardLeft + offset, BOARD_TOP, this.boardLeft + offset, BOARD_TOP + IMAGE_SIZE);
@@ -109,8 +129,18 @@ export class GameScene extends Phaser.Scene {
   private setupDrag(piece: PuzzlePiece): void {
     const half = PIECE_SIZE / 2;
 
+    piece.on('pointerover', () => {
+      if (this.draggedPiece !== piece) this.scalePiece(piece, PIECE_HOVER_SCALE);
+    });
+
+    piece.on('pointerout', () => {
+      if (this.draggedPiece !== piece) this.scalePiece(piece, 1);
+    });
+
     piece.on('dragstart', () => {
-      piece.setDepth(++this.topDepth).setScale(1.05);
+      this.draggedPiece = piece;
+      piece.setDepth(++this.topDepth);
+      this.scalePiece(piece, PIECE_DRAG_SCALE);
     });
 
     piece.on('drag', (_pointer: Phaser.Input.Pointer, dragX: number, dragY: number) => {
@@ -121,9 +151,18 @@ export class GameScene extends Phaser.Scene {
     });
 
     piece.on('dragend', () => {
-      piece.setScale(1);
+      this.draggedPiece = undefined;
+      this.scalePiece(piece, 1);
       if (piece.distanceToTarget() <= SNAP_DISTANCE) this.placePiece(piece);
     });
+  }
+
+  private scalePiece(piece: PuzzlePiece, scale: number): void {
+    this.pieceScaleTweens.get(piece)?.stop();
+    this.pieceScaleTweens.set(
+      piece,
+      this.tweens.add({ targets: piece, scale, duration: HOVER_DURATION, ease: HOVER_EASE }),
+    );
   }
 
   private placePiece(piece: PuzzlePiece): void {
@@ -160,12 +199,12 @@ export class GameScene extends Phaser.Scene {
       .setScrollFactor(0)
       .setDepth(depth);
     this.add
-      .text(centerX, centerY - 120, 'Собрано!', { fontFamily: FONT_FAMILY, fontSize: '80px', color: COLORS.text })
+      .text(centerX, centerY - 120, 'Собрано!', { fontFamily: FONT_FAMILY, fontSize: '80px', color: '#ffffff' })
       .setOrigin(0.5)
       .setDepth(depth);
 
-    new Button(this, centerX, centerY + 40, 'Ещё раз', () => this.scene.restart()).setDepth(depth);
-    new Button(this, centerX, centerY + 180, 'В меню', () => this.scene.start('Menu')).setDepth(depth);
+    new Button(this, centerX, centerY + 40, 'Ещё раз', () => restartScene(this)).setDepth(depth);
+    new Button(this, centerX, centerY + 180, 'В меню', () => goToScene(this, 'Menu')).setDepth(depth);
   }
 
   private frameName(row: number, col: number): string {

@@ -1,14 +1,13 @@
 import * as Phaser from 'phaser';
-import { COLORS } from '../constants';
 
 export type IconDrawer = (g: Phaser.GameObjects.Graphics, color: number) => void;
 
 export const drawHomeIcon: IconDrawer = (g, color) => {
   g.fillStyle(color, 1);
   g.fillTriangle(-32, -2, 0, -30, 32, -2);
-  g.fillRect(-22, -4, 44, 32);
-  g.fillStyle(COLORS.surface, 1);
-  g.fillRect(-7, 10, 14, 18);
+  g.fillRect(-22, -4, 15, 32);
+  g.fillRect(7, -4, 15, 32);
+  g.fillRect(-7, -4, 14, 12);
 };
 
 export const drawGearIcon: IconDrawer = (g, color) => {
@@ -17,8 +16,8 @@ export const drawGearIcon: IconDrawer = (g, color) => {
   const tooth = [
     [-6, -30],
     [6, -30],
-    [6, -18],
-    [-6, -18],
+    [6, -20],
+    [-6, -20],
   ];
   for (let i = 0; i < 8; i++) {
     const angle = (i * Math.PI) / 4;
@@ -28,7 +27,6 @@ export const drawGearIcon: IconDrawer = (g, color) => {
     g.fillPoints(points, true);
   }
 
-  g.fillCircle(0, 0, 21);
-  g.fillStyle(COLORS.surface, 1);
-  g.fillCircle(0, 0, 9);
+  g.lineStyle(12, color, 1);
+  g.strokeCircle(0, 0, 15);
 };
