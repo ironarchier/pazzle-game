@@ -1,4 +1,6 @@
 import * as Phaser from 'phaser';
+import { ICON_KEY } from '../constants';
+import { hidePreloader } from '../preloader';
 
 export class BootScene extends Phaser.Scene {
   constructor() {
@@ -6,10 +8,11 @@ export class BootScene extends Phaser.Scene {
   }
 
   preload(): void {
-    // Здесь загружаем ассеты: this.load.image('key', 'assets/...')
+    this.load.svg(ICON_KEY, 'icon.svg', { width: 512, height: 512 });
   }
 
   create(): void {
-    this.scene.start('Game');
+    hidePreloader();
+    this.scene.start('Menu');
   }
 }

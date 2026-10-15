@@ -1,16 +1,18 @@
 import * as Phaser from 'phaser';
 import { BootScene } from './scenes/BootScene';
 import { GameScene } from './scenes/GameScene';
+import { MenuScene } from './scenes/MenuScene';
+import { BACKGROUND_COLOR, GAME_HEIGHT, GAME_WIDTH } from './constants';
 
 new Phaser.Game({
   type: Phaser.AUTO,
   parent: 'game',
-  backgroundColor: '#1e1e2e',
+  backgroundColor: BACKGROUND_COLOR,
   scale: {
-    mode: Phaser.Scale.FIT,
+    mode: Phaser.Scale.EXPAND,
     autoCenter: Phaser.Scale.CENTER_BOTH,
-    width: 720,
-    height: 1280,
+    width: GAME_WIDTH,
+    height: GAME_HEIGHT,
   },
-  scene: [BootScene, GameScene],
+  scene: [BootScene, MenuScene, GameScene],
 });
