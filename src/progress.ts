@@ -1,18 +1,96 @@
-import { LEVELS, PROGRESS_STORAGE_KEY } from './constants';
+import { LEVELS, SAVE_STORAGE_KEY, getAlbumLevels } from './constants';
 
-export function getCurrentLevel(): number {
-  try {
-    const level = Number(localStorage.getItem(PROGRESS_STORAGE_KEY));
-    return Number.isInteger(level) && level >= 0 && level < LEVELS.length ? level : 0;
-  } catch {
-    return 0;
+export interface SavedGroup { ids: number[]; x: number; y: number }
+export interface Assembly {
+  level: number; rows: number; cols: number; seed: number;
+  placed: number[]; tray: number[]; groups: SavedGroup[]; scroll: number;
+}
+export interface Progress {
+  version: 1; current: number; completed: number[];
+  tutorial: { drag: boolean; scroll: boolean }; active?: Assembly;
+}
+type StorageLike = Pick<Storage, 'getItem' | 'setItem'>;
+const validLevel = (v: unknown): v is number => Number.isInteger(v) && Number(v) >= 0 && Number(v) < LEVELS.length;
+const record = (v: unknown): v is Record<string, unknown> => !!v && typeof v === 'object' && !Array.isArray(v);
+const finite = (v: unknown): v is number => typeof v === 'number' && Number.isFinite(v);
+export const isUnlocked = (level: number, completed: number[]): boolean => validLevel(level) && (!LEVELS[level].finale || getAlbumLevels(LEVELS[level].albumId).filter(id => !LEVELS[id].finale).every(id => completed.includes(id)));
+export function nextLevel(completed: number[], after = -1): number | undefined {
+  if (validLevel(after)) {
+    const album = getAlbumLevels(LEVELS[after].albumId);
+    const start = album.indexOf(after);
+    for (let offset = 1; offset <= album.length; offset++) {
+      const id = album[(start + offset) % album.length];
+      if (!completed.includes(id) && isUnlocked(id, completed)) return id;
+    }
+  }
+  for (let offset = 1; offset <= LEVELS.length; offset++) {
+    const id = (after + offset) % LEVELS.length;
+    if (!completed.includes(id) && isUnlocked(id, completed)) return id;
   }
 }
 
-export function setCurrentLevel(level: number): void {
-  try {
-    localStorage.setItem(PROGRESS_STORAGE_KEY, String(level));
-  } catch {
-    return;
+/** Reject assemblies with missing/duplicate pieces or groups that cannot be reproduced. */
+export function validateAssembly(value: unknown, completed: number[]): Assembly | undefined {
+  if (!record(value) || !validLevel(value.level) || !isUnlocked(value.level, completed)) return;
+  const config = LEVELS[value.level];
+  const allowedGrid = value.rows === config.rows && value.cols === config.cols;
+  if (!allowedGrid || !Number.isInteger(value.seed) || Number(value.seed) < 1 || Number(value.seed) > 0xffffffff) return;
+  if (!Array.isArray(value.placed) || !Array.isArray(value.tray) || !Array.isArray(value.groups) || !finite(value.scroll) || value.scroll < 0) return;
+  const rows = value.rows as number, cols = value.cols as number, count = rows * cols;
+  const seen = new Set<number>();
+  const take = (ids: unknown[]): ids is number[] => ids.every(id => {
+    if (!Number.isInteger(id) || Number(id) < 0 || Number(id) >= count || seen.has(Number(id))) return false;
+    seen.add(Number(id)); return true;
+  });
+  if (!take(value.placed) || !take(value.tray)) return;
+  for (const group of value.groups) {
+    if (!record(group) || !Array.isArray(group.ids) || !group.ids.length || !take(group.ids) || !finite(group.x) || !finite(group.y) || group.x < -1 || group.x > 2 || group.y < -1 || group.y > 2) return;
+    const connected = new Set([group.ids[0]]);
+    for (let pass = 0; pass < group.ids.length; pass++) {
+      for (const id of group.ids) if ([...connected].some(other => Math.abs(Math.floor(id / cols) - Math.floor(other / cols)) + Math.abs(id % cols - other % cols) === 1)) connected.add(id);
+    }
+    if (connected.size !== group.ids.length) return;
   }
+  if (seen.size !== count || value.placed.length === count) return;
+  return structuredClone(value) as unknown as Assembly;
+}
+
+export function readProgress(storage: StorageLike | undefined): Progress {
+  const empty: Progress = { version: 1, current: 0, completed: [], tutorial: { drag: false, scroll: false } };
+  try {
+    const raw = storage?.getItem(SAVE_STORAGE_KEY);
+    if (raw) {
+      const data: unknown = JSON.parse(raw);
+      if (record(data) && data.version === 1) {
+        const completed = Array.isArray(data.completed) ? [...new Set(data.completed.filter(validLevel))] : [];
+        for (const id of [...completed]) if (!isUnlocked(id, completed)) completed.splice(completed.indexOf(id), 1);
+        const active = validateAssembly(data.active, completed);
+        const current = validLevel(data.current) && isUnlocked(data.current, completed) ? data.current : nextLevel(completed) ?? 0;
+        return { version: 1, current, completed, active, tutorial: { drag: record(data.tutorial) && data.tutorial.drag === true, scroll: record(data.tutorial) && data.tutorial.scroll === true } };
+      }
+    }
+  } catch { /* Storage can be disabled or malformed. Play in memory. */ }
+  return empty;
+}
+function browserStorage(): StorageLike | undefined {
+  if (typeof window === 'undefined') return;
+  try { return localStorage; } catch { return; }
+}
+let progress = readProgress(browserStorage());
+export function getProgress(): Progress { return structuredClone(progress); }
+function persist(): void {
+  try { browserStorage()?.setItem(SAVE_STORAGE_KEY, JSON.stringify(progress)); } catch { /* Keep the in-memory save. */ }
+}
+export function getCurrentLevel(): number { return progress.active?.level ?? progress.current; }
+export function saveAssembly(active: Assembly): void { progress.active = structuredClone(active); progress.current = active.level; persist(); }
+export function finishTutorial(step: 'drag' | 'scroll'): void { progress.tutorial[step] = true; persist(); }
+export function completeLevel(level: number): boolean {
+  if (!isUnlocked(level, progress.completed)) return false;
+  const fresh = !progress.completed.includes(level);
+  if (fresh) progress.completed.push(level);
+  progress.active = undefined;
+  progress.tutorial = { drag: true, scroll: true };
+  progress.current = nextLevel(progress.completed, level) ?? level;
+  persist();
+  return fresh;
 }

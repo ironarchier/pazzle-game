@@ -8,6 +8,7 @@ import {
   PAGE_SLIDE_OFFSET,
   PAGE_TRANSITION_DURATION,
 } from '../constants';
+import { getProgress } from '../progress';
 import { goToScene, restartScene } from '../crossfade';
 import { centerLayout, createUiCamera } from '../layout';
 import { getSettings, updateSettings } from '../settings';
@@ -87,18 +88,20 @@ export class MenuScene extends Phaser.Scene {
 
     const icon = this.add.image(centerX, 400, ICON_KEY).setDisplaySize(300, 300);
     const title = this.add
-      .text(centerX, 640, 'Pazzle Game', {
+      .text(centerX, 640, 'Аниме-пазлы', {
         fontFamily: FONT_FAMILY,
         fontSize: '72px',
         fontStyle: 'bold',
         color: toCss(getTheme().text),
       })
       .setOrigin(0.5);
-    const playButton = new Button(this, centerX, 860, 'Играть', () => goToScene(this, 'Game'));
+    const playButton = new Button(this, centerX, 860, getProgress().active ? 'Продолжить' : 'Выбрать аниме', () => goToScene(this, getProgress().active ? 'Game' : 'Album'));
+
+    const album = new Button(this, centerX, 1010, 'Альбомы', () => goToScene(this, 'Album'));
 
     this.tweens.add({ targets: icon, scale: icon.scale * 1.05, duration: 1200, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
 
-    return this.add.container(0, 0, [icon, title, playButton]);
+    return this.add.container(0, 0, [icon, title, playButton, album]);
   }
 
   private createSettingsPage(): Phaser.GameObjects.Container {

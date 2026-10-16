@@ -15,9 +15,11 @@ import { tweenColor } from './tweenColor';
 export class Button extends Phaser.GameObjects.Container {
   private readonly bg: Phaser.GameObjects.Graphics;
   private bgColor: number;
+  private readonly baseScale: number;
 
-  constructor(scene: Phaser.Scene, x: number, y: number, label: string, onClick: () => void) {
+  constructor(scene: Phaser.Scene, x: number, y: number, label: string, onClick: () => void, baseScale = 1) {
     super(scene, x, y);
+    this.baseScale = baseScale;
     const theme = getTheme();
 
     this.bg = scene.add.graphics();
@@ -27,6 +29,8 @@ export class Button extends Phaser.GameObjects.Container {
     const text = scene.add
       .text(0, 0, label, { fontFamily: FONT_FAMILY, fontSize: '48px', fontStyle: 'bold', color: toCss(theme.accentText) })
       .setOrigin(0.5);
+
+    if (text.width > BUTTON_WIDTH - 48) text.setFontSize(Math.floor(48 * (BUTTON_WIDTH - 48) / text.width));
 
     const hitArea = scene.add.zone(0, 0, BUTTON_WIDTH, BUTTON_HEIGHT).setInteractive({ useHandCursor: true });
     hitArea.on('pointerover', () => {
@@ -45,6 +49,7 @@ export class Button extends Phaser.GameObjects.Container {
     });
 
     this.add([this.bg, text, hitArea]);
+    this.setScale(baseScale);
     scene.add.existing(this);
   }
 
@@ -63,6 +68,6 @@ export class Button extends Phaser.GameObjects.Container {
 
   private scaleTo(scale: number): void {
     this.scene.tweens.killTweensOf(this);
-    this.scene.tweens.add({ targets: this, scale, duration: HOVER_DURATION, ease: HOVER_EASE });
+    this.scene.tweens.add({ targets: this, scale: scale * this.baseScale, duration: HOVER_DURATION, ease: HOVER_EASE });
   }
 }

@@ -20,10 +20,9 @@ const KNOB_CURVE: Curve = [
   [[0.76, 0], [0.88, 0], [1, 0]],
 ];
 
-const vary = (amount: number) => (Math.random() * 2 - 1) * amount;
-
-function randomKnob(): Curve {
-  const direction = Math.random() < 0.5 ? 1 : -1;
+function randomKnob(random: () => number): Curve {
+  const vary = (amount: number) => (random() * 2 - 1) * amount;
+  const direction = random() < 0.5 ? 1 : -1;
   const center = 0.5 + vary(KNOB_VARIATION.shift);
   const width = 1 + vary(KNOB_VARIATION.width);
   const height = 1 + vary(KNOB_VARIATION.height);
@@ -54,7 +53,11 @@ function mirror(curve: Curve | null): Curve | null {
   return result;
 }
 
-export function generateEdges(rows: number, cols: number): PieceEdges[][] {
+export function seededRandom(seed: number): () => number {
+  return () => { seed = (Math.imul(seed, 1664525) + 1013904223) >>> 0; return seed / 4294967296; };
+}
+
+export function generateEdges(rows: number, cols: number, random = Math.random): PieceEdges[][] {
   const edges: PieceEdges[][] = [];
   for (let row = 0; row < rows; row++) {
     edges.push([]);
@@ -62,8 +65,8 @@ export function generateEdges(rows: number, cols: number): PieceEdges[][] {
       edges[row].push({
         top: row > 0 ? mirror(edges[row - 1][col].bottom) : null,
         left: col > 0 ? mirror(edges[row][col - 1].right) : null,
-        right: col < cols - 1 ? randomKnob() : null,
-        bottom: row < rows - 1 ? randomKnob() : null,
+        right: col < cols - 1 ? randomKnob(random) : null,
+        bottom: row < rows - 1 ? randomKnob(random) : null,
       });
     }
   }

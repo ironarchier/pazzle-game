@@ -1,0 +1,205 @@
+[
+  {
+    "id": "tg-touka",
+    "prompt": "Use case: illustration-story. Asset type: square jigsaw puzzle image for an anime character album. Primary request: recognizable Touka Kirishima, short dark blue hair covering one eye, violet eyes, white shirt and dark vest, coffee cup in the Anteiku cafe with warm lamps, rainy city window from Tokyo Ghoul. Polished anime cel shading, faithful recognizable character design, single coherent full bleed illustration, rich distinct details distributed across all 16 puzzle regions, medium character portrait with environment, beautiful dramatic lighting. No text, no letters, no logos, no watermark, no borders, no panels, no nudity, no gore. Save output for asset tg-touka.",
+    "source": "C:\\Users\\Владик\\.codex\\generated_images\\01a14683-5c54-7d90-ad07-51ee89ba7d14\\exec-16bcb758-0d67-4717-bb07-0d800e228e55.png",
+    "output": "public/images/anime/tg-touka.jpg",
+    "method": "image_gen"
+  },
+  {
+    "id": "tg-rize",
+    "prompt": "Use case: illustration-story. Asset type: square jigsaw puzzle image for an anime character album. Primary request: recognizable Rize Kamishiro, long purple hair, glasses, elegant white dress, holding a book, moonlit bookshop and purple flowers from Tokyo Ghoul. Polished anime cel shading, faithful recognizable character design, single coherent full bleed illustration, rich distinct details distributed across all 16 puzzle regions, medium character portrait with environment, beautiful dramatic lighting. No text, no letters, no logos, no watermark, no borders, no panels, no nudity, no gore. Save output for asset tg-rize.",
+    "source": "C:\\Users\\Владик\\.codex\\generated_images\\01a14683-5c54-7d90-ad07-51ee89ba7d14\\exec-7cae5f66-3ee6-43df-9277-47e6de84f039.png",
+    "output": "public/images/anime/tg-rize.jpg",
+    "method": "image_gen"
+  },
+  {
+    "id": "tg-hide",
+    "prompt": "Use case: illustration-story. Asset type: square jigsaw puzzle image for an anime character album. Primary request: recognizable Hideyoshi Nagachika, short orange blond hair, headphones around his neck, cheerful smile, autumn university campus, orange scarf from Tokyo Ghoul. Polished anime cel shading, faithful recognizable character design, single coherent full bleed illustration, rich distinct details distributed across all 16 puzzle regions, medium character portrait with environment, beautiful dramatic lighting. No text, no letters, no logos, no watermark, no borders, no panels, no nudity, no gore. Save output for asset tg-hide.",
+    "source": "C:\\Users\\Владик\\.codex\\generated_images\\01a14683-5c54-7d90-ad07-51ee89ba7d14\\exec-ee20a9f6-45b0-4e0b-be07-6a9e0348bdf3.png",
+    "output": "public/images/anime/tg-hide.jpg",
+    "method": "image_gen"
+  },
+  {
+    "id": "tg-tsukiyama",
+    "prompt": "Use case: illustration-story. Asset type: square jigsaw puzzle image for an anime character album. Primary request: recognizable Shuu Tsukiyama, purple hair swept aside, violet suit, elegant rose garden and stained glass, theatrical confident pose from Tokyo Ghoul. Polished anime cel shading, faithful recognizable character design, single coherent full bleed illustration, rich distinct details distributed across all 16 puzzle regions, medium character portrait with environment, beautiful dramatic lighting. No text, no letters, no logos, no watermark, no borders, no panels, no nudity, no gore. Save output for asset tg-tsukiyama.",
+    "source": "C:\\Users\\Владик\\.codex\\generated_images\\01a14683-5c54-7d90-ad07-51ee89ba7d14\\exec-7fa4093d-5a80-4c52-bc9f-671077129150.png",
+    "output": "public/images/anime/tg-tsukiyama.jpg",
+    "method": "image_gen"
+  },
+  {
+    "id": "tg-juuzou",
+    "prompt": "Use case: illustration-story. Asset type: square jigsaw puzzle image for an anime character album. Primary request: recognizable Juuzou Suzuya, short white hair, red hairpins, small decorative stitch markings, white shirt and red suspenders, playful rooftop pose, red and white paper pinwheels from Tokyo Ghoul. Polished anime cel shading, faithful recognizable character design, single coherent full bleed illustration, rich distinct details distributed across all 16 puzzle regions, medium character portrait with environment, beautiful dramatic lighting. No text, no letters, no logos, no watermark, no borders, no panels, no nudity, no gore. Save output for asset tg-juuzou.",
+    "source": "C:\\Users\\Владик\\.codex\\generated_images\\01a14683-5c54-7d90-ad07-51ee89ba7d14\\exec-2a3eac36-4b23-4ef2-9778-e377746093ce.png",
+    "output": "public/images/anime/tg-juuzou.jpg",
+    "method": "image_gen"
+  },
+  {
+    "id": "aot-eren",
+    "prompt": "Use case: illustration-story. Asset type: square jigsaw puzzle image for an anime character album. Primary request: recognizable Eren Yeager as young adult human Scout, brown hair, green eyes, green Scout cloak and harness, standing before enormous stone wall, windblown leaves from Attack on Titan. Polished anime cel shading, faithful recognizable character design, single coherent full bleed illustration, rich distinct details distributed across all 16 puzzle regions, medium character portrait with environment, beautiful dramatic lighting. No text, no letters, no logos, no watermark, no borders, no panels, no nudity, no gore. Save output for asset aot-eren.",
+    "source": "C:\\Users\\Владик\\.codex\\generated_images\\01a14683-5c54-7d90-ad07-51ee89ba7d14\\exec-61d44a1c-1484-41fa-8f3c-1eb963f66852.png",
+    "output": "public/images/anime/aot-eren.jpg",
+    "method": "image_gen"
+  },
+  {
+    "id": "aot-mikasa",
+    "prompt": "Use case: illustration-story. Asset type: square jigsaw puzzle image for an anime character album. Primary request: recognizable Mikasa Ackerman, short black hair, red scarf, Scout uniform and harness, determined calm face, tiled city rooftops, sunset sky from Attack on Titan. Polished anime cel shading, faithful recognizable character design, single coherent full bleed illustration, rich distinct details distributed across all 16 puzzle regions, medium character portrait with environment, beautiful dramatic lighting. No text, no letters, no logos, no watermark, no borders, no panels, no nudity, no gore. Save output for asset aot-mikasa.",
+    "source": "C:\\Users\\Владик\\.codex\\generated_images\\01a14683-5c54-7d90-ad07-51ee89ba7d14\\exec-e0e85cb4-f051-45d6-b767-6164418cc2da.png",
+    "output": "public/images/anime/aot-mikasa.jpg",
+    "method": "image_gen"
+  },
+  {
+    "id": "aot-finale",
+    "prompt": "Use case: illustration-story. Asset type: square anime jigsaw finale picture. Peaceful hopeful scene of Eren Yeager, Mikasa Ackerman wearing her red scarf, and blond Armin Arlert from Attack on Titan, all in their green Scout cloaks, standing together barefoot on a sunlit beach looking at an immense turquoise ocean for the first time. Gentle waves, colorful shells in the foreground, sea birds, warm golden clouds, beautiful detailed anime cel shading, recognizable character designs, emotionally powerful sense of freedom and friendship. Single coherent full bleed square illustration with differentiated details throughout for a 5x5 jigsaw. No weapons, no combat, no injury, no nudity, no text, no logos, no borders.",
+    "source": "C:\\Users\\Владик\\.codex\\generated_images\\01a14683-5c54-7d90-ad07-51ee89ba7d14\\exec-4cd83b99-bfbc-4adf-bd64-c1fce09ad2d8.png",
+    "output": "public/images/anime/aot-finale.jpg",
+    "method": "image_gen"
+  },
+  {
+    "id": "n-finale",
+    "prompt": "Use case: illustration-story. A peaceful celebratory square anime illustration of adult Naruto Uzumaki as the Seventh Hokage, recognizable blond spiky hair, blue eyes, three whisker marks on each cheek, orange and black clothing under a flowing white Hokage cloak with a red flame hem. He smiles warmly while looking across the beautiful colorful rooftops of Konoha from a high balcony at golden sunset. The sculpted Hokage mountain faces are visible in the distance. Swirling autumn leaves and paper lanterns in the foreground, rich architectural detail, warm hopeful mood of a dream fulfilled. Polished anime cel shading, clear distinct image regions for a collectible 5x5 jigsaw finale. No combat, no weapons, no injury, no supernatural threats, no text, no lettering, no logos, no borders.",
+    "source": "C:\\Users\\Владик\\.codex\\generated_images\\01a14683-5c54-7d90-ad07-51ee89ba7d14\\exec-1e5149d5-f6d5-45ab-9542-47ecce9683b0.png",
+    "output": "public/images/anime/n-finale.jpg",
+    "method": "image_gen"
+  },
+  {
+    "id": "aot-armin",
+    "prompt": "Use case: illustration-story. Asset type: square jigsaw puzzle image for an anime character album. Primary request: recognizable Armin Arlert, blond bob haircut, blue eyes, Scout cloak, holding a book and a seashell beside blue sea from Attack on Titan. Polished anime cel shading, faithful recognizable character design, single coherent full bleed illustration, rich distinct details distributed across all 16 puzzle regions, medium character portrait with environment unless an epic finale is specified, beautiful dramatic lighting. No text, no letters, no logos, no watermark, no borders, no panels, no nudity, no gore. Save output for asset aot-armin.",
+    "source": "C:\\Users\\Владик\\.codex\\generated_images\\01a14683-5c54-7d90-ad07-51ee89ba7d14\\exec-36e20002-48df-4d7e-9751-62741cf9ade0.png",
+    "output": "public/images/anime/aot-armin.jpg",
+    "method": "image_gen"
+  },
+  {
+    "id": "aot-levi",
+    "prompt": "Use case: illustration-story. Asset type: square jigsaw puzzle image for an anime character album. Primary request: recognizable Levi Ackerman, black undercut hair, grey eyes, white cravat, green Scout cloak, Scout harness, tea cup, old stone city alley from Attack on Titan. Polished anime cel shading, faithful recognizable character design, single coherent full bleed illustration, rich distinct details distributed across all 16 puzzle regions, medium character portrait with environment unless an epic finale is specified, beautiful dramatic lighting. No text, no letters, no logos, no watermark, no borders, no panels, no nudity, no gore. Save output for asset aot-levi.",
+    "source": "C:\\Users\\Владик\\.codex\\generated_images\\01a14683-5c54-7d90-ad07-51ee89ba7d14\\exec-1751490f-5b60-4238-b552-4f509176a0b1.png",
+    "output": "public/images/anime/aot-levi.jpg",
+    "method": "image_gen"
+  },
+  {
+    "id": "aot-hange",
+    "prompt": "Use case: illustration-story. Asset type: square jigsaw puzzle image for an anime character album. Primary request: recognizable Hange Zoe, brown ponytail, rectangular glasses, Scout uniform and green cloak, enthusiastic smile in a study with maps, notebooks and golden lamps from Attack on Titan. Polished anime cel shading, faithful recognizable character design, single coherent full bleed illustration, rich distinct details distributed across all 16 puzzle regions, medium character portrait with environment unless an epic finale is specified, beautiful dramatic lighting. No text, no letters, no logos, no watermark, no borders, no panels, no nudity, no gore. Save output for asset aot-hange.",
+    "source": "C:\\Users\\Владик\\.codex\\generated_images\\01a14683-5c54-7d90-ad07-51ee89ba7d14\\exec-94ca23c5-6829-45c4-87fc-faa437bb8d84.png",
+    "output": "public/images/anime/aot-hange.jpg",
+    "method": "image_gen"
+  },
+  {
+    "id": "dn-light",
+    "prompt": "Use case: illustration-story. Asset type: square jigsaw puzzle image for an anime character album. Primary request: recognizable Light Yagami, neat chestnut brown hair, tan school blazer and red tie, holding a closed black notebook without lettering, dramatic city window and red sunset from Death Note. Polished anime cel shading, faithful recognizable character design, single coherent full bleed illustration, rich distinct details distributed across all 16 puzzle regions, medium character portrait with environment unless an epic finale is specified, beautiful dramatic lighting. No text, no letters, no logos, no watermark, no borders, no panels, no nudity, no gore. Save output for asset dn-light.",
+    "source": "C:\\Users\\Владик\\.codex\\generated_images\\01a14683-5c54-7d90-ad07-51ee89ba7d14\\exec-049967fe-3182-4a0c-877f-c13bc5326590.png",
+    "output": "public/images/anime/dn-light.jpg",
+    "method": "image_gen"
+  },
+  {
+    "id": "dn-l",
+    "prompt": "Use case: illustration-story. Asset type: square jigsaw puzzle image for an anime character album. Primary request: recognizable L Lawliet, messy black hair, dark circles under eyes, white long sleeve shirt and jeans, crouched on a chair with a teacup, layered cakes and strawberries, midnight blue detective room from Death Note. Polished anime cel shading, faithful recognizable character design, single coherent full bleed illustration, rich distinct details distributed across all 16 puzzle regions, medium character portrait with environment unless an epic finale is specified, beautiful dramatic lighting. No text, no letters, no logos, no watermark, no borders, no panels, no nudity, no gore. Save output for asset dn-l.",
+    "source": "C:\\Users\\Владик\\.codex\\generated_images\\01a14683-5c54-7d90-ad07-51ee89ba7d14\\exec-f5231f6d-5a64-425f-ae4d-680e34e273b1.png",
+    "output": "public/images/anime/dn-l.jpg",
+    "method": "image_gen"
+  },
+  {
+    "id": "dn-misa",
+    "prompt": "Use case: illustration-story. Asset type: square jigsaw puzzle image for an anime character album. Primary request: recognizable Misa Amane, blonde twin tails, black gothic dress with lace and long sleeves, holding a red rose, elegant candlelit room with checkerboard floor from Death Note. Polished anime cel shading, faithful recognizable character design, single coherent full bleed illustration, rich distinct details distributed across all 16 puzzle regions, medium character portrait with environment unless an epic finale is specified, beautiful dramatic lighting. No text, no letters, no logos, no watermark, no borders, no panels, no nudity, no gore. Save output for asset dn-misa.",
+    "source": "C:\\Users\\Владик\\.codex\\generated_images\\01a14683-5c54-7d90-ad07-51ee89ba7d14\\exec-29f148f1-0973-4236-9562-3b35c602456a.png",
+    "output": "public/images/anime/dn-misa.jpg",
+    "method": "image_gen"
+  },
+  {
+    "id": "dn-ryuk",
+    "prompt": "Use case: illustration-story. Asset type: square jigsaw puzzle image for an anime character album. Primary request: recognizable Ryuk the shinigami, recognizable angular face, spiky black hair, large yellow eyes, black feather shoulders, delighted grin, holding a red apple, moonlit gothic rooftops, eerie whimsical atmosphere without gore from Death Note. Polished anime cel shading, faithful recognizable character design, single coherent full bleed illustration, rich distinct details distributed across all 16 puzzle regions, medium character portrait with environment unless an epic finale is specified, beautiful dramatic lighting. No text, no letters, no logos, no watermark, no borders, no panels, no nudity, no gore. Save output for asset dn-ryuk.",
+    "source": "C:\\Users\\Владик\\.codex\\generated_images\\01a14683-5c54-7d90-ad07-51ee89ba7d14\\exec-64789451-6600-49b3-9717-0fda2bc13bf2.png",
+    "output": "public/images/anime/dn-ryuk.jpg",
+    "method": "image_gen"
+  },
+  {
+    "id": "dn-near",
+    "prompt": "Use case: illustration-story. Asset type: square jigsaw puzzle image for an anime character album. Primary request: recognizable Near also known as Nate River, short fluffy white hair, grey eyes, loose white shirt, seated building a tower of wooden toy blocks and a jigsaw, softly lit investigation room from Death Note. Polished anime cel shading, faithful recognizable character design, single coherent full bleed illustration, rich distinct details distributed across all 16 puzzle regions, medium character portrait with environment unless an epic finale is specified, beautiful dramatic lighting. No text, no letters, no logos, no watermark, no borders, no panels, no nudity, no gore. Save output for asset dn-near.",
+    "source": "C:\\Users\\Владик\\.codex\\generated_images\\01a14683-5c54-7d90-ad07-51ee89ba7d14\\exec-d6424eda-9080-44e9-8b75-85f9e7aa0526.png",
+    "output": "public/images/anime/dn-near.jpg",
+    "method": "image_gen"
+  },
+  {
+    "id": "dn-finale",
+    "prompt": "Use case: illustration-story. Asset type: square jigsaw puzzle image for an anime character album. Primary request: recognizable epic symbolic faceoff of Light Yagami in tan blazer and L Lawliet in white shirt, opposing sides of chessboard, red apple and plain black notebook without text between them, shadow silhouette of Ryuk behind, split ruby red and midnight blue lighting, dramatic psychological duel without violence from Death Note. Polished anime cel shading, faithful recognizable character design, single coherent full bleed illustration, rich distinct details distributed across all 16 puzzle regions, medium character portrait with environment unless an epic finale is specified, beautiful dramatic lighting. No text, no letters, no logos, no watermark, no borders, no panels, no nudity, no gore. Save output for asset dn-finale.",
+    "source": "C:\\Users\\Владик\\.codex\\generated_images\\01a14683-5c54-7d90-ad07-51ee89ba7d14\\exec-04fe027a-f8b7-4960-aa55-77614725175e.png",
+    "output": "public/images/anime/dn-finale.jpg",
+    "method": "image_gen"
+  },
+  {
+    "id": "n-sasuke",
+    "prompt": "Use case: illustration-story. Asset type: square jigsaw puzzle image for an anime character album. Primary request: recognizable Sasuke Uchiha, spiky black hair, dark eyes, high collar blue shirt, Leaf village headband, serious portrait on wooden pier beside lake and distant green forest from Naruto. Polished anime cel shading, faithful recognizable character design, single coherent full bleed illustration, rich distinct details distributed across all 16 puzzle regions, medium character portrait with environment unless an epic finale is specified, beautiful dramatic lighting. No text, no letters, no logos, no watermark, no borders, no panels, no nudity, no gore. Save output for asset n-sasuke.",
+    "source": "C:\\Users\\Владик\\.codex\\generated_images\\01a14683-5c54-7d90-ad07-51ee89ba7d14\\exec-6c1936d6-6525-4ad8-b3dd-aafc80d0886b.png",
+    "output": "public/images/anime/n-sasuke.jpg",
+    "method": "image_gen"
+  },
+  {
+    "id": "n-sakura",
+    "prompt": "Use case: illustration-story. Asset type: square jigsaw puzzle image for an anime character album. Primary request: recognizable Sakura Haruno as young adult, short pink hair, green eyes, red sleeveless tunic and black gloves, Leaf village street with cherry blossom petals and red bridge from Naruto. Polished anime cel shading, faithful recognizable character design, single coherent full bleed illustration, rich distinct details distributed across all 16 puzzle regions, medium character portrait with environment unless an epic finale is specified, beautiful dramatic lighting. No text, no letters, no logos, no watermark, no borders, no panels, no nudity, no gore. Save output for asset n-sakura.",
+    "source": "C:\\Users\\Владик\\.codex\\generated_images\\01a14683-5c54-7d90-ad07-51ee89ba7d14\\exec-4e3f309d-99cf-4ef3-8a7a-4a9ff69d5afb.png",
+    "output": "public/images/anime/n-sakura.jpg",
+    "method": "image_gen"
+  },
+  {
+    "id": "n-kakashi",
+    "prompt": "Use case: illustration-story. Asset type: square jigsaw puzzle image for an anime character album. Primary request: recognizable Kakashi Hatake, spiky silver hair, tilted Leaf village forehead protector covering one eye, black mask covering lower face, green jonin vest, reading small orange book, forest training ground from Naruto. Polished anime cel shading, faithful recognizable character design, single coherent full bleed illustration, rich distinct details distributed across all 16 puzzle regions, medium character portrait with environment unless an epic finale is specified, beautiful dramatic lighting. No text, no letters, no logos, no watermark, no borders, no panels, no nudity, no gore. Save output for asset n-kakashi.",
+    "source": "C:\\Users\\Владик\\.codex\\generated_images\\01a14683-5c54-7d90-ad07-51ee89ba7d14\\exec-430c1eb9-4ff3-41dd-bcdb-fcf5663a8606.png",
+    "output": "public/images/anime/n-kakashi.jpg",
+    "method": "image_gen"
+  },
+  {
+    "id": "n-itachi",
+    "prompt": "Use case: illustration-story. Asset type: square jigsaw puzzle image for an anime character album. Primary request: recognizable Itachi Uchiha, long black hair, red eyes, scratched Leaf forehead protector, black cloak with red clouds, crows and red autumn maple leaves beside torii gate from Naruto. Polished anime cel shading, faithful recognizable character design, single coherent full bleed illustration, rich distinct details distributed across all 16 puzzle regions, medium character portrait with environment unless an epic finale is specified, beautiful dramatic lighting. No text, no letters, no logos, no watermark, no borders, no panels, no nudity, no gore. Save output for asset n-itachi.",
+    "source": "C:\\Users\\Владик\\.codex\\generated_images\\01a14683-5c54-7d90-ad07-51ee89ba7d14\\exec-3499c471-5d17-4836-bc74-eb4ee03cc342.png",
+    "output": "public/images/anime/n-itachi.jpg",
+    "method": "image_gen"
+  },
+  {
+    "id": "n-hinata",
+    "prompt": "Use case: illustration-story. Asset type: square jigsaw puzzle image for an anime character album. Primary request: recognizable Hinata Hyuga as young adult, long dark blue hair, pale lavender eyes, lavender jacket, gentle determined expression in traditional Japanese garden with bamboo and purple flowers from Naruto. Polished anime cel shading, faithful recognizable character design, single coherent full bleed illustration, rich distinct details distributed across all 16 puzzle regions, medium character portrait with environment unless an epic finale is specified, beautiful dramatic lighting. No text, no letters, no logos, no watermark, no borders, no panels, no nudity, no gore. Save output for asset n-hinata.",
+    "source": "C:\\Users\\Владик\\.codex\\generated_images\\01a14683-5c54-7d90-ad07-51ee89ba7d14\\exec-49c7c74f-2372-468f-a857-5692fdbdd0c3.png",
+    "output": "public/images/anime/n-hinata.jpg",
+    "method": "image_gen"
+  },
+  {
+    "id": "ds-tanjiro",
+    "prompt": "Use case: illustration-story. Asset type: square jigsaw puzzle image for an anime character album. Primary request: recognizable Tanjiro Kamado, dark burgundy tousled hair, forehead scar, hanafuda earrings, green and black checkerboard haori, wooden box on back, mountain village road with blue water stream from Demon Slayer. Polished anime cel shading, faithful recognizable character design, single coherent full bleed illustration, rich distinct details distributed across all 16 puzzle regions, medium character portrait with environment unless an epic finale is specified, beautiful dramatic lighting. No text, no letters, no logos, no watermark, no borders, no panels, no nudity, no gore. Save output for asset ds-tanjiro.",
+    "source": "C:\\Users\\Владик\\.codex\\generated_images\\01a14683-5c54-7d90-ad07-51ee89ba7d14\\exec-167e7f09-6f28-4610-b78b-f877b54c6825.png",
+    "output": "public/images/anime/ds-tanjiro.jpg",
+    "method": "image_gen"
+  },
+  {
+    "id": "ds-nezuko",
+    "prompt": "Use case: illustration-story. Asset type: square jigsaw puzzle image for an anime character album. Primary request: recognizable Nezuko Kamado, long black hair with orange tips, pink eyes, bamboo mouthpiece, modest pink patterned kimono under brown haori, standing under violet wisteria flowers at night from Demon Slayer. Polished anime cel shading, faithful recognizable character design, single coherent full bleed illustration, rich distinct details distributed across all 16 puzzle regions, medium character portrait with environment unless an epic finale is specified, beautiful dramatic lighting. No text, no letters, no logos, no watermark, no borders, no panels, no nudity, no gore. Save output for asset ds-nezuko.",
+    "source": "C:\\Users\\Владик\\.codex\\generated_images\\01a14683-5c54-7d90-ad07-51ee89ba7d14\\exec-410b4b3b-2d78-4f62-9656-2f71faf98547.png",
+    "output": "public/images/anime/ds-nezuko.jpg",
+    "method": "image_gen"
+  },
+  {
+    "id": "ds-zenitsu",
+    "prompt": "Use case: illustration-story. Asset type: square jigsaw puzzle image for an anime character album. Primary request: recognizable Zenitsu Agatsuma, short yellow orange hair, golden eyes, yellow haori with white triangles, sheathed sword, autumn field with yellow gingko leaves and distant lightning from Demon Slayer. Polished anime cel shading, faithful recognizable character design, single coherent full bleed illustration, rich distinct details distributed across all 16 puzzle regions, medium character portrait with environment unless an epic finale is specified, beautiful dramatic lighting. No text, no letters, no logos, no watermark, no borders, no panels, no nudity, no gore. Save output for asset ds-zenitsu.",
+    "source": "C:\\Users\\Владик\\.codex\\generated_images\\01a14683-5c54-7d90-ad07-51ee89ba7d14\\exec-80c3bd46-878d-4289-81a5-04ce0511fe66.png",
+    "output": "public/images/anime/ds-zenitsu.jpg",
+    "method": "image_gen"
+  },
+  {
+    "id": "ds-inosuke",
+    "prompt": "Use case: illustration-story. Asset type: square jigsaw puzzle image for an anime character album. Primary request: recognizable Inosuke Hashibira, distinctive boar head mask with blue eyes and pink snout, fur waist belt and dark trousers, energetic pose with sheathed swords, sunlit mountain forest and mossy rocks, no gore from Demon Slayer. Polished anime cel shading, faithful recognizable character design, single coherent full bleed illustration, rich distinct details distributed across all 16 puzzle regions, medium character portrait with environment unless an epic finale is specified, beautiful dramatic lighting. No text, no letters, no logos, no watermark, no borders, no panels, no nudity, no gore. Save output for asset ds-inosuke.",
+    "source": "C:\\Users\\Владик\\.codex\\generated_images\\01a14683-5c54-7d90-ad07-51ee89ba7d14\\exec-d164ce50-b142-4a89-8f86-a98f05fcdc2a.png",
+    "output": "public/images/anime/ds-inosuke.jpg",
+    "method": "image_gen"
+  },
+  {
+    "id": "ds-giyu",
+    "prompt": "Use case: illustration-story. Asset type: square jigsaw puzzle image for an anime character album. Primary request: recognizable Giyu Tomioka, long tied black hair, blue eyes, distinctive half burgundy half green yellow geometric haori, dark uniform, sheathed katana, tranquil blue waterfall and red maple leaves from Demon Slayer. Polished anime cel shading, faithful recognizable character design, single coherent full bleed illustration, rich distinct details distributed across all 16 puzzle regions, medium character portrait with environment unless an epic finale is specified, beautiful dramatic lighting. No text, no letters, no logos, no watermark, no borders, no panels, no nudity, no gore. Save output for asset ds-giyu.",
+    "source": "C:\\Users\\Владик\\.codex\\generated_images\\01a14683-5c54-7d90-ad07-51ee89ba7d14\\exec-4dc8bd8d-cf7f-4b36-bb19-15ce015b7346.png",
+    "output": "public/images/anime/ds-giyu.jpg",
+    "method": "image_gen"
+  },
+  {
+    "id": "ds-finale",
+    "prompt": "Use case: illustration-story. Asset type: square jigsaw puzzle image for an anime character album. Primary request: recognizable epic finale Tanjiro Kamado with burgundy hair and forehead scar, hanafuda earrings and green black checkerboard haori performing a spectacular graceful circular sword dance with swirling orange fire and blue water ribbons, Nezuko in pink kimono behind, night sky and wisteria petals, heroic hopeful composition, no injury or gore from Demon Slayer. Polished anime cel shading, faithful recognizable character design, single coherent full bleed illustration, rich distinct details distributed across all 16 puzzle regions, medium character portrait with environment unless an epic finale is specified, beautiful dramatic lighting. No text, no letters, no logos, no watermark, no borders, no panels, no nudity, no gore. Save output for asset ds-finale.",
+    "source": "C:\\Users\\Владик\\.codex\\generated_images\\01a14683-5c54-7d90-ad07-51ee89ba7d14\\exec-675bdea1-bafa-4266-b496-616efde7bcae.png",
+    "output": "public/images/anime/ds-finale.jpg",
+    "method": "image_gen"
+  }
+]

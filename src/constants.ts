@@ -89,18 +89,74 @@ export const SOUNDS = {
 };
 export const SOUND_DETUNE = 60;
 
-export const LEVELS = [
-  { image: 'images/level-1.jpg' },
-  { image: 'images/level-2.jpg' },
+export interface Album {
+  id: string;
+  title: string;
+  subtitle: string;
+  accent: number;
+  characters: { title: string; image: string }[];
+}
+
+// Order is part of the saved catalogue: append albums; do not reorder existing entries.
+export const ALBUMS: Album[] = [
+  { id: 'tokyo-ghoul', title: 'Токийский гуль', subtitle: 'За маской человека', accent: 0xc74062, characters: [
+    { title: 'Тоука Киришима', image: 'images/anime/tg-touka.jpg' },
+    { title: 'Ризэ Камисиро', image: 'images/anime/tg-rize.jpg' },
+    { title: 'Хидэёси Нагачика', image: 'images/anime/tg-hide.jpg' },
+    { title: 'Сю Цукияма', image: 'images/anime/tg-tsukiyama.jpg' },
+    { title: 'Дзюдзо Судзуя', image: 'images/anime/tg-juuzou.jpg' },
+    { title: 'Канеки · Пробуждение', image: 'images/level-1.jpg' },
+  ] },
+  { id: 'attack-on-titan', title: 'Атака титанов', subtitle: 'По ту сторону стен', accent: 0x59947a, characters: [
+    { title: 'Эрен Йегер', image: 'images/anime/aot-eren.jpg' },
+    { title: 'Микаса Аккерман', image: 'images/anime/aot-mikasa.jpg' },
+    { title: 'Армин Арлерт', image: 'images/anime/aot-armin.jpg' },
+    { title: 'Леви Аккерман', image: 'images/anime/aot-levi.jpg' },
+    { title: 'Ханджи Зоэ', image: 'images/anime/aot-hange.jpg' },
+    { title: 'Крылья свободы', image: 'images/anime/aot-finale.jpg' },
+  ] },
+  { id: 'death-note', title: 'Тетрадь смерти', subtitle: 'Игра двух умов', accent: 0x9c7ed0, characters: [
+    { title: 'Лайт Ягами', image: 'images/anime/dn-light.jpg' },
+    { title: 'L', image: 'images/anime/dn-l.jpg' },
+    { title: 'Миса Аманэ', image: 'images/anime/dn-misa.jpg' },
+    { title: 'Рюк', image: 'images/anime/dn-ryuk.jpg' },
+    { title: 'Ниа', image: 'images/anime/dn-near.jpg' },
+    { title: 'Лайт и L · Противостояние', image: 'images/anime/dn-finale.jpg' },
+  ] },
+  { id: 'naruto', title: 'Наруто', subtitle: 'Свой путь ниндзя', accent: 0xe49a3c, characters: [
+    { title: 'Саске Учиха', image: 'images/anime/n-sasuke.jpg' },
+    { title: 'Сакура Харуно', image: 'images/anime/n-sakura.jpg' },
+    { title: 'Какаши Хатаке', image: 'images/anime/n-kakashi.jpg' },
+    { title: 'Итачи Учиха', image: 'images/anime/n-itachi.jpg' },
+    { title: 'Хината Хюга', image: 'images/anime/n-hinata.jpg' },
+    { title: 'Наруто · Мечта Хокаге', image: 'images/anime/n-finale.jpg' },
+  ] },
+  { id: 'demon-slayer', title: 'Клинок, рассекающий демонов', subtitle: 'Свет среди тьмы', accent: 0x40a6a2, characters: [
+    { title: 'Тандзиро Камадо', image: 'images/anime/ds-tanjiro.jpg' },
+    { title: 'Нэдзуко Камадо', image: 'images/anime/ds-nezuko.jpg' },
+    { title: 'Дзэницу Агацума', image: 'images/anime/ds-zenitsu.jpg' },
+    { title: 'Иноскэ Хасибира', image: 'images/anime/ds-inosuke.jpg' },
+    { title: 'Гию Томиока', image: 'images/anime/ds-giyu.jpg' },
+    { title: 'Тандзиро · Танец огня', image: 'images/anime/ds-finale.jpg' },
+  ] },
 ];
+export const LEVELS = ALBUMS.flatMap(album => album.characters.map((character, slot) => ({
+  ...character, albumId: album.id, finale: slot === album.characters.length - 1,
+  rows: slot === album.characters.length - 1 ? 5 : 4,
+  cols: slot === album.characters.length - 1 ? 5 : 4,
+})));
+export function getAlbumLevels(albumId: string): number[] {
+  return LEVELS.flatMap((level, id) => level.albumId === albumId ? [id] : []);
+}
+export function getLevelAlbum(level: number): Album {
+  return ALBUMS.find(album => album.id === LEVELS[level]?.albumId) ?? ALBUMS[0];
+}
 export const PROGRESS_STORAGE_KEY = 'pazzle-game:level';
+// Keep the old journey catalogue untouched: its numeric IDs refer to different pictures.
+export const SAVE_STORAGE_KEY = 'pazzle-game:anime:save:v1';
 export const PUZZLE_SOURCE_KEY = 'puzzle-source';
 export const PIECES_KEY = 'puzzle-pieces';
-export const GRID_COLS = 4;
-export const GRID_ROWS = 4;
 export const PIECE_SIZE = 250;
-export const IMAGE_WIDTH = PIECE_SIZE * GRID_COLS;
-export const IMAGE_HEIGHT = PIECE_SIZE * GRID_ROWS;
 export const BOARD_PADDING = 20;
 export const KNOB_SIZE = 0.25;
 export const KNOB_VARIATION = {
@@ -138,7 +194,7 @@ export const SPARKLE = {
   tints: [0xffffff, 0xfff4c2, 0xffd966],
 };
 
-export const HEADER_HEIGHT = 112;
+export const HEADER_HEIGHT = 176;
 export const HEADER_PADDING = 28;
 
 export const TRAY_HEIGHT = 220;
