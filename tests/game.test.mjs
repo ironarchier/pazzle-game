@@ -9,7 +9,7 @@ import { Display } from './phaser-stub.mjs';
 function game(rows = 4, cols = rows) {
   const scene = new GameScene();
   Object.assign(scene, { rows, cols, boardX: 20, boardY: 250, boardWidth: 680, boardHeight: 680, boardScale: 680 / (cols * 250), seed: 43 });
-  for (const field of ['counter', 'sampleButton', 'hintButton', 'hint', 'completeImage']) scene[field] = new Display(scene);
+  for (const field of ['counter', 'counterBg', 'counterIcon', 'sampleButton', 'hintButton', 'hint', 'completeImage']) scene[field] = new Display(scene);
   scene.createPieces();
   scene.tray.forEach((piece, i) => piece.setPosition(90 + i * 140, 1170));
   return scene;
@@ -38,7 +38,7 @@ test('an interior piece snaps with no installed neighbours; counter and save agr
   drop(scene, piece, ...scene.targetOf(piece));
   assert.equal(piece.state, 'placed');
   assert.equal(scene.pieces.filter(p => p.state === 'placed').length, 1);
-  assert.equal(scene.counter.text, 'Собрано: 1 из 16');
+  assert.equal(scene.counter.text, '1/16');
   assert.deepEqual(getProgress().active.placed, [5]);
 });
 
@@ -159,7 +159,7 @@ test('multiple snap callbacks commit a single win, without dimming or duplicate 
     assert.equal(scene.winPanel, panel);
     assert.equal(getProgress().completed.length, count);
     assert.equal(getProgress().active, undefined);
-    assert.equal(scene.counter.text, `Собрано: ${rows * rows} из ${rows * rows}`);
+    assert.equal(scene.counter.text, `${rows * rows}/${rows * rows}`);
   }
   assert.equal(getProgress().completed.length, 6);
 });

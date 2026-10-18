@@ -1,5 +1,21 @@
 import * as Phaser from 'phaser';
-import { FONT_FAMILY, HOVER_DURATION, HOVER_EASE, TAB_BAR_HEIGHT, TAB_HOVER_INSET, TAB_MAX_WIDTH } from '../constants';
+import {
+  CARD_SHADOW_ALPHA,
+  CARD_SHADOW_OFFSET,
+  FONT_FAMILY,
+  HOVER_DURATION,
+  HOVER_EASE,
+  TAB_BAR_HEIGHT,
+  TAB_BAR_MARGIN,
+  TAB_BAR_MAX_WIDTH,
+  TAB_HOVER_ALPHA,
+  TAB_HOVER_INSET,
+  TAB_ICON_SCALE,
+  TAB_ICON_Y,
+  TAB_LABEL_SIZE,
+  TAB_LABEL_Y,
+  TAB_MAX_WIDTH,
+} from '../constants';
 import { playClick } from '../audio';
 import { getTheme, toCss } from '../theme';
 import type { IconDrawer } from './icons';
@@ -34,7 +50,7 @@ export class TabBar<T extends string> extends Phaser.GameObjects.Container {
     for (const config of tabs) {
       const pill = scene.add.graphics().setAlpha(0);
       const icon = scene.add.graphics();
-      const label = scene.add.text(0, 0, config.label, { fontFamily: FONT_FAMILY, fontSize: '28px' }).setOrigin(0.5);
+      const label = scene.add.text(0, 0, config.label, { fontFamily: FONT_FAMILY, fontSize: `${TAB_LABEL_SIZE}px` }).setOrigin(0.5);
       const hitArea = scene.add.zone(0, 0, 1, 1).setInteractive({ useHandCursor: true });
       const item: TabItem<T> = { config, pill, icon, label, hitArea };
 
@@ -62,8 +78,6 @@ export class TabBar<T extends string> extends Phaser.GameObjects.Container {
   }
 
   private setHovered(item: TabItem<T>, hovered: boolean): void {
-    this.scene.tweens.killTweensOf(item.pill);
-    this.scene.tweens.add({ targets: item.pill, alpha: hovered ? 1 : 0, duration: HOVER_DURATION, ease: HOVER_EASE });
     this.paint(item, hovered);
   }
 
@@ -71,6 +85,9 @@ export class TabBar<T extends string> extends Phaser.GameObjects.Container {
     const theme = getTheme();
     const active = item.config.id === this.activeId;
     const target = active ? theme.accent : hovered ? theme.accentSoft : theme.textMuted;
+
+    this.scene.tweens.killTweensOf(item.pill);
+    this.scene.tweens.add({ targets: item.pill, alpha: active ? 1 : hovered ? TAB_HOVER_ALPHA : 0, duration: HOVER_DURATION, ease: HOVER_EASE });
 
     const apply = (color: number) => {
       item.color = color;
@@ -88,27 +105,30 @@ export class TabBar<T extends string> extends Phaser.GameObjects.Container {
     this.setPosition(0, height - TAB_BAR_HEIGHT);
 
     const theme = getTheme();
-    this.bg.clear();
-    this.bg.fillStyle(theme.surface, 1);
-    this.bg.fillRect(0, 0, width, TAB_BAR_HEIGHT);
-    this.bg.fillStyle(theme.border, 1);
-    this.bg.fillRect(0, 0, width, 2);
+    const barWidth = Math.min(width - TAB_BAR_MARGIN * 2, TAB_BAR_MAX_WIDTH);
+    const barHeight = TAB_BAR_HEIGHT - TAB_BAR_MARGIN;
+    const barX = (width - barWidth) / 2;
+    this.bg.clear()
+      .fillStyle(0x000000, CARD_SHADOW_ALPHA)
+      .fillRoundedRect(barX, CARD_SHADOW_OFFSET, barWidth, barHeight, barHeight / 2)
+      .fillStyle(theme.surface, 1)
+      .fillRoundedRect(barX, 0, barWidth, barHeight, barHeight / 2);
 
-    const tabWidth = Math.min(width / this.items.length, TAB_MAX_WIDTH);
+    const tabWidth = Math.min((barWidth - TAB_HOVER_INSET * 2) / this.items.length, TAB_MAX_WIDTH);
     const startX = (width - tabWidth * this.items.length) / 2;
-    const pillWidth = tabWidth - TAB_HOVER_INSET * 2;
-    const pillHeight = TAB_BAR_HEIGHT - TAB_HOVER_INSET * 2;
+    const pillWidth = tabWidth - TAB_HOVER_INSET;
+    const pillHeight = barHeight - TAB_HOVER_INSET * 2;
 
     this.items.forEach(({ pill, icon, label, hitArea }, i) => {
       const centerX = startX + tabWidth * (i + 0.5);
 
       pill.clear();
       pill.fillStyle(theme.hoverSurface, 1);
-      pill.fillRoundedRect(centerX - pillWidth / 2, TAB_HOVER_INSET, pillWidth, pillHeight, 24);
+      pill.fillRoundedRect(centerX - pillWidth / 2, TAB_HOVER_INSET, pillWidth, pillHeight, pillHeight / 2);
 
-      icon.setPosition(centerX, 52);
-      label.setPosition(centerX, 106);
-      hitArea.setPosition(centerX, TAB_BAR_HEIGHT / 2).setSize(tabWidth, TAB_BAR_HEIGHT);
+      icon.setPosition(centerX, TAB_ICON_Y).setScale(TAB_ICON_SCALE);
+      label.setPosition(centerX, TAB_LABEL_Y);
+      hitArea.setPosition(centerX, barHeight / 2).setSize(tabWidth, barHeight);
     });
   }
 }

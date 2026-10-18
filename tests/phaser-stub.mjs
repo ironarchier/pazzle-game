@@ -24,6 +24,7 @@ export class Display extends EventEmitter {
   fillRect() { return this; }
   strokeRect() { return this; }
   fillRoundedRect() { return this; }
+  strokeRoundedRect() { return this; }
   explode() { return this; }
   add(children) { this.list.push(...children); return this; }
   destroy() { this.destroyed = true; }
@@ -37,6 +38,7 @@ export class Scene {
     this.input = Object.assign(new EventEmitter(), { manager: { canvas: { style: {} }, defaultCursor: 'default' } });
     this.events = new EventEmitter();
     this.time = { delayedCall: () => ({ remove() {} }) };
+    this.textures = { exists: () => true };
     this.add = Object.fromEntries(['graphics', 'text', 'image', 'rectangle', 'zone', 'container', 'particles'].map(name => [name, (...args) => {
       const d = new Display(this, args[0], args[1]);
       if (name === 'container') d.list = args[2] ?? [];

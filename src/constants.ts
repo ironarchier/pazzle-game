@@ -19,46 +19,57 @@ export interface Theme {
   accentSoft: number;
   accentText: number;
   hoverSurface: number;
+  secondary: number;
 }
 
 export const THEMES: Record<ThemeName, Theme> = {
   light: {
-    background: 0xeef1f6,
+    background: 0xfff4f7,
     surface: 0xffffff,
-    border: 0xdfe4ec,
-    track: 0xcfd6e1,
-    board: 0xdde3ec,
-    text: 0x1f2937,
-    textMuted: 0x8a94a6,
-    accent: 0x3d9be9,
-    accentHover: 0x5cadf0,
-    accentSoft: 0x7db9ec,
+    border: 0xf3dce5,
+    track: 0xefd6e1,
+    board: 0xf8e6ee,
+    text: 0x2a1e2e,
+    textMuted: 0x9a8295,
+    accent: 0xff4f87,
+    accentHover: 0xff6e9c,
+    accentSoft: 0xff9dbc,
     accentText: 0xffffff,
-    hoverSurface: 0xeaf3fc,
+    hoverSurface: 0xffeaf1,
+    secondary: 0x8b5cf6,
   },
   dark: {
-    background: 0x1b1f27,
-    surface: 0x262b35,
-    border: 0x343a46,
-    track: 0x3e4552,
-    board: 0x14171d,
-    text: 0xf1f3f7,
-    textMuted: 0x8b93a3,
-    accent: 0x4fa8f0,
-    accentHover: 0x72bcf5,
-    accentSoft: 0x6fa6d6,
+    background: 0x17121f,
+    surface: 0x231b2e,
+    border: 0x33283f,
+    track: 0x3d3049,
+    board: 0x120e18,
+    text: 0xf5eef6,
+    textMuted: 0x9c8ea6,
+    accent: 0xff6b9a,
+    accentHover: 0xff8ab0,
+    accentSoft: 0xd0759a,
     accentText: 0xffffff,
-    hoverSurface: 0x2f3644,
+    hoverSurface: 0x2e2439,
+    secondary: 0xa78bfa,
   },
 };
 
-export const ICON_KEY = 'icon';
 export const SETTINGS_STORAGE_KEY = 'pazzle-game:settings';
 
 export const TAB_BAR_HEIGHT = 140;
-export const TAB_MAX_WIDTH = 360;
+export const TAB_MAX_WIDTH = 300;
+export const TAB_BAR_MARGIN = 24;
+export const TAB_BAR_MAX_WIDTH = 560;
+export const TAB_ICON_SCALE = 0.7;
+export const TAB_ICON_Y = 46;
+export const TAB_LABEL_Y = 90;
+export const TAB_LABEL_SIZE = 24;
+export const TAB_HOVER_ALPHA = 0.5;
 export const BUTTON_WIDTH = 360;
 export const BUTTON_HEIGHT = 110;
+export const BUTTON_BORDER_WIDTH = 4;
+export const BUTTON_HOVER_GLOW = 0.15;
 export const TOGGLE_WIDTH = 560;
 export const TOGGLE_HEIGHT = 100;
 export const TOGGLE_TRACK_WIDTH = 100;
@@ -78,11 +89,42 @@ export const GAME_ICONS = {
   puzzle: 'icon-puzzle',
 };
 export const GAME_ICON_SIZE = 56;
-export const ALBUM_CARD_IMAGE_SIZE = 160;
+export const ALBUM_ROW_WIDTH = 650;
+export const ALBUM_ROW_HEIGHT = 164;
 export const ALBUM_COVER_SIZE = 130;
+export const ALBUM_COVER_RADIUS = 20;
+export const ALBUM_PROGRESS_WIDTH = 300;
+export const PROGRESS_BAR_HEIGHT = 12;
+export const MENU_CARD_WIDTH = 560;
+export const MENU_CARD_HEIGHT = 470;
+export const MENU_CARD_IMAGE_HEIGHT = 300;
+export const MENU_CARD_PADDING = 32;
+export const MENU_CARD_COUNT_WIDTH = 80;
+export const SETTINGS_CARD_WIDTH = 640;
+export const SETTINGS_CARD_HEIGHT = 400;
+export const LEVEL_CARD_WIDTH = 308;
+export const LEVEL_CARD_HEIGHT = 270;
+export const LEVEL_CARD_IMAGE_HEIGHT = 170;
+export const CARD_RADIUS = 28;
+export const CARD_SHADOW_OFFSET = 6;
+export const CARD_SHADOW_ALPHA = 0.12;
+export const CARD_HOVER_SCALE = 1.03;
+export const LOCK_BADGE_RADIUS = 40;
+export const LOCK_ICON_SIZE = 44;
+export const DIALOG_WIDTH = 650;
+export const DIALOG_HEIGHT = 460;
 export const ALBUM_PIECES_ICON_SIZE = 26;
 export const ALBUM_PIECES_ICON_GAP = 8;
 export const BLUR_SAMPLE_SIZE = 10;
+export const GAME_PANEL_RADIUS = 32;
+export const BOARD_FRAME = 12;
+export const BOARD_FRAME_RADIUS = 24;
+export const COUNTER_CHIP_HEIGHT = 56;
+export const COUNTER_CHIP_PADDING = 20;
+export const COUNTER_ICON_SIZE = 28;
+export const COUNTER_ICON_GAP = 10;
+export const ICON_BUTTON_BG_RADIUS = 40;
+export const ICON_BUTTON_ICON_SIZE = 40;
 export const ICON_BUTTON_SIZE = 88;
 export const ICON_BUTTON_SPACING = 120;
 export const TOOLTIP_FONT_SIZE = 24;

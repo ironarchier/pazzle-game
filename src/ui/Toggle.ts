@@ -35,7 +35,7 @@ export class Toggle extends Phaser.GameObjects.Container {
 
     const hoverWidth = TOGGLE_WIDTH + TOGGLE_HOVER_PADDING * 2;
     const hoverBg = scene.add.graphics().setAlpha(0);
-    hoverBg.fillStyle(theme.surface, 1);
+    hoverBg.fillStyle(theme.hoverSurface, 1);
     hoverBg.fillRoundedRect(-hoverWidth / 2, -TOGGLE_HEIGHT / 2, hoverWidth, TOGGLE_HEIGHT, TOGGLE_HEIGHT / 4);
 
     const text = scene.add

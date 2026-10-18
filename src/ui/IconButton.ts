@@ -2,6 +2,8 @@ import * as Phaser from 'phaser';
 import { playClick } from '../audio';
 import {
   FONT_FAMILY,
+  ICON_BUTTON_BG_RADIUS,
+  ICON_BUTTON_ICON_SIZE,
   ICON_BUTTON_SIZE,
   TOOLTIP_FONT_SIZE,
   TOOLTIP_OFFSET,
@@ -14,6 +16,8 @@ import { tweenColor } from './tweenColor';
 
 export class IconButton extends Phaser.GameObjects.Container {
   private readonly icon: Phaser.GameObjects.Image;
+  private readonly bg: Phaser.GameObjects.Graphics;
+  private bgColor: number;
   private readonly tooltip: Phaser.GameObjects.Container;
   private readonly tooltipWidth: number;
   private color: number;
@@ -24,8 +28,11 @@ export class IconButton extends Phaser.GameObjects.Container {
     super(scene, x, y);
     const theme = getTheme();
     this.color = this.targetColor();
+    this.bgColor = this.targetBgColor();
 
-    this.icon = scene.add.image(0, 0, iconKey).setTint(this.color);
+    this.bg = scene.add.graphics();
+    this.drawBg(this.bgColor);
+    this.icon = scene.add.image(0, 0, iconKey).setDisplaySize(ICON_BUTTON_ICON_SIZE, ICON_BUTTON_ICON_SIZE).setTint(this.color);
     const text = scene.add
       .text(0, TOOLTIP_PADDING_Y, tooltip, { fontFamily: FONT_FAMILY, fontSize: `${TOOLTIP_FONT_SIZE}px`, color: toCss(theme.background) })
       .setOrigin(0.5, 0);
@@ -51,7 +58,7 @@ export class IconButton extends Phaser.GameObjects.Container {
       onClick();
     });
 
-    this.add([this.icon, hitArea, this.tooltip]);
+    this.add([this.bg, this.icon, hitArea, this.tooltip]);
     scene.add.existing(this);
   }
 
@@ -71,14 +78,28 @@ export class IconButton extends Phaser.GameObjects.Container {
 
   private targetColor(): number {
     const theme = getTheme();
-    if (this.toggled) return this.hovered ? theme.accentHover : theme.accent;
+    if (this.toggled) return theme.accentText;
     return this.hovered ? theme.text : theme.textMuted;
+  }
+
+  private targetBgColor(): number {
+    const theme = getTheme();
+    if (this.toggled) return this.hovered ? theme.accentHover : theme.accent;
+    return this.hovered ? theme.border : theme.hoverSurface;
+  }
+
+  private drawBg(color: number): void {
+    this.bg.clear().fillStyle(color, 1).fillCircle(0, 0, ICON_BUTTON_BG_RADIUS);
   }
 
   private fade(): void {
     tweenColor(this.scene, this, this.color, this.targetColor(), (c) => {
       this.color = c;
       this.icon.setTint(c);
+    });
+    tweenColor(this.scene, this.bg, this.bgColor, this.targetBgColor(), (c) => {
+      this.bgColor = c;
+      this.drawBg(c);
     });
   }
 }

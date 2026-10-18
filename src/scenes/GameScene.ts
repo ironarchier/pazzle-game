@@ -1,6 +1,16 @@
 import * as Phaser from 'phaser';
 import {
+  BOARD_FRAME,
+  BOARD_FRAME_RADIUS,
   BOARD_PADDING,
+  CARD_SHADOW_ALPHA,
+  CARD_SHADOW_OFFSET,
+  COUNTER_CHIP_HEIGHT,
+  COUNTER_CHIP_PADDING,
+  COUNTER_ICON_GAP,
+  COUNTER_ICON_SIZE,
+  GAME_PANEL_RADIUS,
+  GAME_WIDTH,
   getLevelAlbum,
   getAlbumLevels,
   FONT_FAMILY,
@@ -77,6 +87,8 @@ export class GameScene extends Phaser.Scene {
   private hintTimer?: Phaser.Time.TimerEvent;
   private title!: Phaser.GameObjects.Text;
   private counter!: Phaser.GameObjects.Text;
+  private counterBg!: Phaser.GameObjects.Graphics;
+  private counterIcon!: Phaser.GameObjects.Image;
   private sampleButton!: IconButton;
   private hintButton!: IconButton;
   private completeImage!: Phaser.GameObjects.Image;
@@ -146,6 +158,8 @@ export class GameScene extends Phaser.Scene {
     this.backLink = new BackLink(this, 0, 0, 'Альбом', () => { this.save(); goToScene(this, 'Album', { albumId: getLevelAlbum(this.level).id }); }).setDepth(GAME_DEPTH.header);
 
     this.title = this.label('', HEADER_TITLE_FONT_SIZE).setDepth(GAME_DEPTH.header);
+    this.counterBg = this.add.graphics().setDepth(GAME_DEPTH.header);
+    this.counterIcon = this.add.image(0, 0, GAME_ICONS.puzzle).setDisplaySize(COUNTER_ICON_SIZE, COUNTER_ICON_SIZE).setTint(getTheme().accent).setDepth(GAME_DEPTH.header);
     this.counter = this.label('', 28).setOrigin(0, 0.5).setDepth(GAME_DEPTH.header);
     this.sampleButton = new IconButton(this, 0, 0, GAME_ICONS.image, 'Образец', () => this.togglePreview()).setDepth(GAME_DEPTH.header);
     this.hintButton = new IconButton(this, 0, 0, GAME_ICONS.bulb, 'Подсказка', () => {
@@ -331,23 +345,23 @@ export class GameScene extends Phaser.Scene {
     const { width, height } = this.scale;
     const theme = getTheme();
 
-    this.headerBg.clear();
-    this.headerBg.fillStyle(theme.surface, 1);
-    this.headerBg.fillRect(0, 0, width, HEADER_HEIGHT);
-    this.headerBg.fillStyle(theme.border, 1);
-    this.headerBg.fillRect(0, HEADER_HEIGHT - 2, width, 2);
+    const r = GAME_PANEL_RADIUS;
+    this.headerBg.clear()
+      .fillStyle(0x000000, CARD_SHADOW_ALPHA)
+      .fillRoundedRect(0, CARD_SHADOW_OFFSET, width, HEADER_HEIGHT, { tl: 0, tr: 0, bl: r, br: r })
+      .fillStyle(theme.surface, 1)
+      .fillRoundedRect(0, 0, width, HEADER_HEIGHT, { tl: 0, tr: 0, bl: r, br: r });
     this.backLink.setPosition(HEADER_PADDING, 42);
     this.fitTitle();
-    this.counter.setPosition(HEADER_PADDING, 126);
     this.hintButton.setPosition(width - HEADER_PADDING - ICON_BUTTON_SIZE / 2, 126);
     this.sampleButton.setPosition(this.hintButton.x - ICON_BUTTON_SPACING, 126);
 
     const trayTop = height - TRAY_HEIGHT;
-    this.trayBg.clear();
-    this.trayBg.fillStyle(theme.surface, 1);
-    this.trayBg.fillRect(0, trayTop, width, TRAY_HEIGHT);
-    this.trayBg.fillStyle(theme.border, 1);
-    this.trayBg.fillRect(0, trayTop, width, 2);
+    this.trayBg.clear()
+      .fillStyle(0x000000, CARD_SHADOW_ALPHA)
+      .fillRoundedRect(0, trayTop - CARD_SHADOW_OFFSET, width, TRAY_HEIGHT, { tl: r, tr: r, bl: 0, br: 0 })
+      .fillStyle(theme.surface, 1)
+      .fillRoundedRect(0, trayTop, width, TRAY_HEIGHT, { tl: r, tr: r, bl: 0, br: 0 });
 
     const prev = { x: this.boardX, y: this.boardY, scale: this.boardScale };
     const top = HEADER_HEIGHT;
@@ -360,9 +374,14 @@ export class GameScene extends Phaser.Scene {
     this.boardHeight = this.imageHeight * this.boardScale;
     this.boardX = (width - this.boardWidth) / 2;
     this.boardY = top + (areaHeight - this.boardHeight) / 2;
-    this.board.clear();
-    this.board.fillStyle(theme.board, 1);
-    this.board.fillRect(this.boardX, this.boardY, this.boardWidth, this.boardHeight);
+    const f = BOARD_FRAME;
+    this.board.clear()
+      .fillStyle(0x000000, CARD_SHADOW_ALPHA)
+      .fillRoundedRect(this.boardX - f, this.boardY - f + CARD_SHADOW_OFFSET, this.boardWidth + f * 2, this.boardHeight + f * 2, BOARD_FRAME_RADIUS)
+      .fillStyle(theme.surface, 1)
+      .fillRoundedRect(this.boardX - f, this.boardY - f, this.boardWidth + f * 2, this.boardHeight + f * 2, BOARD_FRAME_RADIUS)
+      .fillStyle(theme.board, 1)
+      .fillRect(this.boardX, this.boardY, this.boardWidth, this.boardHeight);
 
     for (const piece of this.pieces) {
       if (piece.state !== 'placed' && piece.state !== 'board') continue;
@@ -763,8 +782,14 @@ export class GameScene extends Phaser.Scene {
     const next = nextLevel(progress.completed, this.level);
     const albumDone = count === ids.length;
     const action = new Button(this, -170, 175, albumDone ? 'Альбомы' : next === undefined ? 'В альбом' : 'Дальше', () => albumDone ? goToScene(this, 'Album') : next === undefined ? goToScene(this, 'Album', { albumId: collection.id }) : restartScene(this, { level: next }), 0.78);
-    const album = new Button(this, 170, 175, albumDone ? 'В меню' : 'Альбом', () => goToScene(this, albumDone ? 'Menu' : 'Album', { albumId: collection.id }), 0.78);
-    const bg = this.add.rectangle(0, 110, Math.min(this.scale.width, 720), 220, getTheme().surface).setOrigin(0.5);
+    const album = new Button(this, 170, 175, albumDone ? 'В меню' : 'Альбом', () => goToScene(this, albumDone ? 'Menu' : 'Album', { albumId: collection.id }), 0.78, 'secondary');
+    const panelWidth = Math.min(this.scale.width, GAME_WIDTH);
+    const r = GAME_PANEL_RADIUS;
+    const bg = this.add.graphics()
+      .fillStyle(0x000000, CARD_SHADOW_ALPHA)
+      .fillRoundedRect(-panelWidth / 2, -CARD_SHADOW_OFFSET, panelWidth, TRAY_HEIGHT, { tl: r, tr: r, bl: 0, br: 0 })
+      .fillStyle(getTheme().surface, 1)
+      .fillRoundedRect(-panelWidth / 2, 0, panelWidth, TRAY_HEIGHT, { tl: r, tr: r, bl: 0, br: 0 });
     this.winPanel = this.add.container(0, 0, [bg, title, detail, goalText, action, album]).setDepth(GAME_DEPTH.overlay);
     this.layoutWinPanel();
   }
@@ -777,7 +802,6 @@ export class GameScene extends Phaser.Scene {
     return this.add.text(0, 0, text, { fontFamily: FONT_FAMILY, fontSize: size + 'px', color: toCss(getTheme().text), align: 'center' }).setOrigin(0.5);
   }
 
-  /** Center the title between the back link and its mirror; shrink, then truncate on narrow screens. */
   private fitTitle(): void {
     const width = this.scale.width;
     const left = this.backLink.x + this.backLink.getBounds().width + HEADER_TITLE_GAP;
@@ -794,7 +818,15 @@ export class GameScene extends Phaser.Scene {
   }
 
   private refreshLabels(): void {
-    this.counter.setText('Собрано: ' + this.pieces.filter(p => p.state === 'placed').length + ' из ' + this.pieces.length);
+    this.counter.setText(this.pieces.filter(p => p.state === 'placed').length + '/' + this.pieces.length);
+    const iconX = HEADER_PADDING + COUNTER_CHIP_PADDING + COUNTER_ICON_SIZE / 2;
+    const textX = iconX + COUNTER_ICON_SIZE / 2 + COUNTER_ICON_GAP;
+    const chipWidth = textX + this.counter.width + COUNTER_CHIP_PADDING - HEADER_PADDING;
+    this.counterIcon.setPosition(iconX, 126);
+    this.counter.setPosition(textX, 126);
+    this.counterBg.clear()
+      .fillStyle(getTheme().hoverSurface, 1)
+      .fillRoundedRect(HEADER_PADDING, 126 - COUNTER_CHIP_HEIGHT / 2, chipWidth, COUNTER_CHIP_HEIGHT, COUNTER_CHIP_HEIGHT / 2);
     this.hintButton.setToggled(this.hintMode);
   }
 
