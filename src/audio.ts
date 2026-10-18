@@ -1,6 +1,6 @@
 import * as Phaser from 'phaser';
-import { SOUND_REVERB, SOUND_SCALE, SOUND_VOLUME, SOUND_WIN_CHORD, SOUND_WIN_STEP } from './constants';
-import { getSettings } from './settings';
+import { MUSIC, SOUND_REVERB, SOUND_SCALE, SOUND_VOLUME, SOUND_WIN_CHORD, SOUND_WIN_STEP } from './constants';
+import { getSettings, subscribeSettings } from './settings';
 
 interface Voice {
   type?: OscillatorType;
@@ -17,9 +17,45 @@ interface Mixer {
 
 let manager: Phaser.Sound.BaseSoundManager | undefined;
 let mixer: Mixer | undefined;
+let music: Phaser.Sound.BaseSound | undefined;
+let disposeAudio: (() => void) | undefined;
 
 export function initAudio(sound: Phaser.Sound.BaseSoundManager): void {
+  if (manager === sound) return;
+  disposeAudio?.();
   manager = sound;
+  // Music is optional: a failed download must not prevent the game from starting.
+  if (!sound.game.cache.audio.exists(MUSIC.key)) return;
+  const track = sound.add(MUSIC.key, { loop: true, volume: MUSIC.volume });
+  music = track;
+  const unsubscribe = subscribeSettings(syncMusic);
+  sound.on('unlocked', syncMusic);
+  if (typeof document !== 'undefined') document.addEventListener('visibilitychange', syncMusic);
+  const cleanup = () => {
+    unsubscribe();
+    sound.off('unlocked', syncMusic);
+    if (typeof document !== 'undefined') document.removeEventListener('visibilitychange', syncMusic);
+    sound.game.events.off('destroy', cleanup);
+    if (manager === sound) { manager = undefined; mixer = undefined; music = undefined; disposeAudio = undefined; }
+  };
+  sound.game.events.once('destroy', cleanup);
+  disposeAudio = () => { track.destroy(); cleanup(); };
+  syncMusic();
+}
+
+function syncMusic(): void {
+  if (!manager || !music) return;
+  if (!getSettings().music || typeof document !== 'undefined' && document.hidden) {
+    if (music.isPlaying) music.pause();
+    return;
+  }
+  if (manager.locked) return; // Phaser unlocks audio after the first permitted user gesture.
+  if (music.isPaused) music.resume();
+  else if (!music.isPlaying) music.play();
+}
+
+export function preloadMusic(load: Phaser.Loader.LoaderPlugin): void {
+  load.audio(MUSIC.key, MUSIC.path);
 }
 
 function createMixer(context: AudioContext): Mixer {
