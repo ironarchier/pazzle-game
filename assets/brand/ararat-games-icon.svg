@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ff6b9a"/>
+      <stop offset="1" stop-color="#7c4dff"/>
+    </linearGradient>
+    <linearGradient id="sun" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffe9a8"/>
+      <stop offset="1" stop-color="#ffc36b"/>
+    </linearGradient>
+    <clipPath id="badge">
+      <rect width="256" height="256" rx="60"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#badge)">
+    <rect width="256" height="256" fill="url(#sky)"/>
+    <circle cx="196" cy="70" r="20" fill="url(#sun)"/>
+    <path d="M128 200 L178 112 L236 200 Z" fill="#5b3b9e" stroke="#5b3b9e" stroke-width="6" stroke-linejoin="round"/>
+    <path d="M178 112 L191 132 L184 128 L177 135 L171 128 L167 132 Z" fill="#ffffff" stroke="#ffffff" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M16 200 L100 64 L196 200 Z" fill="#3b2470" stroke="#3b2470" stroke-width="8" stroke-linejoin="round"/>
+    <path d="M100 64 L128 104 L117 97 L108 107 L99 96 L89 105 L75 104 Z" fill="#ffffff" stroke="#ffffff" stroke-width="4" stroke-linejoin="round"/>
+    <path d="M0 200 H112 A16 16 0 1 1 144 200 H256 V256 H0 Z" fill="#fff4f7"/>
+  </g>
+</svg>
