@@ -158,6 +158,12 @@ export const SOUND_SCALE = [523.25, 587.33, 659.25, 783.99, 880, 1046.5, 1174.66
 export const SOUND_WIN_CHORD = [523.25, 659.25, 783.99, 1046.5, 1318.51];
 export const SOUND_WIN_STEP = 0.09;
 
+export const MUSIC = {
+  key: 'background-music',
+  path: 'music/quiet-pages.mp3',
+  volume: 0.22,
+};
+
 export interface Album {
   id: string;
   title: string;

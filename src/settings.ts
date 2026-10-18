@@ -9,6 +9,12 @@ export interface Settings {
 const DEFAULT_SETTINGS: Settings = { sound: true, music: true, theme: 'light' };
 
 let current = loadSettings();
+const listeners = new Set<() => void>();
+
+export function subscribeSettings(listener: () => void): () => void {
+  listeners.add(listener);
+  return () => { listeners.delete(listener); };
+}
 
 function loadSettings(): Settings {
   try {
@@ -28,6 +34,7 @@ export function updateSettings(patch: Partial<Settings>): void {
   try {
     localStorage.setItem(SETTINGS_STORAGE_KEY, JSON.stringify(current));
   } catch {
-    return;
+    // Apply settings in memory even when persistent storage is unavailable.
   }
+  for (const listener of listeners) listener();
 }
