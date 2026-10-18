@@ -19,7 +19,7 @@ import {
   getLevelAlbum,
 } from '../constants';
 import { getCurrentLevel, getProgress } from '../progress';
-import { goToScene, restartScene } from '../crossfade';
+import { goToScene, isTransitioning, restartScene } from '../crossfade';
 import { centerLayout, createUiCamera } from '../layout';
 import { getSettings, updateSettings } from '../settings';
 import { applyTheme, getTheme, toCss } from '../theme';
@@ -42,6 +42,8 @@ export class MenuScene extends Phaser.Scene {
   private uiCamera!: Phaser.Cameras.Scene2D.Camera;
   private page?: Phaser.GameObjects.Container;
   private currentPage?: Page;
+  private renderedTheme = getSettings().theme;
+  private themeTimer?: Phaser.Time.TimerEvent;
 
   constructor() {
     super('Menu');
@@ -54,6 +56,8 @@ export class MenuScene extends Phaser.Scene {
 
   create(data: MenuSceneData): void {
     applyTheme(this);
+    this.renderedTheme = getSettings().theme;
+    this.themeTimer = undefined;
     centerLayout(this);
     this.uiCamera = createUiCamera(this);
 
@@ -154,11 +158,20 @@ export class MenuScene extends Phaser.Scene {
     const music = new Toggle(this, centerX, 440, 'Музыка', settings.music, (value) => updateSettings({ music: value }));
     const darkTheme = new Toggle(this, centerX, 560, 'Тёмная тема', settings.theme === 'dark', (value) => {
       updateSettings({ theme: value ? 'dark' : 'light' });
-      this.time.delayedCall(HOVER_DURATION, () => restartScene(this, { page: 'settings' }));
+      this.scheduleThemeRestart();
     });
 
     const card = createCard(this, centerX, 440, SETTINGS_CARD_WIDTH, SETTINGS_CARD_HEIGHT);
 
     return this.add.container(0, 0, [title, card, sound, music, darkTheme]);
+  }
+
+  private scheduleThemeRestart(): void {
+    this.themeTimer?.remove();
+    this.themeTimer = this.time.delayedCall(HOVER_DURATION, () => {
+      if (getSettings().theme === this.renderedTheme) return;
+      if (isTransitioning()) { this.scheduleThemeRestart(); return; }
+      restartScene(this, { page: 'settings' });
+    });
   }
 }

@@ -3,6 +3,10 @@ import { TRANSITION_DURATION } from './constants';
 
 let inProgress = false;
 
+export function isTransitioning(): boolean {
+  return inProgress;
+}
+
 export function crossfade(game: Phaser.Game, change: () => void): void {
   if (inProgress) return;
   inProgress = true;
