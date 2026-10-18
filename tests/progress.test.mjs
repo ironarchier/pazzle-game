@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readProgress, validateAssembly, isUnlocked, nextLevel, getProgress, saveAssembly, completeLevel } from '../src/progress.ts';
-import { LEVEL_GRIDS, LEVELS, PROGRESS_STORAGE_KEY, SAVE_STORAGE_KEY, getAlbumLevels } from '../src/constants.ts';
+import { LEVEL_GRIDS, LEVELS, SHOP_ALBUMS, PROGRESS_STORAGE_KEY, SAVE_STORAGE_KEY, getAlbumLevels } from '../src/constants.ts';
 import { generateEdges, seededRandom } from '../src/puzzle/pieceShape.ts';
 
 const storage = data => ({ getItem: key => data[key] ?? null, setItem: (key, v) => { data[key] = v; } });
@@ -64,7 +64,7 @@ test('puzzles grow from 3x3 to an 8x8 finale inside every album with reproducibl
     const slot = getAlbumLevels(config.albumId).indexOf(level);
     assert.deepEqual([config.rows, config.cols], LEVEL_GRIDS[slot]);
     const active = { level, rows: config.rows, cols: config.cols, seed: 99, placed: [], groups: [], tray: Array.from({ length: config.rows * config.cols }, (_, i) => i).reverse(), scroll: 0 };
-    assert.deepEqual(validateAssembly(active, ordinary), active);
+    assert.deepEqual(validateAssembly(active, ordinary, SHOP_ALBUMS.map(album => album.id)), active);
     assert.deepEqual(generateEdges(active.rows, active.cols, seededRandom(99)), generateEdges(active.rows, active.cols, seededRandom(99)));
     assert.notDeepEqual(generateEdges(active.rows, active.cols, seededRandom(98)), generateEdges(active.rows, active.cols, seededRandom(99)));
   });

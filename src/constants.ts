@@ -1,3 +1,5 @@
+import { shopAlbums } from './shopCatalogue';
+
 export const GAME_WIDTH = 720;
 export const GAME_HEIGHT = 1280;
 export const PRELOADER_MIN_DURATION = 1500;
@@ -169,17 +171,20 @@ export const MUSIC = {
 };
 
 export interface Album {
+  coverFocusY?: number;
   id: string;
   title: string;
-  titleEn: string;
+  titleEn?: string;
   subtitle: string;
-  subtitleEn: string;
+  subtitleEn?: string;
   accent: number;
-  characters: { title: string; titleEn: string; image: string }[];
+  paid?: boolean;
+  ready?: boolean;
+  characters: { title: string; titleEn?: string; image: string }[];
 }
 
 // Order is part of the saved catalogue: append albums; do not reorder existing entries.
-export const ALBUMS: Album[] = [
+export const FREE_ALBUMS: Album[] = [
   { id: 'tokyo-ghoul', title: 'Токийский гуль', titleEn: 'Tokyo Ghoul', subtitle: 'За маской человека', subtitleEn: 'Behind the human mask', accent: 0xe5395b, characters: [
     { title: 'Тоука Киришима', titleEn: 'Touka Kirishima', image: 'images/anime/tg-touka.jpg' },
     { title: 'Ризэ Камисиро', titleEn: 'Rize Kamishiro', image: 'images/anime/tg-rize.jpg' },
@@ -221,6 +226,16 @@ export const ALBUMS: Album[] = [
     { title: 'Тандзиро · Танец огня', titleEn: 'Tanjiro · Dance of Fire', image: 'images/anime/ds-finale.jpg' },
   ] },
 ];
+FREE_ALBUMS.push({ id: 'hunter-x-hunter', title: 'Hunter × Hunter', titleEn: 'Hunter × Hunter', subtitle: 'За пределами известного', subtitleEn: 'Beyond the known world', accent: 0x4caa78, coverFocusY: 0.3, characters: [
+  { title: 'Курапика', titleEn: 'Kurapika', image: 'images/hunter/hunter-1.jpg' },
+  { title: 'Леорио', titleEn: 'Leorio', image: 'images/hunter/hunter-2.jpg' },
+  { title: 'Хисока', titleEn: 'Hisoka', image: 'images/hunter/hunter-3.jpg' },
+  { title: 'Иллуми', titleEn: 'Illumi', image: 'images/hunter/hunter-4.jpg' },
+  { title: 'Кролло', titleEn: 'Chrollo', image: 'images/hunter/hunter-5.jpg' },
+  { title: 'Гон · Новая вершина', titleEn: 'Gon · A New Summit', image: 'images/hunter/hunter-6.jpg' },
+] });
+export const SHOP_ALBUMS: Album[] = shopAlbums.map(album => ({ ...album, coverFocusY: 0.3 }));
+export const ALBUMS: Album[] = [...FREE_ALBUMS, ...SHOP_ALBUMS];
 export const LEVEL_GRIDS = [[3, 3], [4, 4], [5, 5], [6, 6], [7, 7], [8, 8]];
 export const LEVELS = ALBUMS.flatMap(album => album.characters.map((character, slot) => ({
   ...character, albumId: album.id, finale: slot === album.characters.length - 1,

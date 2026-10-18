@@ -22,7 +22,7 @@ import {
 import { getCurrentLevel, getProgress } from '../progress';
 import { goToScene, isTransitioning, restartScene } from '../crossfade';
 import { albumTitle, levelTitle, t } from '../i18n';
-import { centerLayout, createUiCamera } from '../layout';
+import { centerLayout, createUiCamera, onResize } from '../layout';
 import { getSettings, updateSettings } from '../settings';
 import { applyTheme, getTheme, toCss } from '../theme';
 import { Button } from '../ui/Button';
@@ -33,6 +33,8 @@ import { drawGearIcon, drawHomeIcon } from '../ui/icons';
 import { TabBar } from '../ui/TabBar';
 import { Segmented } from '../ui/Segmented';
 import { Toggle } from '../ui/Toggle';
+import { CoinBadge } from '../ui/CoinBadge';
+import { platformReady } from '../platform/yandex';
 
 type Page = 'home' | 'settings';
 
@@ -63,6 +65,9 @@ export class MenuScene extends Phaser.Scene {
     this.restartTimer = undefined;
     centerLayout(this);
     this.uiCamera = createUiCamera(this);
+    const wallet = new CoinBadge(this, this.scale.width - 120, 65);
+    this.cameras.main.ignore(wallet);
+    onResize(this, () => wallet.setX(this.scale.width - 120));
 
     this.page = undefined;
     this.currentPage = undefined;
@@ -76,6 +81,7 @@ export class MenuScene extends Phaser.Scene {
     );
     this.cameras.main.ignore(this.tabBar);
     this.showPage(data.page ?? 'home');
+    platformReady();
   }
 
   private showPage(page: Page): void {
@@ -125,7 +131,7 @@ export class MenuScene extends Phaser.Scene {
     const textTop = top + MENU_CARD_IMAGE_HEIGHT;
     const card = createCard(this, centerX, 470, MENU_CARD_WIDTH, MENU_CARD_HEIGHT, play);
     card.add([
-      this.add.image(0, top + MENU_CARD_IMAGE_HEIGHT / 2, cardTexture(this, `album-${level}`, MENU_CARD_WIDTH, MENU_CARD_IMAGE_HEIGHT, { tl: CARD_RADIUS, tr: CARD_RADIUS, br: 0, bl: 0 })),
+      this.add.image(0, top + MENU_CARD_IMAGE_HEIGHT / 2, cardTexture(this, `album-${level}`, MENU_CARD_WIDTH, MENU_CARD_IMAGE_HEIGHT, { tl: CARD_RADIUS, tr: CARD_RADIUS, br: 0, bl: 0 }, false, album.coverFocusY)),
       this.text(textX, textTop + 36, albumTitle(album), 24, album.accent).setOrigin(0, 0.5),
       this.text(textX, textTop + 76, levelTitle(level), 34, theme.text, true).setOrigin(0, 0.5),
       createProgressBar(this, textX, textTop + 124, barWidth, albumCount / albumIds.length, album.accent),

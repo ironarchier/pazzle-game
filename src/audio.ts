@@ -13,12 +13,20 @@ interface Mixer {
   context: AudioContext;
   dry: AudioNode;
   noise: AudioBuffer;
+  master: GainNode;
 }
 
 let manager: Phaser.Sound.BaseSoundManager | undefined;
 let mixer: Mixer | undefined;
 let music: Phaser.Sound.BaseSound | undefined;
 let disposeAudio: (() => void) | undefined;
+let suspended = false;
+
+export function setAudioSuspended(value: boolean): void {
+  suspended = value;
+  if (mixer) mixer.master.gain.value = value ? 0 : SOUND_VOLUME;
+  syncMusic();
+}
 
 export function initAudio(sound: Phaser.Sound.BaseSoundManager): void {
   if (manager === sound) return;
@@ -45,7 +53,7 @@ export function initAudio(sound: Phaser.Sound.BaseSoundManager): void {
 
 function syncMusic(): void {
   if (!manager || !music) return;
-  if (!getSettings().music || typeof document !== 'undefined' && document.hidden) {
+  if (suspended || !getSettings().music || typeof document !== 'undefined' && document.hidden) {
     if (music.isPlaying) music.pause();
     return;
   }
@@ -83,11 +91,11 @@ function createMixer(context: AudioContext): Mixer {
   const dry = context.createGain();
   dry.connect(master);
   dry.connect(send);
-  return { context, dry, noise };
+  return { context, dry, noise, master };
 }
 
 function ready(): Mixer | undefined {
-  if (!getSettings().sound || !manager || !('context' in manager)) return undefined;
+  if (suspended || !getSettings().sound || !manager || !('context' in manager)) return undefined;
   const context = (manager as Phaser.Sound.WebAudioSoundManager).context;
   if (context.state !== 'running') return undefined;
   if (mixer?.context !== context) mixer = createMixer(context);

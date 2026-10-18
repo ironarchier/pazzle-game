@@ -32,7 +32,13 @@ export function createCard(scene: Phaser.Scene, x: number, y: number, width: num
   const hitArea = scene.add.zone(0, 0, width, height).setInteractive({ useHandCursor: true });
   hitArea.on('pointerover', () => hover(getTheme().hoverSurface, CARD_HOVER_SCALE));
   hitArea.on('pointerout', () => hover(getTheme().surface, 1));
-  hitArea.on('pointerup', () => { playClick(); onClick(); });
+  let pressed: { x: number; y: number } | undefined;
+  hitArea.on('pointerdown', (pointer: Phaser.Input.Pointer) => { pressed = { x: pointer.x, y: pointer.y }; });
+  hitArea.on('pointerup', (pointer: Phaser.Input.Pointer) => {
+    const start = pressed; pressed = undefined;
+    if (!start || Math.hypot(pointer.x - start.x, pointer.y - start.y) > 12) return;
+    playClick(); onClick();
+  });
   return card.add(hitArea);
 }
 

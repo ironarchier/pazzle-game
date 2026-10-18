@@ -63,13 +63,18 @@ import { goToScene, restartScene } from '../crossfade';
 import { playDrop, playJoin, playPickUp, playPlace, playWin } from '../audio';
 import { vibrate } from '../haptics';
 import { onResize } from '../layout';
-import { getCurrentLevel, getProgress, saveAssembly, completeLevel, isUnlocked, nextLevel, type Assembly } from '../progress';
+import { getCurrentLevel, getProgress, saveAssembly, completeLevel, isUnlocked, nextLevel, useHint, type Assembly } from '../progress';
 import { createPiecePath, generateEdges, seededRandom, type PieceEdges } from '../puzzle/pieceShape';
 import { PuzzlePiece } from '../puzzle/PuzzlePiece';
 import { applyTheme, getTheme, toCss } from '../theme';
 import { Button } from '../ui/Button';
 import { IconButton } from '../ui/IconButton';
 import { albumTitle, levelTitle, pieces, t } from '../i18n';
+import { CoinBadge } from '../ui/CoinBadge';
+import { hasPurchaseOffer, showPurchaseOffer } from '../ui/PurchaseModal';
+import { ECONOMY } from '../economy/config';
+import { createReceipt } from '../platform/RewardedAds';
+import { rewardedAds, setGameplayActive } from '../platform/yandex';
 
 interface Gesture {
   pointerId: number;
@@ -123,6 +128,7 @@ export class GameScene extends Phaser.Scene {
   private trayBg!: Phaser.GameObjects.Graphics;
   private headerBg!: Phaser.GameObjects.Graphics;
   private backButton!: IconButton;
+  private coins!: CoinBadge;
 
   constructor() {
     super('Game');
@@ -131,7 +137,7 @@ export class GameScene extends Phaser.Scene {
   init(data: { level?: number }): void {
     this.level = data.level ?? getCurrentLevel();
     const progress = getProgress();
-    if (!isUnlocked(this.level, progress.completed)) this.level = 0;
+    if (!isUnlocked(this.level, progress.completed, progress.economy.purchasedAlbums)) this.level = 0;
     this.restored = progress.active?.level === this.level ? progress.active : undefined;
     this.rows = this.restored?.rows ?? LEVELS[this.level].rows;
     this.cols = this.restored?.cols ?? LEVELS[this.level].cols;
@@ -174,18 +180,21 @@ export class GameScene extends Phaser.Scene {
     this.counter = this.label('', 28).setOrigin(0, 0.5).setDepth(GAME_DEPTH.header);
     this.sampleButton = new IconButton(this, 0, 0, GAME_ICONS.image, t('sample'), () => this.togglePreview()).setDepth(GAME_DEPTH.headerControls);
     this.edgesButton = new IconButton(this, 0, 0, GAME_ICONS.edges, t('edgesFirst'), () => this.toggleEdgesFirst()).setDepth(GAME_DEPTH.headerControls);
-    this.hintButton = new IconButton(this, 0, 0, GAME_ICONS.bulb, t('hint'), () => this.useHint()).setDepth(GAME_DEPTH.headerControls);
+    this.hintButton = new IconButton(this, 0, 0, GAME_ICONS.bulb, t('hint') + ' · ' + ECONOMY.hintPrice + ' ' + t('coins'), () => this.requestHint()).setDepth(GAME_DEPTH.headerControls);
+    this.coins = new CoinBadge(this, 0, 0).setDepth(GAME_DEPTH.headerControls);
     this.completeImage = this.add.image(0, 0, PUZZLE_SOURCE_KEY).setOrigin(0).setDepth(GAME_DEPTH.placedPieces + 0.5).setVisible(false);
     this.createPieces();
     this.setupInput();
     onResize(this, () => this.layout());
     this.restore();
     this.save();
+    setGameplayActive(true);
     const save = () => { this.layout(); this.save(); };
     const visibility = () => { if (document.hidden) save(); };
     window.addEventListener('pagehide', save);
     document.addEventListener('visibilitychange', visibility);
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
+      setGameplayActive(false);
       this.save();
       window.removeEventListener('pagehide', save);
       document.removeEventListener('visibilitychange', visibility);
@@ -367,6 +376,7 @@ export class GameScene extends Phaser.Scene {
       .fillStyle(theme.surface, 1)
       .fillRoundedRect(0, 0, width, HEADER_HEIGHT, { tl: 0, tr: 0, bl: r, br: r });
     this.backButton.setPosition(HEADER_PADDING + BACK_BUTTON_RADIUS, HEADER_TOP_ROW_Y);
+    this.coins?.setPosition(width - 120, HEADER_TOP_ROW_Y);
     this.fitTitle();
     this.hintButton.setPosition(width - HEADER_PADDING - ICON_BUTTON_SIZE / 2, HEADER_BOTTOM_ROW_Y);
     this.sampleButton.setPosition(this.hintButton.x - ICON_BUTTON_SPACING, HEADER_BOTTOM_ROW_Y);
@@ -486,7 +496,7 @@ export class GameScene extends Phaser.Scene {
     const inTray = (pointer: Phaser.Input.Pointer) => pointer.y >= this.scale.height - TRAY_HEIGHT;
 
     this.input.on('pointerdown', (pointer: Phaser.Input.Pointer, over: Phaser.GameObjects.GameObject[]) => {
-      if (this.gesture || this.won || this.preview) return;
+      if (this.gesture || this.won || this.preview || hasPurchaseOffer(this) || rewardedAds.busy) return;
       const gesture: Gesture = {
         pointerId: pointer.id,
         startX: pointer.x,
@@ -555,7 +565,7 @@ export class GameScene extends Phaser.Scene {
 
     this.input.on('wheel', (pointer: Phaser.Input.Pointer, _over: unknown, dx: number, dy: number) => {
       if (!inTray(pointer) || this.gesture) return;
-      if (this.preview || this.won) return;
+      if (this.preview || this.won || hasPurchaseOffer(this) || rewardedAds.busy) return;
       this.trayScroll += dx + dy;
       this.clampTrayScroll();
       this.layoutTray(false);
@@ -793,6 +803,8 @@ export class GameScene extends Phaser.Scene {
     if (this.won) return;
     this.won = true;
     playWin();
+    setGameplayActive(false);
+    const balanceBefore = getProgress().economy.balance;
     const fresh = completeLevel(this.level);
     this.completeImage.setVisible(true).setAlpha(0);
     this.tweens.add({ targets: this.completeImage, alpha: 1, duration: 300 });
@@ -808,9 +820,10 @@ export class GameScene extends Phaser.Scene {
     const goal = count === ids.length ? t('winAllDone') : remaining > 0 ? t('winRemaining', { count: remaining }) : t('winFinaleOpen', { pieces: pieces(finale.rows * finale.cols) });
     const title = this.label(heading, 36).setY(WIN_PANEL.titleY).setColor(toCss(collection.accent)).setFontStyle('bold');
     const name = albumTitle(collection);
-    const detail = this.label(t('winDetail', { album: name, count, total: ids.length }), name.length > 25 ? 20 : 23).setY(WIN_PANEL.detailY);
+    const earned = progress.economy.balance - balanceBefore;
+    const detail = this.label(earned > 0 ? name + ' · +' + earned + ' ' + t('coins') : t('winDetail', { album: name, count, total: ids.length }), name.length > 25 ? 20 : 23).setY(WIN_PANEL.detailY);
     const goalText = this.label(goal, 25).setY(WIN_PANEL.goalY);
-    const next = nextLevel(progress.completed, this.level);
+    const next = nextLevel(progress.completed, this.level, progress.economy.purchasedAlbums);
     const albumDone = count === ids.length;
     const action = new Button(this, -WIN_PANEL.buttonX, WIN_PANEL.buttonY, t(albumDone ? 'albums' : next === undefined ? 'toAlbum' : 'next'), () => albumDone ? goToScene(this, 'Album') : next === undefined ? goToScene(this, 'Album', { albumId: collection.id }) : restartScene(this, { level: next }), 0.78);
     const album = new Button(this, WIN_PANEL.buttonX, WIN_PANEL.buttonY, t(albumDone ? 'toMenu' : 'album'), () => goToScene(this, albumDone ? 'Menu' : 'Album', { albumId: collection.id }), 0.78, 'secondary');
@@ -861,10 +874,10 @@ export class GameScene extends Phaser.Scene {
   private fitTitle(): void {
     const width = this.scale.width;
     const left = this.backButton.x + BACK_BUTTON_RADIUS + HEADER_TITLE_GAP;
-    const maxWidth = width - left * 2;
+    const maxWidth = Math.max(80, width - left - 230);
     const full = levelTitle(this.level);
     let size = HEADER_TITLE_FONT_SIZE;
-    this.title.setPosition(width / 2, HEADER_TOP_ROW_Y).setFontSize(size).setText(full);
+    this.title.setPosition(left + maxWidth / 2, HEADER_TOP_ROW_Y).setFontSize(size).setText(full);
     while (this.title.width > maxWidth && size > HEADER_TITLE_MIN_FONT_SIZE) this.title.setFontSize(--size);
     let text = full;
     while (this.title.width > maxWidth && text.length > 1) {
@@ -886,6 +899,13 @@ export class GameScene extends Phaser.Scene {
     this.hintButton.setBadge(this.hints);
   }
 
+  private requestHint(): void {
+    if (this.gesture || this.won || rewardedAds.busy || hasPurchaseOffer(this)) return;
+    if (this.hints <= 0 || !this.hintPiece()) { this.useHint(); return; }
+    this.hidePreview();
+    showPurchaseOffer(this, { kind: 'hint' }, () => this.useHint());
+  }
+
   private useHint(): void {
     if (this.gesture || this.won) return;
     const piece = this.hintPiece();
@@ -895,17 +915,21 @@ export class GameScene extends Phaser.Scene {
       this.tweens.add({ targets: this.hintButton, x: this.hintButton.x + HINT_SHAKE.offset, duration: HINT_SHAKE.duration, yoyo: true, repeat: HINT_SHAKE.repeat });
       return;
     }
-    this.hidePreview();
-    this.hints--;
-    if (piece.state === 'tray') {
-      Phaser.Utils.Array.Remove(this.tray, piece);
-      this.clampTrayScroll();
-      this.layoutTray(true);
-    }
-    for (const member of piece.group) this.settleMove(member);
-    playPickUp();
-    this.place(piece.group, HINT_FLIGHT_DURATION);
-    this.save();
+    const result = useHint(createReceipt(), () => {
+      this.hidePreview();
+      this.hints--;
+      if (piece.state === 'tray') {
+        Phaser.Utils.Array.Remove(this.tray, piece);
+        this.clampTrayScroll();
+        this.layoutTray(true);
+      }
+      for (const member of piece.group) this.settleMove(member);
+      playPickUp();
+      this.place(piece.group, HINT_FLIGHT_DURATION);
+      return true;
+    });
+    if (result === 'used') this.save();
+    else if (result === 'insufficient') this.requestHint();
   }
 
   private hintPiece(): PuzzlePiece | undefined {

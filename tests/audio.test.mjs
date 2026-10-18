@@ -1,7 +1,7 @@
 import { afterEach, beforeEach, test } from 'node:test';
 import assert from 'node:assert/strict';
 import { EventEmitter } from 'node:events';
-import { initAudio, preloadMusic, playClick } from '../src/audio.ts';
+import { initAudio, preloadMusic, playClick, setAudioSuspended } from '../src/audio.ts';
 import { updateSettings } from '../src/settings.ts';
 import { MUSIC } from '../src/constants.ts';
 
@@ -12,10 +12,28 @@ beforeEach(() => {
   updateSettings({ music: true, sound: true });
 });
 afterEach(() => {
+  setAudioSuspended(false);
   sound?.game.events.emit('destroy');
   sound = undefined;
   if (previousDocument === undefined) delete globalThis.document;
   else globalThis.document = previousDocument;
+});
+
+test('ad pause silences music and new effects, then respects the latest user preference', () => {
+  const m = manager(); initAudio(m);
+  playClick();
+  const before = m.effects.length;
+  setAudioSuspended(true);
+  assert.equal(m.track.isPaused, true);
+  playClick();
+  assert.equal(m.effects.length, before);
+  updateSettings({ music: false });
+  setAudioSuspended(false);
+  assert.equal(m.track.isPlaying, false);
+  playClick();
+  assert.equal(m.effects.length, before + 1);
+  updateSettings({ music: true });
+  assert.equal(m.track.isPlaying, true);
 });
 function manager({ locked = false, available = true } = {}) {
   const instance = Object.assign(new EventEmitter(), {

@@ -5,6 +5,7 @@ import { AlbumScene } from './scenes/AlbumScene';
 import { BootScene } from './scenes/BootScene';
 import { GameScene } from './scenes/GameScene';
 import { MenuScene } from './scenes/MenuScene';
+import { ShopScene } from './scenes/ShopScene';
 import { GAME_HEIGHT, GAME_WIDTH } from './constants';
 import { getTheme, toCss } from './theme';
 import { syncDocumentLanguage } from './i18n';
@@ -23,5 +24,5 @@ new Phaser.Game({
     width: GAME_WIDTH,
     height: GAME_HEIGHT,
   },
-  scene: [BootScene, MenuScene, GameScene, AlbumScene],
+  scene: [BootScene, MenuScene, GameScene, AlbumScene, ShopScene],
 });

@@ -1,0 +1,948 @@
+{
+  "albums": [
+    {
+      "id": "pact-city",
+      "title": "Город контрактов",
+      "subtitle": "Охотницы неонового мегаполиса",
+      "accent": 13855317,
+      "theme": "original urban supernatural action, neon city, supernatural contracts and stylish adult monster investigators, no chainsaws or franchise imagery",
+      "characters": [
+        {
+          "title": "Мира · Красный проспект",
+          "image": "images/shop/pact-city-1.jpg"
+        },
+        {
+          "title": "Селена · Ночной дозор",
+          "image": "images/shop/pact-city-2.jpg"
+        },
+        {
+          "title": "Ирис · Тихий договор",
+          "image": "images/shop/pact-city-3.jpg"
+        },
+        {
+          "title": "Вега · Медный дождь",
+          "image": "images/shop/pact-city-4.jpg"
+        },
+        {
+          "title": "Рэйна · Искры города",
+          "image": "images/shop/pact-city-5.jpg"
+        },
+        {
+          "title": "Контракт рассвета",
+          "image": "images/shop/pact-city-6.jpg"
+        }
+      ]
+    },
+    {
+      "id": "skybound",
+      "title": "Небесный предел",
+      "subtitle": "Рыцари парящих миров",
+      "accent": 6852304,
+      "theme": "original high fantasy virtual adventure, floating islands, luminous crystal architecture and elegant adult female knights, no existing game worlds or symbols",
+      "characters": [
+        {
+          "title": "Элира · Первый остров",
+          "image": "images/shop/skybound-1.jpg"
+        },
+        {
+          "title": "Люми · Сапфировый мост",
+          "image": "images/shop/skybound-2.jpg"
+        },
+        {
+          "title": "Сильва · Крылья ветра",
+          "image": "images/shop/skybound-3.jpg"
+        },
+        {
+          "title": "Фрея · Хрустальный зал",
+          "image": "images/shop/skybound-4.jpg"
+        },
+        {
+          "title": "Астрид · Врата неба",
+          "image": "images/shop/skybound-5.jpg"
+        },
+        {
+          "title": "Корона облаков",
+          "image": "images/shop/skybound-6.jpg"
+        }
+      ]
+    },
+    {
+      "id": "dawn-frontier",
+      "title": "Рубеж рассвета",
+      "subtitle": "Пилоты нового горизонта",
+      "accent": 9728699,
+      "theme": "original cinematic science fiction, adult female giant robot pilots wearing modest distinctive tailored jackets over functional opaque flight suits, unique blue silver robots with round shoulders, no recognizable franchise mechas",
+      "characters": [
+        {
+          "title": "Нора · Сигнал",
+          "image": "images/shop/dawn-frontier-1.jpg"
+        },
+        {
+          "title": "Иона · Станция тишины",
+          "image": "images/shop/dawn-frontier-2.jpg"
+        },
+        {
+          "title": "Рута · Первый запуск",
+          "image": "images/shop/dawn-frontier-3.jpg"
+        },
+        {
+          "title": "Лиана · Звёздный док",
+          "image": "images/shop/dawn-frontier-4.jpg"
+        },
+        {
+          "title": "Эстель · Орбита",
+          "image": "images/shop/dawn-frontier-5.jpg"
+        },
+        {
+          "title": "Защитницы рассвета",
+          "image": "images/shop/dawn-frontier-6.jpg"
+        }
+      ]
+    },
+    {
+      "id": "twilight-guard",
+      "title": "Хранители сумерек",
+      "subtitle": "Между миром и легендой",
+      "accent": 8097734,
+      "theme": "original spiritual fantasy, adult female guardians with flowing layered ivory and indigo robes, luminous gates, elegant lanterns and mist, no existing anime uniforms or emblems",
+      "characters": [
+        {
+          "title": "Сайра · Тихая река",
+          "image": "images/shop/twilight-guard-1.jpg"
+        },
+        {
+          "title": "Акира · Лунный сад",
+          "image": "images/shop/twilight-guard-2.jpg"
+        },
+        {
+          "title": "Мэй · Звон колоколов",
+          "image": "images/shop/twilight-guard-3.jpg"
+        },
+        {
+          "title": "Каэла · Лестница звёзд",
+          "image": "images/shop/twilight-guard-4.jpg"
+        },
+        {
+          "title": "Ринна · Страж врат",
+          "image": "images/shop/twilight-guard-5.jpg"
+        },
+        {
+          "title": "Сумеречное равновесие",
+          "image": "images/shop/twilight-guard-6.jpg"
+        }
+      ]
+    },
+    {
+      "id": "copper-quarter",
+      "title": "Медный квартал",
+      "subtitle": "Изобретательницы двух городов",
+      "accent": 12552006,
+      "theme": "original art nouveau steampunk city, independent adult female inventors, brass mechanisms, stained glass and luminous botanical alchemy, no existing franchise characters or symbols",
+      "characters": [
+        {
+          "title": "Адель · Мастерская",
+          "image": "images/shop/copper-quarter-1.jpg"
+        },
+        {
+          "title": "Виола · Янтарный мост",
+          "image": "images/shop/copper-quarter-2.jpg"
+        },
+        {
+          "title": "Тесса · Часовой сад",
+          "image": "images/shop/copper-quarter-3.jpg"
+        },
+        {
+          "title": "Марта · Свет реактора",
+          "image": "images/shop/copper-quarter-4.jpg"
+        },
+        {
+          "title": "Лора · Воздушный порт",
+          "image": "images/shop/copper-quarter-5.jpg"
+        },
+        {
+          "title": "Сердце медного города",
+          "image": "images/shop/copper-quarter-6.jpg"
+        }
+      ]
+    },
+    {
+      "id": "reef-summer",
+      "title": "Лето у рифа",
+      "subtitle": "Истории тёплого побережья",
+      "accent": 3842733,
+      "theme": "original wholesome seaside diving adventure with clearly adult female marine researchers aged 25 to 35, functional full length wetsuits or modest sailing clothing, coral reefs, bright coastal town, no bikinis or alcohol",
+      "characters": [
+        {
+          "title": "Ника · Морской ветер",
+          "image": "images/shop/reef-summer-1.jpg"
+        },
+        {
+          "title": "Майя · Коралловый свет",
+          "image": "images/shop/reef-summer-2.jpg"
+        },
+        {
+          "title": "Лея · Старый маяк",
+          "image": "images/shop/reef-summer-3.jpg"
+        },
+        {
+          "title": "Дана · Остров тишины",
+          "image": "images/shop/reef-summer-4.jpg"
+        },
+        {
+          "title": "Алина · Синяя глубина",
+          "image": "images/shop/reef-summer-5.jpg"
+        },
+        {
+          "title": "Лето без края",
+          "image": "images/shop/reef-summer-6.jpg"
+        }
+      ]
+    },
+    {
+      "id": "night-bloom",
+      "title": "Ночной цветок",
+      "subtitle": "Тайны дождливых улиц",
+      "accent": 11558272,
+      "theme": "original mysterious urban fantasy, adult female investigators in fashionable modest trench coats, rainy city cafes, crimson flowers, abstract magical ribbons, no Tokyo Ghoul characters masks or kagune",
+      "characters": [
+        {
+          "title": "Юна · Кафе на углу",
+          "image": "images/shop/night-bloom-1.jpg"
+        },
+        {
+          "title": "Кира · Красный зонт",
+          "image": "images/shop/night-bloom-2.jpg"
+        },
+        {
+          "title": "Эва · Ночная библиотека",
+          "image": "images/shop/night-bloom-3.jpg"
+        },
+        {
+          "title": "Мина · За стеклом",
+          "image": "images/shop/night-bloom-4.jpg"
+        },
+        {
+          "title": "Ая · Последний фонарь",
+          "image": "images/shop/night-bloom-5.jpg"
+        },
+        {
+          "title": "Цветок полуночи",
+          "image": "images/shop/night-bloom-6.jpg"
+        }
+      ]
+    },
+    {
+      "id": "beyond-horizon",
+      "title": "За горизонтом",
+      "subtitle": "Исследовательницы забытых земель",
+      "accent": 6853226,
+      "theme": "original hopeful frontier exploration fantasy, clearly adult female explorers wearing practical layered travel clothes and capes, ancient stone terraces, airships and boundless green valleys, no franchise uniforms symbols or titans",
+      "characters": [
+        {
+          "title": "Ария · Карта ветров",
+          "image": "images/shop/beyond-horizon-1.jpg"
+        },
+        {
+          "title": "Лив · Далёкий перевал",
+          "image": "images/shop/beyond-horizon-2.jpg"
+        },
+        {
+          "title": "Софи · Каменный мост",
+          "image": "images/shop/beyond-horizon-3.jpg"
+        },
+        {
+          "title": "Инга · Воздушная гавань",
+          "image": "images/shop/beyond-horizon-4.jpg"
+        },
+        {
+          "title": "Роза · Чистое небо",
+          "image": "images/shop/beyond-horizon-5.jpg"
+        },
+        {
+          "title": "Свободный горизонт",
+          "image": "images/shop/beyond-horizon-6.jpg"
+        }
+      ]
+    },
+    {
+      "id": "ink-trail",
+      "title": "Чернильный след",
+      "subtitle": "Загадки старого города",
+      "accent": 9271717,
+      "theme": "original atmospheric detective mystery, intelligent adult female detectives and archivists in elegant modest clothing, handwritten abstract pages without readable text, chess, antique desks and amber lamps, no Death Note imagery or shinigami",
+      "characters": [
+        {
+          "title": "Клара · Первый ключ",
+          "image": "images/shop/ink-trail-1.jpg"
+        },
+        {
+          "title": "Инес · Тихий архив",
+          "image": "images/shop/ink-trail-2.jpg"
+        },
+        {
+          "title": "Вера · Партия в сумерках",
+          "image": "images/shop/ink-trail-3.jpg"
+        },
+        {
+          "title": "Мила · Дом у канала",
+          "image": "images/shop/ink-trail-4.jpg"
+        },
+        {
+          "title": "Эмма · Свет за дверью",
+          "image": "images/shop/ink-trail-5.jpg"
+        },
+        {
+          "title": "Последняя разгадка",
+          "image": "images/shop/ink-trail-6.jpg"
+        }
+      ]
+    },
+    {
+      "id": "wind-valley",
+      "title": "Долина ветров",
+      "subtitle": "Школа стихий и путешествий",
+      "accent": 13603416,
+      "theme": "original East Asian inspired elemental fantasy, clearly adult female wandering martial artists in elegant modest layered travel garments, embroidered sashes, wind ribbons, mountain gardens, no franchise headbands clan emblems or orange ninja outfits",
+      "characters": [
+        {
+          "title": "Юки · Горная тропа",
+          "image": "images/shop/wind-valley-1.jpg"
+        },
+        {
+          "title": "Хана · Сад облаков",
+          "image": "images/shop/wind-valley-2.jpg"
+        },
+        {
+          "title": "Наоми · Песнь воды",
+          "image": "images/shop/wind-valley-3.jpg"
+        },
+        {
+          "title": "Эри · Красный клён",
+          "image": "images/shop/wind-valley-4.jpg"
+        },
+        {
+          "title": "Рэй · Танец листьев",
+          "image": "images/shop/wind-valley-5.jpg"
+        },
+        {
+          "title": "Сердце долины",
+          "image": "images/shop/wind-valley-6.jpg"
+        }
+      ]
+    },
+    {
+      "id": "scarlet-lanterns",
+      "title": "Сад алых фонарей",
+      "subtitle": "Хранительницы лунных троп",
+      "accent": 13069444,
+      "theme": "original historical fantasy, clearly adult female night guardians in elaborate modest layered long kimono and cloaks, wisteria gardens, red paper lanterns, moonlit forests and elemental light, no franchise costumes earrings checkerboards or bamboo mouthpieces",
+      "characters": [
+        {
+          "title": "Суми · Свет фонаря",
+          "image": "images/shop/scarlet-lanterns-1.jpg"
+        },
+        {
+          "title": "Коха · Тропа глициний",
+          "image": "images/shop/scarlet-lanterns-2.jpg"
+        },
+        {
+          "title": "Томо · Лунная река",
+          "image": "images/shop/scarlet-lanterns-3.jpg"
+        },
+        {
+          "title": "Хикари · Тёплый огонь",
+          "image": "images/shop/scarlet-lanterns-4.jpg"
+        },
+        {
+          "title": "Аса · Белая заря",
+          "image": "images/shop/scarlet-lanterns-5.jpg"
+        },
+        {
+          "title": "Хранительницы сада",
+          "image": "images/shop/scarlet-lanterns-6.jpg"
+        }
+      ]
+    },
+    {
+      "id": "huntress-atlas",
+      "title": "Атлас охотниц",
+      "subtitle": "Экспедиции за пределы карты",
+      "accent": 6528905,
+      "theme": "original fantastical treasure expedition, independent clearly adult female professional explorers and collectors in modest tailored adventure clothing, botanical ruins, whimsical airships and ancient observatories, no Hunter x Hunter designs licenses or characters",
+      "characters": [
+        {
+          "title": "Лина · Порт экспедиций",
+          "image": "images/shop/huntress-atlas-1.jpg"
+        },
+        {
+          "title": "Оливия · Зелёный лабиринт",
+          "image": "images/shop/huntress-atlas-2.jpg"
+        },
+        {
+          "title": "Фелиция · Золотой компас",
+          "image": "images/shop/huntress-atlas-3.jpg"
+        },
+        {
+          "title": "Амалия · Звёздный архив",
+          "image": "images/shop/huntress-atlas-4.jpg"
+        },
+        {
+          "title": "Люсия · Остров сокровищ",
+          "image": "images/shop/huntress-atlas-5.jpg"
+        },
+        {
+          "title": "Новая карта мира",
+          "image": "images/shop/huntress-atlas-6.jpg"
+        }
+      ]
+    }
+  ],
+  "images": [
+    {
+      "id": "pact-city-1",
+      "albumId": "pact-city",
+      "title": "Мира · Красный проспект",
+      "output": "public/images/shop/pact-city-1.jpg",
+      "prompt": "Use case: illustration-story. Asset type: premium square collectible anime-art jigsaw illustration. Create wholly ORIGINAL characters and world. Theme: original urban supernatural action, neon city, supernatural contracts and stylish adult monster investigators, no chainsaws or franchise imagery. Subject: an unmistakably mature 28 year old woman, shoulder length chestnut hair, confident warm eyes, elegant ivory and deep red outfit. Setting: a carefully detailed town square or headquarters matching the theme, flowers or tools in foreground, dramatic architectural middle ground. Polished beautiful anime illustration, cinematic composition and lighting, expressive mature faces, sophisticated fashion, highly detailed but readable distinct regions across the complete picture for a jigsaw. Every person must unmistakably look adult, age 25 or older. Clothes fully cover chest and torso, no cleavage, no erotic posing, no nudity, no school uniforms, no juvenile faces. Do not copy existing franchise characters, costumes, logos or signature props. Square full bleed composition, no collage, no panels, no text, no lettering, no watermark, no border."
+    },
+    {
+      "id": "pact-city-2",
+      "albumId": "pact-city",
+      "title": "Селена · Ночной дозор",
+      "output": "public/images/shop/pact-city-2.jpg",
+      "prompt": "Use case: illustration-story. Asset type: premium square collectible anime-art jigsaw illustration. Create wholly ORIGINAL characters and world. Theme: original urban supernatural action, neon city, supernatural contracts and stylish adult monster investigators, no chainsaws or franchise imagery. Subject: an unmistakably mature 30 year old woman, long silver hair tied low, composed expression, elegant sapphire and cream outfit. Setting: a spectacular bridge or balcony matching the theme, glowing sky, interesting foreground objects and distant scenery. Polished beautiful anime illustration, cinematic composition and lighting, expressive mature faces, sophisticated fashion, highly detailed but readable distinct regions across the complete picture for a jigsaw. Every person must unmistakably look adult, age 25 or older. Clothes fully cover chest and torso, no cleavage, no erotic posing, no nudity, no school uniforms, no juvenile faces. Do not copy existing franchise characters, costumes, logos or signature props. Square full bleed composition, no collage, no panels, no text, no lettering, no watermark, no border."
+    },
+    {
+      "id": "pact-city-3",
+      "albumId": "pact-city",
+      "title": "Ирис · Тихий договор",
+      "output": "public/images/shop/pact-city-3.jpg",
+      "prompt": "Use case: illustration-story. Asset type: premium square collectible anime-art jigsaw illustration. Create wholly ORIGINAL characters and world. Theme: original urban supernatural action, neon city, supernatural contracts and stylish adult monster investigators, no chainsaws or franchise imagery. Subject: an unmistakably mature 27 year old woman, wavy dark brown hair, thoughtful smile, forest green and gold outfit. Setting: a beautiful library or garden matching the theme, warm lamps, plants, rich distinct objects across the composition. Polished beautiful anime illustration, cinematic composition and lighting, expressive mature faces, sophisticated fashion, highly detailed but readable distinct regions across the complete picture for a jigsaw. Every person must unmistakably look adult, age 25 or older. Clothes fully cover chest and torso, no cleavage, no erotic posing, no nudity, no school uniforms, no juvenile faces. Do not copy existing franchise characters, costumes, logos or signature props. Square full bleed composition, no collage, no panels, no text, no lettering, no watermark, no border."
+    },
+    {
+      "id": "pact-city-4",
+      "albumId": "pact-city",
+      "title": "Вега · Медный дождь",
+      "output": "public/images/shop/pact-city-4.jpg",
+      "prompt": "Use case: illustration-story. Asset type: premium square collectible anime-art jigsaw illustration. Create wholly ORIGINAL characters and world. Theme: original urban supernatural action, neon city, supernatural contracts and stylish adult monster investigators, no chainsaws or franchise imagery. Subject: an unmistakably mature 32 year old woman, short auburn hair, expressive amber eyes, elegant plum and charcoal outfit. Setting: a station or workshop matching the theme, blue hour light, warm reflected amber highlights, intricate scenery. Polished beautiful anime illustration, cinematic composition and lighting, expressive mature faces, sophisticated fashion, highly detailed but readable distinct regions across the complete picture for a jigsaw. Every person must unmistakably look adult, age 25 or older. Clothes fully cover chest and torso, no cleavage, no erotic posing, no nudity, no school uniforms, no juvenile faces. Do not copy existing franchise characters, costumes, logos or signature props. Square full bleed composition, no collage, no panels, no text, no lettering, no watermark, no border."
+    },
+    {
+      "id": "pact-city-5",
+      "albumId": "pact-city",
+      "title": "Рэйна · Искры города",
+      "output": "public/images/shop/pact-city-5.jpg",
+      "prompt": "Use case: illustration-story. Asset type: premium square collectible anime-art jigsaw illustration. Create wholly ORIGINAL characters and world. Theme: original urban supernatural action, neon city, supernatural contracts and stylish adult monster investigators, no chainsaws or franchise imagery. Subject: an unmistakably mature 29 year old woman, long black hair with a loose side braid, calm determined expression, teal and copper outfit. Setting: a grand gateway or overlook matching the theme, sunrise, layered terrain and striking but readable shapes. Polished beautiful anime illustration, cinematic composition and lighting, expressive mature faces, sophisticated fashion, highly detailed but readable distinct regions across the complete picture for a jigsaw. Every person must unmistakably look adult, age 25 or older. Clothes fully cover chest and torso, no cleavage, no erotic posing, no nudity, no school uniforms, no juvenile faces. Do not copy existing franchise characters, costumes, logos or signature props. Square full bleed composition, no collage, no panels, no text, no lettering, no watermark, no border."
+    },
+    {
+      "id": "pact-city-6",
+      "albumId": "pact-city",
+      "title": "Контракт рассвета",
+      "output": "public/images/shop/pact-city-6.jpg",
+      "prompt": "Use case: illustration-story. Asset type: premium square collectible anime-art jigsaw illustration. Create wholly ORIGINAL characters and world. Theme: original urban supernatural action, neon city, supernatural contracts and stylish adult monster investigators, no chainsaws or franchise imagery. Subject: three unmistakably mature women aged 28 to 35, chestnut silver and black hair, elegant modest layered costumes, heroic welcoming group scene. Setting: a spectacular panoramic finale matching the theme, vast world revealed behind the protagonists, luminous golden and blue sky, intricate foreground, middle ground and horizon. Polished beautiful anime illustration, cinematic composition and lighting, expressive mature faces, sophisticated fashion, highly detailed but readable distinct regions across the complete picture for a jigsaw. Every person must unmistakably look adult, age 25 or older. Clothes fully cover chest and torso, no cleavage, no erotic posing, no nudity, no school uniforms, no juvenile faces. Do not copy existing franchise characters, costumes, logos or signature props. Square full bleed composition, no collage, no panels, no text, no lettering, no watermark, no border."
+    },
+    {
+      "id": "skybound-1",
+      "albumId": "skybound",
+      "title": "Элира · Первый остров",
+      "output": "public/images/shop/skybound-1.jpg",
+      "prompt": "Use case: illustration-story. Asset type: premium square collectible anime-art jigsaw illustration. Create wholly ORIGINAL characters and world. Theme: original high fantasy virtual adventure, floating islands, luminous crystal architecture and elegant adult female knights, no existing game worlds or symbols. Subject: an unmistakably mature 28 year old woman, shoulder length chestnut hair, confident warm eyes, elegant ivory and deep red outfit. Setting: a carefully detailed town square or headquarters matching the theme, flowers or tools in foreground, dramatic architectural middle ground. Polished beautiful anime illustration, cinematic composition and lighting, expressive mature faces, sophisticated fashion, highly detailed but readable distinct regions across the complete picture for a jigsaw. Every person must unmistakably look adult, age 25 or older. Clothes fully cover chest and torso, no cleavage, no erotic posing, no nudity, no school uniforms, no juvenile faces. Do not copy existing franchise characters, costumes, logos or signature props. Square full bleed composition, no collage, no panels, no text, no lettering, no watermark, no border."
+    },
+    {
+      "id": "skybound-2",
+      "albumId": "skybound",
+      "title": "Люми · Сапфировый мост",
+      "output": "public/images/shop/skybound-2.jpg",
+      "prompt": "Use case: illustration-story. Asset type: premium square collectible anime-art jigsaw illustration. Create wholly ORIGINAL characters and world. Theme: original high fantasy virtual adventure, floating islands, luminous crystal architecture and elegant adult female knights, no existing game worlds or symbols. Subject: an unmistakably mature 30 year old woman, long silver hair tied low, composed expression, elegant sapphire and cream outfit. Setting: a spectacular bridge or balcony matching the theme, glowing sky, interesting foreground objects and distant scenery. Polished beautiful anime illustration, cinematic composition and lighting, expressive mature faces, sophisticated fashion, highly detailed but readable distinct regions across the complete picture for a jigsaw. Every person must unmistakably look adult, age 25 or older. Clothes fully cover chest and torso, no cleavage, no erotic posing, no nudity, no school uniforms, no juvenile faces. Do not copy existing franchise characters, costumes, logos or signature props. Square full bleed composition, no collage, no panels, no text, no lettering, no watermark, no border."
+    },
+    {
+      "id": "skybound-3",
+      "albumId": "skybound",
+      "title": "Сильва · Крылья ветра",
+      "output": "public/images/shop/skybound-3.jpg",
+      "prompt": "Use case: illustration-story. Asset type: premium square collectible anime-art jigsaw illustration. Create wholly ORIGINAL characters and world. Theme: original high fantasy virtual adventure, floating islands, luminous crystal architecture and elegant adult female knights, no existing game worlds or symbols. Subject: an unmistakably mature 27 year old woman, wavy dark brown hair, thoughtful smile, forest green and gold outfit. Setting: a beautiful library or garden matching the theme, warm lamps, plants, rich distinct objects across the composition. Polished beautiful anime illustration, cinematic composition and lighting, expressive mature faces, sophisticated fashion, highly detailed but readable distinct regions across the complete picture for a jigsaw. Every person must unmistakably look adult, age 25 or older. Clothes fully cover chest and torso, no cleavage, no erotic posing, no nudity, no school uniforms, no juvenile faces. Do not copy existing franchise characters, costumes, logos or signature props. Square full bleed composition, no collage, no panels, no text, no lettering, no watermark, no border."
+    },
+    {
+      "id": "skybound-4",
+      "albumId": "skybound",
+      "title": "Фрея · Хрустальный зал",
+      "output": "public/images/shop/skybound-4.jpg",
+      "prompt": "Use case: illustration-story. Asset type: premium square collectible anime-art jigsaw illustration. Create wholly ORIGINAL characters and world. Theme: original high fantasy virtual adventure, floating islands, luminous crystal architecture and elegant adult female knights, no existing game worlds or symbols. Subject: an unmistakably mature 32 year old woman, short auburn hair, expressive amber eyes, elegant plum and charcoal outfit. Setting: a station or workshop matching the theme, blue hour light, warm reflected amber highlights, intricate scenery. Polished beautiful anime illustration, cinematic composition and lighting, expressive mature faces, sophisticated fashion, highly detailed but readable distinct regions across the complete picture for a jigsaw. Every person must unmistakably look adult, age 25 or older. Clothes fully cover chest and torso, no cleavage, no erotic posing, no nudity, no school uniforms, no juvenile faces. Do not copy existing franchise characters, costumes, logos or signature props. Square full bleed composition, no collage, no panels, no text, no lettering, no watermark, no border."
+    },
+    {
+      "id": "skybound-5",
+      "albumId": "skybound",
+      "title": "Астрид · Врата неба",
+      "output": "public/images/shop/skybound-5.jpg",
+      "prompt": "Use case: illustration-story. Asset type: premium square collectible anime-art jigsaw illustration. Create wholly ORIGINAL characters and world. Theme: original high fantasy virtual adventure, floating islands, luminous crystal architecture and elegant adult female knights, no existing game worlds or symbols. Subject: an unmistakably mature 29 year old woman, long black hair with a loose side braid, calm determined expression, teal and copper outfit. Setting: a grand gateway or overlook matching the theme, sunrise, layered terrain and striking but readable shapes. Polished beautiful anime illustration, cinematic composition and lighting, expressive mature faces, sophisticated fashion, highly detailed but readable distinct regions across the complete picture for a jigsaw. Every person must unmistakably look adult, age 25 or older. Clothes fully cover chest and torso, no cleavage, no erotic posing, no nudity, no school uniforms, no juvenile faces. Do not copy existing franchise characters, costumes, logos or signature props. Square full bleed composition, no collage, no panels, no text, no lettering, no watermark, no border."
+    },
+    {
+      "id": "skybound-6",
+      "albumId": "skybound",
+      "title": "Корона облаков",
+      "output": "public/images/shop/skybound-6.jpg",
+      "prompt": "Use case: illustration-story. Asset type: premium square collectible anime-art jigsaw illustration. Create wholly ORIGINAL characters and world. Theme: original high fantasy virtual adventure, floating islands, luminous crystal architecture and elegant adult female knights, no existing game worlds or symbols. Subject: three unmistakably mature women aged 28 to 35, chestnut silver and black hair, elegant modest layered costumes, heroic welcoming group scene. Setting: a spectacular panoramic finale matching the theme, vast world revealed behind the protagonists, luminous golden and blue sky, intricate foreground, middle ground and horizon. Polished beautiful anime illustration, cinematic composition and lighting, expressive mature faces, sophisticated fashion, highly detailed but readable distinct regions across the complete picture for a jigsaw. Every person must unmistakably look adult, age 25 or older. Clothes fully cover chest and torso, no cleavage, no erotic posing, no nudity, no school uniforms, no juvenile faces. Do not copy existing franchise characters, costumes, logos or signature props. Square full bleed composition, no collage, no panels, no text, no lettering, no watermark, no border."
+    },
+    {
+      "id": "dawn-frontier-1",
+      "albumId": "dawn-frontier",
+      "title": "Нора · Сигнал",
+      "output": "public/images/shop/dawn-frontier-1.jpg",
+      "prompt": "Use case: illustration-story. Asset type: premium square collectible anime-art jigsaw illustration. Create wholly ORIGINAL characters and world. Theme: original cinematic science fiction, adult female giant robot pilots wearing modest distinctive tailored jackets over functional opaque flight suits, unique blue silver robots with round shoulders, no recognizable franchise mechas. Subject: an unmistakably mature 28 year old woman, shoulder length chestnut hair, confident warm eyes, elegant ivory and deep red outfit. Setting: a carefully detailed town square or headquarters matching the theme, flowers or tools in foreground, dramatic architectural middle ground. Polished beautiful anime illustration, cinematic composition and lighting, expressive mature faces, sophisticated fashion, highly detailed but readable distinct regions across the complete picture for a jigsaw. Every person must unmistakably look adult, age 25 or older. Clothes fully cover chest and torso, no cleavage, no erotic posing, no nudity, no school uniforms, no juvenile faces. Do not copy existing franchise characters, costumes, logos or signature props. Square full bleed composition, no collage, no panels, no text, no lettering, no watermark, no border."
+    },
+    {
+      "id": "dawn-frontier-2",
+      "albumId": "dawn-frontier",
+      "title": "Иона · Станция тишины",
+      "output": "public/images/shop/dawn-frontier-2.jpg",
+      "prompt": "Use case: illustration-story. Asset type: premium square collectible anime-art jigsaw illustration. Create wholly ORIGINAL characters and world. Theme: original cinematic science fiction, adult female giant robot pilots wearing modest distinctive tailored jackets over functional opaque flight suits, unique blue silver robots with round shoulders, no recognizable franchise mechas. Subject: an unmistakably mature 30 year old woman, long silver hair tied low, composed expression, elegant sapphire and cream outfit. Setting: a spectacular bridge or balcony matching the theme, glowing sky, interesting foreground objects and distant scenery. Polished beautiful anime illustration, cinematic composition and lighting, expressive mature faces, sophisticated fashion, highly detailed but readable distinct regions across the complete picture for a jigsaw. Every person must unmistakably look adult, age 25 or older. Clothes fully cover chest and torso, no cleavage, no erotic posing, no nudity, no school uniforms, no juvenile faces. Do not copy existing franchise characters, costumes, logos or signature props. Square full bleed composition, no collage, no panels, no text, no lettering, no watermark, no border."
+    },
+    {
+      "id": "dawn-frontier-3",
+      "albumId": "dawn-frontier",
+      "title": "Рута · Первый запуск",
+      "output": "public/images/shop/dawn-frontier-3.jpg",
+      "prompt": "Use case: illustration-story. Asset type: premium square collectible anime-art jigsaw illustration. Create wholly ORIGINAL characters and world. Theme: original cinematic science fiction, adult female giant robot pilots wearing modest distinctive tailored jackets over functional opaque flight suits, unique blue silver robots with round shoulders, no recognizable franchise mechas. Subject: an unmistakably mature 27 year old woman, wavy dark brown hair, thoughtful smile, forest green and gold outfit. Setting: a beautiful library or garden matching the theme, warm lamps, plants, rich distinct objects across the composition. Polished beautiful anime illustration, cinematic composition and lighting, expressive mature faces, sophisticated fashion, highly detailed but readable distinct regions across the complete picture for a jigsaw. Every person must unmistakably look adult, age 25 or older. Clothes fully cover chest and torso, no cleavage, no erotic posing, no nudity, no school uniforms, no juvenile faces. Do not copy existing franchise characters, costumes, logos or signature props. Square full bleed composition, no collage, no panels, no text, no lettering, no watermark, no border."
+    },
+    {
+      "id": "dawn-frontier-4",
+      "albumId": "dawn-frontier",
+      "title": "Лиана · Звёздный док",
+      "output": "public/images/shop/dawn-frontier-4.jpg",
+      "prompt": "Use case: illustration-story. Asset type: premium square collectible anime-art jigsaw illustration. Create wholly ORIGINAL characters and world. Theme: original cinematic science fiction, adult female giant robot pilots wearing modest distinctive tailored jackets over functional opaque flight suits, unique blue silver robots with round shoulders, no recognizable franchise mechas. Subject: an unmistakably mature 32 year old woman, short auburn hair, expressive amber eyes, elegant plum and charcoal outfit. Setting: a station or workshop matching the theme, blue hour light, warm reflected amber highlights, intricate scenery. Polished beautiful anime illustration, cinematic composition and lighting, expressive mature faces, sophisticated fashion, highly detailed but readable distinct regions across the complete picture for a jigsaw. Every person must unmistakably look adult, age 25 or older. Clothes fully cover chest and torso, no cleavage, no erotic posing, no nudity, no school uniforms, no juvenile faces. Do not copy existing franchise characters, costumes, logos or signature props. Square full bleed composition, no collage, no panels, no text, no lettering, no watermark, no border."
+    },
+    {
+      "id": "dawn-frontier-5",
+      "albumId": "dawn-frontier",
+      "title": "Эстель · Орбита",
+      "output": "public/images/shop/dawn-frontier-5.jpg",
+      "prompt": "Use case: illustration-story. Asset type: premium square collectible anime-art jigsaw illustration. Create wholly ORIGINAL characters and world. Theme: original cinematic science fiction, adult female giant robot pilots wearing modest distinctive tailored jackets over functional opaque flight suits, unique blue silver robots with round shoulders, no recognizable franchise mechas. Subject: an unmistakably mature 29 year old woman, long black hair with a loose side braid, calm determined expression, teal and copper outfit. Setting: a grand gateway or overlook matching the theme, sunrise, layered terrain and striking but readable shapes. Polished beautiful anime illustration, cinematic composition and lighting, expressive mature faces, sophisticated fashion, highly detailed but readable distinct regions across the complete picture for a jigsaw. Every person must unmistakably look adult, age 25 or older. Clothes fully cover chest and torso, no cleavage, no erotic posing, no nudity, no school uniforms, no juvenile faces. Do not copy existing franchise characters, costumes, logos or signature props. Square full bleed composition, no collage, no panels, no text, no lettering, no watermark, no border."
+    },
+    {
+      "id": "dawn-frontier-6",
+      "albumId": "dawn-frontier",
+      "title": "Защитницы рассвета",
+      "output": "public/images/shop/dawn-frontier-6.jpg",
+      "prompt": "Use case: illustration-story. Asset type: premium square collectible anime-art jigsaw illustration. Create wholly ORIGINAL characters and world. Theme: original cinematic science fiction, adult female giant robot pilots wearing modest distinctive tailored jackets over functional opaque flight suits, unique blue silver robots with round shoulders, no recognizable franchise mechas. Subject: three unmistakably mature women aged 28 to 35, chestnut silver and black hair, elegant modest layered costumes, heroic welcoming group scene. Setting: a spectacular panoramic finale matching the theme, vast world revealed behind the protagonists, luminous golden and blue sky, intricate foreground, middle ground and horizon. Polished beautiful anime illustration, cinematic composition and lighting, expressive mature faces, sophisticated fashion, highly detailed but readable distinct regions across the complete picture for a jigsaw. Every person must unmistakably look adult, age 25 or older. Clothes fully cover chest and torso, no cleavage, no erotic posing, no nudity, no school uniforms, no juvenile faces. Do not copy existing franchise characters, costumes, logos or signature props. Square full bleed composition, no collage, no panels, no text, no lettering, no watermark, no border."
+    },
+    {
+      "id": "twilight-guard-1",
+      "albumId": "twilight-guard",
+      "title": "Сайра · Тихая река",
+      "output": "public/images/shop/twilight-guard-1.jpg",
+      "prompt": "Use case: illustration-story. Asset type: premium square collectible anime-art jigsaw illustration. Create wholly ORIGINAL characters and world. Theme: original spiritual fantasy, adult female guardians with flowing layered ivory and indigo robes, luminous gates, elegant lanterns and mist, no existing anime uniforms or emblems. Subject: an unmistakably mature 28 year old woman, shoulder length chestnut hair, confident warm eyes, elegant ivory and deep red outfit. Setting: a carefully detailed town square or headquarters matching the theme, flowers or tools in foreground, dramatic architectural middle ground. Polished beautiful anime illustration, cinematic composition and lighting, expressive mature faces, sophisticated fashion, highly detailed but readable distinct regions across the complete picture for a jigsaw. Every person must unmistakably look adult, age 25 or older. Clothes fully cover chest and torso, no cleavage, no erotic posing, no nudity, no school uniforms, no juvenile faces. Do not copy existing franchise characters, costumes, logos or signature props. Square full bleed composition, no collage, no panels, no text, no lettering, no watermark, no border."
+    },
+    {
+      "id": "twilight-guard-2",
+      "albumId": "twilight-guard",
+      "title": "Акира · Лунный сад",
+      "output": "public/images/shop/twilight-guard-2.jpg",
+      "prompt": "Use case: illustration-story. Asset type: premium square collectible anime-art jigsaw illustration. Create wholly ORIGINAL characters and world. Theme: original spiritual fantasy, adult female guardians with flowing layered ivory and indigo robes, luminous gates, elegant lanterns and mist, no existing anime uniforms or emblems. Subject: an unmistakably mature 30 year old woman, long silver hair tied low, composed expression, elegant sapphire and cream outfit. Setting: a spectacular bridge or balcony matching the theme, glowing sky, interesting foreground objects and distant scenery. Polished beautiful anime illustration, cinematic composition and lighting, expressive mature faces, sophisticated fashion, highly detailed but readable distinct regions across the complete picture for a jigsaw. Every person must unmistakably look adult, age 25 or older. Clothes fully cover chest and torso, no cleavage, no erotic posing, no nudity, no school uniforms, no juvenile faces. Do not copy existing franchise characters, costumes, logos or signature props. Square full bleed composition, no collage, no panels, no text, no lettering, no watermark, no border."
+    },
+    {
+      "id": "twilight-guard-3",
+      "albumId": "twilight-guard",
+      "title": "Мэй · Звон колоколов",
+      "output": "public/images/shop/twilight-guard-3.jpg",
+      "prompt": "Use case: illustration-story. Asset type: premium square collectible anime-art jigsaw illustration. Create wholly ORIGINAL characters and world. Theme: original spiritual fantasy, adult female guardians with flowing layered ivory and indigo robes, luminous gates, elegant lanterns and mist, no existing anime uniforms or emblems. Subject: an unmistakably mature 27 year old woman, wavy dark brown hair, thoughtful smile, forest green and gold outfit. Setting: a beautiful library or garden matching the theme, warm lamps, plants, rich distinct objects across the composition. Polished beautiful anime illustration, cinematic composition and lighting, expressive mature faces, sophisticated fashion, highly detailed but readable distinct regions across the complete picture for a jigsaw. Every person must unmistakably look adult, age 25 or older. Clothes fully cover chest and torso, no cleavage, no erotic posing, no nudity, no school uniforms, no juvenile faces. Do not copy existing franchise characters, costumes, logos or signature props. Square full bleed composition, no collage, no panels, no text, no lettering, no watermark, no border."
+    },
+    {
+      "id": "twilight-guard-4",
+      "albumId": "twilight-guard",
+      "title": "Каэла · Лестница звёзд",
+      "output": "public/images/shop/twilight-guard-4.jpg",
+      "prompt": "Use case: illustration-story. Asset type: premium square collectible anime-art jigsaw illustration. Create wholly ORIGINAL characters and world. Theme: original spiritual fantasy, adult female guardians with flowing layered ivory and indigo robes, luminous gates, elegant lanterns and mist, no existing anime uniforms or emblems. Subject: an unmistakably mature 32 year old woman, short auburn hair, expressive amber eyes, elegant plum and charcoal outfit. Setting: a station or workshop matching the theme, blue hour light, warm reflected amber highlights, intricate scenery. Polished beautiful anime illustration, cinematic composition and lighting, expressive mature faces, sophisticated fashion, highly detailed but readable distinct regions across the complete picture for a jigsaw. Every person must unmistakably look adult, age 25 or older. Clothes fully cover chest and torso, no cleavage, no erotic posing, no nudity, no school uniforms, no juvenile faces. Do not copy existing franchise characters, costumes, logos or signature props. Square full bleed composition, no collage, no panels, no text, no lettering, no watermark, no border."
+    },
+    {
+      "id": "twilight-guard-5",
+      "albumId": "twilight-guard",
+      "title": "Ринна · Страж врат",
+      "output": "public/images/shop/twilight-guard-5.jpg",
+      "prompt": "Use case: illustration-story. Asset type: premium square collectible anime-art jigsaw illustration. Create wholly ORIGINAL characters and world. Theme: original spiritual fantasy, adult female guardians with flowing layered ivory and indigo robes, luminous gates, elegant lanterns and mist, no existing anime uniforms or emblems. Subject: an unmistakably mature 29 year old woman, long black hair with a loose side braid, calm determined expression, teal and copper outfit. Setting: a grand gateway or overlook matching the theme, sunrise, layered terrain and striking but readable shapes. Polished beautiful anime illustration, cinematic composition and lighting, expressive mature faces, sophisticated fashion, highly detailed but readable distinct regions across the complete picture for a jigsaw. Every person must unmistakably look adult, age 25 or older. Clothes fully cover chest and torso, no cleavage, no erotic posing, no nudity, no school uniforms, no juvenile faces. Do not copy existing franchise characters, costumes, logos or signature props. Square full bleed composition, no collage, no panels, no text, no lettering, no watermark, no border."
+    },
+    {
+      "id": "twilight-guard-6",
+      "albumId": "twilight-guard",
+      "title": "Сумеречное равновесие",
+      "output": "public/images/shop/twilight-guard-6.jpg",
+      "prompt": "Use case: illustration-story. Asset type: premium square collectible anime-art jigsaw illustration. Create wholly ORIGINAL characters and world. Theme: original spiritual fantasy, adult female guardians with flowing layered ivory and indigo robes, luminous gates, elegant lanterns and mist, no existing anime uniforms or emblems. Subject: three unmistakably mature women aged 28 to 35, chestnut silver and black hair, elegant modest layered costumes, heroic welcoming group scene. Setting: a spectacular panoramic finale matching the theme, vast world revealed behind the protagonists, luminous golden and blue sky, intricate foreground, middle ground and horizon. Polished beautiful anime illustration, cinematic composition and lighting, expressive mature faces, sophisticated fashion, highly detailed but readable distinct regions across the complete picture for a jigsaw. Every person must unmistakably look adult, age 25 or older. Clothes fully cover chest and torso, no cleavage, no erotic posing, no nudity, no school uniforms, no juvenile faces. Do not copy existing franchise characters, costumes, logos or signature props. Square full bleed composition, no collage, no panels, no text, no lettering, no watermark, no border."
+    },
+    {
+      "id": "copper-quarter-1",
+      "albumId": "copper-quarter",
+      "title": "Адель · Мастерская",
+      "output": "public/images/shop/copper-quarter-1.jpg",
+      "prompt": "Use case: illustration-story. Asset type: premium square collectible anime-art jigsaw illustration. Create wholly ORIGINAL characters and world. Theme: original art nouveau steampunk city, independent adult female inventors, brass mechanisms, stained glass and luminous botanical alchemy, no existing franchise characters or symbols. Subject: an unmistakably mature 28 year old woman, shoulder length chestnut hair, confident warm eyes, elegant ivory and deep red outfit. Setting: a carefully detailed town square or headquarters matching the theme, flowers or tools in foreground, dramatic architectural middle ground. Polished beautiful anime illustration, cinematic composition and lighting, expressive mature faces, sophisticated fashion, highly detailed but readable distinct regions across the complete picture for a jigsaw. Every person must unmistakably look adult, age 25 or older. Clothes fully cover chest and torso, no cleavage, no erotic posing, no nudity, no school uniforms, no juvenile faces. Do not copy existing franchise characters, costumes, logos or signature props. Square full bleed composition, no collage, no panels, no text, no lettering, no watermark, no border."
+    },
+    {
+      "id": "copper-quarter-2",
+      "albumId": "copper-quarter",
+      "title": "Виола · Янтарный мост",
+      "output": "public/images/shop/copper-quarter-2.jpg",
+      "prompt": "Use case: illustration-story. Asset type: premium square collectible anime-art jigsaw illustration. Create wholly ORIGINAL characters and world. Theme: original art nouveau steampunk city, independent adult female inventors, brass mechanisms, stained glass and luminous botanical alchemy, no existing franchise characters or symbols. Subject: an unmistakably mature 30 year old woman, long silver hair tied low, composed expression, elegant sapphire and cream outfit. Setting: a spectacular bridge or balcony matching the theme, glowing sky, interesting foreground objects and distant scenery. Polished beautiful anime illustration, cinematic composition and lighting, expressive mature faces, sophisticated fashion, highly detailed but readable distinct regions across the complete picture for a jigsaw. Every person must unmistakably look adult, age 25 or older. Clothes fully cover chest and torso, no cleavage, no erotic posing, no nudity, no school uniforms, no juvenile faces. Do not copy existing franchise characters, costumes, logos or signature props. Square full bleed composition, no collage, no panels, no text, no lettering, no watermark, no border."
+    },
+    {
+      "id": "copper-quarter-3",
+      "albumId": "copper-quarter",
+      "title": "Тесса · Часовой сад",
+      "output": "public/images/shop/copper-quarter-3.jpg",
+      "prompt": "Use case: illustration-story. Asset type: premium square collectible anime-art jigsaw illustration. Create wholly ORIGINAL characters and world. Theme: original art nouveau steampunk city, independent adult female inventors, brass mechanisms, stained glass and luminous botanical alchemy, no existing franchise characters or symbols. Subject: an unmistakably mature 27 year old woman, wavy dark brown hair, thoughtful smile, forest green and gold outfit. Setting: a beautiful library or garden matching the theme, warm lamps, plants, rich distinct objects across the composition. Polished beautiful anime illustration, cinematic composition and lighting, expressive mature faces, sophisticated fashion, highly detailed but readable distinct regions across the complete picture for a jigsaw. Every person must unmistakably look adult, age 25 or older. Clothes fully cover chest and torso, no cleavage, no erotic posing, no nudity, no school uniforms, no juvenile faces. Do not copy existing franchise characters, costumes, logos or signature props. Square full bleed composition, no collage, no panels, no text, no lettering, no watermark, no border."
+    },
+    {
+      "id": "copper-quarter-4",
+      "albumId": "copper-quarter",
+      "title": "Марта · Свет реактора",
+      "output": "public/images/shop/copper-quarter-4.jpg",
+      "prompt": "Use case: illustration-story. Asset type: premium square collectible anime-art jigsaw illustration. Create wholly ORIGINAL characters and world. Theme: original art nouveau steampunk city, independent adult female inventors, brass mechanisms, stained glass and luminous botanical alchemy, no existing franchise characters or symbols. Subject: an unmistakably mature 32 year old woman, short auburn hair, expressive amber eyes, elegant plum and charcoal outfit. Setting: a station or workshop matching the theme, blue hour light, warm reflected amber highlights, intricate scenery. Polished beautiful anime illustration, cinematic composition and lighting, expressive mature faces, sophisticated fashion, highly detailed but readable distinct regions across the complete picture for a jigsaw. Every person must unmistakably look adult, age 25 or older. Clothes fully cover chest and torso, no cleavage, no erotic posing, no nudity, no school uniforms, no juvenile faces. Do not copy existing franchise characters, costumes, logos or signature props. Square full bleed composition, no collage, no panels, no text, no lettering, no watermark, no border."
+    },
+    {
+      "id": "copper-quarter-5",
+      "albumId": "copper-quarter",
+      "title": "Лора · Воздушный порт",
+      "output": "public/images/shop/copper-quarter-5.jpg",
+      "prompt": "Use case: illustration-story. Asset type: premium square collectible anime-art jigsaw illustration. Create wholly ORIGINAL characters and world. Theme: original art nouveau steampunk city, independent adult female inventors, brass mechanisms, stained glass and luminous botanical alchemy, no existing franchise characters or symbols. Subject: an unmistakably mature 29 year old woman, long black hair with a loose side braid, calm determined expression, teal and copper outfit. Setting: a grand gateway or overlook matching the theme, sunrise, layered terrain and striking but readable shapes. Polished beautiful anime illustration, cinematic composition and lighting, expressive mature faces, sophisticated fashion, highly detailed but readable distinct regions across the complete picture for a jigsaw. Every person must unmistakably look adult, age 25 or older. Clothes fully cover chest and torso, no cleavage, no erotic posing, no nudity, no school uniforms, no juvenile faces. Do not copy existing franchise characters, costumes, logos or signature props. Square full bleed composition, no collage, no panels, no text, no lettering, no watermark, no border."
+    },
+    {
+      "id": "copper-quarter-6",
+      "albumId": "copper-quarter",
+      "title": "Сердце медного города",
+      "output": "public/images/shop/copper-quarter-6.jpg",
+      "prompt": "Use case: illustration-story. Asset type: premium square collectible anime-art jigsaw illustration. Create wholly ORIGINAL characters and world. Theme: original art nouveau steampunk city, independent adult female inventors, brass mechanisms, stained glass and luminous botanical alchemy, no existing franchise characters or symbols. Subject: three unmistakably mature women aged 28 to 35, chestnut silver and black hair, elegant modest layered costumes, heroic welcoming group scene. Setting: a spectacular panoramic finale matching the theme, vast world revealed behind the protagonists, luminous golden and blue sky, intricate foreground, middle ground and horizon. Polished beautiful anime illustration, cinematic composition and lighting, expressive mature faces, sophisticated fashion, highly detailed but readable distinct regions across the complete picture for a jigsaw. Every person must unmistakably look adult, age 25 or older. Clothes fully cover chest and torso, no cleavage, no erotic posing, no nudity, no school uniforms, no juvenile faces. Do not copy existing franchise characters, costumes, logos or signature props. Square full bleed composition, no collage, no panels, no text, no lettering, no watermark, no border."
+    },
+    {
+      "id": "reef-summer-1",
+      "albumId": "reef-summer",
+      "title": "Ника · Морской ветер",
+      "output": "public/images/shop/reef-summer-1.jpg",
+      "prompt": "Use case: illustration-story. Asset type: premium square collectible anime-art jigsaw illustration. Create wholly ORIGINAL characters and world. Theme: original wholesome seaside diving adventure with clearly adult female marine researchers aged 25 to 35, functional full length wetsuits or modest sailing clothing, coral reefs, bright coastal town, no bikinis or alcohol. Subject: an unmistakably mature 28 year old woman, shoulder length chestnut hair, confident warm eyes, elegant ivory and deep red outfit. Setting: a carefully detailed town square or headquarters matching the theme, flowers or tools in foreground, dramatic architectural middle ground. Polished beautiful anime illustration, cinematic composition and lighting, expressive mature faces, sophisticated fashion, highly detailed but readable distinct regions across the complete picture for a jigsaw. Every person must unmistakably look adult, age 25 or older. Clothes fully cover chest and torso, no cleavage, no erotic posing, no nudity, no school uniforms, no juvenile faces. Do not copy existing franchise characters, costumes, logos or signature props. Square full bleed composition, no collage, no panels, no text, no lettering, no watermark, no border."
+    },
+    {
+      "id": "reef-summer-2",
+      "albumId": "reef-summer",
+      "title": "Майя · Коралловый свет",
+      "output": "public/images/shop/reef-summer-2.jpg",
+      "prompt": "Use case: illustration-story. Asset type: premium square collectible anime-art jigsaw illustration. Create wholly ORIGINAL characters and world. Theme: original wholesome seaside diving adventure with clearly adult female marine researchers aged 25 to 35, functional full length wetsuits or modest sailing clothing, coral reefs, bright coastal town, no bikinis or alcohol. Subject: an unmistakably mature 30 year old woman, long silver hair tied low, composed expression, elegant sapphire and cream outfit. Setting: a spectacular bridge or balcony matching the theme, glowing sky, interesting foreground objects and distant scenery. Polished beautiful anime illustration, cinematic composition and lighting, expressive mature faces, sophisticated fashion, highly detailed but readable distinct regions across the complete picture for a jigsaw. Every person must unmistakably look adult, age 25 or older. Clothes fully cover chest and torso, no cleavage, no erotic posing, no nudity, no school uniforms, no juvenile faces. Do not copy existing franchise characters, costumes, logos or signature props. Square full bleed composition, no collage, no panels, no text, no lettering, no watermark, no border."
+    },
+    {
+      "id": "reef-summer-3",
+      "albumId": "reef-summer",
+      "title": "Лея · Старый маяк",
+      "output": "public/images/shop/reef-summer-3.jpg",
+      "prompt": "Use case: illustration-story. Asset type: premium square collectible anime-art jigsaw illustration. Create wholly ORIGINAL characters and world. Theme: original wholesome seaside diving adventure with clearly adult female marine researchers aged 25 to 35, functional full length wetsuits or modest sailing clothing, coral reefs, bright coastal town, no bikinis or alcohol. Subject: an unmistakably mature 27 year old woman, wavy dark brown hair, thoughtful smile, forest green and gold outfit. Setting: a beautiful library or garden matching the theme, warm lamps, plants, rich distinct objects across the composition. Polished beautiful anime illustration, cinematic composition and lighting, expressive mature faces, sophisticated fashion, highly detailed but readable distinct regions across the complete picture for a jigsaw. Every person must unmistakably look adult, age 25 or older. Clothes fully cover chest and torso, no cleavage, no erotic posing, no nudity, no school uniforms, no juvenile faces. Do not copy existing franchise characters, costumes, logos or signature props. Square full bleed composition, no collage, no panels, no text, no lettering, no watermark, no border."
+    },
+    {
+      "id": "reef-summer-4",
+      "albumId": "reef-summer",
+      "title": "Дана · Остров тишины",
+      "output": "public/images/shop/reef-summer-4.jpg",
+      "prompt": "Use case: illustration-story. Asset type: premium square collectible anime-art jigsaw illustration. Create wholly ORIGINAL characters and world. Theme: original wholesome seaside diving adventure with clearly adult female marine researchers aged 25 to 35, functional full length wetsuits or modest sailing clothing, coral reefs, bright coastal town, no bikinis or alcohol. Subject: an unmistakably mature 32 year old woman, short auburn hair, expressive amber eyes, elegant plum and charcoal outfit. Setting: a station or workshop matching the theme, blue hour light, warm reflected amber highlights, intricate scenery. Polished beautiful anime illustration, cinematic composition and lighting, expressive mature faces, sophisticated fashion, highly detailed but readable distinct regions across the complete picture for a jigsaw. Every person must unmistakably look adult, age 25 or older. Clothes fully cover chest and torso, no cleavage, no erotic posing, no nudity, no school uniforms, no juvenile faces. Do not copy existing franchise characters, costumes, logos or signature props. Square full bleed composition, no collage, no panels, no text, no lettering, no watermark, no border."
+    },
+    {
+      "id": "reef-summer-5",
+      "albumId": "reef-summer",
+      "title": "Алина · Синяя глубина",
+      "output": "public/images/shop/reef-summer-5.jpg",
+      "prompt": "Use case: illustration-story. Asset type: premium square collectible anime-art jigsaw illustration. Create wholly ORIGINAL characters and world. Theme: original wholesome seaside diving adventure with clearly adult female marine researchers aged 25 to 35, functional full length wetsuits or modest sailing clothing, coral reefs, bright coastal town, no bikinis or alcohol. Subject: an unmistakably mature 29 year old woman, long black hair with a loose side braid, calm determined expression, teal and copper outfit. Setting: a grand gateway or overlook matching the theme, sunrise, layered terrain and striking but readable shapes. Polished beautiful anime illustration, cinematic composition and lighting, expressive mature faces, sophisticated fashion, highly detailed but readable distinct regions across the complete picture for a jigsaw. Every person must unmistakably look adult, age 25 or older. Clothes fully cover chest and torso, no cleavage, no erotic posing, no nudity, no school uniforms, no juvenile faces. Do not copy existing franchise characters, costumes, logos or signature props. Square full bleed composition, no collage, no panels, no text, no lettering, no watermark, no border."
+    },
+    {
+      "id": "reef-summer-6",
+      "albumId": "reef-summer",
+      "title": "Лето без края",
+      "output": "public/images/shop/reef-summer-6.jpg",
+      "prompt": "Use case: illustration-story. Asset type: premium square collectible anime-art jigsaw illustration. Create wholly ORIGINAL characters and world. Theme: original wholesome seaside diving adventure with clearly adult female marine researchers aged 25 to 35, functional full length wetsuits or modest sailing clothing, coral reefs, bright coastal town, no bikinis or alcohol. Subject: three unmistakably mature women aged 28 to 35, chestnut silver and black hair, elegant modest layered costumes, heroic welcoming group scene. Setting: a spectacular panoramic finale matching the theme, vast world revealed behind the protagonists, luminous golden and blue sky, intricate foreground, middle ground and horizon. Polished beautiful anime illustration, cinematic composition and lighting, expressive mature faces, sophisticated fashion, highly detailed but readable distinct regions across the complete picture for a jigsaw. Every person must unmistakably look adult, age 25 or older. Clothes fully cover chest and torso, no cleavage, no erotic posing, no nudity, no school uniforms, no juvenile faces. Do not copy existing franchise characters, costumes, logos or signature props. Square full bleed composition, no collage, no panels, no text, no lettering, no watermark, no border."
+    },
+    {
+      "id": "night-bloom-1",
+      "albumId": "night-bloom",
+      "title": "Юна · Кафе на углу",
+      "output": "public/images/shop/night-bloom-1.jpg",
+      "prompt": "Use case: illustration-story. Asset type: premium square collectible anime-art jigsaw illustration. Create wholly ORIGINAL characters and world. Theme: original mysterious urban fantasy, adult female investigators in fashionable modest trench coats, rainy city cafes, crimson flowers, abstract magical ribbons, no Tokyo Ghoul characters masks or kagune. Subject: an unmistakably mature 28 year old woman, shoulder length chestnut hair, confident warm eyes, elegant ivory and deep red outfit. Setting: a carefully detailed town square or headquarters matching the theme, flowers or tools in foreground, dramatic architectural middle ground. Polished beautiful anime illustration, cinematic composition and lighting, expressive mature faces, sophisticated fashion, highly detailed but readable distinct regions across the complete picture for a jigsaw. Every person must unmistakably look adult, age 25 or older. Clothes fully cover chest and torso, no cleavage, no erotic posing, no nudity, no school uniforms, no juvenile faces. Do not copy existing franchise characters, costumes, logos or signature props. Square full bleed composition, no collage, no panels, no text, no lettering, no watermark, no border."
+    },
+    {
+      "id": "night-bloom-2",
+      "albumId": "night-bloom",
+      "title": "Кира · Красный зонт",
+      "output": "public/images/shop/night-bloom-2.jpg",
+      "prompt": "Use case: illustration-story. Asset type: premium square collectible anime-art jigsaw illustration. Create wholly ORIGINAL characters and world. Theme: original mysterious urban fantasy, adult female investigators in fashionable modest trench coats, rainy city cafes, crimson flowers, abstract magical ribbons, no Tokyo Ghoul characters masks or kagune. Subject: an unmistakably mature 30 year old woman, long silver hair tied low, composed expression, elegant sapphire and cream outfit. Setting: a spectacular bridge or balcony matching the theme, glowing sky, interesting foreground objects and distant scenery. Polished beautiful anime illustration, cinematic composition and lighting, expressive mature faces, sophisticated fashion, highly detailed but readable distinct regions across the complete picture for a jigsaw. Every person must unmistakably look adult, age 25 or older. Clothes fully cover chest and torso, no cleavage, no erotic posing, no nudity, no school uniforms, no juvenile faces. Do not copy existing franchise characters, costumes, logos or signature props. Square full bleed composition, no collage, no panels, no text, no lettering, no watermark, no border."
+    },
+    {
+      "id": "night-bloom-3",
+      "albumId": "night-bloom",
+      "title": "Эва · Ночная библиотека",
+      "output": "public/images/shop/night-bloom-3.jpg",
+      "prompt": "Use case: illustration-story. Asset type: premium square collectible anime-art jigsaw illustration. Create wholly ORIGINAL characters and world. Theme: original mysterious urban fantasy, adult female investigators in fashionable modest trench coats, rainy city cafes, crimson flowers, abstract magical ribbons, no Tokyo Ghoul characters masks or kagune. Subject: an unmistakably mature 27 year old woman, wavy dark brown hair, thoughtful smile, forest green and gold outfit. Setting: a beautiful library or garden matching the theme, warm lamps, plants, rich distinct objects across the composition. Polished beautiful anime illustration, cinematic composition and lighting, expressive mature faces, sophisticated fashion, highly detailed but readable distinct regions across the complete picture for a jigsaw. Every person must unmistakably look adult, age 25 or older. Clothes fully cover chest and torso, no cleavage, no erotic posing, no nudity, no school uniforms, no juvenile faces. Do not copy existing franchise characters, costumes, logos or signature props. Square full bleed composition, no collage, no panels, no text, no lettering, no watermark, no border."
+    },
+    {
+      "id": "night-bloom-4",
+      "albumId": "night-bloom",
+      "title": "Мина · За стеклом",
+      "output": "public/images/shop/night-bloom-4.jpg",
+      "prompt": "Use case: illustration-story. Asset type: premium square collectible anime-art jigsaw illustration. Create wholly ORIGINAL characters and world. Theme: original mysterious urban fantasy, adult female investigators in fashionable modest trench coats, rainy city cafes, crimson flowers, abstract magical ribbons, no Tokyo Ghoul characters masks or kagune. Subject: an unmistakably mature 32 year old woman, short auburn hair, expressive amber eyes, elegant plum and charcoal outfit. Setting: a station or workshop matching the theme, blue hour light, warm reflected amber highlights, intricate scenery. Polished beautiful anime illustration, cinematic composition and lighting, expressive mature faces, sophisticated fashion, highly detailed but readable distinct regions across the complete picture for a jigsaw. Every person must unmistakably look adult, age 25 or older. Clothes fully cover chest and torso, no cleavage, no erotic posing, no nudity, no school uniforms, no juvenile faces. Do not copy existing franchise characters, costumes, logos or signature props. Square full bleed composition, no collage, no panels, no text, no lettering, no watermark, no border."
+    },
+    {
+      "id": "night-bloom-5",
+      "albumId": "night-bloom",
+      "title": "Ая · Последний фонарь",
+      "output": "public/images/shop/night-bloom-5.jpg",
+      "prompt": "Use case: illustration-story. Asset type: premium square collectible anime-art jigsaw illustration. Create wholly ORIGINAL characters and world. Theme: original mysterious urban fantasy, adult female investigators in fashionable modest trench coats, rainy city cafes, crimson flowers, abstract magical ribbons, no Tokyo Ghoul characters masks or kagune. Subject: an unmistakably mature 29 year old woman, long black hair with a loose side braid, calm determined expression, teal and copper outfit. Setting: a grand gateway or overlook matching the theme, sunrise, layered terrain and striking but readable shapes. Polished beautiful anime illustration, cinematic composition and lighting, expressive mature faces, sophisticated fashion, highly detailed but readable distinct regions across the complete picture for a jigsaw. Every person must unmistakably look adult, age 25 or older. Clothes fully cover chest and torso, no cleavage, no erotic posing, no nudity, no school uniforms, no juvenile faces. Do not copy existing franchise characters, costumes, logos or signature props. Square full bleed composition, no collage, no panels, no text, no lettering, no watermark, no border."
+    },
+    {
+      "id": "night-bloom-6",
+      "albumId": "night-bloom",
+      "title": "Цветок полуночи",
+      "output": "public/images/shop/night-bloom-6.jpg",
+      "prompt": "Use case: illustration-story. Asset type: premium square collectible anime-art jigsaw illustration. Create wholly ORIGINAL characters and world. Theme: original mysterious urban fantasy, adult female investigators in fashionable modest trench coats, rainy city cafes, crimson flowers, abstract magical ribbons, no Tokyo Ghoul characters masks or kagune. Subject: three unmistakably mature women aged 28 to 35, chestnut silver and black hair, elegant modest layered costumes, heroic welcoming group scene. Setting: a spectacular panoramic finale matching the theme, vast world revealed behind the protagonists, luminous golden and blue sky, intricate foreground, middle ground and horizon. Polished beautiful anime illustration, cinematic composition and lighting, expressive mature faces, sophisticated fashion, highly detailed but readable distinct regions across the complete picture for a jigsaw. Every person must unmistakably look adult, age 25 or older. Clothes fully cover chest and torso, no cleavage, no erotic posing, no nudity, no school uniforms, no juvenile faces. Do not copy existing franchise characters, costumes, logos or signature props. Square full bleed composition, no collage, no panels, no text, no lettering, no watermark, no border."
+    },
+    {
+      "id": "beyond-horizon-1",
+      "albumId": "beyond-horizon",
+      "title": "Ария · Карта ветров",
+      "output": "public/images/shop/beyond-horizon-1.jpg",
+      "prompt": "Use case: illustration-story. Asset type: premium square collectible anime-art jigsaw illustration. Create wholly ORIGINAL characters and world. Theme: original hopeful frontier exploration fantasy, clearly adult female explorers wearing practical layered travel clothes and capes, ancient stone terraces, airships and boundless green valleys, no franchise uniforms symbols or titans. Subject: an unmistakably mature 28 year old woman, shoulder length chestnut hair, confident warm eyes, elegant ivory and deep red outfit. Setting: a carefully detailed town square or headquarters matching the theme, flowers or tools in foreground, dramatic architectural middle ground. Polished beautiful anime illustration, cinematic composition and lighting, expressive mature faces, sophisticated fashion, highly detailed but readable distinct regions across the complete picture for a jigsaw. Every person must unmistakably look adult, age 25 or older. Clothes fully cover chest and torso, no cleavage, no erotic posing, no nudity, no school uniforms, no juvenile faces. Do not copy existing franchise characters, costumes, logos or signature props. Square full bleed composition, no collage, no panels, no text, no lettering, no watermark, no border."
+    },
+    {
+      "id": "beyond-horizon-2",
+      "albumId": "beyond-horizon",
+      "title": "Лив · Далёкий перевал",
+      "output": "public/images/shop/beyond-horizon-2.jpg",
+      "prompt": "Use case: illustration-story. Asset type: premium square collectible anime-art jigsaw illustration. Create wholly ORIGINAL characters and world. Theme: original hopeful frontier exploration fantasy, clearly adult female explorers wearing practical layered travel clothes and capes, ancient stone terraces, airships and boundless green valleys, no franchise uniforms symbols or titans. Subject: an unmistakably mature 30 year old woman, long silver hair tied low, composed expression, elegant sapphire and cream outfit. Setting: a spectacular bridge or balcony matching the theme, glowing sky, interesting foreground objects and distant scenery. Polished beautiful anime illustration, cinematic composition and lighting, expressive mature faces, sophisticated fashion, highly detailed but readable distinct regions across the complete picture for a jigsaw. Every person must unmistakably look adult, age 25 or older. Clothes fully cover chest and torso, no cleavage, no erotic posing, no nudity, no school uniforms, no juvenile faces. Do not copy existing franchise characters, costumes, logos or signature props. Square full bleed composition, no collage, no panels, no text, no lettering, no watermark, no border."
+    },
+    {
+      "id": "beyond-horizon-3",
+      "albumId": "beyond-horizon",
+      "title": "Софи · Каменный мост",
+      "output": "public/images/shop/beyond-horizon-3.jpg",
+      "prompt": "Use case: illustration-story. Asset type: premium square collectible anime-art jigsaw illustration. Create wholly ORIGINAL characters and world. Theme: original hopeful frontier exploration fantasy, clearly adult female explorers wearing practical layered travel clothes and capes, ancient stone terraces, airships and boundless green valleys, no franchise uniforms symbols or titans. Subject: an unmistakably mature 27 year old woman, wavy dark brown hair, thoughtful smile, forest green and gold outfit. Setting: a beautiful library or garden matching the theme, warm lamps, plants, rich distinct objects across the composition. Polished beautiful anime illustration, cinematic composition and lighting, expressive mature faces, sophisticated fashion, highly detailed but readable distinct regions across the complete picture for a jigsaw. Every person must unmistakably look adult, age 25 or older. Clothes fully cover chest and torso, no cleavage, no erotic posing, no nudity, no school uniforms, no juvenile faces. Do not copy existing franchise characters, costumes, logos or signature props. Square full bleed composition, no collage, no panels, no text, no lettering, no watermark, no border."
+    },
+    {
+      "id": "beyond-horizon-4",
+      "albumId": "beyond-horizon",
+      "title": "Инга · Воздушная гавань",
+      "output": "public/images/shop/beyond-horizon-4.jpg",
+      "prompt": "Use case: illustration-story. Asset type: premium square collectible anime-art jigsaw illustration. Create wholly ORIGINAL characters and world. Theme: original hopeful frontier exploration fantasy, clearly adult female explorers wearing practical layered travel clothes and capes, ancient stone terraces, airships and boundless green valleys, no franchise uniforms symbols or titans. Subject: an unmistakably mature 32 year old woman, short auburn hair, expressive amber eyes, elegant plum and charcoal outfit. Setting: a station or workshop matching the theme, blue hour light, warm reflected amber highlights, intricate scenery. Polished beautiful anime illustration, cinematic composition and lighting, expressive mature faces, sophisticated fashion, highly detailed but readable distinct regions across the complete picture for a jigsaw. Every person must unmistakably look adult, age 25 or older. Clothes fully cover chest and torso, no cleavage, no erotic posing, no nudity, no school uniforms, no juvenile faces. Do not copy existing franchise characters, costumes, logos or signature props. Square full bleed composition, no collage, no panels, no text, no lettering, no watermark, no border."
+    },
+    {
+      "id": "beyond-horizon-5",
+      "albumId": "beyond-horizon",
+      "title": "Роза · Чистое небо",
+      "output": "public/images/shop/beyond-horizon-5.jpg",
+      "prompt": "Use case: illustration-story. Asset type: premium square collectible anime-art jigsaw illustration. Create wholly ORIGINAL characters and world. Theme: original hopeful frontier exploration fantasy, clearly adult female explorers wearing practical layered travel clothes and capes, ancient stone terraces, airships and boundless green valleys, no franchise uniforms symbols or titans. Subject: an unmistakably mature 29 year old woman, long black hair with a loose side braid, calm determined expression, teal and copper outfit. Setting: a grand gateway or overlook matching the theme, sunrise, layered terrain and striking but readable shapes. Polished beautiful anime illustration, cinematic composition and lighting, expressive mature faces, sophisticated fashion, highly detailed but readable distinct regions across the complete picture for a jigsaw. Every person must unmistakably look adult, age 25 or older. Clothes fully cover chest and torso, no cleavage, no erotic posing, no nudity, no school uniforms, no juvenile faces. Do not copy existing franchise characters, costumes, logos or signature props. Square full bleed composition, no collage, no panels, no text, no lettering, no watermark, no border."
+    },
+    {
+      "id": "beyond-horizon-6",
+      "albumId": "beyond-horizon",
+      "title": "Свободный горизонт",
+      "output": "public/images/shop/beyond-horizon-6.jpg",
+      "prompt": "Use case: illustration-story. Asset type: premium square collectible anime-art jigsaw illustration. Create wholly ORIGINAL characters and world. Theme: original hopeful frontier exploration fantasy, clearly adult female explorers wearing practical layered travel clothes and capes, ancient stone terraces, airships and boundless green valleys, no franchise uniforms symbols or titans. Subject: three unmistakably mature women aged 28 to 35, chestnut silver and black hair, elegant modest layered costumes, heroic welcoming group scene. Setting: a spectacular panoramic finale matching the theme, vast world revealed behind the protagonists, luminous golden and blue sky, intricate foreground, middle ground and horizon. Polished beautiful anime illustration, cinematic composition and lighting, expressive mature faces, sophisticated fashion, highly detailed but readable distinct regions across the complete picture for a jigsaw. Every person must unmistakably look adult, age 25 or older. Clothes fully cover chest and torso, no cleavage, no erotic posing, no nudity, no school uniforms, no juvenile faces. Do not copy existing franchise characters, costumes, logos or signature props. Square full bleed composition, no collage, no panels, no text, no lettering, no watermark, no border."
+    },
+    {
+      "id": "ink-trail-1",
+      "albumId": "ink-trail",
+      "title": "Клара · Первый ключ",
+      "output": "public/images/shop/ink-trail-1.jpg",
+      "prompt": "Use case: illustration-story. Asset type: premium square collectible anime-art jigsaw illustration. Create wholly ORIGINAL characters and world. Theme: original atmospheric detective mystery, intelligent adult female detectives and archivists in elegant modest clothing, handwritten abstract pages without readable text, chess, antique desks and amber lamps, no Death Note imagery or shinigami. Subject: an unmistakably mature 28 year old woman, shoulder length chestnut hair, confident warm eyes, elegant ivory and deep red outfit. Setting: a carefully detailed town square or headquarters matching the theme, flowers or tools in foreground, dramatic architectural middle ground. Polished beautiful anime illustration, cinematic composition and lighting, expressive mature faces, sophisticated fashion, highly detailed but readable distinct regions across the complete picture for a jigsaw. Every person must unmistakably look adult, age 25 or older. Clothes fully cover chest and torso, no cleavage, no erotic posing, no nudity, no school uniforms, no juvenile faces. Do not copy existing franchise characters, costumes, logos or signature props. Square full bleed composition, no collage, no panels, no text, no lettering, no watermark, no border."
+    },
+    {
+      "id": "ink-trail-2",
+      "albumId": "ink-trail",
+      "title": "Инес · Тихий архив",
+      "output": "public/images/shop/ink-trail-2.jpg",
+      "prompt": "Use case: illustration-story. Asset type: premium square collectible anime-art jigsaw illustration. Create wholly ORIGINAL characters and world. Theme: original atmospheric detective mystery, intelligent adult female detectives and archivists in elegant modest clothing, handwritten abstract pages without readable text, chess, antique desks and amber lamps, no Death Note imagery or shinigami. Subject: an unmistakably mature 30 year old woman, long silver hair tied low, composed expression, elegant sapphire and cream outfit. Setting: a spectacular bridge or balcony matching the theme, glowing sky, interesting foreground objects and distant scenery. Polished beautiful anime illustration, cinematic composition and lighting, expressive mature faces, sophisticated fashion, highly detailed but readable distinct regions across the complete picture for a jigsaw. Every person must unmistakably look adult, age 25 or older. Clothes fully cover chest and torso, no cleavage, no erotic posing, no nudity, no school uniforms, no juvenile faces. Do not copy existing franchise characters, costumes, logos or signature props. Square full bleed composition, no collage, no panels, no text, no lettering, no watermark, no border."
+    },
+    {
+      "id": "ink-trail-3",
+      "albumId": "ink-trail",
+      "title": "Вера · Партия в сумерках",
+      "output": "public/images/shop/ink-trail-3.jpg",
+      "prompt": "Use case: illustration-story. Asset type: premium square collectible anime-art jigsaw illustration. Create wholly ORIGINAL characters and world. Theme: original atmospheric detective mystery, intelligent adult female detectives and archivists in elegant modest clothing, handwritten abstract pages without readable text, chess, antique desks and amber lamps, no Death Note imagery or shinigami. Subject: an unmistakably mature 27 year old woman, wavy dark brown hair, thoughtful smile, forest green and gold outfit. Setting: a beautiful library or garden matching the theme, warm lamps, plants, rich distinct objects across the composition. Polished beautiful anime illustration, cinematic composition and lighting, expressive mature faces, sophisticated fashion, highly detailed but readable distinct regions across the complete picture for a jigsaw. Every person must unmistakably look adult, age 25 or older. Clothes fully cover chest and torso, no cleavage, no erotic posing, no nudity, no school uniforms, no juvenile faces. Do not copy existing franchise characters, costumes, logos or signature props. Square full bleed composition, no collage, no panels, no text, no lettering, no watermark, no border."
+    },
+    {
+      "id": "ink-trail-4",
+      "albumId": "ink-trail",
+      "title": "Мила · Дом у канала",
+      "output": "public/images/shop/ink-trail-4.jpg",
+      "prompt": "Use case: illustration-story. Asset type: premium square collectible anime-art jigsaw illustration. Create wholly ORIGINAL characters and world. Theme: original atmospheric detective mystery, intelligent adult female detectives and archivists in elegant modest clothing, handwritten abstract pages without readable text, chess, antique desks and amber lamps, no Death Note imagery or shinigami. Subject: an unmistakably mature 32 year old woman, short auburn hair, expressive amber eyes, elegant plum and charcoal outfit. Setting: a station or workshop matching the theme, blue hour light, warm reflected amber highlights, intricate scenery. Polished beautiful anime illustration, cinematic composition and lighting, expressive mature faces, sophisticated fashion, highly detailed but readable distinct regions across the complete picture for a jigsaw. Every person must unmistakably look adult, age 25 or older. Clothes fully cover chest and torso, no cleavage, no erotic posing, no nudity, no school uniforms, no juvenile faces. Do not copy existing franchise characters, costumes, logos or signature props. Square full bleed composition, no collage, no panels, no text, no lettering, no watermark, no border."
+    },
+    {
+      "id": "ink-trail-5",
+      "albumId": "ink-trail",
+      "title": "Эмма · Свет за дверью",
+      "output": "public/images/shop/ink-trail-5.jpg",
+      "prompt": "Use case: illustration-story. Asset type: premium square collectible anime-art jigsaw illustration. Create wholly ORIGINAL characters and world. Theme: original atmospheric detective mystery, intelligent adult female detectives and archivists in elegant modest clothing, handwritten abstract pages without readable text, chess, antique desks and amber lamps, no Death Note imagery or shinigami. Subject: an unmistakably mature 29 year old woman, long black hair with a loose side braid, calm determined expression, teal and copper outfit. Setting: a grand gateway or overlook matching the theme, sunrise, layered terrain and striking but readable shapes. Polished beautiful anime illustration, cinematic composition and lighting, expressive mature faces, sophisticated fashion, highly detailed but readable distinct regions across the complete picture for a jigsaw. Every person must unmistakably look adult, age 25 or older. Clothes fully cover chest and torso, no cleavage, no erotic posing, no nudity, no school uniforms, no juvenile faces. Do not copy existing franchise characters, costumes, logos or signature props. Square full bleed composition, no collage, no panels, no text, no lettering, no watermark, no border."
+    },
+    {
+      "id": "ink-trail-6",
+      "albumId": "ink-trail",
+      "title": "Последняя разгадка",
+      "output": "public/images/shop/ink-trail-6.jpg",
+      "prompt": "Use case: illustration-story. Asset type: premium square collectible anime-art jigsaw illustration. Create wholly ORIGINAL characters and world. Theme: original atmospheric detective mystery, intelligent adult female detectives and archivists in elegant modest clothing, handwritten abstract pages without readable text, chess, antique desks and amber lamps, no Death Note imagery or shinigami. Subject: three unmistakably mature women aged 28 to 35, chestnut silver and black hair, elegant modest layered costumes, heroic welcoming group scene. Setting: a spectacular panoramic finale matching the theme, vast world revealed behind the protagonists, luminous golden and blue sky, intricate foreground, middle ground and horizon. Polished beautiful anime illustration, cinematic composition and lighting, expressive mature faces, sophisticated fashion, highly detailed but readable distinct regions across the complete picture for a jigsaw. Every person must unmistakably look adult, age 25 or older. Clothes fully cover chest and torso, no cleavage, no erotic posing, no nudity, no school uniforms, no juvenile faces. Do not copy existing franchise characters, costumes, logos or signature props. Square full bleed composition, no collage, no panels, no text, no lettering, no watermark, no border."
+    },
+    {
+      "id": "wind-valley-1",
+      "albumId": "wind-valley",
+      "title": "Юки · Горная тропа",
+      "output": "public/images/shop/wind-valley-1.jpg",
+      "prompt": "Use case: illustration-story. Asset type: premium square collectible anime-art jigsaw illustration. Create wholly ORIGINAL characters and world. Theme: original East Asian inspired elemental fantasy, clearly adult female wandering martial artists in elegant modest layered travel garments, embroidered sashes, wind ribbons, mountain gardens, no franchise headbands clan emblems or orange ninja outfits. Subject: an unmistakably mature 28 year old woman, shoulder length chestnut hair, confident warm eyes, elegant ivory and deep red outfit. Setting: a carefully detailed town square or headquarters matching the theme, flowers or tools in foreground, dramatic architectural middle ground. Polished beautiful anime illustration, cinematic composition and lighting, expressive mature faces, sophisticated fashion, highly detailed but readable distinct regions across the complete picture for a jigsaw. Every person must unmistakably look adult, age 25 or older. Clothes fully cover chest and torso, no cleavage, no erotic posing, no nudity, no school uniforms, no juvenile faces. Do not copy existing franchise characters, costumes, logos or signature props. Square full bleed composition, no collage, no panels, no text, no lettering, no watermark, no border."
+    },
+    {
+      "id": "wind-valley-2",
+      "albumId": "wind-valley",
+      "title": "Хана · Сад облаков",
+      "output": "public/images/shop/wind-valley-2.jpg",
+      "prompt": "Use case: illustration-story. Asset type: premium square collectible anime-art jigsaw illustration. Create wholly ORIGINAL characters and world. Theme: original East Asian inspired elemental fantasy, clearly adult female wandering martial artists in elegant modest layered travel garments, embroidered sashes, wind ribbons, mountain gardens, no franchise headbands clan emblems or orange ninja outfits. Subject: an unmistakably mature 30 year old woman, long silver hair tied low, composed expression, elegant sapphire and cream outfit. Setting: a spectacular bridge or balcony matching the theme, glowing sky, interesting foreground objects and distant scenery. Polished beautiful anime illustration, cinematic composition and lighting, expressive mature faces, sophisticated fashion, highly detailed but readable distinct regions across the complete picture for a jigsaw. Every person must unmistakably look adult, age 25 or older. Clothes fully cover chest and torso, no cleavage, no erotic posing, no nudity, no school uniforms, no juvenile faces. Do not copy existing franchise characters, costumes, logos or signature props. Square full bleed composition, no collage, no panels, no text, no lettering, no watermark, no border."
+    },
+    {
+      "id": "wind-valley-3",
+      "albumId": "wind-valley",
+      "title": "Наоми · Песнь воды",
+      "output": "public/images/shop/wind-valley-3.jpg",
+      "prompt": "Use case: illustration-story. Asset type: premium square collectible anime-art jigsaw illustration. Create wholly ORIGINAL characters and world. Theme: original East Asian inspired elemental fantasy, clearly adult female wandering martial artists in elegant modest layered travel garments, embroidered sashes, wind ribbons, mountain gardens, no franchise headbands clan emblems or orange ninja outfits. Subject: an unmistakably mature 27 year old woman, wavy dark brown hair, thoughtful smile, forest green and gold outfit. Setting: a beautiful library or garden matching the theme, warm lamps, plants, rich distinct objects across the composition. Polished beautiful anime illustration, cinematic composition and lighting, expressive mature faces, sophisticated fashion, highly detailed but readable distinct regions across the complete picture for a jigsaw. Every person must unmistakably look adult, age 25 or older. Clothes fully cover chest and torso, no cleavage, no erotic posing, no nudity, no school uniforms, no juvenile faces. Do not copy existing franchise characters, costumes, logos or signature props. Square full bleed composition, no collage, no panels, no text, no lettering, no watermark, no border."
+    },
+    {
+      "id": "wind-valley-4",
+      "albumId": "wind-valley",
+      "title": "Эри · Красный клён",
+      "output": "public/images/shop/wind-valley-4.jpg",
+      "prompt": "Use case: illustration-story. Asset type: premium square collectible anime-art jigsaw illustration. Create wholly ORIGINAL characters and world. Theme: original East Asian inspired elemental fantasy, clearly adult female wandering martial artists in elegant modest layered travel garments, embroidered sashes, wind ribbons, mountain gardens, no franchise headbands clan emblems or orange ninja outfits. Subject: an unmistakably mature 32 year old woman, short auburn hair, expressive amber eyes, elegant plum and charcoal outfit. Setting: a station or workshop matching the theme, blue hour light, warm reflected amber highlights, intricate scenery. Polished beautiful anime illustration, cinematic composition and lighting, expressive mature faces, sophisticated fashion, highly detailed but readable distinct regions across the complete picture for a jigsaw. Every person must unmistakably look adult, age 25 or older. Clothes fully cover chest and torso, no cleavage, no erotic posing, no nudity, no school uniforms, no juvenile faces. Do not copy existing franchise characters, costumes, logos or signature props. Square full bleed composition, no collage, no panels, no text, no lettering, no watermark, no border."
+    },
+    {
+      "id": "wind-valley-5",
+      "albumId": "wind-valley",
+      "title": "Рэй · Танец листьев",
+      "output": "public/images/shop/wind-valley-5.jpg",
+      "prompt": "Use case: illustration-story. Asset type: premium square collectible anime-art jigsaw illustration. Create wholly ORIGINAL characters and world. Theme: original East Asian inspired elemental fantasy, clearly adult female wandering martial artists in elegant modest layered travel garments, embroidered sashes, wind ribbons, mountain gardens, no franchise headbands clan emblems or orange ninja outfits. Subject: an unmistakably mature 29 year old woman, long black hair with a loose side braid, calm determined expression, teal and copper outfit. Setting: a grand gateway or overlook matching the theme, sunrise, layered terrain and striking but readable shapes. Polished beautiful anime illustration, cinematic composition and lighting, expressive mature faces, sophisticated fashion, highly detailed but readable distinct regions across the complete picture for a jigsaw. Every person must unmistakably look adult, age 25 or older. Clothes fully cover chest and torso, no cleavage, no erotic posing, no nudity, no school uniforms, no juvenile faces. Do not copy existing franchise characters, costumes, logos or signature props. Square full bleed composition, no collage, no panels, no text, no lettering, no watermark, no border."
+    },
+    {
+      "id": "wind-valley-6",
+      "albumId": "wind-valley",
+      "title": "Сердце долины",
+      "output": "public/images/shop/wind-valley-6.jpg",
+      "prompt": "Use case: illustration-story. Asset type: premium square collectible anime-art jigsaw illustration. Create wholly ORIGINAL characters and world. Theme: original East Asian inspired elemental fantasy, clearly adult female wandering martial artists in elegant modest layered travel garments, embroidered sashes, wind ribbons, mountain gardens, no franchise headbands clan emblems or orange ninja outfits. Subject: three unmistakably mature women aged 28 to 35, chestnut silver and black hair, elegant modest layered costumes, heroic welcoming group scene. Setting: a spectacular panoramic finale matching the theme, vast world revealed behind the protagonists, luminous golden and blue sky, intricate foreground, middle ground and horizon. Polished beautiful anime illustration, cinematic composition and lighting, expressive mature faces, sophisticated fashion, highly detailed but readable distinct regions across the complete picture for a jigsaw. Every person must unmistakably look adult, age 25 or older. Clothes fully cover chest and torso, no cleavage, no erotic posing, no nudity, no school uniforms, no juvenile faces. Do not copy existing franchise characters, costumes, logos or signature props. Square full bleed composition, no collage, no panels, no text, no lettering, no watermark, no border."
+    },
+    {
+      "id": "scarlet-lanterns-1",
+      "albumId": "scarlet-lanterns",
+      "title": "Суми · Свет фонаря",
+      "output": "public/images/shop/scarlet-lanterns-1.jpg",
+      "prompt": "Use case: illustration-story. Asset type: premium square collectible anime-art jigsaw illustration. Create wholly ORIGINAL characters and world. Theme: original historical fantasy, clearly adult female night guardians in elaborate modest layered long kimono and cloaks, wisteria gardens, red paper lanterns, moonlit forests and elemental light, no franchise costumes earrings checkerboards or bamboo mouthpieces. Subject: an unmistakably mature 28 year old woman, shoulder length chestnut hair, confident warm eyes, elegant ivory and deep red outfit. Setting: a carefully detailed town square or headquarters matching the theme, flowers or tools in foreground, dramatic architectural middle ground. Polished beautiful anime illustration, cinematic composition and lighting, expressive mature faces, sophisticated fashion, highly detailed but readable distinct regions across the complete picture for a jigsaw. Every person must unmistakably look adult, age 25 or older. Clothes fully cover chest and torso, no cleavage, no erotic posing, no nudity, no school uniforms, no juvenile faces. Do not copy existing franchise characters, costumes, logos or signature props. Square full bleed composition, no collage, no panels, no text, no lettering, no watermark, no border."
+    },
+    {
+      "id": "scarlet-lanterns-2",
+      "albumId": "scarlet-lanterns",
+      "title": "Коха · Тропа глициний",
+      "output": "public/images/shop/scarlet-lanterns-2.jpg",
+      "prompt": "Use case: illustration-story. Asset type: premium square collectible anime-art jigsaw illustration. Create wholly ORIGINAL characters and world. Theme: original historical fantasy, clearly adult female night guardians in elaborate modest layered long kimono and cloaks, wisteria gardens, red paper lanterns, moonlit forests and elemental light, no franchise costumes earrings checkerboards or bamboo mouthpieces. Subject: an unmistakably mature 30 year old woman, long silver hair tied low, composed expression, elegant sapphire and cream outfit. Setting: a spectacular bridge or balcony matching the theme, glowing sky, interesting foreground objects and distant scenery. Polished beautiful anime illustration, cinematic composition and lighting, expressive mature faces, sophisticated fashion, highly detailed but readable distinct regions across the complete picture for a jigsaw. Every person must unmistakably look adult, age 25 or older. Clothes fully cover chest and torso, no cleavage, no erotic posing, no nudity, no school uniforms, no juvenile faces. Do not copy existing franchise characters, costumes, logos or signature props. Square full bleed composition, no collage, no panels, no text, no lettering, no watermark, no border."
+    },
+    {
+      "id": "scarlet-lanterns-3",
+      "albumId": "scarlet-lanterns",
+      "title": "Томо · Лунная река",
+      "output": "public/images/shop/scarlet-lanterns-3.jpg",
+      "prompt": "Use case: illustration-story. Asset type: premium square collectible anime-art jigsaw illustration. Create wholly ORIGINAL characters and world. Theme: original historical fantasy, clearly adult female night guardians in elaborate modest layered long kimono and cloaks, wisteria gardens, red paper lanterns, moonlit forests and elemental light, no franchise costumes earrings checkerboards or bamboo mouthpieces. Subject: an unmistakably mature 27 year old woman, wavy dark brown hair, thoughtful smile, forest green and gold outfit. Setting: a beautiful library or garden matching the theme, warm lamps, plants, rich distinct objects across the composition. Polished beautiful anime illustration, cinematic composition and lighting, expressive mature faces, sophisticated fashion, highly detailed but readable distinct regions across the complete picture for a jigsaw. Every person must unmistakably look adult, age 25 or older. Clothes fully cover chest and torso, no cleavage, no erotic posing, no nudity, no school uniforms, no juvenile faces. Do not copy existing franchise characters, costumes, logos or signature props. Square full bleed composition, no collage, no panels, no text, no lettering, no watermark, no border."
+    },
+    {
+      "id": "scarlet-lanterns-4",
+      "albumId": "scarlet-lanterns",
+      "title": "Хикари · Тёплый огонь",
+      "output": "public/images/shop/scarlet-lanterns-4.jpg",
+      "prompt": "Use case: illustration-story. Asset type: premium square collectible anime-art jigsaw illustration. Create wholly ORIGINAL characters and world. Theme: original historical fantasy, clearly adult female night guardians in elaborate modest layered long kimono and cloaks, wisteria gardens, red paper lanterns, moonlit forests and elemental light, no franchise costumes earrings checkerboards or bamboo mouthpieces. Subject: an unmistakably mature 32 year old woman, short auburn hair, expressive amber eyes, elegant plum and charcoal outfit. Setting: a station or workshop matching the theme, blue hour light, warm reflected amber highlights, intricate scenery. Polished beautiful anime illustration, cinematic composition and lighting, expressive mature faces, sophisticated fashion, highly detailed but readable distinct regions across the complete picture for a jigsaw. Every person must unmistakably look adult, age 25 or older. Clothes fully cover chest and torso, no cleavage, no erotic posing, no nudity, no school uniforms, no juvenile faces. Do not copy existing franchise characters, costumes, logos or signature props. Square full bleed composition, no collage, no panels, no text, no lettering, no watermark, no border."
+    },
+    {
+      "id": "scarlet-lanterns-5",
+      "albumId": "scarlet-lanterns",
+      "title": "Аса · Белая заря",
+      "output": "public/images/shop/scarlet-lanterns-5.jpg",
+      "prompt": "Use case: illustration-story. Asset type: premium square collectible anime-art jigsaw illustration. Create wholly ORIGINAL characters and world. Theme: original historical fantasy, clearly adult female night guardians in elaborate modest layered long kimono and cloaks, wisteria gardens, red paper lanterns, moonlit forests and elemental light, no franchise costumes earrings checkerboards or bamboo mouthpieces. Subject: an unmistakably mature 29 year old woman, long black hair with a loose side braid, calm determined expression, teal and copper outfit. Setting: a grand gateway or overlook matching the theme, sunrise, layered terrain and striking but readable shapes. Polished beautiful anime illustration, cinematic composition and lighting, expressive mature faces, sophisticated fashion, highly detailed but readable distinct regions across the complete picture for a jigsaw. Every person must unmistakably look adult, age 25 or older. Clothes fully cover chest and torso, no cleavage, no erotic posing, no nudity, no school uniforms, no juvenile faces. Do not copy existing franchise characters, costumes, logos or signature props. Square full bleed composition, no collage, no panels, no text, no lettering, no watermark, no border."
+    },
+    {
+      "id": "scarlet-lanterns-6",
+      "albumId": "scarlet-lanterns",
+      "title": "Хранительницы сада",
+      "output": "public/images/shop/scarlet-lanterns-6.jpg",
+      "prompt": "Use case: illustration-story. Asset type: premium square collectible anime-art jigsaw illustration. Create wholly ORIGINAL characters and world. Theme: original historical fantasy, clearly adult female night guardians in elaborate modest layered long kimono and cloaks, wisteria gardens, red paper lanterns, moonlit forests and elemental light, no franchise costumes earrings checkerboards or bamboo mouthpieces. Subject: three unmistakably mature women aged 28 to 35, chestnut silver and black hair, elegant modest layered costumes, heroic welcoming group scene. Setting: a spectacular panoramic finale matching the theme, vast world revealed behind the protagonists, luminous golden and blue sky, intricate foreground, middle ground and horizon. Polished beautiful anime illustration, cinematic composition and lighting, expressive mature faces, sophisticated fashion, highly detailed but readable distinct regions across the complete picture for a jigsaw. Every person must unmistakably look adult, age 25 or older. Clothes fully cover chest and torso, no cleavage, no erotic posing, no nudity, no school uniforms, no juvenile faces. Do not copy existing franchise characters, costumes, logos or signature props. Square full bleed composition, no collage, no panels, no text, no lettering, no watermark, no border."
+    },
+    {
+      "id": "huntress-atlas-1",
+      "albumId": "huntress-atlas",
+      "title": "Лина · Порт экспедиций",
+      "output": "public/images/shop/huntress-atlas-1.jpg",
+      "prompt": "Use case: illustration-story. Asset type: premium square collectible anime-art jigsaw illustration. Create wholly ORIGINAL characters and world. Theme: original fantastical treasure expedition, independent clearly adult female professional explorers and collectors in modest tailored adventure clothing, botanical ruins, whimsical airships and ancient observatories, no Hunter x Hunter designs licenses or characters. Subject: an unmistakably mature 28 year old woman, shoulder length chestnut hair, confident warm eyes, elegant ivory and deep red outfit. Setting: a carefully detailed town square or headquarters matching the theme, flowers or tools in foreground, dramatic architectural middle ground. Polished beautiful anime illustration, cinematic composition and lighting, expressive mature faces, sophisticated fashion, highly detailed but readable distinct regions across the complete picture for a jigsaw. Every person must unmistakably look adult, age 25 or older. Clothes fully cover chest and torso, no cleavage, no erotic posing, no nudity, no school uniforms, no juvenile faces. Do not copy existing franchise characters, costumes, logos or signature props. Square full bleed composition, no collage, no panels, no text, no lettering, no watermark, no border."
+    },
+    {
+      "id": "huntress-atlas-2",
+      "albumId": "huntress-atlas",
+      "title": "Оливия · Зелёный лабиринт",
+      "output": "public/images/shop/huntress-atlas-2.jpg",
+      "prompt": "Use case: illustration-story. Asset type: premium square collectible anime-art jigsaw illustration. Create wholly ORIGINAL characters and world. Theme: original fantastical treasure expedition, independent clearly adult female professional explorers and collectors in modest tailored adventure clothing, botanical ruins, whimsical airships and ancient observatories, no Hunter x Hunter designs licenses or characters. Subject: an unmistakably mature 30 year old woman, long silver hair tied low, composed expression, elegant sapphire and cream outfit. Setting: a spectacular bridge or balcony matching the theme, glowing sky, interesting foreground objects and distant scenery. Polished beautiful anime illustration, cinematic composition and lighting, expressive mature faces, sophisticated fashion, highly detailed but readable distinct regions across the complete picture for a jigsaw. Every person must unmistakably look adult, age 25 or older. Clothes fully cover chest and torso, no cleavage, no erotic posing, no nudity, no school uniforms, no juvenile faces. Do not copy existing franchise characters, costumes, logos or signature props. Square full bleed composition, no collage, no panels, no text, no lettering, no watermark, no border."
+    },
+    {
+      "id": "huntress-atlas-3",
+      "albumId": "huntress-atlas",
+      "title": "Фелиция · Золотой компас",
+      "output": "public/images/shop/huntress-atlas-3.jpg",
+      "prompt": "Use case: illustration-story. Asset type: premium square collectible anime-art jigsaw illustration. Create wholly ORIGINAL characters and world. Theme: original fantastical treasure expedition, independent clearly adult female professional explorers and collectors in modest tailored adventure clothing, botanical ruins, whimsical airships and ancient observatories, no Hunter x Hunter designs licenses or characters. Subject: an unmistakably mature 27 year old woman, wavy dark brown hair, thoughtful smile, forest green and gold outfit. Setting: a beautiful library or garden matching the theme, warm lamps, plants, rich distinct objects across the composition. Polished beautiful anime illustration, cinematic composition and lighting, expressive mature faces, sophisticated fashion, highly detailed but readable distinct regions across the complete picture for a jigsaw. Every person must unmistakably look adult, age 25 or older. Clothes fully cover chest and torso, no cleavage, no erotic posing, no nudity, no school uniforms, no juvenile faces. Do not copy existing franchise characters, costumes, logos or signature props. Square full bleed composition, no collage, no panels, no text, no lettering, no watermark, no border."
+    },
+    {
+      "id": "huntress-atlas-4",
+      "albumId": "huntress-atlas",
+      "title": "Амалия · Звёздный архив",
+      "output": "public/images/shop/huntress-atlas-4.jpg",
+      "prompt": "Use case: illustration-story. Asset type: premium square collectible anime-art jigsaw illustration. Create wholly ORIGINAL characters and world. Theme: original fantastical treasure expedition, independent clearly adult female professional explorers and collectors in modest tailored adventure clothing, botanical ruins, whimsical airships and ancient observatories, no Hunter x Hunter designs licenses or characters. Subject: an unmistakably mature 32 year old woman, short auburn hair, expressive amber eyes, elegant plum and charcoal outfit. Setting: a station or workshop matching the theme, blue hour light, warm reflected amber highlights, intricate scenery. Polished beautiful anime illustration, cinematic composition and lighting, expressive mature faces, sophisticated fashion, highly detailed but readable distinct regions across the complete picture for a jigsaw. Every person must unmistakably look adult, age 25 or older. Clothes fully cover chest and torso, no cleavage, no erotic posing, no nudity, no school uniforms, no juvenile faces. Do not copy existing franchise characters, costumes, logos or signature props. Square full bleed composition, no collage, no panels, no text, no lettering, no watermark, no border."
+    },
+    {
+      "id": "huntress-atlas-5",
+      "albumId": "huntress-atlas",
+      "title": "Люсия · Остров сокровищ",
+      "output": "public/images/shop/huntress-atlas-5.jpg",
+      "prompt": "Use case: illustration-story. Asset type: premium square collectible anime-art jigsaw illustration. Create wholly ORIGINAL characters and world. Theme: original fantastical treasure expedition, independent clearly adult female professional explorers and collectors in modest tailored adventure clothing, botanical ruins, whimsical airships and ancient observatories, no Hunter x Hunter designs licenses or characters. Subject: an unmistakably mature 29 year old woman, long black hair with a loose side braid, calm determined expression, teal and copper outfit. Setting: a grand gateway or overlook matching the theme, sunrise, layered terrain and striking but readable shapes. Polished beautiful anime illustration, cinematic composition and lighting, expressive mature faces, sophisticated fashion, highly detailed but readable distinct regions across the complete picture for a jigsaw. Every person must unmistakably look adult, age 25 or older. Clothes fully cover chest and torso, no cleavage, no erotic posing, no nudity, no school uniforms, no juvenile faces. Do not copy existing franchise characters, costumes, logos or signature props. Square full bleed composition, no collage, no panels, no text, no lettering, no watermark, no border."
+    },
+    {
+      "id": "huntress-atlas-6",
+      "albumId": "huntress-atlas",
+      "title": "Новая карта мира",
+      "output": "public/images/shop/huntress-atlas-6.jpg",
+      "prompt": "Use case: illustration-story. Asset type: premium square collectible anime-art jigsaw illustration. Create wholly ORIGINAL characters and world. Theme: original fantastical treasure expedition, independent clearly adult female professional explorers and collectors in modest tailored adventure clothing, botanical ruins, whimsical airships and ancient observatories, no Hunter x Hunter designs licenses or characters. Subject: three unmistakably mature women aged 28 to 35, chestnut silver and black hair, elegant modest layered costumes, heroic welcoming group scene. Setting: a spectacular panoramic finale matching the theme, vast world revealed behind the protagonists, luminous golden and blue sky, intricate foreground, middle ground and horizon. Polished beautiful anime illustration, cinematic composition and lighting, expressive mature faces, sophisticated fashion, highly detailed but readable distinct regions across the complete picture for a jigsaw. Every person must unmistakably look adult, age 25 or older. Clothes fully cover chest and torso, no cleavage, no erotic posing, no nudity, no school uniforms, no juvenile faces. Do not copy existing franchise characters, costumes, logos or signature props. Square full bleed composition, no collage, no panels, no text, no lettering, no watermark, no border."
+    },
+    {
+      "id": "hunter-1",
+      "albumId": "hunter-x-hunter",
+      "title": "Курапика",
+      "output": "public/images/hunter/hunter-1.jpg",
+      "prompt": "Use case: illustration-story. Asset type: square anime jigsaw image for Hunter x Hunter album. Recognizable Kurapika depicted as a clearly adult 25 year old man, blond bob haircut, blue and gold tabard over white clothes, elegant chain jewelry, standing in a sunlit antique library, calm mature face from Hunter x Hunter. All characters must unmistakably look adult age 25 or older. Polished anime cel shading, detailed cinematic environment, distinct visual details across the full square image for a jigsaw, faithful recognizable character design except explicit adult reinterpretation. Fully clothed, nonsexual, no weapons aimed at viewer, no gore, no text, no logos, no lettering, no border, no watermark, no panels."
+    },
+    {
+      "id": "hunter-2",
+      "albumId": "hunter-x-hunter",
+      "title": "Леорио",
+      "output": "public/images/hunter/hunter-2.jpg",
+      "prompt": "Use case: illustration-story. Asset type: square anime jigsaw image for Hunter x Hunter album. Recognizable Leorio Paradinight, clearly adult 28 year old man, tall with short black hair and round sunglasses, navy suit, holding a doctor's bag, warm street near a harbor, cheerful mature expression from Hunter x Hunter. All characters must unmistakably look adult age 25 or older. Polished anime cel shading, detailed cinematic environment, distinct visual details across the full square image for a jigsaw, faithful recognizable character design except explicit adult reinterpretation. Fully clothed, nonsexual, no weapons aimed at viewer, no gore, no text, no logos, no lettering, no border, no watermark, no panels."
+    },
+    {
+      "id": "hunter-3",
+      "albumId": "hunter-x-hunter",
+      "title": "Хисока",
+      "output": "public/images/hunter/hunter-3.jpg",
+      "prompt": "Use case: illustration-story. Asset type: square anime jigsaw image for Hunter x Hunter album. Recognizable Hisoka Morow, clearly adult 30 year old man, swept back red hair, star and teardrop face paint, fully clothed high collar performer outfit, elegant playing cards, colorful theatre, no blood or violence from Hunter x Hunter. All characters must unmistakably look adult age 25 or older. Polished anime cel shading, detailed cinematic environment, distinct visual details across the full square image for a jigsaw, faithful recognizable character design except explicit adult reinterpretation. Fully clothed, nonsexual, no weapons aimed at viewer, no gore, no text, no logos, no lettering, no border, no watermark, no panels."
+    },
+    {
+      "id": "hunter-4",
+      "albumId": "hunter-x-hunter",
+      "title": "Иллуми",
+      "output": "public/images/hunter/hunter-4.jpg",
+      "prompt": "Use case: illustration-story. Asset type: square anime jigsaw image for Hunter x Hunter album. Recognizable Illumi Zoldyck, clearly adult 28 year old man, long black hair and calm dark eyes, dark teal long sleeved outfit, moonlit forest mansion and golden lamps, no violence from Hunter x Hunter. All characters must unmistakably look adult age 25 or older. Polished anime cel shading, detailed cinematic environment, distinct visual details across the full square image for a jigsaw, faithful recognizable character design except explicit adult reinterpretation. Fully clothed, nonsexual, no weapons aimed at viewer, no gore, no text, no logos, no lettering, no border, no watermark, no panels."
+    },
+    {
+      "id": "hunter-5",
+      "albumId": "hunter-x-hunter",
+      "title": "Кролло",
+      "output": "public/images/hunter/hunter-5.jpg",
+      "prompt": "Use case: illustration-story. Asset type: square anime jigsaw image for Hunter x Hunter album. Recognizable Chrollo Lucilfer, clearly adult 30 year old man, slick black hair and small forehead cross marking, fully closed black coat with light fur collar, book in hand in an old stone cathedral, no violence from Hunter x Hunter. All characters must unmistakably look adult age 25 or older. Polished anime cel shading, detailed cinematic environment, distinct visual details across the full square image for a jigsaw, faithful recognizable character design except explicit adult reinterpretation. Fully clothed, nonsexual, no weapons aimed at viewer, no gore, no text, no logos, no lettering, no border, no watermark, no panels."
+    },
+    {
+      "id": "hunter-6",
+      "albumId": "hunter-x-hunter",
+      "title": "Гон · Новая вершина",
+      "output": "public/images/hunter/hunter-6.jpg",
+      "prompt": "Use case: illustration-story. Asset type: square anime jigsaw image for Hunter x Hunter album. Recognizable Gon Freecss reimagined unmistakably as an adult 25 year old professional explorer, mature facial proportions and athletic adult build, tall spiky black hair, fully clothed green travel jacket and black trousers, standing on a magnificent forest mountain overlook at golden sunrise, an awe inspiring giant green world below, hopeful triumphant adventure finale, no childlike features, no bare torso from Hunter x Hunter. All characters must unmistakably look adult age 25 or older. Polished anime cel shading, detailed cinematic environment, distinct visual details across the full square image for a jigsaw, faithful recognizable character design except explicit adult reinterpretation. Fully clothed, nonsexual, no weapons aimed at viewer, no gore, no text, no logos, no lettering, no border, no watermark, no panels."
+    }
+  ]
+}

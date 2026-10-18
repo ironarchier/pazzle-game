@@ -30,13 +30,13 @@ export function gradientTexture(scene: Phaser.Scene, width: number, height: numb
   return key;
 }
 
-export function cardTexture(scene: Phaser.Scene, key: string, width: number, height: number, corners: Corners, blur = false): string {
-  const cardKey = `${key}-${width}x${height}-${corners.tl}.${corners.tr}.${corners.br}.${corners.bl}${blur ? '-blur' : ''}`;
+export function cardTexture(scene: Phaser.Scene, key: string, width: number, height: number, corners: Corners, blur = false, focusY = 0.5): string {
+  const cardKey = `${key}-${width}x${height}-${corners.tl}.${corners.tr}.${corners.br}.${corners.bl}${blur ? '-blur' : ''}-focus${focusY}`;
   if (scene.textures.exists(cardKey)) return cardKey;
   const source = scene.textures.get(key).getSourceImage() as HTMLImageElement;
   const scale = Math.max(width / source.width, height / source.height);
   const cropW = width / scale, cropH = height / scale;
-  const sx = (source.width - cropW) / 2, sy = (source.height - cropH) / 2;
+  const sx = (source.width - cropW) / 2, sy = Phaser.Math.Clamp(source.height * focusY - cropH / 2, 0, source.height - cropH);
 
   let image: CanvasImageSource = source;
   if (blur) {

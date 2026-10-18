@@ -1,0 +1,9 @@
+{
+  "id": "hunter-3",
+  "albumId": "hunter-x-hunter",
+  "title": "Хисока",
+  "output": "public/images/hunter/hunter-3.jpg",
+  "prompt": "Use case: illustration-story. Asset type: square anime jigsaw image for Hunter x Hunter album. Recognizable Hisoka Morow, clearly adult 30 year old man, swept back red hair, star and teardrop face paint, fully clothed high collar performer outfit, elegant playing cards, colorful theatre, no blood or violence from Hunter x Hunter. All characters must unmistakably look adult age 25 or older. Polished anime cel shading, detailed cinematic environment, distinct visual details across the full square image for a jigsaw, faithful recognizable character design except explicit adult reinterpretation. Fully clothed, nonsexual, no weapons aimed at viewer, no gore, no text, no logos, no lettering, no border, no watermark, no panels.",
+  "source": "C:\\Users\\Владик\\.codex\\generated_images\\01a14683-5c54-7d90-ad07-51ee89ba7d14\\exec-02cc113a-d3b4-45a0-a94c-2d87ec1d19b6.png",
+  "method": "image_gen"
+}

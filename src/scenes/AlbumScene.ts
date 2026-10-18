@@ -29,28 +29,31 @@ import {
 import { goToScene, restartScene } from '../crossfade';
 import { albumSubtitle, albumTitle, levelTitle, t } from '../i18n';
 import { centerLayout } from '../layout';
-import { getProgress, isUnlocked } from '../progress';
+import { getProgress, isUnlocked, ownsAlbum } from '../progress';
 import { applyTheme, getTheme, toCss } from '../theme';
 import { BackLink } from '../ui/BackLink';
 import { Button } from '../ui/Button';
 import { createCard, createProgressBar } from '../ui/card';
 import { cardTexture } from '../ui/cardTexture';
+import { CoinBadge } from '../ui/CoinBadge';
+import { ScrollList } from '../ui/ScrollList';
 
 export class AlbumScene extends Phaser.Scene {
   private confirmation?: Phaser.GameObjects.Container;
   private album?: Album;
   constructor() { super('Album'); }
   init(data: { albumId?: string } = {}): void {
-    this.album = ALBUMS.find(album => album.id === data.albumId);
+    this.album = ALBUMS.find(album => album.id === data.albumId && ownsAlbum(album.id));
   }
   preload(): void {
-    const ids = this.album ? getAlbumLevels(this.album.id) : ALBUMS.map(album => this.coverLevel(album));
+    const ids = this.album ? getAlbumLevels(this.album.id) : ALBUMS.filter(album => ownsAlbum(album.id)).map(album => this.coverLevel(album));
     ids.forEach(id => { if (!this.textures.exists(`album-${id}`)) this.load.image(`album-${id}`, LEVELS[id].image); });
   }
   create(): void {
     applyTheme(this);
     centerLayout(this);
     this.confirmation = undefined;
+    new CoinBadge(this, 580, 65);
     if (this.album) this.createAlbum(this.album);
     else this.createLibrary();
   }
@@ -61,12 +64,14 @@ export class AlbumScene extends Phaser.Scene {
     this.label(360, 150, t('libraryTitle'), 54);
     this.label(360, 210, t('librarySubtitle'), 25);
     this.label(360, 252, t('libraryCount', { count: progress.completed.length, total: LEVELS.length }), 24, theme.textMuted);
-    ALBUMS.forEach((album, index) => {
+    const available = ALBUMS.filter(album => ownsAlbum(album.id));
+    const list = new ScrollList(this, 360, 300, 690, 950, available.length * 186 + 170);
+    available.forEach((album, index) => {
       const ids = getAlbumLevels(album.id);
       const count = ids.filter(id => progress.completed.includes(id)).length;
       const left = -ALBUM_ROW_WIDTH / 2;
       const textX = left + ALBUM_ROW_HEIGHT + 8;
-      const card = createCard(this, 360, 368 + index * 186, ALBUM_ROW_WIDTH, ALBUM_ROW_HEIGHT, () => restartScene(this, { albumId: album.id }));
+      const card = createCard(this, 0, 84 + index * 186, ALBUM_ROW_WIDTH, ALBUM_ROW_HEIGHT, () => { if (list.containsPointer(this.input.activePointer)) restartScene(this, { albumId: album.id }); });
       const r = ALBUM_COVER_RADIUS;
       const cover = this.add.image(left + ALBUM_ROW_HEIGHT / 2, 0, cardTexture(this, `album-${this.coverLevel(album)}`, ALBUM_COVER_SIZE, ALBUM_COVER_SIZE, { tl: r, tr: r, br: r, bl: r }));
       const name = albumTitle(album);
@@ -76,7 +81,9 @@ export class AlbumScene extends Phaser.Scene {
       const status = this.label(textX + ALBUM_PROGRESS_WIDTH + 16, 46, count === ids.length ? '✓' : `${count}/${ids.length}`, 23, album.accent).setOrigin(0, 0.5);
       const chevron = this.label(ALBUM_ROW_WIDTH / 2 - 36, 0, '›', 48, theme.textMuted);
       card.add([cover, title, subtitle, bar, status, chevron]);
+      list.add(card);
     });
+    list.add(new Button(this, 0, available.length * 186 + 70, t('shop'), () => { if (list.containsPointer(this.input.activePointer)) goToScene(this, 'Shop'); }));
   }
   private createAlbum(album: Album): void {
     const theme = getTheme();
@@ -91,14 +98,14 @@ export class AlbumScene extends Phaser.Scene {
     this.label(360, 270, t(count === ids.length ? 'albumDone' : ordinaryCount === 5 ? 'albumFinaleOpen' : 'albumGoal'), 23);
     ids.forEach((id, index) => {
       const level = LEVELS[id];
-      const done = progress.completed.includes(id), unlocked = isUnlocked(id, progress.completed);
+      const done = progress.completed.includes(id), unlocked = isUnlocked(id, progress.completed, progress.economy.purchasedAlbums);
       const active = progress.active?.level === id;
       const hidden = level.finale && !unlocked;
       const top = -LEVEL_CARD_HEIGHT / 2;
       const imageY = top + LEVEL_CARD_IMAGE_HEIGHT / 2;
       const textY = top + LEVEL_CARD_IMAGE_HEIGHT;
       const card = createCard(this, 190 + index % 2 * 340, 450 + Math.floor(index / 2) * 295, LEVEL_CARD_WIDTH, LEVEL_CARD_HEIGHT, unlocked ? () => this.openLevel(id) : undefined, level.finale ? album.accent : undefined);
-      const texture = cardTexture(this, `album-${id}`, LEVEL_CARD_WIDTH, LEVEL_CARD_IMAGE_HEIGHT, { tl: CARD_RADIUS, tr: CARD_RADIUS, br: 0, bl: 0 }, hidden);
+      const texture = cardTexture(this, `album-${id}`, LEVEL_CARD_WIDTH, LEVEL_CARD_IMAGE_HEIGHT, { tl: CARD_RADIUS, tr: CARD_RADIUS, br: 0, bl: 0 }, hidden, album.coverFocusY);
       card.add(this.add.image(0, imageY, texture).setAlpha(unlocked || hidden ? 1 : 0.35));
       if (!unlocked) {
         card.add(this.add.graphics().fillStyle(theme.surface, 0.9).fillCircle(0, imageY, LOCK_BADGE_RADIUS));

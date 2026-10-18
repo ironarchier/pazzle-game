@@ -2,6 +2,7 @@ import * as Phaser from 'phaser';
 import { initAudio, preloadMusic } from '../audio';
 import { FONT_NAME, FONT_SAMPLE, GAME_ICON_SIZE, GAME_ICONS } from '../constants';
 import { hidePreloader } from '../preloader';
+import { initializePlatform } from '../platform/yandex';
 
 export class BootScene extends Phaser.Scene {
   constructor() {
@@ -18,7 +19,7 @@ export class BootScene extends Phaser.Scene {
   create(): void {
     initAudio(this.sound);
     const fonts = ['400', '700'].map(weight => document.fonts.load(`${weight} 32px ${FONT_NAME}`, FONT_SAMPLE));
-    Promise.allSettled(fonts).then(() => {
+    Promise.allSettled([...fonts, initializePlatform(this.game)]).then(() => {
       hidePreloader();
       this.scene.start('Menu');
     });

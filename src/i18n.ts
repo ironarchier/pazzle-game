@@ -34,6 +34,33 @@ const ru = {
   sample: 'Образец',
   edgesFirst: 'Сначала края',
   hint: 'Подсказка',
+  coins: 'монет',
+  shop: 'Магазин',
+  shopTitle: 'Магазин альбомов',
+  shopSubtitle: 'Новые истории · {price} монет за альбом',
+  albumUnavailable: 'Коллекция готовится. Покупка пока недоступна.',
+  ownedOpen: '✓ Куплено · Открыть',
+  soon: 'Скоро',
+  buyAlbum: 'Купить альбом · {price} 🪙',
+  shopReward: '{count} пазлов · +{coins} монет',
+  watchAd: 'Смотреть рекламу · +{coins} 🪙',
+  adLoading: 'Реклама…',
+  adClosed: 'Просмотр не завершён. Награда не начислена.',
+  adUnavailable: 'Реклама сейчас недоступна. Попробуйте позже.',
+  insufficientCoins: 'Недостаточно монет',
+  openAlbum: 'Открыть альбом',
+  buyHint: 'Купить подсказку · {price} 🪙',
+  hintTitle: 'Купить подсказку',
+  albumShortfall: 'До открытия альбома не хватает {coins} монет',
+  hintShortfall: 'Для подсказки не хватает {coins} монет',
+  albumAffordable: 'Теперь ты можешь открыть этот альбом!',
+  hintAffordable: 'Подсказка установит подходящую деталь. Монеты спишутся только при успешном применении.',
+  hintProduct: 'Автоматическая установка детали',
+  yourBalance: 'Ваш баланс',
+  albumCost: 'Стоимость альбома: {price} монет',
+  hintCost: 'Стоимость подсказки: {price} монет',
+  close: 'Закрыть',
+  albumOpened: 'Альбом открыт!',
   winAlbumDone: 'Альбом собран!',
   winNew: 'Новый персонаж в альбоме!',
   winAgain: 'Снова собрано!',
@@ -81,6 +108,33 @@ const en: Record<Key, string> = {
   sample: 'Preview',
   edgesFirst: 'Edges first',
   hint: 'Hint',
+  coins: 'coins',
+  shop: 'Shop',
+  shopTitle: 'Album shop',
+  shopSubtitle: 'New stories · {price} coins per album',
+  albumUnavailable: 'This collection is being prepared. Please check back later.',
+  ownedOpen: '✓ Owned · Open',
+  soon: 'Coming soon',
+  buyAlbum: 'Buy album · {price} 🪙',
+  shopReward: '{count} puzzles · +{coins} coins',
+  watchAd: 'Watch ad · +{coins} 🪙',
+  adLoading: 'Ad loading…',
+  adClosed: 'The ad was not completed. No reward was granted.',
+  adUnavailable: 'Ads are unavailable right now. Please try again later.',
+  insufficientCoins: 'Not enough coins',
+  openAlbum: 'Unlock album',
+  buyHint: 'Buy hint · {price} 🪙',
+  hintTitle: 'Buy a hint',
+  albumShortfall: 'You need {coins} more coins to unlock this album',
+  hintShortfall: 'You need {coins} more coins for a hint',
+  albumAffordable: 'You can now unlock this album!',
+  hintAffordable: 'A hint will place an available piece. Coins are charged only when it succeeds.',
+  hintProduct: 'Automatically place a piece',
+  yourBalance: 'Your balance',
+  albumCost: 'Album price: {price} coins',
+  hintCost: 'Hint price: {price} coins',
+  close: 'Close',
+  albumOpened: 'Album unlocked!',
   winAlbumDone: 'Album complete!',
   winNew: 'New character in the album!',
   winAgain: 'Solved again!',
@@ -111,15 +165,15 @@ export function pieces(count: number): string {
 }
 
 export function albumTitle(album: Album): string {
-  return isEnglish() ? album.titleEn : album.title;
+  return isEnglish() ? album.titleEn ?? album.title : album.title;
 }
 
 export function albumSubtitle(album: Album): string {
-  return isEnglish() ? album.subtitleEn : album.subtitle;
+  return isEnglish() ? album.subtitleEn ?? album.subtitle : album.subtitle;
 }
 
 export function levelTitle(level: number): string {
-  return isEnglish() ? LEVELS[level].titleEn : LEVELS[level].title;
+  return isEnglish() ? LEVELS[level].titleEn ?? LEVELS[level].title : LEVELS[level].title;
 }
 
 export function syncDocumentLanguage(): void {

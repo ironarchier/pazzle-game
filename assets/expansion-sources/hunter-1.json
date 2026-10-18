@@ -1,0 +1,9 @@
+{
+  "id": "hunter-1",
+  "albumId": "hunter-x-hunter",
+  "title": "Курапика",
+  "output": "public/images/hunter/hunter-1.jpg",
+  "prompt": "Use case: illustration-story. Asset type: square anime jigsaw image for Hunter x Hunter album. Recognizable Kurapika depicted as a clearly adult 25 year old man, blond bob haircut, blue and gold tabard over white clothes, elegant chain jewelry, standing in a sunlit antique library, calm mature face from Hunter x Hunter. All characters must unmistakably look adult age 25 or older. Polished anime cel shading, detailed cinematic environment, distinct visual details across the full square image for a jigsaw, faithful recognizable character design except explicit adult reinterpretation. Fully clothed, nonsexual, no weapons aimed at viewer, no gore, no text, no logos, no lettering, no border, no watermark, no panels.",
+  "source": "C:\\Users\\Владик\\.codex\\generated_images\\01a14683-5c54-7d90-ad07-51ee89ba7d14\\exec-f6cce0e7-fe6c-4367-81ab-82b8d99fbbae.png",
+  "method": "image_gen"
+}

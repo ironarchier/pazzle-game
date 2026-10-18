@@ -1,13 +1,13 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { ALBUMS, LEVELS, getAlbumLevels, getLevelAlbum, SAVE_STORAGE_KEY } from '../src/constants.ts';
+import { ALBUMS, FREE_ALBUMS, LEVELS, getAlbumLevels, getLevelAlbum, SAVE_STORAGE_KEY } from '../src/constants.ts';
 import { isUnlocked, nextLevel, readProgress, completeLevel, getProgress } from '../src/progress.ts';
 import { existsSync } from 'node:fs';
 
-test('five anime albums each have five ordinary characters and one special finale', () => {
-  assert.deepEqual(ALBUMS.map(album => album.id), ['tokyo-ghoul', 'attack-on-titan', 'death-note', 'naruto', 'demon-slayer']);
-  assert.equal(LEVELS.length, 30);
-  assert.equal(new Set(LEVELS.map(level => level.image)).size, 30);
+test('six free anime albums and twelve original shop collections have distinct images and one finale', () => {
+  assert.deepEqual(FREE_ALBUMS.map(album => album.id), ['tokyo-ghoul', 'attack-on-titan', 'death-note', 'naruto', 'demon-slayer', 'hunter-x-hunter']);
+  assert.equal(LEVELS.length, 108);
+  assert.equal(new Set(LEVELS.map(level => level.image)).size, 108);
   for (const album of ALBUMS) {
     const ids = getAlbumLevels(album.id);
     assert.equal(ids.length, 6);
@@ -18,8 +18,8 @@ test('five anime albums each have five ordinary characters and one special final
   assert.match(LEVELS[5].title, /Канеки/);
 });
 
-test('each album opens one picture at a time and its finale needs its own five characters', () => {
-  for (const album of ALBUMS) {
+test('each free album keeps its sequential progression and independent finale', () => {
+  for (const album of FREE_ALBUMS) {
     const ids = getAlbumLevels(album.id), ordinary = ids.slice(0, 5), finale = ids[5];
     ordinary.forEach((id, index) => assert.equal(isUnlocked(id, []), index === 0));
     ordinary.slice(1).forEach((id, index) => assert.equal(isUnlocked(id, ordinary.slice(0, index + 1)), true));
@@ -49,18 +49,18 @@ test('invalid finals are removed independently when reading saved collection pro
   assert.equal(result.current, 7);
 });
 
-test('completing one album does not reward other albums; all thirty completions are unique', () => {
-  for (const album of ALBUMS) {
+test('completing one free album does not finish others; all thirty-six completions are unique', () => {
+  for (const album of FREE_ALBUMS) {
     const ids = getAlbumLevels(album.id);
     assert.equal(completeLevel(ids[5]), false);
     ids.slice(0, 5).forEach(id => { assert.equal(completeLevel(id), true); assert.equal(completeLevel(id), false); });
     assert.equal(completeLevel(ids[5]), true);
     assert.equal(completeLevel(ids[5]), false);
   }
-  assert.equal(getProgress().completed.length, 30);
+  assert.equal(getProgress().completed.length, 36);
   assert.equal(nextLevel(getProgress().completed), undefined);
 });
 
-test('all thirty puzzle images exist in the published assets', () => {
+test('all 108 puzzle images exist in the published assets', () => {
   for (const level of LEVELS) assert.ok(existsSync(new URL(`../public/${level.image}`, import.meta.url)), level.image);
 });

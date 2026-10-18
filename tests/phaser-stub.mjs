@@ -20,10 +20,13 @@ export class Display extends EventEmitter {
   setFillStyle() { return this; }
   setColor() { return this; }
   setFontStyle() { return this; }
+  setFontSize() { return this; }
   clear() { return this; }
   lineStyle() { return this; }
   fillStyle() { return this; }
   fillRect() { return this; }
+  fillCircle() { return this; }
+  strokeCircle() { return this; }
   strokeRect() { return this; }
   fillRoundedRect() { return this; }
   strokeRoundedRect() { return this; }
