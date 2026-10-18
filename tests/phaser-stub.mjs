@@ -8,6 +8,8 @@ export class Display extends EventEmitter {
   setY(y) { this.y = y; return this; }
   setScale(scale) { this.scale = scale; return this; }
   setText(text) { this.text = text; return this; }
+  setIcon() { return this; }
+  setTooltip() { return this; }
   setVisible(visible) { this.visible = visible; return this; }
   setDepth() { return this; }
   setInteractive() { return this; }

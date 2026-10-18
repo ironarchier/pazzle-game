@@ -5,11 +5,13 @@ import {
   getAlbumLevels,
   FONT_FAMILY,
   GAME_DEPTH,
+  GAME_ICONS,
   GESTURE_THRESHOLD,
   HEADER_HEIGHT,
   HEADER_PADDING,
   HOVER_DURATION,
   HOVER_EASE,
+  ICON_BUTTON_SPACING,
   LEVELS,
   PIECE_BEVEL,
   PIECE_DRAG_SCALE,
@@ -42,6 +44,7 @@ import { PuzzlePiece } from '../puzzle/PuzzlePiece';
 import { applyTheme, getTheme, toCss } from '../theme';
 import { BackLink } from '../ui/BackLink';
 import { Button } from '../ui/Button';
+import { IconButton } from '../ui/IconButton';
 
 interface Gesture {
   pointerId: number;
@@ -70,8 +73,8 @@ export class GameScene extends Phaser.Scene {
   private counter!: Phaser.GameObjects.Text;
   private helpText!: Phaser.GameObjects.Text;
   private tutorialText!: Phaser.GameObjects.Text;
-  private sampleButton!: Phaser.GameObjects.Text;
-  private hintButton!: Phaser.GameObjects.Text;
+  private sampleButton!: IconButton;
+  private hintButton!: IconButton;
   private completeImage!: Phaser.GameObjects.Image;
   private winPanel?: Phaser.GameObjects.Container;
   private pendingMoves = new Map<PuzzlePiece, [number, number]>();
@@ -141,15 +144,13 @@ export class GameScene extends Phaser.Scene {
     this.counter = this.label('', 28).setDepth(GAME_DEPTH.header);
     this.helpText = this.label('', 24).setDepth(GAME_DEPTH.header);
     this.tutorialText = this.label('', 27).setDepth(GAME_DEPTH.header);
-    this.sampleButton = this.label('Образец', 32).setPadding(20, 24).setColor(toCss(getTheme().accent)).setDepth(GAME_DEPTH.header).setInteractive({ useHandCursor: true });
-    this.hintButton = this.label('Подсказка', 32).setPadding(20, 24).setColor(toCss(getTheme().accent)).setDepth(GAME_DEPTH.header).setInteractive({ useHandCursor: true });
-    this.sampleButton.on('pointerup', () => this.showPreview());
-    this.hintButton.on('pointerup', () => {
+    this.sampleButton = new IconButton(this, 0, 0, GAME_ICONS.image, 'Образец', () => this.showPreview()).setDepth(GAME_DEPTH.header);
+    this.hintButton = new IconButton(this, 0, 0, GAME_ICONS.bulb, 'Подсказка', () => {
       if (this.gesture || this.won || this.preview) return;
       this.hintMode = !this.hintMode;
       this.hint.clear();
       this.refreshLabels();
-    });
+    }).setDepth(GAME_DEPTH.header);
     this.hint = this.add.graphics().setDepth(GAME_DEPTH.boardPieces + 0.5);
     this.completeImage = this.add.image(0, 0, PUZZLE_SOURCE_KEY).setOrigin(0).setDepth(GAME_DEPTH.placedPieces + 0.5).setVisible(false);
     this.createPieces();
@@ -333,8 +334,8 @@ export class GameScene extends Phaser.Scene {
     this.headerBg.fillRect(0, HEADER_HEIGHT - 2, width, 2);
     this.backLink.setPosition(HEADER_PADDING, 42);
     this.counter.setPosition(width - 200, 42);
-    this.sampleButton.setPosition(width / 2 - 140, 126);
-    this.hintButton.setPosition(width / 2 + 140, 126);
+    this.sampleButton.setPosition(width / 2 - ICON_BUTTON_SPACING / 2, 126);
+    this.hintButton.setPosition(width / 2 + ICON_BUTTON_SPACING / 2, 126);
     this.helpText.setPosition(width / 2, HEADER_HEIGHT + 22);
     this.tutorialText.setPosition(width / 2, height - TRAY_HEIGHT + 27);
 
@@ -781,7 +782,7 @@ export class GameScene extends Phaser.Scene {
 
   private refreshLabels(): void {
     this.counter.setText('Собрано: ' + this.pieces.filter(p => p.state === 'placed').length + ' из ' + this.pieces.length);
-    this.hintButton.setText(this.hintMode ? 'Отмена' : 'Подсказка');
+    this.hintButton.setIcon(this.hintMode ? GAME_ICONS.close : GAME_ICONS.bulb).setTooltip(this.hintMode ? 'Отмена' : 'Подсказка');
     if (!this.won) this.helpText.setText(this.hintMode ? 'Коснитесь детали в лотке или на поле' : LEVELS[this.level].title + ' · ' + this.rows + '×' + this.cols);
     const progress = getProgress();
     this.tutorialText.setText(this.won || progress.completed.length > 0 ? '' : !progress.tutorial.drag ? '↑ Потяните деталь из лотка на поле' : !progress.tutorial.scroll && this.trayContentWidth() > this.scale.width ? '↔ Листайте лоток вбок или колёсиком' : '');
@@ -801,7 +802,7 @@ export class GameScene extends Phaser.Scene {
     this.hint.strokeRect(x - this.cellSize / 2, y - this.cellSize / 2, this.cellSize, this.cellSize);
     this.helpText.setText('Подсвеченное место — для выбранной детали');
     this.hintTimer = this.time.delayedCall(4500, () => { this.hint.clear(); this.refreshLabels(); });
-    this.hintButton.setText('Подсказка');
+    this.hintButton.setIcon(GAME_ICONS.bulb).setTooltip('Подсказка');
   }
 
   private showPreview(): void {

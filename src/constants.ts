@@ -71,6 +71,20 @@ export const BACK_LINK_CHEVRON_WIDTH = 4;
 export const BACK_LINK_GAP = 12;
 export const BACK_LINK_HEIGHT = 64;
 
+export const GAME_ICONS = {
+  image: 'icon-image',
+  bulb: 'icon-bulb',
+  close: 'icon-close',
+};
+export const GAME_ICON_SIZE = 56;
+export const ICON_BUTTON_SIZE = 88;
+export const ICON_BUTTON_SPACING = 120;
+export const TOOLTIP_FONT_SIZE = 24;
+export const TOOLTIP_PADDING_X = 16;
+export const TOOLTIP_PADDING_Y = 10;
+export const TOOLTIP_RADIUS = 10;
+export const TOOLTIP_OFFSET = 12;
+
 export const HOVER_DURATION = 200;
 export const HOVER_EASE = 'Cubic.easeOut';
 export const TRANSITION_DURATION = 450;
