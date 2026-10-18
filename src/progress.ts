@@ -1,9 +1,9 @@
-import { LEVELS, SAVE_STORAGE_KEY, getAlbumLevels } from './constants';
+import { HINTS_PER_LEVEL, LEVELS, SAVE_STORAGE_KEY, getAlbumLevels } from './constants';
 
 export interface SavedGroup { ids: number[]; x: number; y: number }
 export interface Assembly {
   level: number; rows: number; cols: number; seed: number;
-  placed: number[]; tray: number[]; groups: SavedGroup[]; scroll: number;
+  placed: number[]; tray: number[]; groups: SavedGroup[]; scroll: number; hints?: number;
 }
 export interface Progress {
   version: 1; current: number; completed: number[];
@@ -41,6 +41,7 @@ export function validateAssembly(value: unknown, completed: number[]): Assembly 
   const config = LEVELS[value.level];
   const allowedGrid = value.rows === config.rows && value.cols === config.cols;
   if (!allowedGrid || !Number.isInteger(value.seed) || Number(value.seed) < 1 || Number(value.seed) > 0xffffffff) return;
+  if (value.hints !== undefined && (!Number.isInteger(value.hints) || Number(value.hints) < 0 || Number(value.hints) > HINTS_PER_LEVEL)) return;
   if (!Array.isArray(value.placed) || !Array.isArray(value.tray) || !Array.isArray(value.groups) || !finite(value.scroll) || value.scroll < 0) return;
   const rows = value.rows as number, cols = value.cols as number, count = rows * cols;
   const seen = new Set<number>();

@@ -27,6 +27,9 @@ import {
   HEADER_TITLE_MIN_FONT_SIZE,
   HEADER_TOP_ROW_Y,
   HOVER_DURATION,
+  HINT_FLIGHT_DURATION,
+  HINT_SHAKE,
+  HINTS_PER_LEVEL,
   HOVER_EASE,
   ICON_BUTTON_SIZE,
   ICON_BUTTON_SPACING,
@@ -76,7 +79,6 @@ interface Gesture {
   offsetX: number;
   offsetY: number;
   origin?: Map<PuzzlePiece, [number, number]>;
-  hintSelection?: boolean;
   mode: 'pending' | 'scroll' | 'drag';
 }
 
@@ -87,10 +89,8 @@ export class GameScene extends Phaser.Scene {
   private seed = 1;
   private restored?: Assembly;
   private won = false;
-  private hintMode = false;
+  private hints = HINTS_PER_LEVEL;
   private preview?: Phaser.GameObjects.Image;
-  private hint!: Phaser.GameObjects.Graphics;
-  private hintTimer?: Phaser.Time.TimerEvent;
   private title!: Phaser.GameObjects.Text;
   private counter!: Phaser.GameObjects.Text;
   private counterBg!: Phaser.GameObjects.Graphics;
@@ -132,6 +132,7 @@ export class GameScene extends Phaser.Scene {
     this.rows = this.restored?.rows ?? LEVELS[this.level].rows;
     this.cols = this.restored?.cols ?? LEVELS[this.level].cols;
     this.seed = this.restored?.seed ?? (Math.floor(Math.random() * 0xfffffffe) + 1);
+    this.hints = this.restored?.hints ?? HINTS_PER_LEVEL;
   }
 
   preload(): void {
@@ -143,10 +144,8 @@ export class GameScene extends Phaser.Scene {
     applyTheme(this);
 
     this.won = false;
-    this.hintMode = false;
     this.preview = undefined;
     this.winPanel = undefined;
-    this.hintTimer = undefined;
     this.pendingMoves.clear();
     this.pieces = [];
     this.tray = [];
@@ -168,14 +167,7 @@ export class GameScene extends Phaser.Scene {
     this.counterIcon = this.add.image(0, 0, GAME_ICONS.puzzle).setDisplaySize(COUNTER_ICON_SIZE, COUNTER_ICON_SIZE).setTint(getTheme().accent).setDepth(GAME_DEPTH.header);
     this.counter = this.label('', 28).setOrigin(0, 0.5).setDepth(GAME_DEPTH.header);
     this.sampleButton = new IconButton(this, 0, 0, GAME_ICONS.image, 'Образец', () => this.togglePreview()).setDepth(GAME_DEPTH.headerControls);
-    this.hintButton = new IconButton(this, 0, 0, GAME_ICONS.bulb, 'Подсказка', () => {
-      if (this.gesture || this.won) return;
-      this.hidePreview();
-      this.hintMode = !this.hintMode;
-      this.hint.clear();
-      this.refreshLabels();
-    }).setDepth(GAME_DEPTH.headerControls);
-    this.hint = this.add.graphics().setDepth(GAME_DEPTH.boardPieces + 0.5);
+    this.hintButton = new IconButton(this, 0, 0, GAME_ICONS.bulb, 'Подсказка', () => this.useHint()).setDepth(GAME_DEPTH.headerControls);
     this.completeImage = this.add.image(0, 0, PUZZLE_SOURCE_KEY).setOrigin(0).setDepth(GAME_DEPTH.placedPieces + 0.5).setVisible(false);
     this.createPieces();
     this.setupInput();
@@ -191,6 +183,17 @@ export class GameScene extends Phaser.Scene {
       window.removeEventListener('pagehide', save);
       document.removeEventListener('visibilitychange', visibility);
     });
+  }
+
+  update(): void {
+    const left = TRAY_SHELF_INSET, right = this.scale.width - TRAY_SHELF_INSET;
+    for (const piece of this.pieces) {
+      const half = piece.width / 2, scale = piece.scaleX;
+      const from = piece.state === 'tray' ? Math.max(0, (left - piece.x) / scale + half) : 0;
+      const to = piece.state === 'tray' ? Math.min(piece.width, (right - piece.x) / scale + half) : piece.width;
+      if (from <= 0 && to >= piece.width) { if (piece.isCropped) piece.setCrop(); }
+      else piece.setCrop(from, 0, Math.max(0, to - from), piece.height);
+    }
   }
 
   private createTextures(): void {
@@ -347,7 +350,6 @@ export class GameScene extends Phaser.Scene {
   private layout(): void {
     this.cancelGesture();
     this.hidePreview();
-    this.hint?.clear();
     const { width, height } = this.scale;
     const theme = getTheme();
 
@@ -477,8 +479,6 @@ export class GameScene extends Phaser.Scene {
 
     this.input.on('pointerdown', (pointer: Phaser.Input.Pointer, over: Phaser.GameObjects.GameObject[]) => {
       if (this.gesture || this.won || this.preview) return;
-      const chosen = over.find((o): o is PuzzlePiece => o instanceof PuzzlePiece && (o.state === 'tray' || o.state === 'board'));
-      if (this.hintMode && chosen?.state === 'board') { this.revealHint(chosen); return; }
       const gesture: Gesture = {
         pointerId: pointer.id,
         startX: pointer.x,
@@ -487,7 +487,6 @@ export class GameScene extends Phaser.Scene {
         offsetX: 0,
         offsetY: 0,
         mode: 'pending',
-        hintSelection: this.hintMode,
       };
 
       const boardPiece = over.find((o): o is PuzzlePiece => o instanceof PuzzlePiece && o.state === 'board');
@@ -519,7 +518,7 @@ export class GameScene extends Phaser.Scene {
       // Пока палец не сдвинулся на порог, жест не определён: движение вверх берёт кусочек, вбок — листает лоток
       if (gesture.mode === 'pending') {
         if (Math.hypot(dx, dy) < GESTURE_THRESHOLD) return;
-        if (!gesture.hintSelection && gesture.piece && -dy > Math.abs(dx)) {
+        if (gesture.piece && -dy > Math.abs(dx)) {
           gesture.mode = 'drag';
           this.pickUp(gesture.piece);
         } else {
@@ -540,7 +539,6 @@ export class GameScene extends Phaser.Scene {
       const gesture = this.gesture;
       if (!gesture || gesture.pointerId !== pointer.id) return;
       this.gesture = undefined;
-      if (gesture.mode === 'pending' && gesture.hintSelection && gesture.piece) this.revealHint(gesture.piece);
       if (gesture.mode === 'drag' && gesture.piece) this.drop(gesture.piece, gesture.origin);
       this.save();
     };
@@ -556,7 +554,7 @@ export class GameScene extends Phaser.Scene {
       this.save();
     });
     this.input.keyboard?.on('keydown-ESC', () => {
-      this.hidePreview(); this.hintMode = false; this.hint.clear(); this.refreshLabels();
+      this.hidePreview();
     });
   }
 
@@ -728,16 +726,17 @@ export class GameScene extends Phaser.Scene {
     if (destination) piece.setPosition(...destination);
   }
 
-  private place(group: PuzzlePiece[]): void {
+  private place(group: PuzzlePiece[], duration = SNAP_DURATION): void {
     this.input.manager.canvas.style.cursor = this.input.manager.defaultCursor;
     group.forEach((piece, i) => {
       piece.state = 'placed';
       piece.disableInteractive();
-      piece.setDepth(GAME_DEPTH.placedPieces);
+      piece.setDepth(GAME_DEPTH.draggedPiece);
       this.scalePiece(piece, this.boardScale);
 
       const [x, y] = this.targetOf(piece);
-      this.movePiece(piece, x, y, SNAP_DURATION, () => {
+      this.movePiece(piece, x, y, duration, () => {
+        piece.setDepth(GAME_DEPTH.placedPieces);
         this.sparkle(x, y);
         if (i > 0) return;
         vibrate(SNAP_VIBRATION);
@@ -784,7 +783,6 @@ export class GameScene extends Phaser.Scene {
     this.won = true;
     playWin();
     const fresh = completeLevel(this.level);
-    this.hint.clear();
     this.completeImage.setVisible(true).setAlpha(0);
     this.tweens.add({ targets: this.completeImage, alpha: 1, duration: 300 });
     this.sparkle(this.boardX + this.boardWidth / 2, this.boardY + this.boardHeight / 2);
@@ -872,18 +870,37 @@ export class GameScene extends Phaser.Scene {
     this.counterBg.clear()
       .fillStyle(getTheme().hoverSurface, 1)
       .fillRoundedRect(HEADER_PADDING, HEADER_BOTTOM_ROW_Y - COUNTER_CHIP_HEIGHT / 2, chipWidth, COUNTER_CHIP_HEIGHT, COUNTER_CHIP_HEIGHT / 2);
-    this.hintButton.setToggled(this.hintMode);
+    this.hintButton.setBadge(this.hints);
   }
 
-  private revealHint(piece: PuzzlePiece): void {
-    this.hintMode = false;
-    this.hintTimer?.remove();
-    this.hint.clear().lineStyle(5, getTheme().accent, 1);
-    const [x, y] = this.targetOf(piece);
-    this.hint.fillStyle(getTheme().accent, 0.2).fillRect(x - this.cellSize / 2, y - this.cellSize / 2, this.cellSize, this.cellSize);
-    this.hint.strokeRect(x - this.cellSize / 2, y - this.cellSize / 2, this.cellSize, this.cellSize);
-    this.hintTimer = this.time.delayedCall(4500, () => { this.hint.clear(); this.refreshLabels(); });
-    this.hintButton.setToggled(false);
+  private useHint(): void {
+    if (this.gesture || this.won) return;
+    const piece = this.hintPiece();
+    if (this.hints <= 0 || !piece) {
+      this.tweens.killTweensOf(this.hintButton);
+      this.hintButton.setX(this.scale.width - HEADER_PADDING - ICON_BUTTON_SIZE / 2);
+      this.tweens.add({ targets: this.hintButton, x: this.hintButton.x + HINT_SHAKE.offset, duration: HINT_SHAKE.duration, yoyo: true, repeat: HINT_SHAKE.repeat });
+      return;
+    }
+    this.hidePreview();
+    this.hints--;
+    if (piece.state === 'tray') {
+      Phaser.Utils.Array.Remove(this.tray, piece);
+      this.clampTrayScroll();
+      this.layoutTray(true);
+    }
+    for (const member of piece.group) this.settleMove(member);
+    playPickUp();
+    this.place(piece.group, HINT_FLIGHT_DURATION);
+    this.save();
+  }
+
+  private hintPiece(): PuzzlePiece | undefined {
+    const free = this.pieces.filter((p) => p.state === 'tray' || p.state === 'board');
+    const placed = this.pieces.filter((p) => p.state === 'placed');
+    const next = free.filter((p) => placed.some((o) => Math.abs(o.row - p.row) + Math.abs(o.col - p.col) === 1));
+    const candidates = next.length ? next : free.filter((p) => this.touchesPlaced([p]));
+    return Phaser.Utils.Array.GetRandom(candidates);
   }
 
   private togglePreview(): void {
@@ -893,9 +910,6 @@ export class GameScene extends Phaser.Scene {
 
   private showPreview(): void {
     if (this.preview || this.gesture || this.won) return;
-    this.hintMode = false;
-    this.hint.clear();
-    this.refreshLabels();
     this.preview = this.add.image(this.boardX, this.boardY, PUZZLE_SOURCE_KEY)
       .setOrigin(0)
       .setDisplaySize(this.boardWidth, this.boardHeight)
@@ -945,7 +959,7 @@ export class GameScene extends Phaser.Scene {
       piece.group.forEach(p => seen.add(p));
     }
     saveAssembly({ level: this.level, rows: this.rows, cols: this.cols, seed: this.seed,
-      placed: this.pieces.filter(p => p.state === 'placed').map(id), tray: this.tray.map(id), groups, scroll: this.trayScroll });
+      placed: this.pieces.filter(p => p.state === 'placed').map(id), tray: this.tray.map(id), groups, scroll: this.trayScroll, hints: this.hints });
   }
 
   private restore(): void {

@@ -9,6 +9,7 @@ export class Display extends EventEmitter {
   setScale(scale) { this.scale = scale; return this; }
   setText(text) { this.text = text; return this; }
   setToggled() { return this; }
+  setBadge(badge) { this.badge = badge; return this; }
   setVisible(visible) { this.visible = visible; return this; }
   setDepth() { return this; }
   setInteractive() { return this; }

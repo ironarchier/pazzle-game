@@ -131,6 +131,7 @@ export const COUNTER_ICON_SIZE = 28;
 export const COUNTER_ICON_GAP = 10;
 export const ICON_BUTTON_BG_RADIUS = 40;
 export const ICON_BUTTON_ICON_SIZE = 40;
+export const ICON_BADGE = { radius: 17, offset: 0.75, fontSize: 20, border: 3 };
 export const BACK_BUTTON_RADIUS = 30;
 export const ICON_BUTTON_SIZE = 88;
 export const ICON_BUTTON_SPACING = 120;
@@ -252,6 +253,9 @@ export const PIECE_MARGIN = Math.ceil(PIECE_SIZE * KNOB_SIZE * (1 + KNOB_VARIATI
 export const PIECE_FRAME_SIZE = PIECE_SIZE + PIECE_MARGIN * 2;
 export const SNAP_DISTANCE = 40;
 export const SNAP_DURATION = 120;
+export const HINTS_PER_LEVEL = 3;
+export const HINT_FLIGHT_DURATION = 500;
+export const HINT_SHAKE = { offset: 8, duration: 60, repeat: 2 };
 export const SNAP_VIBRATION = 30;
 
 export const SPARKLE_KEY = 'sparkle';

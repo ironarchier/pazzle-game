@@ -41,7 +41,7 @@ test('a border piece snaps with no installed neighbours; counter and save agree'
   assert.deepEqual(getProgress().active.placed, [1]);
 });
 
-test('joining, interrupted join tween, group movement, save/restore and hint preserve offsets', () => {
+test('joining, interrupted join tween, group movement and save/restore preserve offsets', () => {
   const scene = game();
   const a = scene.pieces[0], b = scene.pieces[1];
   drop(scene, a, 150, 700);
@@ -65,10 +65,6 @@ test('joining, interrupted join tween, group movement, save/restore and hint pre
   const [ra, rb] = [restored.pieces[0], restored.pieces[1]];
   assert.equal(ra.group, rb.group);
   assert.ok(Math.abs(rb.x - ra.x - restored.cellSize) < 1e-7);
-  const positions = ra.group.map(p => [p.x, p.y, p.state]);
-  restored.revealHint(rb);
-  assert.deepEqual(ra.group.map(p => [p.x, p.y, p.state]), positions);
-  assert.equal(restored.pieces.filter(p => p.state === 'placed').length, 0);
   restored.showPreview();
   assert.ok(restored.preview);
   restored.hidePreview();
@@ -90,33 +86,39 @@ test('saves are committed on release, never on pointer movement', () => {
   assert.equal(getProgress().active.groups.length, 1);
 });
 
-test('hint selection through pointer input does not pick up or auto-place a grouped piece', () => {
+test('three hints fly pieces to places allowed by the rules, then run out', () => {
+  const scene = game();
+  scene.refreshLabels();
+  assert.equal(scene.hintButton.badge, 3);
+  for (let used = 1; used <= 3; used++) {
+    scene.useHint();
+    scene.tweens.flush();
+    const placed = scene.pieces.filter(p => p.state === 'placed');
+    assert.equal(placed.length, used);
+    assert.equal(scene.hintButton.badge, 3 - used);
+    assert.equal(getProgress().active.hints, 3 - used);
+    for (const p of placed) assert.ok(p.row !== 1 || p.col !== 1 || placed.some(o => Math.abs(o.row - p.row) + Math.abs(o.col - p.col) === 1));
+  }
+  assert.equal(scene.tray.length, 6);
+  scene.useHint();
+  scene.tweens.flush();
+  assert.equal(scene.pieces.filter(p => p.state === 'placed').length, 3);
+});
+
+test('a hint places a whole board group and the remaining hints survive a reload', () => {
   const scene = game();
   const a = scene.pieces[0], b = scene.pieces[1];
   drop(scene, a, 150, 700); drop(scene, b, 150 + scene.cellSize, 700);
   scene.tweens.flush();
-  scene.setupInput(); scene.hintMode = true;
-  const positions = a.group.map(p => [p.x, p.y, p.state]);
-  scene.input.emit('pointerdown', { id: 1, x: b.x, y: b.y }, [b]);
-  assert.equal(scene.gesture, undefined);
-  assert.equal(scene.hintMode, false);
-  assert.deepEqual(a.group.map(p => [p.x, p.y, p.state]), positions);
-});
-
-test('tray remains scrollable in hint mode and a tap selects without starting a drag', () => {
-  const scene = game(); scene.setupInput(); scene.hintMode = true;
-  const piece = scene.tray[0];
-  scene.input.emit('pointerdown', { id: 1, x: 90, y: 1170 }, [piece]);
-  scene.input.emit('pointermove', { id: 1, x: 50, y: 1170 });
-  scene.input.emit('pointerup', { id: 1 });
-  assert.equal(scene.hintMode, true);
-  assert.equal(scene.trayScroll, 40);
-  assert.equal(piece.state, 'tray');
-  scene.input.emit('pointerdown', { id: 1, x: 50, y: 1170 }, [piece]);
-  scene.input.emit('pointerup', { id: 1 });
-  assert.equal(scene.hintMode, false);
-  assert.equal(scene.tray.length, 9);
-  assert.equal(piece.state, 'tray');
+  scene.useHint();
+  scene.tweens.flush();
+  assert.equal(a.state, 'placed');
+  assert.equal(b.state, 'placed');
+  assert.deepEqual(scene.positionsOf([a, b]).get(b), scene.targetOf(b));
+  const reloaded = readProgress({ getItem: key => key === SAVE_STORAGE_KEY ? JSON.stringify(getProgress()) : null });
+  assert.equal(reloaded.active.hints, 2);
+  const invalid = readProgress({ getItem: key => key === SAVE_STORAGE_KEY ? JSON.stringify({ ...getProgress(), active: { ...reloaded.active, hints: 4 } }) : null });
+  assert.equal(invalid.active, undefined);
 });
 
 test('resize cancellation returns a tray piece and fits a board group without changing its shape', () => {

@@ -2,6 +2,7 @@ import * as Phaser from 'phaser';
 import { playClick } from '../audio';
 import {
   FONT_FAMILY,
+  ICON_BADGE,
   ICON_BUTTON_BG_RADIUS,
   ICON_BUTTON_ICON_SIZE,
   ICON_BUTTON_SIZE,
@@ -24,6 +25,8 @@ export class IconButton extends Phaser.GameObjects.Container {
   private toggled = false;
   private hovered = false;
   private readonly radius: number;
+  private badgeBg?: Phaser.GameObjects.Graphics;
+  private badgeText?: Phaser.GameObjects.Text;
 
   constructor(scene: Phaser.Scene, x: number, y: number, iconKey: string, tooltip: string, onClick: () => void, radius = ICON_BUTTON_BG_RADIUS) {
     super(scene, x, y);
@@ -72,6 +75,26 @@ export class IconButton extends Phaser.GameObjects.Container {
     const min = TOOLTIP_OFFSET + half - this.x;
     const max = this.scene.scale.width - TOOLTIP_OFFSET - half - this.x;
     this.tooltip.setX(Phaser.Math.Clamp(0, min, max)).setVisible(true);
+  }
+
+  setBadge(value: number): this {
+    const theme = getTheme();
+    if (!this.badgeBg || !this.badgeText) {
+      const offset = this.radius * ICON_BADGE.offset;
+      this.badgeBg = this.scene.add.graphics().setPosition(offset, -offset);
+      this.badgeText = this.scene.add
+        .text(offset, -offset, '', { fontFamily: FONT_FAMILY, fontSize: `${ICON_BADGE.fontSize}px`, fontStyle: 'bold' })
+        .setOrigin(0.5);
+      this.addAt([this.badgeBg, this.badgeText], this.getIndex(this.tooltip));
+    }
+    const active = value > 0;
+    this.badgeBg.clear()
+      .fillStyle(theme.surface, 1)
+      .fillCircle(0, 0, ICON_BADGE.radius + ICON_BADGE.border)
+      .fillStyle(active ? theme.accent : theme.border, 1)
+      .fillCircle(0, 0, ICON_BADGE.radius);
+    this.badgeText.setText(String(value)).setColor(toCss(active ? theme.accentText : theme.textMuted));
+    return this;
   }
 
   setToggled(toggled: boolean): this {
