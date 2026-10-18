@@ -27,6 +27,7 @@ import {
   type Album,
 } from '../constants';
 import { goToScene, restartScene } from '../crossfade';
+import { albumSubtitle, albumTitle, levelTitle, t } from '../i18n';
 import { centerLayout } from '../layout';
 import { getProgress, isUnlocked } from '../progress';
 import { applyTheme, getTheme, toCss } from '../theme';
@@ -56,10 +57,10 @@ export class AlbumScene extends Phaser.Scene {
   private createLibrary(): void {
     const theme = getTheme();
     const progress = getProgress();
-    new BackLink(this, 35, 65, 'Меню', () => goToScene(this, 'Menu'));
-    this.label(360, 150, 'Аниме-альбомы', 54);
-    this.label(360, 210, 'Собирайте персонажей — открывайте суперпазлы', 25);
-    this.label(360, 252, `В коллекции: ${progress.completed.length} из ${LEVELS.length} картинок`, 24, theme.textMuted);
+    new BackLink(this, 35, 65, t('menu'), () => goToScene(this, 'Menu'));
+    this.label(360, 150, t('libraryTitle'), 54);
+    this.label(360, 210, t('librarySubtitle'), 25);
+    this.label(360, 252, t('libraryCount', { count: progress.completed.length, total: LEVELS.length }), 24, theme.textMuted);
     ALBUMS.forEach((album, index) => {
       const ids = getAlbumLevels(album.id);
       const count = ids.filter(id => progress.completed.includes(id)).length;
@@ -68,8 +69,9 @@ export class AlbumScene extends Phaser.Scene {
       const card = createCard(this, 360, 368 + index * 186, ALBUM_ROW_WIDTH, ALBUM_ROW_HEIGHT, () => restartScene(this, { albumId: album.id }));
       const r = ALBUM_COVER_RADIUS;
       const cover = this.add.image(left + ALBUM_ROW_HEIGHT / 2, 0, cardTexture(this, `album-${this.coverLevel(album)}`, ALBUM_COVER_SIZE, ALBUM_COVER_SIZE, { tl: r, tr: r, br: r, bl: r }));
-      const title = this.label(textX, -45, album.title, album.title.length > 25 ? 25 : 33).setOrigin(0, 0.5);
-      const subtitle = this.label(textX, 2, album.subtitle, 24, theme.textMuted).setOrigin(0, 0.5);
+      const name = albumTitle(album);
+      const title = this.label(textX, -45, name, name.length > 25 ? 25 : 33).setOrigin(0, 0.5);
+      const subtitle = this.label(textX, 2, albumSubtitle(album), 24, theme.textMuted).setOrigin(0, 0.5);
       const bar = createProgressBar(this, textX, 46, ALBUM_PROGRESS_WIDTH, count / ids.length, album.accent);
       const status = this.label(textX + ALBUM_PROGRESS_WIDTH + 16, 46, count === ids.length ? '✓' : `${count}/${ids.length}`, 23, album.accent).setOrigin(0, 0.5);
       const chevron = this.label(ALBUM_ROW_WIDTH / 2 - 36, 0, '›', 48, theme.textMuted);
@@ -82,10 +84,11 @@ export class AlbumScene extends Phaser.Scene {
     const ids = getAlbumLevels(album.id);
     const count = ids.filter(id => progress.completed.includes(id)).length;
     const ordinaryCount = ids.filter(id => !LEVELS[id].finale && progress.completed.includes(id)).length;
-    new BackLink(this, 35, 65, 'Альбомы', () => restartScene(this));
-    this.label(360, 160, album.title, album.title.length > 25 ? 33 : 44);
-    this.label(360, 220, `Собрано: ${count} из ${ids.length}`, 30, album.accent);
-    this.label(360, 270, count === ids.length ? 'Альбом собран! Можно пройти снова.' : ordinaryCount === 5 ? 'Суперпазл открыт! Соберите финальную картинку.' : 'Соберите 5 персонажей, чтобы открыть суперпазл', 23);
+    new BackLink(this, 35, 65, t('albums'), () => restartScene(this));
+    const name = albumTitle(album);
+    this.label(360, 160, name, name.length > 25 ? 33 : 44);
+    this.label(360, 220, t('albumCollected', { count, total: ids.length }), 30, album.accent);
+    this.label(360, 270, t(count === ids.length ? 'albumDone' : ordinaryCount === 5 ? 'albumFinaleOpen' : 'albumGoal'), 23);
     ids.forEach((id, index) => {
       const level = LEVELS[id];
       const done = progress.completed.includes(id), unlocked = isUnlocked(id, progress.completed);
@@ -101,12 +104,12 @@ export class AlbumScene extends Phaser.Scene {
         card.add(this.add.graphics().fillStyle(theme.surface, 0.9).fillCircle(0, imageY, LOCK_BADGE_RADIUS));
         card.add(this.add.image(0, imageY, GAME_ICONS.lock).setDisplaySize(LOCK_ICON_SIZE, LOCK_ICON_SIZE).setTint(theme.text));
       }
-      const name = hidden ? '★ Суперпазл' : level.finale ? `★ ${level.title}` : level.title;
+      const name = hidden ? t('superPuzzle') : level.finale ? `★ ${levelTitle(id)}` : levelTitle(id);
       card.add(this.label(0, textY + 37, name, name.length > 23 ? 19 : 23, level.finale ? album.accent : theme.text));
       const statusY = textY + 73;
-      if (active) card.add(this.label(0, statusY, 'Продолжить сборку', 22, album.accent));
-      else if (done) card.add(this.label(0, statusY, '✓ Собрано · собрать снова', 22, album.accent));
-      else if (hidden) card.add(this.label(0, statusY, `${ordinaryCount} из 5 до открытия`, 22, theme.textMuted));
+      if (active) card.add(this.label(0, statusY, t('continueAssembly'), 22, album.accent));
+      else if (done) card.add(this.label(0, statusY, t('doneAgain'), 22, album.accent));
+      else if (hidden) card.add(this.label(0, statusY, t('lockedFinale', { count: ordinaryCount }), 22, theme.textMuted));
       else card.add(this.pieceCount(0, statusY, level.rows * level.cols));
     });
   }
@@ -118,10 +121,10 @@ export class AlbumScene extends Phaser.Scene {
     const bg = this.add.graphics()
       .fillStyle(getTheme().surface, 1)
       .fillRoundedRect(360 - DIALOG_WIDTH / 2, 640 - DIALOG_HEIGHT / 2, DIALOG_WIDTH, DIALOG_HEIGHT, CARD_RADIUS);
-    const title = this.label(360, 520, 'Начать другую картинку?', 36);
-    const text = this.label(360, 590, 'Текущая незавершённая сборка будет заменена.\nСобранные картинки останутся в альбомах.', 25);
-    const start = new Button(this, 360 + DIALOG_BUTTON_OFFSET, 730, 'Начать', () => goToScene(this, 'Game', { level }), DIALOG_BUTTON_SCALE);
-    const cancel = new Button(this, 360 - DIALOG_BUTTON_OFFSET, 730, 'Назад', () => { this.confirmation?.destroy(); this.confirmation = undefined; }, DIALOG_BUTTON_SCALE, 'secondary');
+    const title = this.label(360, 520, t('dialogTitle'), 36);
+    const text = this.label(360, 590, t('dialogText'), 25);
+    const start = new Button(this, 360 + DIALOG_BUTTON_OFFSET, 730, t('start'), () => goToScene(this, 'Game', { level }), DIALOG_BUTTON_SCALE);
+    const cancel = new Button(this, 360 - DIALOG_BUTTON_OFFSET, 730, t('back'), () => { this.confirmation?.destroy(); this.confirmation = undefined; }, DIALOG_BUTTON_SCALE, 'secondary');
     this.confirmation = this.add.container(0, 0, [shade, bg, title, text, start, cancel]).setDepth(20);
   }
   private coverLevel(album: Album): number {

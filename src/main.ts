@@ -7,6 +7,11 @@ import { GameScene } from './scenes/GameScene';
 import { MenuScene } from './scenes/MenuScene';
 import { GAME_HEIGHT, GAME_WIDTH } from './constants';
 import { getTheme, toCss } from './theme';
+import { syncDocumentLanguage } from './i18n';
+import { subscribeSettings } from './settings';
+
+syncDocumentLanguage();
+subscribeSettings(syncDocumentLanguage);
 
 new Phaser.Game({
   type: Phaser.AUTO,

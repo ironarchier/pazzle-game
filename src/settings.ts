@@ -1,12 +1,16 @@
-import { SETTINGS_STORAGE_KEY, type ThemeName } from './constants';
+import { LANGUAGES, SETTINGS_STORAGE_KEY, type LanguageName, type ThemeName } from './constants';
 
 export interface Settings {
   sound: boolean;
   music: boolean;
   theme: ThemeName;
+  language: LanguageName;
 }
 
-const DEFAULT_SETTINGS: Settings = { sound: true, music: true, theme: 'light' };
+const browserLanguage = (): LanguageName =>
+  typeof navigator === 'undefined' || navigator.language?.toLowerCase().startsWith('ru') ? 'ru' : 'en';
+
+const DEFAULT_SETTINGS: Settings = { sound: true, music: true, theme: 'light', language: browserLanguage() };
 
 let current = loadSettings();
 const listeners = new Set<() => void>();
@@ -19,7 +23,9 @@ export function subscribeSettings(listener: () => void): () => void {
 function loadSettings(): Settings {
   try {
     const raw = localStorage.getItem(SETTINGS_STORAGE_KEY);
-    return raw ? { ...DEFAULT_SETTINGS, ...JSON.parse(raw) } : { ...DEFAULT_SETTINGS };
+    const settings: Settings = raw ? { ...DEFAULT_SETTINGS, ...JSON.parse(raw) } : { ...DEFAULT_SETTINGS };
+    if (!LANGUAGES.some(({ id }) => id === settings.language)) settings.language = DEFAULT_SETTINGS.language;
+    return settings;
   } catch {
     return { ...DEFAULT_SETTINGS };
   }

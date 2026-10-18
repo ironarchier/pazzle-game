@@ -69,6 +69,7 @@ import { PuzzlePiece } from '../puzzle/PuzzlePiece';
 import { applyTheme, getTheme, toCss } from '../theme';
 import { Button } from '../ui/Button';
 import { IconButton } from '../ui/IconButton';
+import { albumTitle, levelTitle, pieces, t } from '../i18n';
 
 interface Gesture {
   pointerId: number;
@@ -165,15 +166,15 @@ export class GameScene extends Phaser.Scene {
     this.board = this.add.graphics().setDepth(GAME_DEPTH.board);
     this.trayBg = this.add.graphics().setDepth(GAME_DEPTH.tray);
     this.headerBg = this.add.graphics().setDepth(GAME_DEPTH.header);
-    this.backButton = new IconButton(this, 0, 0, GAME_ICONS.back, 'Альбом', () => { this.save(); goToScene(this, 'Album', { albumId: getLevelAlbum(this.level).id }); }, BACK_BUTTON_RADIUS).setDepth(GAME_DEPTH.headerControls);
+    this.backButton = new IconButton(this, 0, 0, GAME_ICONS.back, t('album'), () => { this.save(); goToScene(this, 'Album', { albumId: getLevelAlbum(this.level).id }); }, BACK_BUTTON_RADIUS).setDepth(GAME_DEPTH.headerControls);
 
     this.title = this.label('', HEADER_TITLE_FONT_SIZE).setDepth(GAME_DEPTH.header);
     this.counterBg = this.add.graphics().setDepth(GAME_DEPTH.header);
     this.counterIcon = this.add.image(0, 0, GAME_ICONS.puzzle).setDisplaySize(COUNTER_ICON_SIZE, COUNTER_ICON_SIZE).setTint(getTheme().accent).setDepth(GAME_DEPTH.header);
     this.counter = this.label('', 28).setOrigin(0, 0.5).setDepth(GAME_DEPTH.header);
-    this.sampleButton = new IconButton(this, 0, 0, GAME_ICONS.image, 'Образец', () => this.togglePreview()).setDepth(GAME_DEPTH.headerControls);
-    this.edgesButton = new IconButton(this, 0, 0, GAME_ICONS.edges, 'Сначала края', () => this.toggleEdgesFirst()).setDepth(GAME_DEPTH.headerControls);
-    this.hintButton = new IconButton(this, 0, 0, GAME_ICONS.bulb, 'Подсказка', () => this.useHint()).setDepth(GAME_DEPTH.headerControls);
+    this.sampleButton = new IconButton(this, 0, 0, GAME_ICONS.image, t('sample'), () => this.togglePreview()).setDepth(GAME_DEPTH.headerControls);
+    this.edgesButton = new IconButton(this, 0, 0, GAME_ICONS.edges, t('edgesFirst'), () => this.toggleEdgesFirst()).setDepth(GAME_DEPTH.headerControls);
+    this.hintButton = new IconButton(this, 0, 0, GAME_ICONS.bulb, t('hint'), () => this.useHint()).setDepth(GAME_DEPTH.headerControls);
     this.completeImage = this.add.image(0, 0, PUZZLE_SOURCE_KEY).setOrigin(0).setDepth(GAME_DEPTH.placedPieces + 0.5).setVisible(false);
     this.createPieces();
     this.setupInput();
@@ -802,15 +803,17 @@ export class GameScene extends Phaser.Scene {
     const ids = getAlbumLevels(collection.id);
     const count = ids.filter(id => progress.completed.includes(id)).length;
     const remaining = ids.filter(id => !LEVELS[id].finale && !progress.completed.includes(id)).length;
-    const heading = count === ids.length ? 'Альбом собран!' : fresh ? 'Новый персонаж в альбоме!' : 'Снова собрано!';
-    const goal = count === ids.length ? 'Суперпазл собран! Впереди другие аниме.' : remaining > 0 ? 'До суперпазла: ещё ' + remaining + ' из 5 персонажей' : 'Суперпазл открыт · ' + LEVELS[ids[ids.length - 1]].rows * LEVELS[ids[ids.length - 1]].cols + ' деталей!';
+    const heading = t(count === ids.length ? 'winAlbumDone' : fresh ? 'winNew' : 'winAgain');
+    const finale = LEVELS[ids[ids.length - 1]];
+    const goal = count === ids.length ? t('winAllDone') : remaining > 0 ? t('winRemaining', { count: remaining }) : t('winFinaleOpen', { pieces: pieces(finale.rows * finale.cols) });
     const title = this.label(heading, 36).setY(WIN_PANEL.titleY).setColor(toCss(collection.accent)).setFontStyle('bold');
-    const detail = this.label(collection.title + ' · ' + count + ' из ' + ids.length, collection.title.length > 25 ? 20 : 23).setY(WIN_PANEL.detailY);
+    const name = albumTitle(collection);
+    const detail = this.label(t('winDetail', { album: name, count, total: ids.length }), name.length > 25 ? 20 : 23).setY(WIN_PANEL.detailY);
     const goalText = this.label(goal, 25).setY(WIN_PANEL.goalY);
     const next = nextLevel(progress.completed, this.level);
     const albumDone = count === ids.length;
-    const action = new Button(this, -WIN_PANEL.buttonX, WIN_PANEL.buttonY, albumDone ? 'Альбомы' : next === undefined ? 'В альбом' : 'Дальше', () => albumDone ? goToScene(this, 'Album') : next === undefined ? goToScene(this, 'Album', { albumId: collection.id }) : restartScene(this, { level: next }), 0.78);
-    const album = new Button(this, WIN_PANEL.buttonX, WIN_PANEL.buttonY, albumDone ? 'В меню' : 'Альбом', () => goToScene(this, albumDone ? 'Menu' : 'Album', { albumId: collection.id }), 0.78, 'secondary');
+    const action = new Button(this, -WIN_PANEL.buttonX, WIN_PANEL.buttonY, t(albumDone ? 'albums' : next === undefined ? 'toAlbum' : 'next'), () => albumDone ? goToScene(this, 'Album') : next === undefined ? goToScene(this, 'Album', { albumId: collection.id }) : restartScene(this, { level: next }), 0.78);
+    const album = new Button(this, WIN_PANEL.buttonX, WIN_PANEL.buttonY, t(albumDone ? 'toMenu' : 'album'), () => goToScene(this, albumDone ? 'Menu' : 'Album', { albumId: collection.id }), 0.78, 'secondary');
     const panelWidth = Math.min(this.scale.width, GAME_WIDTH);
     const r = GAME_PANEL_RADIUS;
     const bg = this.add.graphics()
@@ -859,7 +862,7 @@ export class GameScene extends Phaser.Scene {
     const width = this.scale.width;
     const left = this.backButton.x + BACK_BUTTON_RADIUS + HEADER_TITLE_GAP;
     const maxWidth = width - left * 2;
-    const full = LEVELS[this.level].title;
+    const full = levelTitle(this.level);
     let size = HEADER_TITLE_FONT_SIZE;
     this.title.setPosition(width / 2, HEADER_TOP_ROW_Y).setFontSize(size).setText(full);
     while (this.title.width > maxWidth && size > HEADER_TITLE_MIN_FONT_SIZE) this.title.setFontSize(--size);

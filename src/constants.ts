@@ -7,6 +7,8 @@ export const FONT_NAME = 'Nunito';
 export const FONT_SAMPLE = 'Аниме-пазлы Aa';
 
 export type ThemeName = 'light' | 'dark';
+export type LanguageName = 'ru' | 'en';
+export const LANGUAGES: { id: LanguageName; label: string }[] = [{ id: 'ru', label: 'RU' }, { id: 'en', label: 'EN' }];
 
 export interface Theme {
   background: number;
@@ -106,7 +108,8 @@ export const MENU_CARD_IMAGE_HEIGHT = 300;
 export const MENU_CARD_PADDING = 32;
 export const MENU_CARD_COUNT_WIDTH = 80;
 export const SETTINGS_CARD_WIDTH = 640;
-export const SETTINGS_CARD_HEIGHT = 400;
+export const SETTINGS_CARD_HEIGHT = 520;
+export const SEGMENT = { optionWidth: 84, padding: 5, fontSize: 24 };
 export const LEVEL_CARD_WIDTH = 308;
 export const LEVEL_CARD_HEIGHT = 270;
 export const LEVEL_CARD_IMAGE_HEIGHT = 170;
@@ -168,52 +171,54 @@ export const MUSIC = {
 export interface Album {
   id: string;
   title: string;
+  titleEn: string;
   subtitle: string;
+  subtitleEn: string;
   accent: number;
-  characters: { title: string; image: string }[];
+  characters: { title: string; titleEn: string; image: string }[];
 }
 
 // Order is part of the saved catalogue: append albums; do not reorder existing entries.
 export const ALBUMS: Album[] = [
-  { id: 'tokyo-ghoul', title: 'Токийский гуль', subtitle: 'За маской человека', accent: 0xe5395b, characters: [
-    { title: 'Тоука Киришима', image: 'images/anime/tg-touka.jpg' },
-    { title: 'Ризэ Камисиро', image: 'images/anime/tg-rize.jpg' },
-    { title: 'Хидэёси Нагачика', image: 'images/anime/tg-hide.jpg' },
-    { title: 'Сю Цукияма', image: 'images/anime/tg-tsukiyama.jpg' },
-    { title: 'Дзюдзо Судзуя', image: 'images/anime/tg-juuzou.jpg' },
-    { title: 'Канеки · Пробуждение', image: 'images/level-1.jpg' },
+  { id: 'tokyo-ghoul', title: 'Токийский гуль', titleEn: 'Tokyo Ghoul', subtitle: 'За маской человека', subtitleEn: 'Behind the human mask', accent: 0xe5395b, characters: [
+    { title: 'Тоука Киришима', titleEn: 'Touka Kirishima', image: 'images/anime/tg-touka.jpg' },
+    { title: 'Ризэ Камисиро', titleEn: 'Rize Kamishiro', image: 'images/anime/tg-rize.jpg' },
+    { title: 'Хидэёси Нагачика', titleEn: 'Hideyoshi Nagachika', image: 'images/anime/tg-hide.jpg' },
+    { title: 'Сю Цукияма', titleEn: 'Shu Tsukiyama', image: 'images/anime/tg-tsukiyama.jpg' },
+    { title: 'Дзюдзо Судзуя', titleEn: 'Juzo Suzuya', image: 'images/anime/tg-juuzou.jpg' },
+    { title: 'Канеки · Пробуждение', titleEn: 'Kaneki · Awakening', image: 'images/level-1.jpg' },
   ] },
-  { id: 'attack-on-titan', title: 'Атака титанов', subtitle: 'По ту сторону стен', accent: 0x22a06b, characters: [
-    { title: 'Эрен Йегер', image: 'images/anime/aot-eren.jpg' },
-    { title: 'Микаса Аккерман', image: 'images/anime/aot-mikasa.jpg' },
-    { title: 'Армин Арлерт', image: 'images/anime/aot-armin.jpg' },
-    { title: 'Леви Аккерман', image: 'images/anime/aot-levi.jpg' },
-    { title: 'Ханджи Зоэ', image: 'images/anime/aot-hange.jpg' },
-    { title: 'Крылья свободы', image: 'images/anime/aot-finale.jpg' },
+  { id: 'attack-on-titan', title: 'Атака титанов', titleEn: 'Attack on Titan', subtitle: 'По ту сторону стен', subtitleEn: 'Beyond the walls', accent: 0x22a06b, characters: [
+    { title: 'Эрен Йегер', titleEn: 'Eren Yeager', image: 'images/anime/aot-eren.jpg' },
+    { title: 'Микаса Аккерман', titleEn: 'Mikasa Ackerman', image: 'images/anime/aot-mikasa.jpg' },
+    { title: 'Армин Арлерт', titleEn: 'Armin Arlert', image: 'images/anime/aot-armin.jpg' },
+    { title: 'Леви Аккерман', titleEn: 'Levi Ackerman', image: 'images/anime/aot-levi.jpg' },
+    { title: 'Ханджи Зоэ', titleEn: 'Hange Zoë', image: 'images/anime/aot-hange.jpg' },
+    { title: 'Крылья свободы', titleEn: 'Wings of Freedom', image: 'images/anime/aot-finale.jpg' },
   ] },
-  { id: 'death-note', title: 'Тетрадь смерти', subtitle: 'Игра двух умов', accent: 0x6c63ff, characters: [
-    { title: 'Лайт Ягами', image: 'images/anime/dn-light.jpg' },
-    { title: 'L', image: 'images/anime/dn-l.jpg' },
-    { title: 'Миса Аманэ', image: 'images/anime/dn-misa.jpg' },
-    { title: 'Рюк', image: 'images/anime/dn-ryuk.jpg' },
-    { title: 'Ниа', image: 'images/anime/dn-near.jpg' },
-    { title: 'Лайт и L · Противостояние', image: 'images/anime/dn-finale.jpg' },
+  { id: 'death-note', title: 'Тетрадь смерти', titleEn: 'Death Note', subtitle: 'Игра двух умов', subtitleEn: 'A battle of two minds', accent: 0x6c63ff, characters: [
+    { title: 'Лайт Ягами', titleEn: 'Light Yagami', image: 'images/anime/dn-light.jpg' },
+    { title: 'L', titleEn: 'L', image: 'images/anime/dn-l.jpg' },
+    { title: 'Миса Аманэ', titleEn: 'Misa Amane', image: 'images/anime/dn-misa.jpg' },
+    { title: 'Рюк', titleEn: 'Ryuk', image: 'images/anime/dn-ryuk.jpg' },
+    { title: 'Ниа', titleEn: 'Near', image: 'images/anime/dn-near.jpg' },
+    { title: 'Лайт и L · Противостояние', titleEn: 'Light and L · Showdown', image: 'images/anime/dn-finale.jpg' },
   ] },
-  { id: 'naruto', title: 'Наруто', subtitle: 'Свой путь ниндзя', accent: 0xff8a3d, characters: [
-    { title: 'Саске Учиха', image: 'images/anime/n-sasuke.jpg' },
-    { title: 'Сакура Харуно', image: 'images/anime/n-sakura.jpg' },
-    { title: 'Какаши Хатаке', image: 'images/anime/n-kakashi.jpg' },
-    { title: 'Итачи Учиха', image: 'images/anime/n-itachi.jpg' },
-    { title: 'Хината Хюга', image: 'images/anime/n-hinata.jpg' },
-    { title: 'Наруто · Мечта Хокаге', image: 'images/anime/n-finale.jpg' },
+  { id: 'naruto', title: 'Наруто', titleEn: 'Naruto', subtitle: 'Свой путь ниндзя', subtitleEn: 'Your own ninja way', accent: 0xff8a3d, characters: [
+    { title: 'Саске Учиха', titleEn: 'Sasuke Uchiha', image: 'images/anime/n-sasuke.jpg' },
+    { title: 'Сакура Харуно', titleEn: 'Sakura Haruno', image: 'images/anime/n-sakura.jpg' },
+    { title: 'Какаши Хатаке', titleEn: 'Kakashi Hatake', image: 'images/anime/n-kakashi.jpg' },
+    { title: 'Итачи Учиха', titleEn: 'Itachi Uchiha', image: 'images/anime/n-itachi.jpg' },
+    { title: 'Хината Хюга', titleEn: 'Hinata Hyuga', image: 'images/anime/n-hinata.jpg' },
+    { title: 'Наруто · Мечта Хокаге', titleEn: 'Naruto · The Hokage Dream', image: 'images/anime/n-finale.jpg' },
   ] },
-  { id: 'demon-slayer', title: 'Клинок, рассекающий демонов', subtitle: 'Свет среди тьмы', accent: 0x0ea5a4, characters: [
-    { title: 'Тандзиро Камадо', image: 'images/anime/ds-tanjiro.jpg' },
-    { title: 'Нэдзуко Камадо', image: 'images/anime/ds-nezuko.jpg' },
-    { title: 'Дзэницу Агацума', image: 'images/anime/ds-zenitsu.jpg' },
-    { title: 'Иноскэ Хасибира', image: 'images/anime/ds-inosuke.jpg' },
-    { title: 'Гию Томиока', image: 'images/anime/ds-giyu.jpg' },
-    { title: 'Тандзиро · Танец огня', image: 'images/anime/ds-finale.jpg' },
+  { id: 'demon-slayer', title: 'Клинок, рассекающий демонов', titleEn: 'Demon Slayer', subtitle: 'Свет среди тьмы', subtitleEn: 'Light in the darkness', accent: 0x0ea5a4, characters: [
+    { title: 'Тандзиро Камадо', titleEn: 'Tanjiro Kamado', image: 'images/anime/ds-tanjiro.jpg' },
+    { title: 'Нэдзуко Камадо', titleEn: 'Nezuko Kamado', image: 'images/anime/ds-nezuko.jpg' },
+    { title: 'Дзэницу Агацума', titleEn: 'Zenitsu Agatsuma', image: 'images/anime/ds-zenitsu.jpg' },
+    { title: 'Иноскэ Хасибира', titleEn: 'Inosuke Hashibira', image: 'images/anime/ds-inosuke.jpg' },
+    { title: 'Гию Томиока', titleEn: 'Giyu Tomioka', image: 'images/anime/ds-giyu.jpg' },
+    { title: 'Тандзиро · Танец огня', titleEn: 'Tanjiro · Dance of Fire', image: 'images/anime/ds-finale.jpg' },
   ] },
 ];
 export const LEVEL_GRIDS = [[3, 3], [4, 4], [5, 5], [6, 6], [7, 7], [8, 8]];
