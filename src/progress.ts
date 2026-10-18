@@ -13,7 +13,14 @@ type StorageLike = Pick<Storage, 'getItem' | 'setItem'>;
 const validLevel = (v: unknown): v is number => Number.isInteger(v) && Number(v) >= 0 && Number(v) < LEVELS.length;
 const record = (v: unknown): v is Record<string, unknown> => !!v && typeof v === 'object' && !Array.isArray(v);
 const finite = (v: unknown): v is number => typeof v === 'number' && Number.isFinite(v);
-export const isUnlocked = (level: number, completed: number[]): boolean => validLevel(level) && (!LEVELS[level].finale || getAlbumLevels(LEVELS[level].albumId).filter(id => !LEVELS[id].finale).every(id => completed.includes(id)));
+/** Albums open one picture at a time; the finale needs every character of its album. */
+export function isUnlocked(level: number, completed: number[]): boolean {
+  if (!validLevel(level)) return false;
+  const ids = getAlbumLevels(LEVELS[level].albumId);
+  const index = ids.indexOf(level);
+  if (LEVELS[level].finale) return ids.slice(0, index).every(id => completed.includes(id));
+  return index === 0 || completed.includes(level) || completed.includes(ids[index - 1]);
+}
 export function nextLevel(completed: number[], after = -1): number | undefined {
   if (validLevel(after)) {
     const album = getAlbumLevels(LEVELS[after].albumId);

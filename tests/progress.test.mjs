@@ -78,7 +78,8 @@ test('completion is idempotent, clears assembly and unlocks entire album', () =>
   assert.equal(completeLevel(0), true);
   assert.equal(completeLevel(0), false);
   assert.equal(getProgress().active, undefined);
-  for (const level of [4, 2, 1, 3]) assert.equal(completeLevel(level), true);
+  assert.equal(completeLevel(2), false);
+  for (const level of [1, 2, 3, 4]) assert.equal(completeLevel(level), true);
   assert.equal(isUnlocked(5, getProgress().completed), true);
   assert.equal(completeLevel(5), true);
   assert.equal(completeLevel(5), false);

@@ -18,10 +18,13 @@ test('five anime albums each have five ordinary characters and one special final
   assert.match(LEVELS[5].title, /Канеки/);
 });
 
-test('all albums are available immediately and each finale needs its own five characters', () => {
+test('each album opens one picture at a time and its finale needs its own five characters', () => {
   for (const album of ALBUMS) {
     const ids = getAlbumLevels(album.id), ordinary = ids.slice(0, 5), finale = ids[5];
-    ordinary.forEach(id => assert.equal(isUnlocked(id, []), true));
+    ordinary.forEach((id, index) => assert.equal(isUnlocked(id, []), index === 0));
+    ordinary.slice(1).forEach((id, index) => assert.equal(isUnlocked(id, ordinary.slice(0, index + 1)), true));
+    assert.equal(isUnlocked(ordinary[3], [ordinary[0], ordinary[1]]), false);
+    assert.equal(isUnlocked(ordinary[3], [ordinary[3]]), true);
     assert.equal(isUnlocked(finale, []), false);
     assert.equal(isUnlocked(finale, ordinary.slice(1)), false);
     assert.equal(isUnlocked(finale, ordinary), true);

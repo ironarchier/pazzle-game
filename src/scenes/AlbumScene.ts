@@ -1,10 +1,23 @@
 import * as Phaser from 'phaser';
-import { ALBUMS, FONT_FAMILY, GAME_WIDTH, LEVELS, getAlbumLevels, type Album } from '../constants';
+import {
+  ALBUM_CARD_IMAGE_SIZE,
+  ALBUM_COVER_SIZE,
+  ALBUM_PIECES_ICON_GAP,
+  ALBUM_PIECES_ICON_SIZE,
+  ALBUMS,
+  FONT_FAMILY,
+  GAME_ICONS,
+  GAME_WIDTH,
+  LEVELS,
+  getAlbumLevels,
+  type Album,
+} from '../constants';
 import { goToScene, restartScene } from '../crossfade';
 import { centerLayout } from '../layout';
 import { getProgress, isUnlocked } from '../progress';
 import { applyTheme, getTheme, toCss } from '../theme';
 import { BackLink } from '../ui/BackLink';
+import { blurTexture } from '../ui/blurTexture';
 import { Button } from '../ui/Button';
 
 export class AlbumScene extends Phaser.Scene {
@@ -15,7 +28,7 @@ export class AlbumScene extends Phaser.Scene {
     this.album = ALBUMS.find(album => album.id === data.albumId);
   }
   preload(): void {
-    const ids = this.album ? getAlbumLevels(this.album.id) : ALBUMS.map(album => getAlbumLevels(album.id).slice(-1)[0]);
+    const ids = this.album ? getAlbumLevels(this.album.id) : ALBUMS.map(album => this.coverLevel(album));
     ids.forEach(id => { if (!this.textures.exists(`album-${id}`)) this.load.image(`album-${id}`, LEVELS[id].image); });
   }
   create(): void {
@@ -38,7 +51,7 @@ export class AlbumScene extends Phaser.Scene {
       const finale = ids[ids.length - 1];
       const count = ids.filter(id => progress.completed.includes(id)).length;
       const bg = this.add.rectangle(360, y, 650, 164, theme.surface).setStrokeStyle(2, album.accent);
-      this.add.image(117, y, `album-${finale}`).setDisplaySize(130, 130);
+      this.add.image(117, y, `album-${this.coverLevel(album)}`).setDisplaySize(ALBUM_COVER_SIZE, ALBUM_COVER_SIZE);
       this.label(208, y - 45, album.title, album.title.length > 25 ? 25 : 33).setOrigin(0, 0.5);
       this.label(208, y + 2, album.subtitle, 24, theme.textMuted).setOrigin(0, 0.5);
       this.label(208, y + 46, count === ids.length ? '✓ Альбом собран · открыть' : `${count} из 6 · ${isUnlocked(finale, progress.completed) ? 'Суперпазл открыт' : 'Финал за 5 персонажей'}  ›`, 23, album.accent).setOrigin(0, 0.5);
@@ -68,11 +81,19 @@ export class AlbumScene extends Phaser.Scene {
         bg.on('pointerover', () => bg.setFillStyle(theme.hoverSurface));
         bg.on('pointerout', () => bg.setFillStyle(theme.surface));
       }
-      this.add.image(x, y - 42, `album-${id}`).setDisplaySize(160, 160).setAlpha(unlocked ? done ? 1 : 0.85 : 0.22);
-      if (level.finale) this.label(x, y - 110, '★ СУПЕРПАЗЛ · 5×5', 20, album.accent);
-      if (!unlocked) this.label(x, y - 40, 'Закрыто', 32);
-      this.label(x, y + 62, level.title, level.title.length > 23 ? 19 : 23);
-      this.label(x, y + 101, active ? 'Продолжить сборку' : done ? '✓ Собрано · собрать снова' : unlocked ? `Доступно · ${level.rows}×${level.cols}` : `${ordinaryCount} из 5 до открытия`, 22, done || active ? album.accent : theme.textMuted);
+      const hidden = level.finale && !unlocked;
+      const image = hidden ? blurTexture(this, `album-${id}`, ALBUM_CARD_IMAGE_SIZE) : `album-${id}`;
+      this.add.image(x, y - 42, image).setDisplaySize(ALBUM_CARD_IMAGE_SIZE, ALBUM_CARD_IMAGE_SIZE).setAlpha(unlocked ? done ? 1 : 0.85 : hidden ? 0.6 : 0.22);
+      if (!unlocked) this.add.image(x, y - 42, GAME_ICONS.lock).setTint(theme.text);
+      if (hidden) this.label(x, y + 62, '★ Суперпазл', 23, album.accent);
+      else {
+        const title = level.finale ? `★ ${level.title}` : level.title;
+        this.label(x, y + 62, title, title.length > 23 ? 19 : 23, level.finale ? album.accent : theme.text);
+      }
+      if (active) this.label(x, y + 101, 'Продолжить сборку', 22, album.accent);
+      else if (done) this.label(x, y + 101, '✓ Собрано · собрать снова', 22, album.accent);
+      else if (hidden) this.label(x, y + 101, `${ordinaryCount} из 5 до открытия`, 22, theme.textMuted);
+      else this.pieceCount(x, y + 101, level.rows * level.cols);
     });
   }
   private openLevel(level: number): void {
@@ -86,6 +107,21 @@ export class AlbumScene extends Phaser.Scene {
     const start = new Button(this, 360, 700, 'Начать', () => goToScene(this, 'Game', { level }));
     const cancel = new Button(this, 360, 820, 'Назад', () => { this.confirmation?.destroy(); this.confirmation = undefined; });
     this.confirmation = this.add.container(0, 0, [shade, bg, title, text, start, cancel]).setDepth(20);
+  }
+  /** The finale stays a surprise: the album shows its first picture until the superpuzzle is solved. */
+  private coverLevel(album: Album): number {
+    const ids = getAlbumLevels(album.id);
+    const finale = ids[ids.length - 1];
+    return getProgress().completed.includes(finale) ? finale : ids[0];
+  }
+  private pieceCount(x: number, y: number, count: number): void {
+    const color = getTheme().textMuted;
+    const text = this.label(0, y, String(count), 24, color).setOrigin(0, 0.5);
+    const width = text.width + ALBUM_PIECES_ICON_GAP + ALBUM_PIECES_ICON_SIZE;
+    text.setX(x - width / 2);
+    this.add.image(x + width / 2 - ALBUM_PIECES_ICON_SIZE / 2, y, GAME_ICONS.puzzle)
+      .setDisplaySize(ALBUM_PIECES_ICON_SIZE, ALBUM_PIECES_ICON_SIZE)
+      .setTint(color);
   }
   private label(x: number, y: number, text: string, size: number, color = getTheme().text): Phaser.GameObjects.Text {
     return this.add.text(x, y, text, { fontFamily: FONT_FAMILY, fontSize: `${size}px`, color: toCss(color), align: 'center' }).setOrigin(0.5);

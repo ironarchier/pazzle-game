@@ -74,8 +74,15 @@ export const BACK_LINK_HEIGHT = 64;
 export const GAME_ICONS = {
   image: 'icon-image',
   bulb: 'icon-bulb',
+  lock: 'icon-lock',
+  puzzle: 'icon-puzzle',
 };
 export const GAME_ICON_SIZE = 56;
+export const ALBUM_CARD_IMAGE_SIZE = 160;
+export const ALBUM_COVER_SIZE = 130;
+export const ALBUM_PIECES_ICON_SIZE = 26;
+export const ALBUM_PIECES_ICON_GAP = 8;
+export const BLUR_SAMPLE_SIZE = 10;
 export const ICON_BUTTON_SIZE = 88;
 export const ICON_BUTTON_SPACING = 120;
 export const TOOLTIP_FONT_SIZE = 24;
