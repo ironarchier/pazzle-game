@@ -699,7 +699,8 @@ export class GameScene extends Phaser.Scene {
 
   private touchesPlaced(group: PuzzlePiece[]): boolean {
     const placed = this.pieces.filter((p) => p.state === 'placed');
-    return placed.length === 0 || group.some((member) =>
+    return group.some((member) =>
+      member.row === 0 || member.col === 0 || member.row === this.rows - 1 || member.col === this.cols - 1 ||
       placed.some((p) => Math.abs(p.row - member.row) + Math.abs(p.col - member.col) === 1));
   }
 

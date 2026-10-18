@@ -31,14 +31,14 @@ test('a horizontal tray gesture scrolls the tray', () => {
   assert.ok(scene.trayScroll > 0);
 });
 
-test('an interior piece snaps with no installed neighbours; counter and save agree', () => {
+test('a border piece snaps with no installed neighbours; counter and save agree', () => {
   const scene = game();
-  const piece = scene.pieces[4];
+  const piece = scene.pieces[1];
   drop(scene, piece, ...scene.targetOf(piece));
   assert.equal(piece.state, 'placed');
   assert.equal(scene.pieces.filter(p => p.state === 'placed').length, 1);
   assert.equal(scene.counter.text, '1/9');
-  assert.deepEqual(getProgress().active.placed, [4]);
+  assert.deepEqual(getProgress().active.placed, [1]);
 });
 
 test('joining, interrupted join tween, group movement, save/restore and hint preserve offsets', () => {
@@ -196,13 +196,17 @@ test('a dragged piece can reach the edge columns of a full-width board', () => {
   }
 });
 
-test('after the first piece only pieces next to installed ones can be placed', () => {
+test('border pieces are placed freely, interior ones only next to an installed piece', () => {
   const scene = game();
-  const [first, diagonal, side] = [scene.pieces[0], scene.pieces[4], scene.pieces[1]];
-  drop(scene, first, ...scene.targetOf(first));
-  assert.equal(first.state, 'placed');
-  drop(scene, diagonal, ...scene.targetOf(diagonal));
-  assert.equal(diagonal.state, 'board');
+  const [corner, interior, side] = [scene.pieces[0], scene.pieces[4], scene.pieces[1]];
+  drop(scene, interior, ...scene.targetOf(interior));
+  assert.equal(interior.state, 'board');
+  drop(scene, corner, ...scene.targetOf(corner));
+  assert.equal(corner.state, 'placed');
+  drop(scene, interior, ...scene.targetOf(interior));
+  assert.equal(interior.state, 'board');
   drop(scene, side, ...scene.targetOf(side));
   assert.equal(side.state, 'placed');
+  drop(scene, interior, ...scene.targetOf(interior));
+  assert.equal(interior.state, 'placed');
 });
