@@ -151,12 +151,11 @@ export const BUTTON_PRESS_SCALE = 0.95;
 export const PIECE_HOVER_SCALE = 1.03;
 export const PIECE_DRAG_SCALE = 1.05;
 
-export const SOUNDS = {
-  click: 'click',
-  place: ['place-1', 'place-2', 'place-3', 'place-4', 'place-5'],
-  join: ['join-1', 'join-2', 'join-3', 'join-4'],
-};
-export const SOUND_DETUNE = 60;
+export const SOUND_VOLUME = 0.5;
+export const SOUND_REVERB = { seconds: 1.6, decay: 3, wet: 0.18 };
+export const SOUND_SCALE = [523.25, 587.33, 659.25, 783.99, 880, 1046.5, 1174.66, 1318.51, 1567.98, 1760];
+export const SOUND_WIN_CHORD = [523.25, 659.25, 783.99, 1046.5, 1318.51];
+export const SOUND_WIN_STEP = 0.09;
 
 export interface Album {
   id: string;

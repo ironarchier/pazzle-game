@@ -57,7 +57,7 @@ import {
   WIN_PANEL,
 } from '../constants';
 import { goToScene, restartScene } from '../crossfade';
-import { playJoin, playPlace } from '../audio';
+import { playDrop, playJoin, playPickUp, playPlace, playWin } from '../audio';
 import { vibrate } from '../haptics';
 import { onResize } from '../layout';
 import { getCurrentLevel, getProgress, saveAssembly, completeLevel, isUnlocked, nextLevel, type Assembly } from '../progress';
@@ -562,6 +562,7 @@ export class GameScene extends Phaser.Scene {
 
   private pickUp(piece: PuzzlePiece): void {
     const fromTray = piece.state === 'tray';
+    playPickUp();
     const scale = this.dragScale(piece.group);
     for (const member of piece.group) {
       if (member.state === 'board') this.settleMove(member);
@@ -617,6 +618,7 @@ export class GameScene extends Phaser.Scene {
     }
 
     piece.state = 'tray';
+    playDrop();
     piece.setDepth(GAME_DEPTH.trayPieces);
     this.scalePiece(piece, TRAY_PIECE_SCALE);
     this.tray.splice(Math.min(trayIndex, this.tray.length), 0, piece);
@@ -731,7 +733,7 @@ export class GameScene extends Phaser.Scene {
         this.sparkle(x, y);
         if (i > 0) return;
         vibrate(SNAP_VIBRATION);
-        playPlace();
+        playPlace(this.pieces.filter((p) => p.state === 'placed').length / this.pieces.length);
         if (this.pieces.every((p) => p.state === 'placed')) this.showWin();
       });
     });
@@ -772,6 +774,7 @@ export class GameScene extends Phaser.Scene {
   private showWin(): void {
     if (this.won) return;
     this.won = true;
+    playWin();
     const fresh = completeLevel(this.level);
     this.hint.clear();
     this.completeImage.setVisible(true).setAlpha(0);
