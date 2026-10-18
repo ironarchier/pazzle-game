@@ -59,13 +59,13 @@ export const THEMES: Record<ThemeName, Theme> = {
 
 export const SETTINGS_STORAGE_KEY = 'pazzle-game:settings';
 
-export const TAB_BAR_HEIGHT = 140;
+export const TAB_BAR_HEIGHT = 152;
 export const TAB_MAX_WIDTH = 300;
 export const TAB_BAR_MARGIN = 24;
 export const TAB_BAR_MAX_WIDTH = 560;
 export const TAB_ICON_SCALE = 0.7;
 export const TAB_ICON_Y = 46;
-export const TAB_LABEL_Y = 90;
+export const TAB_LABEL_Y = 92;
 export const TAB_LABEL_SIZE = 24;
 export const TAB_HOVER_ALPHA = 0.5;
 export const BUTTON_WIDTH = 360;
@@ -116,7 +116,9 @@ export const CARD_HOVER_SCALE = 1.03;
 export const LOCK_BADGE_RADIUS = 40;
 export const LOCK_ICON_SIZE = 44;
 export const DIALOG_WIDTH = 650;
-export const DIALOG_HEIGHT = 460;
+export const DIALOG_HEIGHT = 360;
+export const DIALOG_BUTTON_SCALE = 0.78;
+export const DIALOG_BUTTON_OFFSET = 150;
 export const ALBUM_PIECES_ICON_SIZE = 26;
 export const ALBUM_PIECES_ICON_GAP = 8;
 export const BLUR_SAMPLE_SIZE = 10;
@@ -274,7 +276,15 @@ export const TRAY_HEIGHT = 220;
 export const TRAY_PADDING = 24;
 export const TRAY_SHELF_INSET = 16;
 export const TRAY_SHELF_RADIUS = 24;
-export const WIN_PANEL_DURATION = 450;
+export const WIN_PANEL = {
+  height: 280,
+  titleY: 50,
+  detailY: 94,
+  goalY: 128,
+  buttonX: 170,
+  buttonY: 208,
+  duration: 450,
+};
 export const CONFETTI = {
   count: 70,
   width: 14,

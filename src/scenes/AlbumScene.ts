@@ -9,9 +9,12 @@ import {
   ALBUM_ROW_WIDTH,
   ALBUMS,
   CARD_RADIUS,
+  DIALOG_BUTTON_OFFSET,
+  DIALOG_BUTTON_SCALE,
   DIALOG_HEIGHT,
   DIALOG_WIDTH,
   FONT_FAMILY,
+  GAME_HEIGHT,
   GAME_ICONS,
   GAME_WIDTH,
   LEVEL_CARD_HEIGHT,
@@ -111,14 +114,14 @@ export class AlbumScene extends Phaser.Scene {
     if (this.confirmation) return;
     const active = getProgress().active;
     if (!active || active.level === level) { goToScene(this, 'Game', { level }); return; }
-    const shade = this.add.rectangle(360, 640, GAME_WIDTH, 1280, 0x000000, 0.7).setInteractive();
+    const shade = this.add.rectangle(GAME_WIDTH / 2, GAME_HEIGHT / 2, this.scale.width, this.scale.height, 0x000000, 0.7).setInteractive();
     const bg = this.add.graphics()
       .fillStyle(getTheme().surface, 1)
       .fillRoundedRect(360 - DIALOG_WIDTH / 2, 640 - DIALOG_HEIGHT / 2, DIALOG_WIDTH, DIALOG_HEIGHT, CARD_RADIUS);
-    const title = this.label(360, 510, 'Начать другую картинку?', 36);
-    const text = this.label(360, 580, 'Текущая незавершённая сборка будет заменена.\nСобранные картинки останутся в альбомах.', 25);
-    const start = new Button(this, 360, 700, 'Начать', () => goToScene(this, 'Game', { level }));
-    const cancel = new Button(this, 360, 820, 'Назад', () => { this.confirmation?.destroy(); this.confirmation = undefined; }, 1, 'secondary');
+    const title = this.label(360, 520, 'Начать другую картинку?', 36);
+    const text = this.label(360, 590, 'Текущая незавершённая сборка будет заменена.\nСобранные картинки останутся в альбомах.', 25);
+    const start = new Button(this, 360 + DIALOG_BUTTON_OFFSET, 730, 'Начать', () => goToScene(this, 'Game', { level }), DIALOG_BUTTON_SCALE);
+    const cancel = new Button(this, 360 - DIALOG_BUTTON_OFFSET, 730, 'Назад', () => { this.confirmation?.destroy(); this.confirmation = undefined; }, DIALOG_BUTTON_SCALE, 'secondary');
     this.confirmation = this.add.container(0, 0, [shade, bg, title, text, start, cancel]).setDepth(20);
   }
   private coverLevel(album: Album): number {

@@ -54,7 +54,7 @@ import {
   TRAY_SHELF_INSET,
   TRAY_SHELF_RADIUS,
   TRAY_SLOT_WIDTH,
-  WIN_PANEL_DURATION,
+  WIN_PANEL,
 } from '../constants';
 import { goToScene, restartScene } from '../crossfade';
 import { playJoin, playPlace } from '../audio';
@@ -581,7 +581,7 @@ export class GameScene extends Phaser.Scene {
 
   private dragTo(piece: PuzzlePiece, x: number, y: number): void {
     const { group } = piece;
-    const half = (PIECE_FRAME_SIZE * this.dragScale(group)) / 2;
+    const half = (PIECE_SIZE * this.dragScale(group)) / 2;
     const offsetsX = group.map((m) => m.x - piece.x);
     const offsetsY = group.map((m) => m.y - piece.y);
     const clampedX = Phaser.Math.Clamp(x, half - Math.min(...offsetsX), this.scale.width - half - Math.max(...offsetsX));
@@ -785,30 +785,30 @@ export class GameScene extends Phaser.Scene {
     const remaining = ids.filter(id => !LEVELS[id].finale && !progress.completed.includes(id)).length;
     const heading = count === ids.length ? 'Альбом собран!' : fresh ? 'Новый персонаж в альбоме!' : 'Снова собрано!';
     const goal = count === ids.length ? 'Суперпазл собран! Впереди другие аниме.' : remaining > 0 ? 'До суперпазла: ещё ' + remaining + ' из 5 персонажей' : 'Суперпазл открыт · 25 деталей!';
-    const title = this.label(heading, 36).setY(25).setColor(toCss(collection.accent)).setFontStyle('bold');
-    const detail = this.label(collection.title + ' · ' + count + ' из ' + ids.length, collection.title.length > 25 ? 20 : 23).setY(65);
-    const goalText = this.label(goal, 25).setY(101);
+    const title = this.label(heading, 36).setY(WIN_PANEL.titleY).setColor(toCss(collection.accent)).setFontStyle('bold');
+    const detail = this.label(collection.title + ' · ' + count + ' из ' + ids.length, collection.title.length > 25 ? 20 : 23).setY(WIN_PANEL.detailY);
+    const goalText = this.label(goal, 25).setY(WIN_PANEL.goalY);
     const next = nextLevel(progress.completed, this.level);
     const albumDone = count === ids.length;
-    const action = new Button(this, -170, 175, albumDone ? 'Альбомы' : next === undefined ? 'В альбом' : 'Дальше', () => albumDone ? goToScene(this, 'Album') : next === undefined ? goToScene(this, 'Album', { albumId: collection.id }) : restartScene(this, { level: next }), 0.78);
-    const album = new Button(this, 170, 175, albumDone ? 'В меню' : 'Альбом', () => goToScene(this, albumDone ? 'Menu' : 'Album', { albumId: collection.id }), 0.78, 'secondary');
+    const action = new Button(this, -WIN_PANEL.buttonX, WIN_PANEL.buttonY, albumDone ? 'Альбомы' : next === undefined ? 'В альбом' : 'Дальше', () => albumDone ? goToScene(this, 'Album') : next === undefined ? goToScene(this, 'Album', { albumId: collection.id }) : restartScene(this, { level: next }), 0.78);
+    const album = new Button(this, WIN_PANEL.buttonX, WIN_PANEL.buttonY, albumDone ? 'В меню' : 'Альбом', () => goToScene(this, albumDone ? 'Menu' : 'Album', { albumId: collection.id }), 0.78, 'secondary');
     const panelWidth = Math.min(this.scale.width, GAME_WIDTH);
     const r = GAME_PANEL_RADIUS;
     const bg = this.add.graphics()
       .fillStyle(0x000000, CARD_SHADOW_ALPHA)
-      .fillRoundedRect(-panelWidth / 2, -CARD_SHADOW_OFFSET, panelWidth, TRAY_HEIGHT, { tl: r, tr: r, bl: 0, br: 0 })
+      .fillRoundedRect(-panelWidth / 2, -CARD_SHADOW_OFFSET, panelWidth, WIN_PANEL.height, { tl: r, tr: r, bl: 0, br: 0 })
       .fillStyle(getTheme().surface, 1)
-      .fillRoundedRect(-panelWidth / 2, 0, panelWidth, TRAY_HEIGHT, { tl: r, tr: r, bl: 0, br: 0 });
+      .fillRoundedRect(-panelWidth / 2, 0, panelWidth, WIN_PANEL.height, { tl: r, tr: r, bl: 0, br: 0 });
     this.winPanel = this.add.container(0, 0, [bg, title, detail, goalText, action, album]).setDepth(GAME_DEPTH.overlay);
     this.layoutWinPanel();
     this.winPanel.setY(this.scale.height);
-    this.tweens.add({ targets: this.winPanel, y: this.scale.height - TRAY_HEIGHT, duration: WIN_PANEL_DURATION, ease: 'Back.easeOut' });
+    this.tweens.add({ targets: this.winPanel, y: this.scale.height - WIN_PANEL.height, duration: WIN_PANEL.duration, ease: 'Back.easeOut' });
   }
 
   private layoutWinPanel(): void {
     if (!this.winPanel) return;
     this.tweens.killTweensOf(this.winPanel);
-    this.winPanel.setPosition(this.scale.width / 2, this.scale.height - TRAY_HEIGHT);
+    this.winPanel.setPosition(this.scale.width / 2, this.scale.height - WIN_PANEL.height);
   }
 
   private confetti(albumColor: number): void {

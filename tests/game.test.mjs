@@ -185,3 +185,14 @@ test('fresh finale remains 5x5 on a narrow screen and ordinary puzzles remain 4x
     else globalThis.window = previousWindow;
   }
 });
+
+test('a dragged piece can reach the edge columns of a full-width board', () => {
+  const scene = game(4);
+  for (const piece of [scene.pieces[0], scene.pieces[3]]) {
+    scene.pickUp(piece);
+    const [x, y] = scene.targetOf(piece);
+    scene.dragTo(piece, x, y);
+    assert.equal(piece.x, x);
+    assert.equal(piece.y, y);
+  }
+});
