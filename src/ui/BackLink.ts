@@ -6,57 +6,59 @@ import {
   BACK_LINK_FONT_SIZE,
   BACK_LINK_GAP,
   BACK_LINK_HEIGHT,
+  BACK_LINK_PADDING,
   FONT_FAMILY,
 } from '../constants';
 import { getTheme, toCss } from '../theme';
 import { tweenColor } from './tweenColor';
 
 export class BackLink extends Phaser.GameObjects.Container {
-  private readonly chevron: Phaser.GameObjects.Graphics;
-  private readonly label: Phaser.GameObjects.Text;
-  private color: number;
+  private readonly bg: Phaser.GameObjects.Graphics;
+  private readonly pillWidth: number;
+  private bgColor: number;
 
   constructor(scene: Phaser.Scene, x: number, y: number, text: string, onClick: () => void) {
     super(scene, x, y);
     const theme = getTheme();
-    this.color = theme.accent;
+    this.bgColor = theme.hoverSurface;
 
-    this.chevron = scene.add.graphics();
-    this.label = scene.add
-      .text(BACK_LINK_CHEVRON_SIZE + BACK_LINK_GAP, 0, text, {
+    const s = BACK_LINK_CHEVRON_SIZE;
+    const chevron = scene.add.graphics()
+      .lineStyle(BACK_LINK_CHEVRON_WIDTH, theme.accent, 1)
+      .strokePoints([new Phaser.Math.Vector2(BACK_LINK_PADDING + s, -s), new Phaser.Math.Vector2(BACK_LINK_PADDING, 0), new Phaser.Math.Vector2(BACK_LINK_PADDING + s, s)], false);
+    const label = scene.add
+      .text(BACK_LINK_PADDING + s + BACK_LINK_GAP, 0, text, {
         fontFamily: FONT_FAMILY,
         fontSize: `${BACK_LINK_FONT_SIZE}px`,
+        fontStyle: 'bold',
+        color: toCss(theme.accent),
       })
       .setOrigin(0, 0.5);
-    this.paint(this.color);
+    this.pillWidth = label.x + label.width + BACK_LINK_PADDING;
 
-    const width = this.label.x + this.label.width;
-    const hitArea = scene.add.zone(width / 2, 0, width, BACK_LINK_HEIGHT).setInteractive({ useHandCursor: true });
-    hitArea.on('pointerover', () => this.fade(getTheme().accentHover));
-    hitArea.on('pointerout', () => this.fade(getTheme().accent));
+    this.bg = scene.add.graphics();
+    this.drawBg(this.bgColor);
+
+    const hitArea = scene.add.zone(this.pillWidth / 2, 0, this.pillWidth, BACK_LINK_HEIGHT).setInteractive({ useHandCursor: true });
+    hitArea.on('pointerover', () => this.fade(getTheme().border));
+    hitArea.on('pointerout', () => this.fade(getTheme().hoverSurface));
     hitArea.on('pointerup', () => {
       playClick();
       onClick();
     });
 
-    this.add([this.chevron, this.label, hitArea]);
+    this.add([this.bg, chevron, label, hitArea]);
     scene.add.existing(this);
   }
 
   private fade(color: number): void {
-    tweenColor(this.scene, this, this.color, color, (c) => this.paint(c));
+    tweenColor(this.scene, this.bg, this.bgColor, color, (c) => {
+      this.bgColor = c;
+      this.drawBg(c);
+    });
   }
 
-  private paint(color: number): void {
-    this.color = color;
-    this.label.setColor(toCss(color));
-
-    const s = BACK_LINK_CHEVRON_SIZE;
-    this.chevron.clear();
-    this.chevron.lineStyle(BACK_LINK_CHEVRON_WIDTH, color, 1);
-    this.chevron.strokePoints(
-      [new Phaser.Math.Vector2(s, -s), new Phaser.Math.Vector2(0, 0), new Phaser.Math.Vector2(s, s)],
-      false,
-    );
+  private drawBg(color: number): void {
+    this.bg.clear().fillStyle(color, 1).fillRoundedRect(0, -BACK_LINK_HEIGHT / 2, this.pillWidth, BACK_LINK_HEIGHT, BACK_LINK_HEIGHT / 2);
   }
 }

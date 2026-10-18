@@ -1,3 +1,5 @@
+import '@fontsource/nunito/400.css';
+import '@fontsource/nunito/700.css';
 import * as Phaser from 'phaser';
 import { AlbumScene } from './scenes/AlbumScene';
 import { BootScene } from './scenes/BootScene';

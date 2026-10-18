@@ -18,6 +18,7 @@ export class Display extends EventEmitter {
   setDisplaySize() { return this; }
   setFillStyle() { return this; }
   setColor() { return this; }
+  setFontStyle() { return this; }
   clear() { return this; }
   lineStyle() { return this; }
   fillStyle() { return this; }

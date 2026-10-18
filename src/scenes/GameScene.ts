@@ -1,8 +1,10 @@
 import * as Phaser from 'phaser';
 import {
+  BACK_BUTTON_RADIUS,
   BOARD_FRAME,
   BOARD_FRAME_RADIUS,
   BOARD_PADDING,
+  CONFETTI,
   CARD_SHADOW_ALPHA,
   CARD_SHADOW_OFFSET,
   COUNTER_CHIP_HEIGHT,
@@ -17,11 +19,13 @@ import {
   GAME_DEPTH,
   GAME_ICONS,
   GESTURE_THRESHOLD,
+  HEADER_BOTTOM_ROW_Y,
   HEADER_HEIGHT,
   HEADER_PADDING,
   HEADER_TITLE_FONT_SIZE,
   HEADER_TITLE_GAP,
   HEADER_TITLE_MIN_FONT_SIZE,
+  HEADER_TOP_ROW_Y,
   HOVER_DURATION,
   HOVER_EASE,
   ICON_BUTTON_SIZE,
@@ -47,7 +51,10 @@ import {
   TRAY_HEIGHT,
   TRAY_PADDING,
   TRAY_PIECE_SCALE,
+  TRAY_SHELF_INSET,
+  TRAY_SHELF_RADIUS,
   TRAY_SLOT_WIDTH,
+  WIN_PANEL_DURATION,
 } from '../constants';
 import { goToScene, restartScene } from '../crossfade';
 import { playJoin, playPlace } from '../audio';
@@ -57,7 +64,6 @@ import { getCurrentLevel, getProgress, saveAssembly, completeLevel, isUnlocked, 
 import { createPiecePath, generateEdges, seededRandom, type PieceEdges } from '../puzzle/pieceShape';
 import { PuzzlePiece } from '../puzzle/PuzzlePiece';
 import { applyTheme, getTheme, toCss } from '../theme';
-import { BackLink } from '../ui/BackLink';
 import { Button } from '../ui/Button';
 import { IconButton } from '../ui/IconButton';
 
@@ -112,7 +118,7 @@ export class GameScene extends Phaser.Scene {
   private board!: Phaser.GameObjects.Graphics;
   private trayBg!: Phaser.GameObjects.Graphics;
   private headerBg!: Phaser.GameObjects.Graphics;
-  private backLink!: BackLink;
+  private backButton!: IconButton;
 
   constructor() {
     super('Game');
@@ -155,20 +161,20 @@ export class GameScene extends Phaser.Scene {
     this.board = this.add.graphics().setDepth(GAME_DEPTH.board);
     this.trayBg = this.add.graphics().setDepth(GAME_DEPTH.tray);
     this.headerBg = this.add.graphics().setDepth(GAME_DEPTH.header);
-    this.backLink = new BackLink(this, 0, 0, 'Альбом', () => { this.save(); goToScene(this, 'Album', { albumId: getLevelAlbum(this.level).id }); }).setDepth(GAME_DEPTH.header);
+    this.backButton = new IconButton(this, 0, 0, GAME_ICONS.back, 'Альбом', () => { this.save(); goToScene(this, 'Album', { albumId: getLevelAlbum(this.level).id }); }, BACK_BUTTON_RADIUS).setDepth(GAME_DEPTH.headerControls);
 
     this.title = this.label('', HEADER_TITLE_FONT_SIZE).setDepth(GAME_DEPTH.header);
     this.counterBg = this.add.graphics().setDepth(GAME_DEPTH.header);
     this.counterIcon = this.add.image(0, 0, GAME_ICONS.puzzle).setDisplaySize(COUNTER_ICON_SIZE, COUNTER_ICON_SIZE).setTint(getTheme().accent).setDepth(GAME_DEPTH.header);
     this.counter = this.label('', 28).setOrigin(0, 0.5).setDepth(GAME_DEPTH.header);
-    this.sampleButton = new IconButton(this, 0, 0, GAME_ICONS.image, 'Образец', () => this.togglePreview()).setDepth(GAME_DEPTH.header);
+    this.sampleButton = new IconButton(this, 0, 0, GAME_ICONS.image, 'Образец', () => this.togglePreview()).setDepth(GAME_DEPTH.headerControls);
     this.hintButton = new IconButton(this, 0, 0, GAME_ICONS.bulb, 'Подсказка', () => {
       if (this.gesture || this.won) return;
       this.hidePreview();
       this.hintMode = !this.hintMode;
       this.hint.clear();
       this.refreshLabels();
-    }).setDepth(GAME_DEPTH.header);
+    }).setDepth(GAME_DEPTH.headerControls);
     this.hint = this.add.graphics().setDepth(GAME_DEPTH.boardPieces + 0.5);
     this.completeImage = this.add.image(0, 0, PUZZLE_SOURCE_KEY).setOrigin(0).setDepth(GAME_DEPTH.placedPieces + 0.5).setVisible(false);
     this.createPieces();
@@ -351,17 +357,19 @@ export class GameScene extends Phaser.Scene {
       .fillRoundedRect(0, CARD_SHADOW_OFFSET, width, HEADER_HEIGHT, { tl: 0, tr: 0, bl: r, br: r })
       .fillStyle(theme.surface, 1)
       .fillRoundedRect(0, 0, width, HEADER_HEIGHT, { tl: 0, tr: 0, bl: r, br: r });
-    this.backLink.setPosition(HEADER_PADDING, 42);
+    this.backButton.setPosition(HEADER_PADDING + BACK_BUTTON_RADIUS, HEADER_TOP_ROW_Y);
     this.fitTitle();
-    this.hintButton.setPosition(width - HEADER_PADDING - ICON_BUTTON_SIZE / 2, 126);
-    this.sampleButton.setPosition(this.hintButton.x - ICON_BUTTON_SPACING, 126);
+    this.hintButton.setPosition(width - HEADER_PADDING - ICON_BUTTON_SIZE / 2, HEADER_BOTTOM_ROW_Y);
+    this.sampleButton.setPosition(this.hintButton.x - ICON_BUTTON_SPACING, HEADER_BOTTOM_ROW_Y);
 
     const trayTop = height - TRAY_HEIGHT;
     this.trayBg.clear()
       .fillStyle(0x000000, CARD_SHADOW_ALPHA)
       .fillRoundedRect(0, trayTop - CARD_SHADOW_OFFSET, width, TRAY_HEIGHT, { tl: r, tr: r, bl: 0, br: 0 })
       .fillStyle(theme.surface, 1)
-      .fillRoundedRect(0, trayTop, width, TRAY_HEIGHT, { tl: r, tr: r, bl: 0, br: 0 });
+      .fillRoundedRect(0, trayTop, width, TRAY_HEIGHT, { tl: r, tr: r, bl: 0, br: 0 })
+      .fillStyle(theme.hoverSurface, 1)
+      .fillRoundedRect(TRAY_SHELF_INSET, trayTop + TRAY_SHELF_INSET, width - TRAY_SHELF_INSET * 2, TRAY_HEIGHT - TRAY_SHELF_INSET * 2, TRAY_SHELF_RADIUS);
 
     const prev = { x: this.boardX, y: this.boardY, scale: this.boardScale };
     const top = HEADER_HEIGHT;
@@ -769,6 +777,7 @@ export class GameScene extends Phaser.Scene {
     this.completeImage.setVisible(true).setAlpha(0);
     this.tweens.add({ targets: this.completeImage, alpha: 1, duration: 300 });
     this.sparkle(this.boardX + this.boardWidth / 2, this.boardY + this.boardHeight / 2);
+    this.confetti(getLevelAlbum(this.level).accent);
     const progress = getProgress();
     const collection = getLevelAlbum(this.level);
     const ids = getAlbumLevels(collection.id);
@@ -776,7 +785,7 @@ export class GameScene extends Phaser.Scene {
     const remaining = ids.filter(id => !LEVELS[id].finale && !progress.completed.includes(id)).length;
     const heading = count === ids.length ? 'Альбом собран!' : fresh ? 'Новый персонаж в альбоме!' : 'Снова собрано!';
     const goal = count === ids.length ? 'Суперпазл собран! Впереди другие аниме.' : remaining > 0 ? 'До суперпазла: ещё ' + remaining + ' из 5 персонажей' : 'Суперпазл открыт · 25 деталей!';
-    const title = this.label(heading, 36).setY(25);
+    const title = this.label(heading, 36).setY(25).setColor(toCss(collection.accent)).setFontStyle('bold');
     const detail = this.label(collection.title + ' · ' + count + ' из ' + ids.length, collection.title.length > 25 ? 20 : 23).setY(65);
     const goalText = this.label(goal, 25).setY(101);
     const next = nextLevel(progress.completed, this.level);
@@ -792,10 +801,35 @@ export class GameScene extends Phaser.Scene {
       .fillRoundedRect(-panelWidth / 2, 0, panelWidth, TRAY_HEIGHT, { tl: r, tr: r, bl: 0, br: 0 });
     this.winPanel = this.add.container(0, 0, [bg, title, detail, goalText, action, album]).setDepth(GAME_DEPTH.overlay);
     this.layoutWinPanel();
+    this.winPanel.setY(this.scale.height);
+    this.tweens.add({ targets: this.winPanel, y: this.scale.height - TRAY_HEIGHT, duration: WIN_PANEL_DURATION, ease: 'Back.easeOut' });
   }
 
   private layoutWinPanel(): void {
-    this.winPanel?.setPosition(this.scale.width / 2, this.scale.height - TRAY_HEIGHT);
+    if (!this.winPanel) return;
+    this.tweens.killTweensOf(this.winPanel);
+    this.winPanel.setPosition(this.scale.width / 2, this.scale.height - TRAY_HEIGHT);
+  }
+
+  private confetti(albumColor: number): void {
+    const theme = getTheme();
+    const colors = [theme.accent, theme.secondary, albumColor, CONFETTI.gold];
+    for (let i = 0; i < CONFETTI.count; i++) {
+      const x = Phaser.Math.Between(0, this.scale.width);
+      const y = HEADER_HEIGHT - CONFETTI.height;
+      const piece = this.add.rectangle(x, y, CONFETTI.width, CONFETTI.height, colors[i % colors.length]).setDepth(GAME_DEPTH.overlay - 0.5);
+      this.tweens.add({
+        targets: piece,
+        x: x + Phaser.Math.Between(-CONFETTI.drift, CONFETTI.drift),
+        y: y + Phaser.Math.Between(this.boardHeight / 2, this.scale.height),
+        angle: Phaser.Math.Between(-CONFETTI.spin, CONFETTI.spin),
+        alpha: 0,
+        delay: Phaser.Math.Between(0, CONFETTI.delay),
+        duration: Phaser.Math.Between(CONFETTI.duration.min, CONFETTI.duration.max),
+        ease: 'Quad.easeIn',
+        onComplete: () => piece.destroy(),
+      });
+    }
   }
 
   private label(text: string, size: number): Phaser.GameObjects.Text {
@@ -804,11 +838,11 @@ export class GameScene extends Phaser.Scene {
 
   private fitTitle(): void {
     const width = this.scale.width;
-    const left = this.backLink.x + this.backLink.getBounds().width + HEADER_TITLE_GAP;
+    const left = this.backButton.x + BACK_BUTTON_RADIUS + HEADER_TITLE_GAP;
     const maxWidth = width - left * 2;
     const full = LEVELS[this.level].title;
     let size = HEADER_TITLE_FONT_SIZE;
-    this.title.setPosition(width / 2, 42).setFontSize(size).setText(full);
+    this.title.setPosition(width / 2, HEADER_TOP_ROW_Y).setFontSize(size).setText(full);
     while (this.title.width > maxWidth && size > HEADER_TITLE_MIN_FONT_SIZE) this.title.setFontSize(--size);
     let text = full;
     while (this.title.width > maxWidth && text.length > 1) {
@@ -822,11 +856,11 @@ export class GameScene extends Phaser.Scene {
     const iconX = HEADER_PADDING + COUNTER_CHIP_PADDING + COUNTER_ICON_SIZE / 2;
     const textX = iconX + COUNTER_ICON_SIZE / 2 + COUNTER_ICON_GAP;
     const chipWidth = textX + this.counter.width + COUNTER_CHIP_PADDING - HEADER_PADDING;
-    this.counterIcon.setPosition(iconX, 126);
-    this.counter.setPosition(textX, 126);
+    this.counterIcon.setPosition(iconX, HEADER_BOTTOM_ROW_Y);
+    this.counter.setPosition(textX, HEADER_BOTTOM_ROW_Y);
     this.counterBg.clear()
       .fillStyle(getTheme().hoverSurface, 1)
-      .fillRoundedRect(HEADER_PADDING, 126 - COUNTER_CHIP_HEIGHT / 2, chipWidth, COUNTER_CHIP_HEIGHT, COUNTER_CHIP_HEIGHT / 2);
+      .fillRoundedRect(HEADER_PADDING, HEADER_BOTTOM_ROW_Y - COUNTER_CHIP_HEIGHT / 2, chipWidth, COUNTER_CHIP_HEIGHT, COUNTER_CHIP_HEIGHT / 2);
     this.hintButton.setToggled(this.hintMode);
   }
 

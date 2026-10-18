@@ -2,7 +2,9 @@ export const GAME_WIDTH = 720;
 export const GAME_HEIGHT = 1280;
 export const PRELOADER_MIN_DURATION = 1500;
 
-export const FONT_FAMILY = 'Arial';
+export const FONT_FAMILY = 'Nunito, Arial, sans-serif';
+export const FONT_NAME = 'Nunito';
+export const FONT_SAMPLE = 'Аниме-пазлы Aa';
 
 export type ThemeName = 'light' | 'dark';
 
@@ -81,8 +83,10 @@ export const BACK_LINK_CHEVRON_SIZE = 11;
 export const BACK_LINK_CHEVRON_WIDTH = 4;
 export const BACK_LINK_GAP = 12;
 export const BACK_LINK_HEIGHT = 64;
+export const BACK_LINK_PADDING = 22;
 
 export const GAME_ICONS = {
+  back: 'icon-back',
   image: 'icon-image',
   bulb: 'icon-bulb',
   lock: 'icon-lock',
@@ -125,6 +129,7 @@ export const COUNTER_ICON_SIZE = 28;
 export const COUNTER_ICON_GAP = 10;
 export const ICON_BUTTON_BG_RADIUS = 40;
 export const ICON_BUTTON_ICON_SIZE = 40;
+export const BACK_BUTTON_RADIUS = 30;
 export const ICON_BUTTON_SIZE = 88;
 export const ICON_BUTTON_SPACING = 120;
 export const TOOLTIP_FONT_SIZE = 24;
@@ -161,7 +166,7 @@ export interface Album {
 
 // Order is part of the saved catalogue: append albums; do not reorder existing entries.
 export const ALBUMS: Album[] = [
-  { id: 'tokyo-ghoul', title: 'Токийский гуль', subtitle: 'За маской человека', accent: 0xc74062, characters: [
+  { id: 'tokyo-ghoul', title: 'Токийский гуль', subtitle: 'За маской человека', accent: 0xe5395b, characters: [
     { title: 'Тоука Киришима', image: 'images/anime/tg-touka.jpg' },
     { title: 'Ризэ Камисиро', image: 'images/anime/tg-rize.jpg' },
     { title: 'Хидэёси Нагачика', image: 'images/anime/tg-hide.jpg' },
@@ -169,7 +174,7 @@ export const ALBUMS: Album[] = [
     { title: 'Дзюдзо Судзуя', image: 'images/anime/tg-juuzou.jpg' },
     { title: 'Канеки · Пробуждение', image: 'images/level-1.jpg' },
   ] },
-  { id: 'attack-on-titan', title: 'Атака титанов', subtitle: 'По ту сторону стен', accent: 0x59947a, characters: [
+  { id: 'attack-on-titan', title: 'Атака титанов', subtitle: 'По ту сторону стен', accent: 0x22a06b, characters: [
     { title: 'Эрен Йегер', image: 'images/anime/aot-eren.jpg' },
     { title: 'Микаса Аккерман', image: 'images/anime/aot-mikasa.jpg' },
     { title: 'Армин Арлерт', image: 'images/anime/aot-armin.jpg' },
@@ -177,7 +182,7 @@ export const ALBUMS: Album[] = [
     { title: 'Ханджи Зоэ', image: 'images/anime/aot-hange.jpg' },
     { title: 'Крылья свободы', image: 'images/anime/aot-finale.jpg' },
   ] },
-  { id: 'death-note', title: 'Тетрадь смерти', subtitle: 'Игра двух умов', accent: 0x9c7ed0, characters: [
+  { id: 'death-note', title: 'Тетрадь смерти', subtitle: 'Игра двух умов', accent: 0x6c63ff, characters: [
     { title: 'Лайт Ягами', image: 'images/anime/dn-light.jpg' },
     { title: 'L', image: 'images/anime/dn-l.jpg' },
     { title: 'Миса Аманэ', image: 'images/anime/dn-misa.jpg' },
@@ -185,7 +190,7 @@ export const ALBUMS: Album[] = [
     { title: 'Ниа', image: 'images/anime/dn-near.jpg' },
     { title: 'Лайт и L · Противостояние', image: 'images/anime/dn-finale.jpg' },
   ] },
-  { id: 'naruto', title: 'Наруто', subtitle: 'Свой путь ниндзя', accent: 0xe49a3c, characters: [
+  { id: 'naruto', title: 'Наруто', subtitle: 'Свой путь ниндзя', accent: 0xff8a3d, characters: [
     { title: 'Саске Учиха', image: 'images/anime/n-sasuke.jpg' },
     { title: 'Сакура Харуно', image: 'images/anime/n-sakura.jpg' },
     { title: 'Какаши Хатаке', image: 'images/anime/n-kakashi.jpg' },
@@ -193,7 +198,7 @@ export const ALBUMS: Album[] = [
     { title: 'Хината Хюга', image: 'images/anime/n-hinata.jpg' },
     { title: 'Наруто · Мечта Хокаге', image: 'images/anime/n-finale.jpg' },
   ] },
-  { id: 'demon-slayer', title: 'Клинок, рассекающий демонов', subtitle: 'Свет среди тьмы', accent: 0x40a6a2, characters: [
+  { id: 'demon-slayer', title: 'Клинок, рассекающий демонов', subtitle: 'Свет среди тьмы', accent: 0x0ea5a4, characters: [
     { title: 'Тандзиро Камадо', image: 'images/anime/ds-tanjiro.jpg' },
     { title: 'Нэдзуко Камадо', image: 'images/anime/ds-nezuko.jpg' },
     { title: 'Дзэницу Агацума', image: 'images/anime/ds-zenitsu.jpg' },
@@ -259,12 +264,27 @@ export const SPARKLE = {
 
 export const HEADER_HEIGHT = 176;
 export const HEADER_PADDING = 28;
+export const HEADER_TOP_ROW_Y = 50;
+export const HEADER_BOTTOM_ROW_Y = 126;
 export const HEADER_TITLE_FONT_SIZE = 30;
 export const HEADER_TITLE_MIN_FONT_SIZE = 22;
 export const HEADER_TITLE_GAP = 24;
 
 export const TRAY_HEIGHT = 220;
 export const TRAY_PADDING = 24;
+export const TRAY_SHELF_INSET = 16;
+export const TRAY_SHELF_RADIUS = 24;
+export const WIN_PANEL_DURATION = 450;
+export const CONFETTI = {
+  count: 70,
+  width: 14,
+  height: 8,
+  drift: 120,
+  spin: 720,
+  delay: 300,
+  duration: { min: 1400, max: 2400 },
+  gold: 0xffc94d,
+};
 export const TRAY_SLOT_WIDTH = 140;
 export const TRAY_PIECE_SIZE = 85;
 export const TRAY_PIECE_SCALE = TRAY_PIECE_SIZE / PIECE_SIZE;
@@ -281,5 +301,6 @@ export const GAME_DEPTH = {
   trayPieces: 5,
   draggedPiece: 6,
   header: 7,
+  headerControls: 7.5,
   overlay: 8,
 };
