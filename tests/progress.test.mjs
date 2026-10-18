@@ -1,12 +1,12 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { readProgress, validateAssembly, isUnlocked, nextLevel, getProgress, saveAssembly, completeLevel, finishTutorial } from '../src/progress.ts';
+import { readProgress, validateAssembly, isUnlocked, nextLevel, getProgress, saveAssembly, completeLevel } from '../src/progress.ts';
 import { LEVELS, PROGRESS_STORAGE_KEY, SAVE_STORAGE_KEY } from '../src/constants.ts';
 import { generateEdges, seededRandom } from '../src/puzzle/pieceShape.ts';
 
 const storage = data => ({ getItem: key => data[key] ?? null, setItem: (key, v) => { data[key] = v; } });
 const assembly = () => ({ level: 0, rows: 4, cols: 4, seed: 12345, placed: [5], tray: [15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 4, 3, 2], groups: [{ ids: [0, 1], x: 0.25, y: 0.7 }], scroll: 250 });
-const saved = active => ({ version: 1, current: 0, completed: [], tutorial: { drag: true, scroll: true }, active });
+const saved = active => ({ version: 1, current: 0, completed: [], active });
 
 test('old pictures never count as anime completions and old saves stay untouched', () => {
   const data = { [PROGRESS_STORAGE_KEY]: '1', 'pazzle-game:save:v1': JSON.stringify(saved(assembly())) };
@@ -20,11 +20,10 @@ test('malformed, unsupported and unavailable storage are safe', () => {
   assert.equal(readProgress({ getItem() { throw new Error('blocked'); } }).current, 0);
   assert.equal(readProgress(undefined).active, undefined);
 });
-test('round-trip keeps interior placed piece, connected group, tray order, seed and tutorial', () => {
+test('round-trip keeps interior placed piece, connected group, tray order and seed', () => {
   const active = assembly();
   const result = readProgress(storage({ [SAVE_STORAGE_KEY]: JSON.stringify(saved(active)) }));
   assert.deepEqual(result.active, active);
-  assert.deepEqual(result.tutorial, { drag: true, scroll: true });
   // Normalized anchors reproduce group offsets at different field sizes.
   for (const width of [300, 680, 1000]) {
     const group = result.active.groups[0];
@@ -73,15 +72,12 @@ test('every album uses original 4x4 difficulty and a harder 5x5 finale with repr
   assert.equal(validateAssembly(mobile, [0, 1, 2, 3, 4]), undefined);
   assert.equal(validateAssembly(mobile, []), undefined);
 });
-test('completion is idempotent, clears assembly, completes tutorial and unlocks entire album', () => {
+test('completion is idempotent, clears assembly and unlocks entire album', () => {
   saveAssembly(assembly());
-  finishTutorial('drag');
-  assert.equal(getProgress().tutorial.drag, true);
   assert.equal(completeLevel(5), false);
   assert.equal(completeLevel(0), true);
   assert.equal(completeLevel(0), false);
   assert.equal(getProgress().active, undefined);
-  assert.deepEqual(getProgress().tutorial, { drag: true, scroll: true });
   for (const level of [4, 2, 1, 3]) assert.equal(completeLevel(level), true);
   assert.equal(isUnlocked(5, getProgress().completed), true);
   assert.equal(completeLevel(5), true);

@@ -7,7 +7,7 @@ export interface Assembly {
 }
 export interface Progress {
   version: 1; current: number; completed: number[];
-  tutorial: { drag: boolean; scroll: boolean }; active?: Assembly;
+  active?: Assembly;
 }
 type StorageLike = Pick<Storage, 'getItem' | 'setItem'>;
 const validLevel = (v: unknown): v is number => Number.isInteger(v) && Number(v) >= 0 && Number(v) < LEVELS.length;
@@ -56,7 +56,7 @@ export function validateAssembly(value: unknown, completed: number[]): Assembly 
 }
 
 export function readProgress(storage: StorageLike | undefined): Progress {
-  const empty: Progress = { version: 1, current: 0, completed: [], tutorial: { drag: false, scroll: false } };
+  const empty: Progress = { version: 1, current: 0, completed: [] };
   try {
     const raw = storage?.getItem(SAVE_STORAGE_KEY);
     if (raw) {
@@ -66,7 +66,7 @@ export function readProgress(storage: StorageLike | undefined): Progress {
         for (const id of [...completed]) if (!isUnlocked(id, completed)) completed.splice(completed.indexOf(id), 1);
         const active = validateAssembly(data.active, completed);
         const current = validLevel(data.current) && isUnlocked(data.current, completed) ? data.current : nextLevel(completed) ?? 0;
-        return { version: 1, current, completed, active, tutorial: { drag: record(data.tutorial) && data.tutorial.drag === true, scroll: record(data.tutorial) && data.tutorial.scroll === true } };
+        return { version: 1, current, completed, active };
       }
     }
   } catch { /* Storage can be disabled or malformed. Play in memory. */ }
@@ -83,13 +83,11 @@ function persist(): void {
 }
 export function getCurrentLevel(): number { return progress.active?.level ?? progress.current; }
 export function saveAssembly(active: Assembly): void { progress.active = structuredClone(active); progress.current = active.level; persist(); }
-export function finishTutorial(step: 'drag' | 'scroll'): void { progress.tutorial[step] = true; persist(); }
 export function completeLevel(level: number): boolean {
   if (!isUnlocked(level, progress.completed)) return false;
   const fresh = !progress.completed.includes(level);
   if (fresh) progress.completed.push(level);
   progress.active = undefined;
-  progress.tutorial = { drag: true, scroll: true };
   progress.current = nextLevel(progress.completed, level) ?? level;
   persist();
   return fresh;

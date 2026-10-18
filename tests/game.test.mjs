@@ -9,7 +9,7 @@ import { Display } from './phaser-stub.mjs';
 function game(rows = 4, cols = rows) {
   const scene = new GameScene();
   Object.assign(scene, { rows, cols, boardX: 20, boardY: 250, boardWidth: 680, boardHeight: 680, boardScale: 680 / (cols * 250), seed: 43 });
-  for (const field of ['counter', 'helpText', 'tutorialText', 'hintButton', 'hint', 'completeImage']) scene[field] = new Display(scene);
+  for (const field of ['counter', 'sampleButton', 'hintButton', 'hint', 'completeImage']) scene[field] = new Display(scene);
   scene.createPieces();
   scene.tray.forEach((piece, i) => piece.setPosition(90 + i * 140, 1170));
   return scene;
@@ -21,21 +21,14 @@ function drop(scene, piece, x, y) {
   scene.save();
 }
 
-test('first tutorial ends each instruction only after its successful action', () => {
+test('a horizontal tray gesture scrolls the tray', () => {
   const scene = game();
   scene.setupInput();
-  scene.refreshLabels();
-  assert.match(scene.tutorialText.text, /Потяните/);
   // A horizontal tray gesture goes through the real scene event handlers.
   scene.input.emit('pointerdown', { id: 1, x: 600, y: 1170 }, []);
   scene.input.emit('pointermove', { id: 1, x: 300, y: 1170 });
-  assert.equal(getProgress().tutorial.scroll, false);
   scene.input.emit('pointerup', { id: 1 });
-  assert.equal(getProgress().tutorial.scroll, true);
-  const piece = scene.pieces[0];
-  drop(scene, piece, 400, 700);
-  assert.equal(getProgress().tutorial.drag, true);
-  assert.equal(scene.tutorialText.text, '');
+  assert.ok(scene.trayScroll > 0);
 });
 
 test('an interior piece snaps with no installed neighbours; counter and save agree', () => {

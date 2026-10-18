@@ -74,7 +74,6 @@ export const BACK_LINK_HEIGHT = 64;
 export const GAME_ICONS = {
   image: 'icon-image',
   bulb: 'icon-bulb',
-  close: 'icon-close',
 };
 export const GAME_ICON_SIZE = 56;
 export const ICON_BUTTON_SIZE = 88;
@@ -171,6 +170,7 @@ export const SAVE_STORAGE_KEY = 'pazzle-game:anime:save:v1';
 export const PUZZLE_SOURCE_KEY = 'puzzle-source';
 export const PIECES_KEY = 'puzzle-pieces';
 export const PIECE_SIZE = 250;
+export const PREVIEW_FADE_DURATION = 200;
 export const BOARD_PADDING = 20;
 export const KNOB_SIZE = 0.25;
 export const KNOB_VARIATION = {
@@ -210,6 +210,9 @@ export const SPARKLE = {
 
 export const HEADER_HEIGHT = 176;
 export const HEADER_PADDING = 28;
+export const HEADER_TITLE_FONT_SIZE = 30;
+export const HEADER_TITLE_MIN_FONT_SIZE = 22;
+export const HEADER_TITLE_GAP = 24;
 
 export const TRAY_HEIGHT = 220;
 export const TRAY_PADDING = 24;
@@ -224,6 +227,7 @@ export const GAME_DEPTH = {
   placedPieces: 1,
   boardPieces: 2,
   sparkles: 3,
+  preview: 3.5,
   tray: 4,
   trayPieces: 5,
   draggedPiece: 6,

@@ -9,8 +9,12 @@ import {
   GESTURE_THRESHOLD,
   HEADER_HEIGHT,
   HEADER_PADDING,
+  HEADER_TITLE_FONT_SIZE,
+  HEADER_TITLE_GAP,
+  HEADER_TITLE_MIN_FONT_SIZE,
   HOVER_DURATION,
   HOVER_EASE,
+  ICON_BUTTON_SIZE,
   ICON_BUTTON_SPACING,
   LEVELS,
   PIECE_BEVEL,
@@ -21,6 +25,7 @@ import {
   PIECE_SHADOW,
   PIECE_SIZE,
   PIECES_KEY,
+  PREVIEW_FADE_DURATION,
   PUZZLE_SOURCE_KEY,
   SNAP_DISTANCE,
   SNAP_DURATION,
@@ -38,7 +43,7 @@ import { goToScene, restartScene } from '../crossfade';
 import { playJoin, playPlace } from '../audio';
 import { vibrate } from '../haptics';
 import { onResize } from '../layout';
-import { getCurrentLevel, getProgress, saveAssembly, completeLevel, finishTutorial, isUnlocked, nextLevel, type Assembly } from '../progress';
+import { getCurrentLevel, getProgress, saveAssembly, completeLevel, isUnlocked, nextLevel, type Assembly } from '../progress';
 import { createPiecePath, generateEdges, seededRandom, type PieceEdges } from '../puzzle/pieceShape';
 import { PuzzlePiece } from '../puzzle/PuzzlePiece';
 import { applyTheme, getTheme, toCss } from '../theme';
@@ -67,12 +72,11 @@ export class GameScene extends Phaser.Scene {
   private restored?: Assembly;
   private won = false;
   private hintMode = false;
-  private preview?: Phaser.GameObjects.Container;
+  private preview?: Phaser.GameObjects.Image;
   private hint!: Phaser.GameObjects.Graphics;
   private hintTimer?: Phaser.Time.TimerEvent;
+  private title!: Phaser.GameObjects.Text;
   private counter!: Phaser.GameObjects.Text;
-  private helpText!: Phaser.GameObjects.Text;
-  private tutorialText!: Phaser.GameObjects.Text;
   private sampleButton!: IconButton;
   private hintButton!: IconButton;
   private completeImage!: Phaser.GameObjects.Image;
@@ -141,12 +145,12 @@ export class GameScene extends Phaser.Scene {
     this.headerBg = this.add.graphics().setDepth(GAME_DEPTH.header);
     this.backLink = new BackLink(this, 0, 0, 'Альбом', () => { this.save(); goToScene(this, 'Album', { albumId: getLevelAlbum(this.level).id }); }).setDepth(GAME_DEPTH.header);
 
-    this.counter = this.label('', 28).setDepth(GAME_DEPTH.header);
-    this.helpText = this.label('', 24).setDepth(GAME_DEPTH.header);
-    this.tutorialText = this.label('', 27).setDepth(GAME_DEPTH.header);
-    this.sampleButton = new IconButton(this, 0, 0, GAME_ICONS.image, 'Образец', () => this.showPreview()).setDepth(GAME_DEPTH.header);
+    this.title = this.label('', HEADER_TITLE_FONT_SIZE).setDepth(GAME_DEPTH.header);
+    this.counter = this.label('', 28).setOrigin(0, 0.5).setDepth(GAME_DEPTH.header);
+    this.sampleButton = new IconButton(this, 0, 0, GAME_ICONS.image, 'Образец', () => this.togglePreview()).setDepth(GAME_DEPTH.header);
     this.hintButton = new IconButton(this, 0, 0, GAME_ICONS.bulb, 'Подсказка', () => {
-      if (this.gesture || this.won || this.preview) return;
+      if (this.gesture || this.won) return;
+      this.hidePreview();
       this.hintMode = !this.hintMode;
       this.hint.clear();
       this.refreshLabels();
@@ -333,11 +337,10 @@ export class GameScene extends Phaser.Scene {
     this.headerBg.fillStyle(theme.border, 1);
     this.headerBg.fillRect(0, HEADER_HEIGHT - 2, width, 2);
     this.backLink.setPosition(HEADER_PADDING, 42);
-    this.counter.setPosition(width - 200, 42);
-    this.sampleButton.setPosition(width / 2 - ICON_BUTTON_SPACING / 2, 126);
-    this.hintButton.setPosition(width / 2 + ICON_BUTTON_SPACING / 2, 126);
-    this.helpText.setPosition(width / 2, HEADER_HEIGHT + 22);
-    this.tutorialText.setPosition(width / 2, height - TRAY_HEIGHT + 27);
+    this.fitTitle();
+    this.counter.setPosition(HEADER_PADDING, 126);
+    this.hintButton.setPosition(width - HEADER_PADDING - ICON_BUTTON_SIZE / 2, 126);
+    this.sampleButton.setPosition(this.hintButton.x - ICON_BUTTON_SPACING, 126);
 
     const trayTop = height - TRAY_HEIGHT;
     this.trayBg.clear();
@@ -347,7 +350,7 @@ export class GameScene extends Phaser.Scene {
     this.trayBg.fillRect(0, trayTop, width, 2);
 
     const prev = { x: this.boardX, y: this.boardY, scale: this.boardScale };
-    const top = HEADER_HEIGHT + 64;
+    const top = HEADER_HEIGHT;
     const areaHeight = trayTop - top;
     this.boardScale = Math.min(
       (width - BOARD_PADDING * 2) / this.imageWidth,
@@ -512,7 +515,6 @@ export class GameScene extends Phaser.Scene {
       this.gesture = undefined;
       if (gesture.mode === 'pending' && gesture.hintSelection && gesture.piece) this.revealHint(gesture.piece);
       if (gesture.mode === 'drag' && gesture.piece) this.drop(gesture.piece, gesture.origin);
-      if (gesture.mode === 'scroll' && Math.abs(this.trayScroll - gesture.startScroll) > GESTURE_THRESHOLD) this.tutorialStep('scroll');
       this.save();
     };
     this.input.on('pointerup', endGesture);
@@ -521,11 +523,9 @@ export class GameScene extends Phaser.Scene {
     this.input.on('wheel', (pointer: Phaser.Input.Pointer, _over: unknown, dx: number, dy: number) => {
       if (!inTray(pointer) || this.gesture) return;
       if (this.preview || this.won) return;
-      const previousScroll = this.trayScroll;
       this.trayScroll += dx + dy;
       this.clampTrayScroll();
       this.layoutTray(false);
-      if (previousScroll !== this.trayScroll) this.tutorialStep('scroll');
       this.save();
     });
     this.input.keyboard?.on('keydown-ESC', () => {
@@ -611,7 +611,6 @@ export class GameScene extends Phaser.Scene {
   }
 
   private dropOnBoard(piece: PuzzlePiece): void {
-    this.tutorialStep('drag');
     for (const other of this.pieces) if (other.state === 'board') this.settleMove(other);
     const before = this.positionsOf(piece.group);
     for (const member of piece.group) {
@@ -751,8 +750,6 @@ export class GameScene extends Phaser.Scene {
     this.completeImage.setVisible(true).setAlpha(0);
     this.tweens.add({ targets: this.completeImage, alpha: 1, duration: 300 });
     this.sparkle(this.boardX + this.boardWidth / 2, this.boardY + this.boardHeight / 2);
-    this.helpText.setText('Картинка собрана — полюбуйтесь результатом!');
-    this.tutorialText.setText('');
     const progress = getProgress();
     const collection = getLevelAlbum(this.level);
     const ids = getAlbumLevels(collection.id);
@@ -780,17 +777,25 @@ export class GameScene extends Phaser.Scene {
     return this.add.text(0, 0, text, { fontFamily: FONT_FAMILY, fontSize: size + 'px', color: toCss(getTheme().text), align: 'center' }).setOrigin(0.5);
   }
 
-  private refreshLabels(): void {
-    this.counter.setText('Собрано: ' + this.pieces.filter(p => p.state === 'placed').length + ' из ' + this.pieces.length);
-    this.hintButton.setIcon(this.hintMode ? GAME_ICONS.close : GAME_ICONS.bulb).setTooltip(this.hintMode ? 'Отмена' : 'Подсказка');
-    if (!this.won) this.helpText.setText(this.hintMode ? 'Коснитесь детали в лотке или на поле' : LEVELS[this.level].title + ' · ' + this.rows + '×' + this.cols);
-    const progress = getProgress();
-    this.tutorialText.setText(this.won || progress.completed.length > 0 ? '' : !progress.tutorial.drag ? '↑ Потяните деталь из лотка на поле' : !progress.tutorial.scroll && this.trayContentWidth() > this.scale.width ? '↔ Листайте лоток вбок или колёсиком' : '');
+  /** Center the title between the back link and its mirror; shrink, then truncate on narrow screens. */
+  private fitTitle(): void {
+    const width = this.scale.width;
+    const left = this.backLink.x + this.backLink.getBounds().width + HEADER_TITLE_GAP;
+    const maxWidth = width - left * 2;
+    const full = LEVELS[this.level].title;
+    let size = HEADER_TITLE_FONT_SIZE;
+    this.title.setPosition(width / 2, 42).setFontSize(size).setText(full);
+    while (this.title.width > maxWidth && size > HEADER_TITLE_MIN_FONT_SIZE) this.title.setFontSize(--size);
+    let text = full;
+    while (this.title.width > maxWidth && text.length > 1) {
+      text = text.slice(0, -1);
+      this.title.setText(text.trimEnd() + '…');
+    }
   }
 
-  private tutorialStep(step: 'drag' | 'scroll'): void {
-    if (!getProgress().tutorial[step]) finishTutorial(step);
-    this.refreshLabels();
+  private refreshLabels(): void {
+    this.counter.setText('Собрано: ' + this.pieces.filter(p => p.state === 'placed').length + ' из ' + this.pieces.length);
+    this.hintButton.setToggled(this.hintMode);
   }
 
   private revealHint(piece: PuzzlePiece): void {
@@ -800,26 +805,37 @@ export class GameScene extends Phaser.Scene {
     const [x, y] = this.targetOf(piece);
     this.hint.fillStyle(getTheme().accent, 0.2).fillRect(x - this.cellSize / 2, y - this.cellSize / 2, this.cellSize, this.cellSize);
     this.hint.strokeRect(x - this.cellSize / 2, y - this.cellSize / 2, this.cellSize, this.cellSize);
-    this.helpText.setText('Подсвеченное место — для выбранной детали');
     this.hintTimer = this.time.delayedCall(4500, () => { this.hint.clear(); this.refreshLabels(); });
-    this.hintButton.setIcon(GAME_ICONS.bulb).setTooltip('Подсказка');
+    this.hintButton.setToggled(false);
+  }
+
+  private togglePreview(): void {
+    if (this.preview) this.hidePreview();
+    else this.showPreview();
   }
 
   private showPreview(): void {
-    if (this.preview || this.gesture) return;
+    if (this.preview || this.gesture || this.won) return;
     this.hintMode = false;
+    this.hint.clear();
     this.refreshLabels();
-    const { width, height } = this.scale;
-    const shade = this.add.rectangle(width / 2, height / 2, width, height, 0x000000, 0.85).setInteractive();
-    const size = Math.min(width - 60, height - 220);
-    const image = this.add.image(width / 2, height / 2 - 30, PUZZLE_SOURCE_KEY).setDisplaySize(size, size);
-    const close = this.label('Закрыть образец ×', 36).setPosition(width / 2, height / 2 + size / 2 + 30).setInteractive({ useHandCursor: true });
-    shade.on('pointerup', () => this.hidePreview());
-    close.on('pointerup', () => this.hidePreview());
-    this.preview = this.add.container(0, 0, [shade, image, close]).setDepth(GAME_DEPTH.overlay + 1);
+    this.preview = this.add.image(this.boardX, this.boardY, PUZZLE_SOURCE_KEY)
+      .setOrigin(0)
+      .setDisplaySize(this.boardWidth, this.boardHeight)
+      .setDepth(GAME_DEPTH.preview)
+      .setAlpha(0)
+      .setInteractive({ useHandCursor: true });
+    this.preview.on('pointerup', () => this.hidePreview());
+    this.tweens.add({ targets: this.preview, alpha: 1, duration: PREVIEW_FADE_DURATION });
+    this.sampleButton.setToggled(true);
   }
 
-  private hidePreview(): void { this.preview?.destroy(); this.preview = undefined; }
+  private hidePreview(): void {
+    if (!this.preview) return;
+    this.preview.destroy();
+    this.preview = undefined;
+    this.sampleButton.setToggled(false);
+  }
 
   private cancelGesture(): void {
     const gesture = this.gesture;
@@ -884,7 +900,7 @@ export class GameScene extends Phaser.Scene {
       if (piece.state !== 'board' || seen.has(piece)) continue;
       const xs = piece.group.map(p => p.x), ys = piece.group.map(p => p.y);
       const dx = Phaser.Math.Clamp(0, half - Math.min(...xs), this.scale.width - half - Math.max(...xs));
-      const dy = Phaser.Math.Clamp(0, HEADER_HEIGHT + 64 + half - Math.min(...ys), this.scale.height - TRAY_HEIGHT - half - Math.max(...ys));
+      const dy = Phaser.Math.Clamp(0, HEADER_HEIGHT + half - Math.min(...ys), this.scale.height - TRAY_HEIGHT - half - Math.max(...ys));
       this.shiftGroup(piece.group, dx, dy);
       piece.group.forEach(member => seen.add(member));
     }
