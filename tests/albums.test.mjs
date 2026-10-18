@@ -14,7 +14,7 @@ test('five anime albums each have five ordinary characters and one special final
     assert.equal(ids.filter(id => LEVELS[id].finale).length, 1);
     for (const id of ids) assert.equal(getLevelAlbum(id), album);
   }
-  assert.equal(LEVELS[5].image, 'images/level-1.jpg');
+  assert.equal(LEVELS[5].image, 'images/anime/tg-finale.jpg');
   assert.match(LEVELS[5].title, /Канеки/);
 });
 

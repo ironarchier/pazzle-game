@@ -186,7 +186,7 @@ export const ALBUMS: Album[] = [
     { title: 'Хидэёси Нагачика', titleEn: 'Hideyoshi Nagachika', image: 'images/anime/tg-hide.jpg' },
     { title: 'Сю Цукияма', titleEn: 'Shu Tsukiyama', image: 'images/anime/tg-tsukiyama.jpg' },
     { title: 'Дзюдзо Судзуя', titleEn: 'Juzo Suzuya', image: 'images/anime/tg-juuzou.jpg' },
-    { title: 'Канеки · Пробуждение', titleEn: 'Kaneki · Awakening', image: 'images/level-1.jpg' },
+    { title: 'Канеки · Пробуждение', titleEn: 'Kaneki · Awakening', image: 'images/anime/tg-finale.jpg' },
   ] },
   { id: 'attack-on-titan', title: 'Атака титанов', titleEn: 'Attack on Titan', subtitle: 'По ту сторону стен', subtitleEn: 'Beyond the walls', accent: 0x22a06b, characters: [
     { title: 'Эрен Йегер', titleEn: 'Eren Yeager', image: 'images/anime/aot-eren.jpg' },
