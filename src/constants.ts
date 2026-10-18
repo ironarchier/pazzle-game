@@ -208,10 +208,11 @@ export const ALBUMS: Album[] = [
     { title: 'Тандзиро · Танец огня', image: 'images/anime/ds-finale.jpg' },
   ] },
 ];
+export const LEVEL_GRIDS = [[3, 3], [4, 4], [5, 5], [6, 6], [7, 7], [8, 8]];
 export const LEVELS = ALBUMS.flatMap(album => album.characters.map((character, slot) => ({
   ...character, albumId: album.id, finale: slot === album.characters.length - 1,
-  rows: slot === album.characters.length - 1 ? 5 : 4,
-  cols: slot === album.characters.length - 1 ? 5 : 4,
+  rows: LEVEL_GRIDS[slot][0],
+  cols: LEVEL_GRIDS[slot][1],
 })));
 export function getAlbumLevels(albumId: string): number[] {
   return LEVELS.flatMap((level, id) => level.albumId === albumId ? [id] : []);

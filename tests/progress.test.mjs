@@ -1,11 +1,11 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readProgress, validateAssembly, isUnlocked, nextLevel, getProgress, saveAssembly, completeLevel } from '../src/progress.ts';
-import { LEVELS, PROGRESS_STORAGE_KEY, SAVE_STORAGE_KEY } from '../src/constants.ts';
+import { LEVEL_GRIDS, LEVELS, PROGRESS_STORAGE_KEY, SAVE_STORAGE_KEY, getAlbumLevels } from '../src/constants.ts';
 import { generateEdges, seededRandom } from '../src/puzzle/pieceShape.ts';
 
 const storage = data => ({ getItem: key => data[key] ?? null, setItem: (key, v) => { data[key] = v; } });
-const assembly = () => ({ level: 0, rows: 4, cols: 4, seed: 12345, placed: [5], tray: [15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 4, 3, 2], groups: [{ ids: [0, 1], x: 0.25, y: 0.7 }], scroll: 250 });
+const assembly = () => ({ level: 0, rows: 3, cols: 3, seed: 12345, placed: [4], tray: [8, 7, 6, 5, 3, 2], groups: [{ ids: [0, 1], x: 0.25, y: 0.7 }], scroll: 250 });
 const saved = active => ({ version: 1, current: 0, completed: [], active });
 
 test('old pictures never count as anime completions and old saves stay untouched', () => {
@@ -27,8 +27,8 @@ test('round-trip keeps interior placed piece, connected group, tray order and se
   // Normalized anchors reproduce group offsets at different field sizes.
   for (const width of [300, 680, 1000]) {
     const group = result.active.groups[0];
-    const centers = group.ids.map(id => group.x * width + (id % 4 - group.ids[0] % 4) * width / 4);
-    assert.ok(Math.abs(centers[1] - centers[0] - width / 4) < 1e-9);
+    const centers = group.ids.map(id => group.x * width + (id % 3 - group.ids[0] % 3) * width / 3);
+    assert.ok(Math.abs(centers[1] - centers[0] - width / 3) < 1e-9);
   }
 });
 test('invalid assembly is discarded without losing collection progress', () => {
@@ -58,11 +58,11 @@ test('all five distinct ordinary levels are required for finale, in any order', 
   assert.deepEqual(result.completed, [0]);
   assert.equal(result.current, 1);
 });
-test('every album uses original 4x4 difficulty and a harder 5x5 finale with reproducible saves', () => {
+test('puzzles grow from 3x3 to an 8x8 finale inside every album with reproducible saves', () => {
   const ordinary = LEVELS.flatMap((config, id) => config.finale ? [] : [id]);
   LEVELS.forEach((config, level) => {
-    assert.equal(config.rows, config.finale ? 5 : 4);
-    assert.equal(config.cols, config.rows);
+    const slot = getAlbumLevels(config.albumId).indexOf(level);
+    assert.deepEqual([config.rows, config.cols], LEVEL_GRIDS[slot]);
     const active = { level, rows: config.rows, cols: config.cols, seed: 99, placed: [], groups: [], tray: Array.from({ length: config.rows * config.cols }, (_, i) => i).reverse(), scroll: 0 };
     assert.deepEqual(validateAssembly(active, ordinary), active);
     assert.deepEqual(generateEdges(active.rows, active.cols, seededRandom(99)), generateEdges(active.rows, active.cols, seededRandom(99)));

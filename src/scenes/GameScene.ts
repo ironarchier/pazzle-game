@@ -697,7 +697,14 @@ export class GameScene extends Phaser.Scene {
     return best;
   }
 
+  private touchesPlaced(group: PuzzlePiece[]): boolean {
+    const placed = this.pieces.filter((p) => p.state === 'placed');
+    return placed.length === 0 || group.some((member) =>
+      placed.some((p) => Math.abs(p.row - member.row) + Math.abs(p.col - member.col) === 1));
+  }
+
   private isPlaceable(group: PuzzlePiece[]): boolean {
+    if (!this.touchesPlaced(group)) return false;
     return group.some((member) => {
       const [x, y] = this.targetOf(member);
       return this.canPlace(member) && Phaser.Math.Distance.Between(member.x, member.y, x, y) <= SNAP_DISTANCE;
@@ -787,7 +794,7 @@ export class GameScene extends Phaser.Scene {
     const count = ids.filter(id => progress.completed.includes(id)).length;
     const remaining = ids.filter(id => !LEVELS[id].finale && !progress.completed.includes(id)).length;
     const heading = count === ids.length ? 'Альбом собран!' : fresh ? 'Новый персонаж в альбоме!' : 'Снова собрано!';
-    const goal = count === ids.length ? 'Суперпазл собран! Впереди другие аниме.' : remaining > 0 ? 'До суперпазла: ещё ' + remaining + ' из 5 персонажей' : 'Суперпазл открыт · 25 деталей!';
+    const goal = count === ids.length ? 'Суперпазл собран! Впереди другие аниме.' : remaining > 0 ? 'До суперпазла: ещё ' + remaining + ' из 5 персонажей' : 'Суперпазл открыт · ' + LEVELS[ids[ids.length - 1]].rows * LEVELS[ids[ids.length - 1]].cols + ' деталей!';
     const title = this.label(heading, 36).setY(WIN_PANEL.titleY).setColor(toCss(collection.accent)).setFontStyle('bold');
     const detail = this.label(collection.title + ' · ' + count + ' из ' + ids.length, collection.title.length > 25 ? 20 : 23).setY(WIN_PANEL.detailY);
     const goalText = this.label(goal, 25).setY(WIN_PANEL.goalY);

@@ -6,7 +6,7 @@ import { getProgress, completeLevel, readProgress } from '../src/progress.ts';
 import { SAVE_STORAGE_KEY } from '../src/constants.ts';
 import { Display } from './phaser-stub.mjs';
 
-function game(rows = 4, cols = rows) {
+function game(rows = 3, cols = rows) {
   const scene = new GameScene();
   Object.assign(scene, { rows, cols, boardX: 20, boardY: 250, boardWidth: 680, boardHeight: 680, boardScale: 680 / (cols * 250), seed: 43 });
   for (const field of ['counter', 'counterBg', 'counterIcon', 'sampleButton', 'hintButton', 'hint', 'completeImage']) scene[field] = new Display(scene);
@@ -32,14 +32,13 @@ test('a horizontal tray gesture scrolls the tray', () => {
 });
 
 test('an interior piece snaps with no installed neighbours; counter and save agree', () => {
-  const scene = game(4);
-  scene.level = 1;
-  const piece = scene.pieces[5];
+  const scene = game();
+  const piece = scene.pieces[4];
   drop(scene, piece, ...scene.targetOf(piece));
   assert.equal(piece.state, 'placed');
   assert.equal(scene.pieces.filter(p => p.state === 'placed').length, 1);
-  assert.equal(scene.counter.text, '1/16');
-  assert.deepEqual(getProgress().active.placed, [5]);
+  assert.equal(scene.counter.text, '1/9');
+  assert.deepEqual(getProgress().active.placed, [4]);
 });
 
 test('joining, interrupted join tween, group movement, save/restore and hint preserve offsets', () => {
@@ -59,10 +58,10 @@ test('joining, interrupted join tween, group movement, save/restore and hint pre
   assert.equal(before.groups[0].ids.length, 2);
   const reloaded = readProgress({ getItem: key => key === SAVE_STORAGE_KEY ? JSON.stringify({ ...getProgress(), active: before }) : null });
   const restored = game();
-  restored.boardWidth = 480; restored.boardHeight = 480; restored.boardScale = 480 / 1000;
+  restored.boardWidth = 480; restored.boardHeight = 480; restored.boardScale = 480 / 750;
   restored.restored = reloaded.active;
   restored.restore();
-  assert.deepEqual(restored.tray.map(p => p.row * 4 + p.col), before.tray);
+  assert.deepEqual(restored.tray.map(p => p.row * 3 + p.col), before.tray);
   const [ra, rb] = [restored.pieces[0], restored.pieces[1]];
   assert.equal(ra.group, rb.group);
   assert.ok(Math.abs(rb.x - ra.x - restored.cellSize) < 1e-7);
@@ -87,7 +86,7 @@ test('saves are committed on release, never on pointer movement', () => {
   scene.input.emit('pointermove', { id: 1, x: 400, y: 700 });
   assert.deepEqual(getProgress().active, before);
   scene.input.emit('pointerup', { id: 1 });
-  assert.equal(getProgress().active.tray.length, 15);
+  assert.equal(getProgress().active.tray.length, 8);
   assert.equal(getProgress().active.groups.length, 1);
 });
 
@@ -116,7 +115,7 @@ test('tray remains scrollable in hint mode and a tap selects without starting a 
   scene.input.emit('pointerdown', { id: 1, x: 50, y: 1170 }, [piece]);
   scene.input.emit('pointerup', { id: 1 });
   assert.equal(scene.hintMode, false);
-  assert.equal(scene.tray.length, 16);
+  assert.equal(scene.tray.length, 9);
   assert.equal(piece.state, 'tray');
 });
 
@@ -128,7 +127,7 @@ test('resize cancellation returns a tray piece and fits a board group without ch
   assert.equal(piece.state, 'drag');
   scene.cancelGesture();
   assert.equal(piece.state, 'tray');
-  assert.equal(scene.tray.length, 16);
+  assert.equal(scene.tray.length, 9);
   const a = scene.pieces[0], b = scene.pieces[1];
   drop(scene, a, 150, 700); drop(scene, b, 150 + scene.cellSize, 700);
   scene.tweens.flush();
@@ -141,10 +140,10 @@ test('resize cancellation returns a tray piece and fits a board group without ch
 });
 
 test('multiple snap callbacks commit a single win, without dimming or duplicate rewards', () => {
-  for (const rows of [4, 5]) {
+  for (const rows of [3, 8]) {
     const scene = game(rows);
-    scene.level = rows === 4 ? 0 : 5;
-    if (rows === 5) for (let i = 0; i < 5; i++) completeLevel(i);
+    scene.level = rows === 3 ? 0 : 5;
+    if (rows === 8) for (let i = 0; i < 5; i++) completeLevel(i);
     const group = scene.pieces;
     scene.tray = [];
     group.forEach(p => { p.state = 'board'; p.group = group; });
@@ -164,17 +163,17 @@ test('multiple snap callbacks commit a single win, without dimming or duplicate 
   assert.equal(getProgress().completed.length, 6);
 });
 
-test('fresh finale remains 5x5 on a narrow screen and ordinary puzzles remain 4x4', () => {
+test('fresh finale stays 8x8 on a narrow screen and the second puzzle is 4x4', () => {
   const previousWindow = globalThis.window;
   globalThis.window = { innerWidth: 390, innerHeight: 844 };
   try {
     for (let id = 0; id < 5; id++) completeLevel(id);
     const finale = new GameScene();
     finale.init({ level: 5 });
-    assert.equal(finale.rows, 5);
-    assert.equal(finale.cols, 5);
+    assert.equal(finale.rows, 8);
+    assert.equal(finale.cols, 8);
     const ordinary = new GameScene();
-    ordinary.init({ level: 2 });
+    ordinary.init({ level: 1 });
     assert.equal(ordinary.rows, 4);
     assert.equal(ordinary.cols, 4);
     const locked = new GameScene();
@@ -195,4 +194,15 @@ test('a dragged piece can reach the edge columns of a full-width board', () => {
     assert.equal(piece.x, x);
     assert.equal(piece.y, y);
   }
+});
+
+test('after the first piece only pieces next to installed ones can be placed', () => {
+  const scene = game();
+  const [first, diagonal, side] = [scene.pieces[0], scene.pieces[4], scene.pieces[1]];
+  drop(scene, first, ...scene.targetOf(first));
+  assert.equal(first.state, 'placed');
+  drop(scene, diagonal, ...scene.targetOf(diagonal));
+  assert.equal(diagonal.state, 'board');
+  drop(scene, side, ...scene.targetOf(side));
+  assert.equal(side.state, 'placed');
 });
