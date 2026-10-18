@@ -91,6 +91,7 @@ export const GAME_ICONS = {
   bulb: 'icon-bulb',
   lock: 'icon-lock',
   puzzle: 'icon-puzzle',
+  edges: 'icon-edges',
 };
 export const GAME_ICON_SIZE = 56;
 export const ALBUM_ROW_WIDTH = 650;

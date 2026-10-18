@@ -9,7 +9,7 @@ import { Display } from './phaser-stub.mjs';
 function game(rows = 3, cols = rows) {
   const scene = new GameScene();
   Object.assign(scene, { rows, cols, boardX: 20, boardY: 250, boardWidth: 680, boardHeight: 680, boardScale: 680 / (cols * 250), seed: 43 });
-  for (const field of ['counter', 'counterBg', 'counterIcon', 'sampleButton', 'hintButton', 'hint', 'completeImage']) scene[field] = new Display(scene);
+  for (const field of ['counter', 'counterBg', 'counterIcon', 'sampleButton', 'edgesButton', 'hintButton', 'hint', 'completeImage']) scene[field] = new Display(scene);
   scene.createPieces();
   scene.tray.forEach((piece, i) => piece.setPosition(90 + i * 140, 1170));
   return scene;
@@ -211,4 +211,16 @@ test('border pieces are placed freely, interior ones only next to an installed p
   assert.equal(side.state, 'placed');
   drop(scene, interior, ...scene.targetOf(interior));
   assert.equal(interior.state, 'placed');
+});
+
+test('edges-first filter moves border pieces to the front and restores the order when switched off', () => {
+  const scene = game(4);
+  const before = [...scene.tray];
+  const edge = p => p.row === 0 || p.col === 0 || p.row === 3 || p.col === 3;
+  scene.toggleEdgesFirst();
+  assert.equal(scene.tray.length, 16);
+  assert.ok(scene.tray.slice(0, 12).every(edge));
+  assert.ok(scene.tray.slice(12).every(p => !edge(p)));
+  scene.toggleEdgesFirst();
+  assert.deepEqual(scene.tray, before);
 });

@@ -96,6 +96,9 @@ export class GameScene extends Phaser.Scene {
   private counterBg!: Phaser.GameObjects.Graphics;
   private counterIcon!: Phaser.GameObjects.Image;
   private sampleButton!: IconButton;
+  private edgesButton!: IconButton;
+  private edgesFirst = false;
+  private trayBeforeEdges: PuzzlePiece[] = [];
   private hintButton!: IconButton;
   private completeImage!: Phaser.GameObjects.Image;
   private winPanel?: Phaser.GameObjects.Container;
@@ -146,6 +149,8 @@ export class GameScene extends Phaser.Scene {
     this.won = false;
     this.preview = undefined;
     this.winPanel = undefined;
+    this.edgesFirst = false;
+    this.trayBeforeEdges = [];
     this.pendingMoves.clear();
     this.pieces = [];
     this.tray = [];
@@ -167,6 +172,7 @@ export class GameScene extends Phaser.Scene {
     this.counterIcon = this.add.image(0, 0, GAME_ICONS.puzzle).setDisplaySize(COUNTER_ICON_SIZE, COUNTER_ICON_SIZE).setTint(getTheme().accent).setDepth(GAME_DEPTH.header);
     this.counter = this.label('', 28).setOrigin(0, 0.5).setDepth(GAME_DEPTH.header);
     this.sampleButton = new IconButton(this, 0, 0, GAME_ICONS.image, 'Образец', () => this.togglePreview()).setDepth(GAME_DEPTH.headerControls);
+    this.edgesButton = new IconButton(this, 0, 0, GAME_ICONS.edges, 'Сначала края', () => this.toggleEdgesFirst()).setDepth(GAME_DEPTH.headerControls);
     this.hintButton = new IconButton(this, 0, 0, GAME_ICONS.bulb, 'Подсказка', () => this.useHint()).setDepth(GAME_DEPTH.headerControls);
     this.completeImage = this.add.image(0, 0, PUZZLE_SOURCE_KEY).setOrigin(0).setDepth(GAME_DEPTH.placedPieces + 0.5).setVisible(false);
     this.createPieces();
@@ -363,6 +369,7 @@ export class GameScene extends Phaser.Scene {
     this.fitTitle();
     this.hintButton.setPosition(width - HEADER_PADDING - ICON_BUTTON_SIZE / 2, HEADER_BOTTOM_ROW_Y);
     this.sampleButton.setPosition(this.hintButton.x - ICON_BUTTON_SPACING, HEADER_BOTTOM_ROW_Y);
+    this.edgesButton.setPosition(this.sampleButton.x - ICON_BUTTON_SPACING, HEADER_BOTTOM_ROW_Y);
 
     const trayTop = height - TRAY_HEIGHT;
     this.trayBg.clear()
@@ -695,10 +702,13 @@ export class GameScene extends Phaser.Scene {
     return best;
   }
 
+  private isEdge(piece: PuzzlePiece): boolean {
+    return piece.row === 0 || piece.col === 0 || piece.row === this.rows - 1 || piece.col === this.cols - 1;
+  }
+
   private touchesPlaced(group: PuzzlePiece[]): boolean {
     const placed = this.pieces.filter((p) => p.state === 'placed');
-    return group.some((member) =>
-      member.row === 0 || member.col === 0 || member.row === this.rows - 1 || member.col === this.cols - 1 ||
+    return group.some((member) => this.isEdge(member) ||
       placed.some((p) => Math.abs(p.row - member.row) + Math.abs(p.col - member.col) === 1));
   }
 
@@ -901,6 +911,22 @@ export class GameScene extends Phaser.Scene {
     const next = free.filter((p) => placed.some((o) => Math.abs(o.row - p.row) + Math.abs(o.col - p.col) === 1));
     const candidates = next.length ? next : free.filter((p) => this.touchesPlaced([p]));
     return Phaser.Utils.Array.GetRandom(candidates);
+  }
+
+  private toggleEdgesFirst(): void {
+    if (this.gesture || this.won) return;
+    this.edgesFirst = !this.edgesFirst;
+    if (this.edgesFirst) {
+      this.trayBeforeEdges = [...this.tray];
+      this.tray = [...this.tray.filter((p) => this.isEdge(p)), ...this.tray.filter((p) => !this.isEdge(p))];
+    } else {
+      const kept = this.trayBeforeEdges.filter((p) => this.tray.includes(p));
+      this.tray = [...kept, ...this.tray.filter((p) => !kept.includes(p))];
+    }
+    this.edgesButton.setToggled(this.edgesFirst);
+    this.trayScroll = 0;
+    this.layoutTray(true);
+    this.save();
   }
 
   private togglePreview(): void {
