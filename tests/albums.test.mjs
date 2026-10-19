@@ -4,10 +4,11 @@ import { ALBUMS, FREE_ALBUMS, LEVELS, getAlbumLevels, getLevelAlbum, SAVE_STORAG
 import { isUnlocked, nextLevel, readProgress, completeLevel, getProgress } from '../src/progress.ts';
 import { existsSync } from 'node:fs';
 
-test('six free anime albums and twelve original shop collections have distinct images and one finale', () => {
+test('six free albums and six requested anime shop albums have distinct images and one finale', () => {
   assert.deepEqual(FREE_ALBUMS.map(album => album.id), ['tokyo-ghoul', 'attack-on-titan', 'death-note', 'naruto', 'demon-slayer', 'hunter-x-hunter']);
-  assert.equal(LEVELS.length, 108);
-  assert.equal(new Set(LEVELS.map(level => level.image)).size, 108);
+  assert.equal(LEVELS.length, 72);
+  assert.equal(new Set(LEVELS.map(level => level.image)).size, 72);
+  assert.deepEqual(ALBUMS.slice(6).map(album => album.title), ['Человек-бензопила', 'Мастер меча онлайн', 'Евангелион', 'Блич', 'Аркейн', 'Необъятный океан']);
   for (const album of ALBUMS) {
     const ids = getAlbumLevels(album.id);
     assert.equal(ids.length, 6);
@@ -61,6 +62,6 @@ test('completing one free album does not finish others; all thirty-six completio
   assert.equal(nextLevel(getProgress().completed), undefined);
 });
 
-test('all 108 puzzle images exist in the published assets', () => {
+test('all 72 puzzle images exist in the published assets', () => {
   for (const level of LEVELS) assert.ok(existsSync(new URL(`../public/${level.image}`, import.meta.url)), level.image);
 });

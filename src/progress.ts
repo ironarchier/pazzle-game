@@ -1,5 +1,6 @@
 import { ALBUMS, HINTS_PER_LEVEL, LEVELS, SAVE_STORAGE_KEY, getAlbumLevels } from './constants';
 import { ECONOMY } from './economy/config';
+import { CATALOGUE_REVISION, FREE_LEVEL_COUNT, RETIRED_ALBUM_IDS } from './catalogueMigration';
 
 export interface SavedGroup { ids: number[]; x: number; y: number }
 export interface Assembly {
@@ -12,7 +13,7 @@ export interface Wallet {
 }
 export interface Progress {
   version: 1; current: number; completed: number[]; active?: Assembly;
-  economy: Wallet; revision: number;
+  economy: Wallet; revision: number; catalogueRevision: number;
 }
 export type StorageLike = Pick<Storage, 'getItem' | 'setItem'>;
 export type ProgressEvent = { kind: 'level' | 'ad' | 'purchase' | 'hint' | 'assembly' | 'sync'; delta: number; balance: number };
@@ -74,26 +75,30 @@ export function validateAssembly(value: unknown, completed: number[], purchased:
   return structuredClone(value) as unknown as Assembly;
 }
 export function readProgress(storage: StorageLike | undefined): Progress {
-  const empty: Progress = { version: 1, current: 0, completed: [], economy: emptyWallet(), revision: 0 };
+  const empty: Progress = { version: 1, current: 0, completed: [], economy: emptyWallet(), revision: 0, catalogueRevision: CATALOGUE_REVISION };
   try {
     const raw = storage?.getItem(SAVE_STORAGE_KEY);
     if (!raw) return empty;
     const data: unknown = JSON.parse(raw);
     if (!record(data) || data.version !== 1) return empty;
     const wallet = record(data.economy) ? data.economy : {};
-    const purchased = receipts(wallet.purchasedAlbums).filter(id => ALBUMS.some(album => album.id === id && album.paid));
-    const completed = Array.isArray(data.completed) ? [...new Set(data.completed.filter(validLevel))] : [];
+    const replacingShop = data.catalogueRevision !== CATALOGUE_REVISION;
+    const oldPurchases = receipts(wallet.purchasedAlbums);
+    const purchased = oldPurchases.filter(id => ALBUMS.some(album => album.id === id && album.paid));
+    const refund = replacingShop ? RETIRED_ALBUM_IDS.filter(id => oldPurchases.includes(id)).length * ECONOMY.albumPrice : 0;
+    const balance = coins(wallet.balance) ? wallet.balance : 0;
+    const completed = Array.isArray(data.completed) ? [...new Set(data.completed.filter(validLevel).filter(id => !replacingShop || id < FREE_LEVEL_COUNT))] : [];
     for (const id of [...completed]) if (!isUnlocked(id, completed, purchased)) completed.splice(completed.indexOf(id), 1);
-    const active = validateAssembly(data.active, completed, purchased);
-    const current = validLevel(data.current) && isUnlocked(data.current, completed, purchased) ? data.current : nextLevel(completed, -1, purchased) ?? 0;
+    const active = replacingShop && record(data.active) && Number(data.active.level) >= FREE_LEVEL_COUNT ? undefined : validateAssembly(data.active, completed, purchased);
+    const current = validLevel(data.current) && (!replacingShop || data.current < FREE_LEVEL_COUNT) && isUnlocked(data.current, completed, purchased) ? data.current : nextLevel(completed, -1, purchased) ?? 0;
     // Old completions are marked settled without retroactive coins.
     const rewarded = Array.isArray(wallet.rewardedLevels) ? wallet.rewardedLevels.filter(validLevel).filter(id => completed.includes(id)) : [];
     const economy: Wallet = {
-      balance: coins(wallet.balance) ? wallet.balance : 0, purchasedAlbums: purchased,
+      balance: Number.isSafeInteger(balance + refund) ? balance + refund : balance, purchasedAlbums: purchased,
       rewardedLevels: [...new Set([...rewarded, ...completed])],
       adReceipts: receipts(wallet.adReceipts), hintReceipts: receipts(wallet.hintReceipts),
     };
-    return { version: 1, current, completed, active, economy, revision: coins(data.revision) ? data.revision : 0 };
+    return { version: 1, current, completed, active, economy, revision: coins(data.revision) ? data.revision : 0, catalogueRevision: CATALOGUE_REVISION };
   } catch { return empty; }
 }
 function browserStorage(): StorageLike | undefined {

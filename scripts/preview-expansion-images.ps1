@@ -1,10 +1,11 @@
+param([string]$Sources = 'assets/expansion-sources', [string]$Output = 'output/expansion-qa')
 $ErrorActionPreference = 'Stop'
 Add-Type -AssemblyName System.Drawing
-$entries = @(Get-ChildItem -LiteralPath 'assets/expansion-sources' -Filter '*.json' | Sort-Object Name | ForEach-Object { Get-Content -LiteralPath $_.FullName -Raw -Encoding UTF8 | ConvertFrom-Json } | Where-Object { Test-Path -LiteralPath $_.output })
+$entries = @(Get-ChildItem -LiteralPath $Sources -Filter '*.json' | Sort-Object Name | ForEach-Object { Get-Content -LiteralPath $_.FullName -Raw -Encoding UTF8 | ConvertFrom-Json } | Where-Object { Test-Path -LiteralPath $_.output })
 $columns = 6
 $cell = 200
 $pageSize = 24
-[System.IO.Directory]::CreateDirectory((Join-Path (Get-Location) 'output/expansion-qa')) | Out-Null
+[System.IO.Directory]::CreateDirectory((Join-Path (Get-Location) $Output)) | Out-Null
 for ($start = 0; $start -lt $entries.Count; $start += $pageSize) {
   $page = @($entries | Select-Object -Skip $start -First $pageSize)
   $rows = [int][Math]::Ceiling($page.Count / $columns)
@@ -22,7 +23,7 @@ for ($start = 0; $start -lt $entries.Count; $start += $pageSize) {
       try { $graphics.DrawImage($image, $x + 5, $y + 5, $cell - 10, $cell - 10) } finally { $image.Dispose() }
       $graphics.DrawString($entry.id, $font, [System.Drawing.Brushes]::White, $x + 6, $y + $cell)
     }
-    $path = Join-Path (Get-Location) ('output/expansion-qa/contact-' + (1 + [int]($start / $pageSize)) + '.jpg')
+    $path = Join-Path (Get-Location) ($Output + '/contact-' + (1 + [int]($start / $pageSize)) + '.jpg')
     $sheet.Save($path, [System.Drawing.Imaging.ImageFormat]::Jpeg)
     Write-Output $path
   } finally { $font.Dispose(); $graphics.Dispose(); $sheet.Dispose() }

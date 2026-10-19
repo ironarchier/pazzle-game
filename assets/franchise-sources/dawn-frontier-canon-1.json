@@ -1,0 +1,10 @@
+{
+  "id": "dawn-frontier-canon-1",
+  "albumId": "dawn-frontier",
+  "title": "Синдзи Икари",
+  "titleEn": "Shinji Ikari",
+  "output": "public/images/franchises/dawn-frontier-1.jpg",
+  "prompt": "Use case: illustration-story. Asset type: square 1024x1024 anime jigsaw artwork, one complete scene. Create recognizable fan art specifically from Neon Genesis Evangelion. Subject and setting: Shinji Ikari, recognizable short black hair, blue eyes, fully clothed in a white short-sleeved buttoned shirt and black trousers, standing at a Tokyo-3 railway station, giant futuristic buildings and mountain landscape; quiet nonsexual coming-of-age portrait. Preserve the named character’s recognizable face, hair, signature accessories and the anime’s visual identity. Polished authentic anime cel shading (Arcane: its distinctive painterly animation look), cinematic lighting, expressive face, varied clearly readable details across the whole square for a puzzle. A neutral character/adventure illustration, fully clothed in opaque clothing, no sexual content, no suggestive posing, no nudity, no fetish imagery, no body-part emphasis, no blood, no gore, no tobacco, no alcohol. No text, no letters, no logos, no watermark, no panels, no border. Distinct composition, not a generic fantasy city or an invented substitute character.",
+  "source": "C:\\Users\\Владик\\.codex\\generated_images\\01a14683-5c54-7d90-ad07-51ee89ba7d14\\exec-755bf820-21bc-4656-84e3-36468b75d46f.png",
+  "method": "image_gen"
+}

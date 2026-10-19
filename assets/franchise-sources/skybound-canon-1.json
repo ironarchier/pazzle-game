@@ -1,0 +1,10 @@
+{
+  "id": "skybound-canon-1",
+  "albumId": "skybound",
+  "title": "Кирито",
+  "titleEn": "Kirito",
+  "output": "public/images/franchises/skybound-1.jpg",
+  "prompt": "Use case: illustration-story. Asset type: square 1024x1024 anime jigsaw artwork, one complete scene. Create recognizable fan art specifically from Sword Art Online. Subject and setting: Kirito, recognizable black hair and black long coat with silver piping, fully clothed in his Aincrad swordsman outfit, holding a sheathed black sword beside the Town of Beginnings stone fountain; adventurous neutral pose. Preserve the named character’s recognizable face, hair, signature accessories and the anime’s visual identity. Polished authentic anime cel shading (Arcane: its distinctive painterly animation look), cinematic lighting, expressive face, varied clearly readable details across the whole square for a puzzle. A neutral character/adventure illustration, fully clothed in opaque clothing, no sexual content, no suggestive posing, no nudity, no fetish imagery, no body-part emphasis, no blood, no gore, no tobacco, no alcohol. No text, no letters, no logos, no watermark, no panels, no border. Distinct composition, not a generic fantasy city or an invented substitute character.",
+  "source": "C:\\Users\\Владик\\.codex\\generated_images\\01a14683-5c54-7d90-ad07-51ee89ba7d14\\exec-a8f1750f-e66f-4fdd-a8ce-12366bcc0fa2.png",
+  "method": "image_gen"
+}

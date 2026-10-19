@@ -1,0 +1,10 @@
+{
+  "id": "skybound-canon-3",
+  "albumId": "skybound",
+  "title": "Синон",
+  "titleEn": "Sinon",
+  "output": "public/images/franchises/skybound-3.jpg",
+  "prompt": "Use case: illustration-story. Asset type: square 1024x1024 anime jigsaw artwork, one complete scene. Create recognizable fan art specifically from Sword Art Online. Subject and setting: Sinon, recognizable short pale teal hair and teal eyes, fully clothed opaque teal combat jacket and full-length trousers, at a futuristic Gun Gale Online observation deck at blue dusk; calm nonsexual tactical portrait, weapon lowered. Preserve the named character’s recognizable face, hair, signature accessories and the anime’s visual identity. Polished authentic anime cel shading (Arcane: its distinctive painterly animation look), cinematic lighting, expressive face, varied clearly readable details across the whole square for a puzzle. A neutral character/adventure illustration, fully clothed in opaque clothing, no sexual content, no suggestive posing, no nudity, no fetish imagery, no body-part emphasis, no blood, no gore, no tobacco, no alcohol. No text, no letters, no logos, no watermark, no panels, no border. Distinct composition, not a generic fantasy city or an invented substitute character.",
+  "source": "C:\\Users\\Владик\\.codex\\generated_images\\01a14683-5c54-7d90-ad07-51ee89ba7d14\\exec-7d92ee33-5781-43bb-9f63-cf040a55493d.png",
+  "method": "image_gen"
+}

@@ -1,0 +1,540 @@
+{
+  "albums": [
+    {
+      "id": "pact-city",
+      "franchise": "Chainsaw Man",
+      "title": "Человек-бензопила",
+      "titleEn": "Chainsaw Man",
+      "subtitle": "Дэндзи и охотники на демонов",
+      "subtitleEn": "Denji and the devil hunters",
+      "accent": 13855549,
+      "characters": [
+        {
+          "title": "Дэндзи",
+          "titleEn": "Denji",
+          "image": "images/franchises/pact-city-1.jpg"
+        },
+        {
+          "title": "Пауэр",
+          "titleEn": "Power",
+          "image": "images/franchises/pact-city-2.jpg"
+        },
+        {
+          "title": "Аки Хаякава",
+          "titleEn": "Aki Hayakawa",
+          "image": "images/franchises/pact-city-3.jpg"
+        },
+        {
+          "title": "Макима",
+          "titleEn": "Makima",
+          "image": "images/franchises/pact-city-4.jpg"
+        },
+        {
+          "title": "Химэно",
+          "titleEn": "Himeno",
+          "image": "images/franchises/pact-city-5.jpg"
+        },
+        {
+          "title": "Дэндзи · Человек-бензопила",
+          "titleEn": "Denji · Chainsaw Man",
+          "image": "images/franchises/pact-city-6.jpg"
+        }
+      ]
+    },
+    {
+      "id": "skybound",
+      "franchise": "Sword Art Online",
+      "title": "Мастер меча онлайн",
+      "titleEn": "Sword Art Online",
+      "subtitle": "Путешествие по Айнкраду",
+      "subtitleEn": "Journey through Aincrad",
+      "accent": 4626384,
+      "characters": [
+        {
+          "title": "Кирито",
+          "titleEn": "Kirito",
+          "image": "images/franchises/skybound-1.jpg"
+        },
+        {
+          "title": "Асуна",
+          "titleEn": "Asuna",
+          "image": "images/franchises/skybound-2.jpg"
+        },
+        {
+          "title": "Синон",
+          "titleEn": "Sinon",
+          "image": "images/franchises/skybound-3.jpg"
+        },
+        {
+          "title": "Кляйн",
+          "titleEn": "Klein",
+          "image": "images/franchises/skybound-4.jpg"
+        },
+        {
+          "title": "Эгиль",
+          "titleEn": "Agil",
+          "image": "images/franchises/skybound-5.jpg"
+        },
+        {
+          "title": "Айнкрад · Небесная крепость",
+          "titleEn": "Aincrad · Castle in the Sky",
+          "image": "images/franchises/skybound-6.jpg"
+        }
+      ]
+    },
+    {
+      "id": "dawn-frontier",
+      "franchise": "Neon Genesis Evangelion",
+      "title": "Евангелион",
+      "titleEn": "Evangelion",
+      "subtitle": "Токио-3 и защитники NERV",
+      "subtitleEn": "Tokyo-3 and the NERV defenders",
+      "accent": 9332408,
+      "characters": [
+        {
+          "title": "Синдзи Икари",
+          "titleEn": "Shinji Ikari",
+          "image": "images/franchises/dawn-frontier-1.jpg"
+        },
+        {
+          "title": "Рэй Аянами",
+          "titleEn": "Rei Ayanami",
+          "image": "images/franchises/dawn-frontier-2.jpg"
+        },
+        {
+          "title": "Аска Лэнгли",
+          "titleEn": "Asuka Langley",
+          "image": "images/franchises/dawn-frontier-3.jpg"
+        },
+        {
+          "title": "Мисато Кацураги",
+          "titleEn": "Misato Katsuragi",
+          "image": "images/franchises/dawn-frontier-4.jpg"
+        },
+        {
+          "title": "Рицуко Акаги",
+          "titleEn": "Ritsuko Akagi",
+          "image": "images/franchises/dawn-frontier-5.jpg"
+        },
+        {
+          "title": "Ева-01 · Защитник Токио-3",
+          "titleEn": "Eva-01 · Guardian of Tokyo-3",
+          "image": "images/franchises/dawn-frontier-6.jpg"
+        }
+      ]
+    },
+    {
+      "id": "twilight-guard",
+      "franchise": "Bleach",
+      "title": "Блич",
+      "titleEn": "Bleach",
+      "subtitle": "Каракура и Общество душ",
+      "subtitleEn": "Karakura and the Soul Society",
+      "accent": 5278916,
+      "characters": [
+        {
+          "title": "Ичиго Куросаки",
+          "titleEn": "Ichigo Kurosaki",
+          "image": "images/franchises/twilight-guard-1.jpg"
+        },
+        {
+          "title": "Рукия Кучики",
+          "titleEn": "Rukia Kuchiki",
+          "image": "images/franchises/twilight-guard-2.jpg"
+        },
+        {
+          "title": "Орихимэ Иноуэ",
+          "titleEn": "Orihime Inoue",
+          "image": "images/franchises/twilight-guard-3.jpg"
+        },
+        {
+          "title": "Рэндзи Абарай",
+          "titleEn": "Renji Abarai",
+          "image": "images/franchises/twilight-guard-4.jpg"
+        },
+        {
+          "title": "Бякуя Кучики",
+          "titleEn": "Byakuya Kuchiki",
+          "image": "images/franchises/twilight-guard-5.jpg"
+        },
+        {
+          "title": "Ичиго · Банкай",
+          "titleEn": "Ichigo · Bankai",
+          "image": "images/franchises/twilight-guard-6.jpg"
+        }
+      ]
+    },
+    {
+      "id": "copper-quarter",
+      "franchise": "Arcane",
+      "title": "Аркейн",
+      "titleEn": "Arcane",
+      "subtitle": "Между Пилтовером и Зауном",
+      "subtitleEn": "Between Piltover and Zaun",
+      "accent": 11102912,
+      "characters": [
+        {
+          "title": "Джинкс",
+          "titleEn": "Jinx",
+          "image": "images/franchises/copper-quarter-1.jpg"
+        },
+        {
+          "title": "Вай",
+          "titleEn": "Vi",
+          "image": "images/franchises/copper-quarter-2.jpg"
+        },
+        {
+          "title": "Кейтлин Кирамман",
+          "titleEn": "Caitlyn Kiramman",
+          "image": "images/franchises/copper-quarter-3.jpg"
+        },
+        {
+          "title": "Экко",
+          "titleEn": "Ekko",
+          "image": "images/franchises/copper-quarter-4.jpg"
+        },
+        {
+          "title": "Виктор",
+          "titleEn": "Viktor",
+          "image": "images/franchises/copper-quarter-5.jpg"
+        },
+        {
+          "title": "Пилтовер и Заун",
+          "titleEn": "Piltover and Zaun",
+          "image": "images/franchises/copper-quarter-6.jpg"
+        }
+      ]
+    },
+    {
+      "id": "reef-summer",
+      "franchise": "Grand Blue Dreaming",
+      "title": "Необъятный океан",
+      "titleEn": "Grand Blue Dreaming",
+      "subtitle": "Друзья, Идзу и подводный мир",
+      "subtitleEn": "Friends, Izu and the underwater world",
+      "accent": 1222589,
+      "characters": [
+        {
+          "title": "Иори Китахара",
+          "titleEn": "Iori Kitahara",
+          "image": "images/franchises/reef-summer-1.jpg"
+        },
+        {
+          "title": "Кохэй Имамура",
+          "titleEn": "Kohei Imamura",
+          "image": "images/franchises/reef-summer-2.jpg"
+        },
+        {
+          "title": "Тиса Котэгава",
+          "titleEn": "Chisa Kotegawa",
+          "image": "images/franchises/reef-summer-3.jpg"
+        },
+        {
+          "title": "Нанака Котэгава",
+          "titleEn": "Nanaka Kotegawa",
+          "image": "images/franchises/reef-summer-4.jpg"
+        },
+        {
+          "title": "Адзуса Хамаока",
+          "titleEn": "Azusa Hamaoka",
+          "image": "images/franchises/reef-summer-5.jpg"
+        },
+        {
+          "title": "Идзу · Мир под водой",
+          "titleEn": "Izu · The Underwater World",
+          "image": "images/franchises/reef-summer-6.jpg"
+        }
+      ]
+    }
+  ],
+  "images": [
+    {
+      "id": "pact-city-canon-1",
+      "albumId": "pact-city",
+      "title": "Дэндзи",
+      "titleEn": "Denji",
+      "output": "public/images/franchises/pact-city-1.jpg",
+      "prompt": "Use case: illustration-story. Asset type: square 1024x1024 anime jigsaw artwork, one complete scene. Create recognizable fan art specifically from Chainsaw Man. Subject and setting: Denji, recognizable blond teenage boy with sharp triangular teeth, white buttoned shirt, black tie and black trousers, standing with orange dog Pochita beside a sunlit Tokyo side street; upbeat adventure portrait, no transformation wounds. Preserve the named character’s recognizable face, hair, signature accessories and the anime’s visual identity. Polished authentic anime cel shading (Arcane: its distinctive painterly animation look), cinematic lighting, expressive face, varied clearly readable details across the whole square for a puzzle. A neutral character/adventure illustration, fully clothed in opaque clothing, no sexual content, no suggestive posing, no nudity, no fetish imagery, no body-part emphasis, no blood, no gore, no tobacco, no alcohol. No text, no letters, no logos, no watermark, no panels, no border. Distinct composition, not a generic fantasy city or an invented substitute character."
+    },
+    {
+      "id": "pact-city-canon-2",
+      "albumId": "pact-city",
+      "title": "Пауэр",
+      "titleEn": "Power",
+      "output": "public/images/franchises/pact-city-2.jpg",
+      "prompt": "Use case: illustration-story. Asset type: square 1024x1024 anime jigsaw artwork, one complete scene. Create recognizable fan art specifically from Chainsaw Man. Subject and setting: Power, recognizable pinkish blond hair and small red horns, fully clothed white shirt, black tie, black trousers and loose navy jacket, holding her white cat Meowy in an apartment window garden; playful but entirely nonsexual portrait. Preserve the named character’s recognizable face, hair, signature accessories and the anime’s visual identity. Polished authentic anime cel shading (Arcane: its distinctive painterly animation look), cinematic lighting, expressive face, varied clearly readable details across the whole square for a puzzle. A neutral character/adventure illustration, fully clothed in opaque clothing, no sexual content, no suggestive posing, no nudity, no fetish imagery, no body-part emphasis, no blood, no gore, no tobacco, no alcohol. No text, no letters, no logos, no watermark, no panels, no border. Distinct composition, not a generic fantasy city or an invented substitute character."
+    },
+    {
+      "id": "pact-city-canon-3",
+      "albumId": "pact-city",
+      "title": "Аки Хаякава",
+      "titleEn": "Aki Hayakawa",
+      "output": "public/images/franchises/pact-city-3.jpg",
+      "prompt": "Use case: illustration-story. Asset type: square 1024x1024 anime jigsaw artwork, one complete scene. Create recognizable fan art specifically from Chainsaw Man. Subject and setting: Aki Hayakawa, recognizable black topknot, blue eyes, white shirt, black tie and tailored black suit, overlooking Tokyo from a rooftop at cool dawn, distant fox-shaped clouds; composed detective action mood. Preserve the named character’s recognizable face, hair, signature accessories and the anime’s visual identity. Polished authentic anime cel shading (Arcane: its distinctive painterly animation look), cinematic lighting, expressive face, varied clearly readable details across the whole square for a puzzle. A neutral character/adventure illustration, fully clothed in opaque clothing, no sexual content, no suggestive posing, no nudity, no fetish imagery, no body-part emphasis, no blood, no gore, no tobacco, no alcohol. No text, no letters, no logos, no watermark, no panels, no border. Distinct composition, not a generic fantasy city or an invented substitute character."
+    },
+    {
+      "id": "pact-city-canon-4",
+      "albumId": "pact-city",
+      "title": "Макима",
+      "titleEn": "Makima",
+      "output": "public/images/franchises/pact-city-4.jpg",
+      "prompt": "Use case: illustration-story. Asset type: square 1024x1024 anime jigsaw artwork, one complete scene. Create recognizable fan art specifically from Chainsaw Man. Subject and setting: Makima, recognizable red braided hair, amber concentric-ring eyes, fully buttoned white shirt, black tie, black trousers and long black overcoat, at a Tokyo railway platform with patterned sunset light; calm professional portrait. Preserve the named character’s recognizable face, hair, signature accessories and the anime’s visual identity. Polished authentic anime cel shading (Arcane: its distinctive painterly animation look), cinematic lighting, expressive face, varied clearly readable details across the whole square for a puzzle. A neutral character/adventure illustration, fully clothed in opaque clothing, no sexual content, no suggestive posing, no nudity, no fetish imagery, no body-part emphasis, no blood, no gore, no tobacco, no alcohol. No text, no letters, no logos, no watermark, no panels, no border. Distinct composition, not a generic fantasy city or an invented substitute character."
+    },
+    {
+      "id": "pact-city-canon-5",
+      "albumId": "pact-city",
+      "title": "Химэно",
+      "titleEn": "Himeno",
+      "output": "public/images/franchises/pact-city-5.jpg",
+      "prompt": "Use case: illustration-story. Asset type: square 1024x1024 anime jigsaw artwork, one complete scene. Create recognizable fan art specifically from Chainsaw Man. Subject and setting: Himeno, recognizable short dark hair and black eyepatch over her right eye, fully clothed white shirt, black tie and black suit jacket, on a rainy city street with blue ghostly hand silhouettes in the distance; no cigarettes. Preserve the named character’s recognizable face, hair, signature accessories and the anime’s visual identity. Polished authentic anime cel shading (Arcane: its distinctive painterly animation look), cinematic lighting, expressive face, varied clearly readable details across the whole square for a puzzle. A neutral character/adventure illustration, fully clothed in opaque clothing, no sexual content, no suggestive posing, no nudity, no fetish imagery, no body-part emphasis, no blood, no gore, no tobacco, no alcohol. No text, no letters, no logos, no watermark, no panels, no border. Distinct composition, not a generic fantasy city or an invented substitute character."
+    },
+    {
+      "id": "pact-city-canon-6",
+      "albumId": "pact-city",
+      "title": "Дэндзи · Человек-бензопила",
+      "titleEn": "Denji · Chainsaw Man",
+      "output": "public/images/franchises/pact-city-6.jpg",
+      "prompt": "Use case: illustration-story. Asset type: square 1024x1024 anime jigsaw artwork, one complete scene. Create recognizable fan art specifically from Chainsaw Man. Subject and setting: Denji in his iconic Chainsaw Man mechanical head and arm-blade transformation, white shirt and black trousers, heroic silhouette above a Tokyo skyline at orange sunset, Pochita tiny in the foreground, dramatic wide scene; all saw blades clean metal, no blood, no gore or injuries. Preserve the named character’s recognizable face, hair, signature accessories and the anime’s visual identity. Polished authentic anime cel shading (Arcane: its distinctive painterly animation look), cinematic lighting, expressive face, varied clearly readable details across the whole square for a puzzle. A neutral character/adventure illustration, fully clothed in opaque clothing, no sexual content, no suggestive posing, no nudity, no fetish imagery, no body-part emphasis, no blood, no gore, no tobacco, no alcohol. No text, no letters, no logos, no watermark, no panels, no border. Distinct composition, not a generic fantasy city or an invented substitute character."
+    },
+    {
+      "id": "skybound-canon-1",
+      "albumId": "skybound",
+      "title": "Кирито",
+      "titleEn": "Kirito",
+      "output": "public/images/franchises/skybound-1.jpg",
+      "prompt": "Use case: illustration-story. Asset type: square 1024x1024 anime jigsaw artwork, one complete scene. Create recognizable fan art specifically from Sword Art Online. Subject and setting: Kirito, recognizable black hair and black long coat with silver piping, fully clothed in his Aincrad swordsman outfit, holding a sheathed black sword beside the Town of Beginnings stone fountain; adventurous neutral pose. Preserve the named character’s recognizable face, hair, signature accessories and the anime’s visual identity. Polished authentic anime cel shading (Arcane: its distinctive painterly animation look), cinematic lighting, expressive face, varied clearly readable details across the whole square for a puzzle. A neutral character/adventure illustration, fully clothed in opaque clothing, no sexual content, no suggestive posing, no nudity, no fetish imagery, no body-part emphasis, no blood, no gore, no tobacco, no alcohol. No text, no letters, no logos, no watermark, no panels, no border. Distinct composition, not a generic fantasy city or an invented substitute character."
+    },
+    {
+      "id": "skybound-canon-2",
+      "albumId": "skybound",
+      "title": "Асуна",
+      "titleEn": "Asuna",
+      "output": "public/images/franchises/skybound-2.jpg",
+      "prompt": "Use case: illustration-story. Asset type: square 1024x1024 anime jigsaw artwork, one complete scene. Create recognizable fan art specifically from Sword Art Online. Subject and setting: Asuna, recognizable long chestnut hair, white and red Knights of the Blood guild outfit with full opaque coverage, standing in a colorful Aincrad flower garden with a sheathed rapier, serene nonsexual hero portrait, no body emphasis. Preserve the named character’s recognizable face, hair, signature accessories and the anime’s visual identity. Polished authentic anime cel shading (Arcane: its distinctive painterly animation look), cinematic lighting, expressive face, varied clearly readable details across the whole square for a puzzle. A neutral character/adventure illustration, fully clothed in opaque clothing, no sexual content, no suggestive posing, no nudity, no fetish imagery, no body-part emphasis, no blood, no gore, no tobacco, no alcohol. No text, no letters, no logos, no watermark, no panels, no border. Distinct composition, not a generic fantasy city or an invented substitute character."
+    },
+    {
+      "id": "skybound-canon-3",
+      "albumId": "skybound",
+      "title": "Синон",
+      "titleEn": "Sinon",
+      "output": "public/images/franchises/skybound-3.jpg",
+      "prompt": "Use case: illustration-story. Asset type: square 1024x1024 anime jigsaw artwork, one complete scene. Create recognizable fan art specifically from Sword Art Online. Subject and setting: Sinon, recognizable short pale teal hair and teal eyes, fully clothed opaque teal combat jacket and full-length trousers, at a futuristic Gun Gale Online observation deck at blue dusk; calm nonsexual tactical portrait, weapon lowered. Preserve the named character’s recognizable face, hair, signature accessories and the anime’s visual identity. Polished authentic anime cel shading (Arcane: its distinctive painterly animation look), cinematic lighting, expressive face, varied clearly readable details across the whole square for a puzzle. A neutral character/adventure illustration, fully clothed in opaque clothing, no sexual content, no suggestive posing, no nudity, no fetish imagery, no body-part emphasis, no blood, no gore, no tobacco, no alcohol. No text, no letters, no logos, no watermark, no panels, no border. Distinct composition, not a generic fantasy city or an invented substitute character."
+    },
+    {
+      "id": "skybound-canon-4",
+      "albumId": "skybound",
+      "title": "Кляйн",
+      "titleEn": "Klein",
+      "output": "public/images/franchises/skybound-4.jpg",
+      "prompt": "Use case: illustration-story. Asset type: square 1024x1024 anime jigsaw artwork, one complete scene. Create recognizable fan art specifically from Sword Art Online. Subject and setting: Klein, recognizable red hair and red bandana, fully clothed dark red samurai armor and broad friendly smile, among autumn trees and old stone ruins in Aincrad. Preserve the named character’s recognizable face, hair, signature accessories and the anime’s visual identity. Polished authentic anime cel shading (Arcane: its distinctive painterly animation look), cinematic lighting, expressive face, varied clearly readable details across the whole square for a puzzle. A neutral character/adventure illustration, fully clothed in opaque clothing, no sexual content, no suggestive posing, no nudity, no fetish imagery, no body-part emphasis, no blood, no gore, no tobacco, no alcohol. No text, no letters, no logos, no watermark, no panels, no border. Distinct composition, not a generic fantasy city or an invented substitute character."
+    },
+    {
+      "id": "skybound-canon-5",
+      "albumId": "skybound",
+      "title": "Эгиль",
+      "titleEn": "Agil",
+      "output": "public/images/franchises/skybound-5.jpg",
+      "prompt": "Use case: illustration-story. Asset type: square 1024x1024 anime jigsaw artwork, one complete scene. Create recognizable fan art specifically from Sword Art Online. Subject and setting: Agil, recognizable tall muscular dark-skinned bald adult man with short goatee, fully clothed green and brown heavy armor, axe resting safely on the ground beside a fantasy merchant shop; warm loyal warrior portrait. Preserve the named character’s recognizable face, hair, signature accessories and the anime’s visual identity. Polished authentic anime cel shading (Arcane: its distinctive painterly animation look), cinematic lighting, expressive face, varied clearly readable details across the whole square for a puzzle. A neutral character/adventure illustration, fully clothed in opaque clothing, no sexual content, no suggestive posing, no nudity, no fetish imagery, no body-part emphasis, no blood, no gore, no tobacco, no alcohol. No text, no letters, no logos, no watermark, no panels, no border. Distinct composition, not a generic fantasy city or an invented substitute character."
+    },
+    {
+      "id": "skybound-canon-6",
+      "albumId": "skybound",
+      "title": "Айнкрад · Небесная крепость",
+      "titleEn": "Aincrad · Castle in the Sky",
+      "output": "public/images/franchises/skybound-6.jpg",
+      "prompt": "Use case: illustration-story. Asset type: square 1024x1024 anime jigsaw artwork, one complete scene. Create recognizable fan art specifically from Sword Art Online. Subject and setting: a spectacular Aincrad floating multi-level steel castle above clouds, Kirito in black and Asuna in fully covered white-red guild uniforms standing side by side on a grassy stone bridge in foreground, brave neutral adventure finale, luminous blue sky, faithful Sword Art Online world. Preserve the named character’s recognizable face, hair, signature accessories and the anime’s visual identity. Polished authentic anime cel shading (Arcane: its distinctive painterly animation look), cinematic lighting, expressive face, varied clearly readable details across the whole square for a puzzle. A neutral character/adventure illustration, fully clothed in opaque clothing, no sexual content, no suggestive posing, no nudity, no fetish imagery, no body-part emphasis, no blood, no gore, no tobacco, no alcohol. No text, no letters, no logos, no watermark, no panels, no border. Distinct composition, not a generic fantasy city or an invented substitute character."
+    },
+    {
+      "id": "dawn-frontier-canon-1",
+      "albumId": "dawn-frontier",
+      "title": "Синдзи Икари",
+      "titleEn": "Shinji Ikari",
+      "output": "public/images/franchises/dawn-frontier-1.jpg",
+      "prompt": "Use case: illustration-story. Asset type: square 1024x1024 anime jigsaw artwork, one complete scene. Create recognizable fan art specifically from Neon Genesis Evangelion. Subject and setting: Shinji Ikari, recognizable short black hair, blue eyes, fully clothed in a white short-sleeved buttoned shirt and black trousers, standing at a Tokyo-3 railway station, giant futuristic buildings and mountain landscape; quiet nonsexual coming-of-age portrait. Preserve the named character’s recognizable face, hair, signature accessories and the anime’s visual identity. Polished authentic anime cel shading (Arcane: its distinctive painterly animation look), cinematic lighting, expressive face, varied clearly readable details across the whole square for a puzzle. A neutral character/adventure illustration, fully clothed in opaque clothing, no sexual content, no suggestive posing, no nudity, no fetish imagery, no body-part emphasis, no blood, no gore, no tobacco, no alcohol. No text, no letters, no logos, no watermark, no panels, no border. Distinct composition, not a generic fantasy city or an invented substitute character."
+    },
+    {
+      "id": "dawn-frontier-canon-2",
+      "albumId": "dawn-frontier",
+      "title": "Рэй Аянами",
+      "titleEn": "Rei Ayanami",
+      "output": "public/images/franchises/dawn-frontier-2.jpg",
+      "prompt": "Use case: illustration-story. Asset type: square 1024x1024 anime jigsaw artwork, one complete scene. Create recognizable fan art specifically from Neon Genesis Evangelion. Subject and setting: Rei Ayanami, recognizable short pale blue hair and red eyes, fully clothed in a loose opaque navy NERV utility jacket and full-length trousers, standing by a futuristic observation window looking toward a calm moon; neutral nonsexual portrait, no body emphasis, no tight bodysuit. Preserve the named character’s recognizable face, hair, signature accessories and the anime’s visual identity. Polished authentic anime cel shading (Arcane: its distinctive painterly animation look), cinematic lighting, expressive face, varied clearly readable details across the whole square for a puzzle. A neutral character/adventure illustration, fully clothed in opaque clothing, no sexual content, no suggestive posing, no nudity, no fetish imagery, no body-part emphasis, no blood, no gore, no tobacco, no alcohol. No text, no letters, no logos, no watermark, no panels, no border. Distinct composition, not a generic fantasy city or an invented substitute character."
+    },
+    {
+      "id": "dawn-frontier-canon-3",
+      "albumId": "dawn-frontier",
+      "title": "Аска Лэнгли",
+      "titleEn": "Asuka Langley",
+      "output": "public/images/franchises/dawn-frontier-3.jpg",
+      "prompt": "Use case: illustration-story. Asset type: square 1024x1024 anime jigsaw artwork, one complete scene. Create recognizable fan art specifically from Neon Genesis Evangelion. Subject and setting: Asuka Langley, recognizable long auburn hair and red hair clips, fully clothed in an opaque red field jacket and full-length dark trousers, standing in a Tokyo-3 urban plaza with red Eva Unit 02 in the far background; confident nonsexual character scene, no body emphasis. Preserve the named character’s recognizable face, hair, signature accessories and the anime’s visual identity. Polished authentic anime cel shading (Arcane: its distinctive painterly animation look), cinematic lighting, expressive face, varied clearly readable details across the whole square for a puzzle. A neutral character/adventure illustration, fully clothed in opaque clothing, no sexual content, no suggestive posing, no nudity, no fetish imagery, no body-part emphasis, no blood, no gore, no tobacco, no alcohol. No text, no letters, no logos, no watermark, no panels, no border. Distinct composition, not a generic fantasy city or an invented substitute character."
+    },
+    {
+      "id": "dawn-frontier-canon-4",
+      "albumId": "dawn-frontier",
+      "title": "Мисато Кацураги",
+      "titleEn": "Misato Katsuragi",
+      "output": "public/images/franchises/dawn-frontier-4.jpg",
+      "prompt": "Use case: illustration-story. Asset type: square 1024x1024 anime jigsaw artwork, one complete scene. Create recognizable fan art specifically from Neon Genesis Evangelion. Subject and setting: Misato Katsuragi, recognizable long violet hair, red NERV jacket over a fully covered black high-neck top and dark trousers, carrying a clipboard at a Tokyo-3 command center, city lights and futuristic displays, mature professional portrait; no alcohol. Preserve the named character’s recognizable face, hair, signature accessories and the anime’s visual identity. Polished authentic anime cel shading (Arcane: its distinctive painterly animation look), cinematic lighting, expressive face, varied clearly readable details across the whole square for a puzzle. A neutral character/adventure illustration, fully clothed in opaque clothing, no sexual content, no suggestive posing, no nudity, no fetish imagery, no body-part emphasis, no blood, no gore, no tobacco, no alcohol. No text, no letters, no logos, no watermark, no panels, no border. Distinct composition, not a generic fantasy city or an invented substitute character."
+    },
+    {
+      "id": "dawn-frontier-canon-5",
+      "albumId": "dawn-frontier",
+      "title": "Рицуко Акаги",
+      "titleEn": "Ritsuko Akagi",
+      "output": "public/images/franchises/dawn-frontier-5.jpg",
+      "prompt": "Use case: illustration-story. Asset type: square 1024x1024 anime jigsaw artwork, one complete scene. Create recognizable fan art specifically from Neon Genesis Evangelion. Subject and setting: Ritsuko Akagi, recognizable short blonde bob, lab coat over a fully covered navy high-neck shirt and trousers, standing at a blue-lit scientific control room with the Eva hangar visible behind glass; mature scientist portrait. Preserve the named character’s recognizable face, hair, signature accessories and the anime’s visual identity. Polished authentic anime cel shading (Arcane: its distinctive painterly animation look), cinematic lighting, expressive face, varied clearly readable details across the whole square for a puzzle. A neutral character/adventure illustration, fully clothed in opaque clothing, no sexual content, no suggestive posing, no nudity, no fetish imagery, no body-part emphasis, no blood, no gore, no tobacco, no alcohol. No text, no letters, no logos, no watermark, no panels, no border. Distinct composition, not a generic fantasy city or an invented substitute character."
+    },
+    {
+      "id": "dawn-frontier-canon-6",
+      "albumId": "dawn-frontier",
+      "title": "Ева-01 · Защитник Токио-3",
+      "titleEn": "Eva-01 · Guardian of Tokyo-3",
+      "output": "public/images/franchises/dawn-frontier-6.jpg",
+      "prompt": "Use case: illustration-story. Asset type: square 1024x1024 anime jigsaw artwork, one complete scene. Create recognizable fan art specifically from Neon Genesis Evangelion. Subject and setting: iconic giant purple and green Evangelion Unit 01 robot in full view standing heroically among the geometric towers of Tokyo-3 at purple dawn, orange distant sky, tiny red and blue Eva silhouettes far behind, powerful science fiction finale, purely mechanical armor, no biological gore, no wounds. Preserve the named character’s recognizable face, hair, signature accessories and the anime’s visual identity. Polished authentic anime cel shading (Arcane: its distinctive painterly animation look), cinematic lighting, expressive face, varied clearly readable details across the whole square for a puzzle. A neutral character/adventure illustration, fully clothed in opaque clothing, no sexual content, no suggestive posing, no nudity, no fetish imagery, no body-part emphasis, no blood, no gore, no tobacco, no alcohol. No text, no letters, no logos, no watermark, no panels, no border. Distinct composition, not a generic fantasy city or an invented substitute character."
+    },
+    {
+      "id": "twilight-guard-canon-1",
+      "albumId": "twilight-guard",
+      "title": "Ичиго Куросаки",
+      "titleEn": "Ichigo Kurosaki",
+      "output": "public/images/franchises/twilight-guard-1.jpg",
+      "prompt": "Use case: illustration-story. Asset type: square 1024x1024 anime jigsaw artwork, one complete scene. Create recognizable fan art specifically from Bleach. Subject and setting: Ichigo Kurosaki, recognizable bright orange spiky hair, fully clothed loose black Soul Reaper robes, huge Zangetsu sword resting safely beside him, standing above Karakura Town at sunset; courageous adventure portrait, no blood. Preserve the named character’s recognizable face, hair, signature accessories and the anime’s visual identity. Polished authentic anime cel shading (Arcane: its distinctive painterly animation look), cinematic lighting, expressive face, varied clearly readable details across the whole square for a puzzle. A neutral character/adventure illustration, fully clothed in opaque clothing, no sexual content, no suggestive posing, no nudity, no fetish imagery, no body-part emphasis, no blood, no gore, no tobacco, no alcohol. No text, no letters, no logos, no watermark, no panels, no border. Distinct composition, not a generic fantasy city or an invented substitute character."
+    },
+    {
+      "id": "twilight-guard-canon-2",
+      "albumId": "twilight-guard",
+      "title": "Рукия Кучики",
+      "titleEn": "Rukia Kuchiki",
+      "output": "public/images/franchises/twilight-guard-2.jpg",
+      "prompt": "Use case: illustration-story. Asset type: square 1024x1024 anime jigsaw artwork, one complete scene. Create recognizable fan art specifically from Bleach. Subject and setting: Rukia Kuchiki, recognizable short black hair with long front strand and violet eyes, fully covered in loose black Soul Reaper robes, standing beside white plum blossoms in a traditional Soul Society courtyard, a sheathed white sword and cool blue snowflakes; neutral nonsexual pose. Preserve the named character’s recognizable face, hair, signature accessories and the anime’s visual identity. Polished authentic anime cel shading (Arcane: its distinctive painterly animation look), cinematic lighting, expressive face, varied clearly readable details across the whole square for a puzzle. A neutral character/adventure illustration, fully clothed in opaque clothing, no sexual content, no suggestive posing, no nudity, no fetish imagery, no body-part emphasis, no blood, no gore, no tobacco, no alcohol. No text, no letters, no logos, no watermark, no panels, no border. Distinct composition, not a generic fantasy city or an invented substitute character."
+    },
+    {
+      "id": "twilight-guard-canon-3",
+      "albumId": "twilight-guard",
+      "title": "Орихимэ Иноуэ",
+      "titleEn": "Orihime Inoue",
+      "output": "public/images/franchises/twilight-guard-3.jpg",
+      "prompt": "Use case: illustration-story. Asset type: square 1024x1024 anime jigsaw artwork, one complete scene. Create recognizable fan art specifically from Bleach. Subject and setting: Orihime Inoue, recognizable long orange hair and distinctive blue flower hair clips, fully clothed in a loose opaque cream jacket and full-length trousers, among sunlit Karakura flowers with small golden protective light petals; kind nonsexual portrait, no cleavage or body emphasis. Preserve the named character’s recognizable face, hair, signature accessories and the anime’s visual identity. Polished authentic anime cel shading (Arcane: its distinctive painterly animation look), cinematic lighting, expressive face, varied clearly readable details across the whole square for a puzzle. A neutral character/adventure illustration, fully clothed in opaque clothing, no sexual content, no suggestive posing, no nudity, no fetish imagery, no body-part emphasis, no blood, no gore, no tobacco, no alcohol. No text, no letters, no logos, no watermark, no panels, no border. Distinct composition, not a generic fantasy city or an invented substitute character."
+    },
+    {
+      "id": "twilight-guard-canon-4",
+      "albumId": "twilight-guard",
+      "title": "Рэндзи Абарай",
+      "titleEn": "Renji Abarai",
+      "output": "public/images/franchises/twilight-guard-4.jpg",
+      "prompt": "Use case: illustration-story. Asset type: square 1024x1024 anime jigsaw artwork, one complete scene. Create recognizable fan art specifically from Bleach. Subject and setting: Renji Abarai, recognizable high red ponytail and forehead tattoos, fully covered black Soul Reaper uniform, sheathed Zabimaru sword, a red wooden bridge in the Soul Society at autumn sunset; powerful warrior portrait. Preserve the named character’s recognizable face, hair, signature accessories and the anime’s visual identity. Polished authentic anime cel shading (Arcane: its distinctive painterly animation look), cinematic lighting, expressive face, varied clearly readable details across the whole square for a puzzle. A neutral character/adventure illustration, fully clothed in opaque clothing, no sexual content, no suggestive posing, no nudity, no fetish imagery, no body-part emphasis, no blood, no gore, no tobacco, no alcohol. No text, no letters, no logos, no watermark, no panels, no border. Distinct composition, not a generic fantasy city or an invented substitute character."
+    },
+    {
+      "id": "twilight-guard-canon-5",
+      "albumId": "twilight-guard",
+      "title": "Бякуя Кучики",
+      "titleEn": "Byakuya Kuchiki",
+      "output": "public/images/franchises/twilight-guard-5.jpg",
+      "prompt": "Use case: illustration-story. Asset type: square 1024x1024 anime jigsaw artwork, one complete scene. Create recognizable fan art specifically from Bleach. Subject and setting: Byakuya Kuchiki, recognizable long black hair, white kenseikan hair ornaments and white captain haori over loose black robes, standing in a moonlit courtyard filled with pink cherry blossom petals; noble composed portrait. Preserve the named character’s recognizable face, hair, signature accessories and the anime’s visual identity. Polished authentic anime cel shading (Arcane: its distinctive painterly animation look), cinematic lighting, expressive face, varied clearly readable details across the whole square for a puzzle. A neutral character/adventure illustration, fully clothed in opaque clothing, no sexual content, no suggestive posing, no nudity, no fetish imagery, no body-part emphasis, no blood, no gore, no tobacco, no alcohol. No text, no letters, no logos, no watermark, no panels, no border. Distinct composition, not a generic fantasy city or an invented substitute character."
+    },
+    {
+      "id": "twilight-guard-canon-6",
+      "albumId": "twilight-guard",
+      "title": "Ичиго · Банкай",
+      "titleEn": "Ichigo · Bankai",
+      "output": "public/images/franchises/twilight-guard-6.jpg",
+      "prompt": "Use case: illustration-story. Asset type: square 1024x1024 anime jigsaw artwork, one complete scene. Create recognizable fan art specifically from Bleach. Subject and setting: Ichigo Kurosaki in recognizable long black Bankai coat, black sword held safely downward, a vast Soul Society skyline and swirling blue spiritual energy with cherry blossom petals at sunrise, dramatic full scene, no blood, no injuries, no gore. Preserve the named character’s recognizable face, hair, signature accessories and the anime’s visual identity. Polished authentic anime cel shading (Arcane: its distinctive painterly animation look), cinematic lighting, expressive face, varied clearly readable details across the whole square for a puzzle. A neutral character/adventure illustration, fully clothed in opaque clothing, no sexual content, no suggestive posing, no nudity, no fetish imagery, no body-part emphasis, no blood, no gore, no tobacco, no alcohol. No text, no letters, no logos, no watermark, no panels, no border. Distinct composition, not a generic fantasy city or an invented substitute character."
+    },
+    {
+      "id": "copper-quarter-canon-1",
+      "albumId": "copper-quarter",
+      "title": "Джинкс",
+      "titleEn": "Jinx",
+      "output": "public/images/franchises/copper-quarter-1.jpg",
+      "prompt": "Use case: illustration-story. Asset type: square 1024x1024 anime jigsaw artwork, one complete scene. Create recognizable fan art specifically from Arcane. Subject and setting: adult later-timeline Jinx, recognizable long blue braids and sharp expressive face, fully covered opaque indigo streetwear jacket and full-length trousers, standing in a colorful Zaun workshop with glowing blue mechanical devices and painted graffiti; nonsexual mischievous inventor portrait, no weapon aimed at viewer. Preserve the named character’s recognizable face, hair, signature accessories and the anime’s visual identity. Polished authentic anime cel shading (Arcane: its distinctive painterly animation look), cinematic lighting, expressive face, varied clearly readable details across the whole square for a puzzle. A neutral character/adventure illustration, fully clothed in opaque clothing, no sexual content, no suggestive posing, no nudity, no fetish imagery, no body-part emphasis, no blood, no gore, no tobacco, no alcohol. No text, no letters, no logos, no watermark, no panels, no border. Distinct composition, not a generic fantasy city or an invented substitute character."
+    },
+    {
+      "id": "copper-quarter-canon-2",
+      "albumId": "copper-quarter",
+      "title": "Вай",
+      "titleEn": "Vi",
+      "output": "public/images/franchises/copper-quarter-2.jpg",
+      "prompt": "Use case: illustration-story. Asset type: square 1024x1024 anime jigsaw artwork, one complete scene. Create recognizable fan art specifically from Arcane. Subject and setting: adult Vi, recognizable short pink-red swept hair and eyebrow scar, fully covered red leather jacket and trousers, huge copper mechanical gauntlets, standing on a Piltover bridge under golden dusk light; strong heroic portrait. Preserve the named character’s recognizable face, hair, signature accessories and the anime’s visual identity. Polished authentic anime cel shading (Arcane: its distinctive painterly animation look), cinematic lighting, expressive face, varied clearly readable details across the whole square for a puzzle. A neutral character/adventure illustration, fully clothed in opaque clothing, no sexual content, no suggestive posing, no nudity, no fetish imagery, no body-part emphasis, no blood, no gore, no tobacco, no alcohol. No text, no letters, no logos, no watermark, no panels, no border. Distinct composition, not a generic fantasy city or an invented substitute character."
+    },
+    {
+      "id": "copper-quarter-canon-3",
+      "albumId": "copper-quarter",
+      "title": "Кейтлин Кирамман",
+      "titleEn": "Caitlyn Kiramman",
+      "output": "public/images/franchises/copper-quarter-3.jpg",
+      "prompt": "Use case: illustration-story. Asset type: square 1024x1024 anime jigsaw artwork, one complete scene. Create recognizable fan art specifically from Arcane. Subject and setting: adult Caitlyn Kiramman, recognizable long navy blue hair and sharp blue eyes, fully covered tailored blue enforcer coat and trousers, standing on a Piltover balcony with clean Art Deco city architecture and hextech glow; professional detective portrait. Preserve the named character’s recognizable face, hair, signature accessories and the anime’s visual identity. Polished authentic anime cel shading (Arcane: its distinctive painterly animation look), cinematic lighting, expressive face, varied clearly readable details across the whole square for a puzzle. A neutral character/adventure illustration, fully clothed in opaque clothing, no sexual content, no suggestive posing, no nudity, no fetish imagery, no body-part emphasis, no blood, no gore, no tobacco, no alcohol. No text, no letters, no logos, no watermark, no panels, no border. Distinct composition, not a generic fantasy city or an invented substitute character."
+    },
+    {
+      "id": "copper-quarter-canon-4",
+      "albumId": "copper-quarter",
+      "title": "Экко",
+      "titleEn": "Ekko",
+      "output": "public/images/franchises/copper-quarter-4.jpg",
+      "prompt": "Use case: illustration-story. Asset type: square 1024x1024 anime jigsaw artwork, one complete scene. Create recognizable fan art specifically from Arcane. Subject and setting: adult later-timeline Ekko, recognizable white swept hair, dark skin and white face marking, fully clothed in his Firelights jacket, scarf and trousers, carrying a mechanical clock device beside the giant tree hideout in Zaun; hopeful inventive hero portrait. Preserve the named character’s recognizable face, hair, signature accessories and the anime’s visual identity. Polished authentic anime cel shading (Arcane: its distinctive painterly animation look), cinematic lighting, expressive face, varied clearly readable details across the whole square for a puzzle. A neutral character/adventure illustration, fully clothed in opaque clothing, no sexual content, no suggestive posing, no nudity, no fetish imagery, no body-part emphasis, no blood, no gore, no tobacco, no alcohol. No text, no letters, no logos, no watermark, no panels, no border. Distinct composition, not a generic fantasy city or an invented substitute character."
+    },
+    {
+      "id": "copper-quarter-canon-5",
+      "albumId": "copper-quarter",
+      "title": "Виктор",
+      "titleEn": "Viktor",
+      "output": "public/images/franchises/copper-quarter-5.jpg",
+      "prompt": "Use case: illustration-story. Asset type: square 1024x1024 anime jigsaw artwork, one complete scene. Create recognizable fan art specifically from Arcane. Subject and setting: adult Viktor, recognizable slender mature face and brown hair, fully clothed in a refined dark waistcoat, long coat and trousers, leaning on his cane in a Piltover hextech laboratory with blue crystal instruments; thoughtful scientist portrait. Preserve the named character’s recognizable face, hair, signature accessories and the anime’s visual identity. Polished authentic anime cel shading (Arcane: its distinctive painterly animation look), cinematic lighting, expressive face, varied clearly readable details across the whole square for a puzzle. A neutral character/adventure illustration, fully clothed in opaque clothing, no sexual content, no suggestive posing, no nudity, no fetish imagery, no body-part emphasis, no blood, no gore, no tobacco, no alcohol. No text, no letters, no logos, no watermark, no panels, no border. Distinct composition, not a generic fantasy city or an invented substitute character."
+    },
+    {
+      "id": "copper-quarter-canon-6",
+      "albumId": "copper-quarter",
+      "title": "Пилтовер и Заун",
+      "titleEn": "Piltover and Zaun",
+      "output": "public/images/franchises/copper-quarter-6.jpg",
+      "prompt": "Use case: illustration-story. Asset type: square 1024x1024 anime jigsaw artwork, one complete scene. Create recognizable fan art specifically from Arcane. Subject and setting: an epic split-elevation cityscape of golden Art Deco Piltover above and neon green-blue Zaun below, adult Vi with recognizable pink hair and mechanical gauntlets and adult Jinx with long blue braids stand apart on a bridge, both fully clothed, hopeful tense story finale, faithful Arcane painterly visual language, no gore or wounds. Preserve the named character’s recognizable face, hair, signature accessories and the anime’s visual identity. Polished authentic anime cel shading (Arcane: its distinctive painterly animation look), cinematic lighting, expressive face, varied clearly readable details across the whole square for a puzzle. A neutral character/adventure illustration, fully clothed in opaque clothing, no sexual content, no suggestive posing, no nudity, no fetish imagery, no body-part emphasis, no blood, no gore, no tobacco, no alcohol. No text, no letters, no logos, no watermark, no panels, no border. Distinct composition, not a generic fantasy city or an invented substitute character."
+    },
+    {
+      "id": "reef-summer-canon-1",
+      "albumId": "reef-summer",
+      "title": "Иори Китахара",
+      "titleEn": "Iori Kitahara",
+      "output": "public/images/franchises/reef-summer-1.jpg",
+      "prompt": "Use case: illustration-story. Asset type: square 1024x1024 anime jigsaw artwork, one complete scene. Create recognizable fan art specifically from Grand Blue Dreaming. Subject and setting: adult Iori Kitahara, recognizable short black spiky hair and friendly face, fully clothed in a loose blue diving club shirt and full-length casual trousers, at the Grand Blue diving shop in sunny seaside Izu, oxygen tanks and clear sea behind him; no alcohol. Preserve the named character’s recognizable face, hair, signature accessories and the anime’s visual identity. Polished authentic anime cel shading (Arcane: its distinctive painterly animation look), cinematic lighting, expressive face, varied clearly readable details across the whole square for a puzzle. A neutral character/adventure illustration, fully clothed in opaque clothing, no sexual content, no suggestive posing, no nudity, no fetish imagery, no body-part emphasis, no blood, no gore, no tobacco, no alcohol. No text, no letters, no logos, no watermark, no panels, no border. Distinct composition, not a generic fantasy city or an invented substitute character."
+    },
+    {
+      "id": "reef-summer-canon-2",
+      "albumId": "reef-summer",
+      "title": "Кохэй Имамура",
+      "titleEn": "Kohei Imamura",
+      "output": "public/images/franchises/reef-summer-2.jpg",
+      "prompt": "Use case: illustration-story. Asset type: square 1024x1024 anime jigsaw artwork, one complete scene. Create recognizable fan art specifically from Grand Blue Dreaming. Subject and setting: adult Kohei Imamura, recognizable blond hair and lively eyes, fully clothed in a loose white casual T-shirt and long dark trousers, sitting beside colorful diving gear at the sunny Izu marina; cheerful comedy portrait, no alcohol. Preserve the named character’s recognizable face, hair, signature accessories and the anime’s visual identity. Polished authentic anime cel shading (Arcane: its distinctive painterly animation look), cinematic lighting, expressive face, varied clearly readable details across the whole square for a puzzle. A neutral character/adventure illustration, fully clothed in opaque clothing, no sexual content, no suggestive posing, no nudity, no fetish imagery, no body-part emphasis, no blood, no gore, no tobacco, no alcohol. No text, no letters, no logos, no watermark, no panels, no border. Distinct composition, not a generic fantasy city or an invented substitute character."
+    },
+    {
+      "id": "reef-summer-canon-3",
+      "albumId": "reef-summer",
+      "title": "Тиса Котэгава",
+      "titleEn": "Chisa Kotegawa",
+      "output": "public/images/franchises/reef-summer-3.jpg",
+      "prompt": "Use case: illustration-story. Asset type: square 1024x1024 anime jigsaw artwork, one complete scene. Create recognizable fan art specifically from Grand Blue Dreaming. Subject and setting: adult Chisa Kotegawa, recognizable short dark brown hair and calm brown eyes, fully covered in an opaque full-length zipped diving wetsuit with a loose blue diving jacket, standing on a pier beside clear turquoise sea with a diving mask in hand; neutral sporty nonsexual portrait. Preserve the named character’s recognizable face, hair, signature accessories and the anime’s visual identity. Polished authentic anime cel shading (Arcane: its distinctive painterly animation look), cinematic lighting, expressive face, varied clearly readable details across the whole square for a puzzle. A neutral character/adventure illustration, fully clothed in opaque clothing, no sexual content, no suggestive posing, no nudity, no fetish imagery, no body-part emphasis, no blood, no gore, no tobacco, no alcohol. No text, no letters, no logos, no watermark, no panels, no border. Distinct composition, not a generic fantasy city or an invented substitute character."
+    },
+    {
+      "id": "reef-summer-canon-4",
+      "albumId": "reef-summer",
+      "title": "Нанака Котэгава",
+      "titleEn": "Nanaka Kotegawa",
+      "output": "public/images/franchises/reef-summer-4.jpg",
+      "prompt": "Use case: illustration-story. Asset type: square 1024x1024 anime jigsaw artwork, one complete scene. Create recognizable fan art specifically from Grand Blue Dreaming. Subject and setting: adult Nanaka Kotegawa, recognizable long dark hair and warm smile, fully clothed in a loose white diving shop polo and full-length blue trousers, at the Grand Blue dive shop veranda with colorful boats and ocean behind; wholesome mature portrait. Preserve the named character’s recognizable face, hair, signature accessories and the anime’s visual identity. Polished authentic anime cel shading (Arcane: its distinctive painterly animation look), cinematic lighting, expressive face, varied clearly readable details across the whole square for a puzzle. A neutral character/adventure illustration, fully clothed in opaque clothing, no sexual content, no suggestive posing, no nudity, no fetish imagery, no body-part emphasis, no blood, no gore, no tobacco, no alcohol. No text, no letters, no logos, no watermark, no panels, no border. Distinct composition, not a generic fantasy city or an invented substitute character."
+    },
+    {
+      "id": "reef-summer-canon-5",
+      "albumId": "reef-summer",
+      "title": "Адзуса Хамаока",
+      "titleEn": "Azusa Hamaoka",
+      "output": "public/images/franchises/reef-summer-5.jpg",
+      "prompt": "Use case: illustration-story. Asset type: square 1024x1024 anime jigsaw artwork, one complete scene. Create recognizable fan art specifically from Grand Blue Dreaming. Subject and setting: adult Azusa Hamaoka, recognizable reddish brown bob and mature confident smile, fully clothed in an opaque coral field jacket over a high-neck top and full-length trousers, on a seaside path beside bright hydrangeas and turquoise water; cheerful nonsexual portrait. Preserve the named character’s recognizable face, hair, signature accessories and the anime’s visual identity. Polished authentic anime cel shading (Arcane: its distinctive painterly animation look), cinematic lighting, expressive face, varied clearly readable details across the whole square for a puzzle. A neutral character/adventure illustration, fully clothed in opaque clothing, no sexual content, no suggestive posing, no nudity, no fetish imagery, no body-part emphasis, no blood, no gore, no tobacco, no alcohol. No text, no letters, no logos, no watermark, no panels, no border. Distinct composition, not a generic fantasy city or an invented substitute character."
+    },
+    {
+      "id": "reef-summer-canon-6",
+      "albumId": "reef-summer",
+      "title": "Идзу · Мир под водой",
+      "titleEn": "Izu · The Underwater World",
+      "output": "public/images/franchises/reef-summer-6.jpg",
+      "prompt": "Use case: illustration-story. Asset type: square 1024x1024 anime jigsaw artwork, one complete scene. Create recognizable fan art specifically from Grand Blue Dreaming. Subject and setting: Iori Kitahara, Kohei Imamura and Chisa Kotegawa recognizable as adult college divers, all fully covered in full-length professional diving wetsuits and masks, exploring a magnificent colorful coral reef with sea turtles and shafts of blue sunlight, beautiful expansive Grand Blue adventure finale, no nudity, no alcohol. Preserve the named character’s recognizable face, hair, signature accessories and the anime’s visual identity. Polished authentic anime cel shading (Arcane: its distinctive painterly animation look), cinematic lighting, expressive face, varied clearly readable details across the whole square for a puzzle. A neutral character/adventure illustration, fully clothed in opaque clothing, no sexual content, no suggestive posing, no nudity, no fetish imagery, no body-part emphasis, no blood, no gore, no tobacco, no alcohol. No text, no letters, no logos, no watermark, no panels, no border. Distinct composition, not a generic fantasy city or an invented substitute character."
+    }
+  ]
+}

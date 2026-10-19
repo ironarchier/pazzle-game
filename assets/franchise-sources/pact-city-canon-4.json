@@ -1,0 +1,10 @@
+{
+  "id": "pact-city-canon-4",
+  "albumId": "pact-city",
+  "title": "Макима",
+  "titleEn": "Makima",
+  "output": "public/images/franchises/pact-city-4.jpg",
+  "prompt": "Use case: illustration-story. Asset type: square 1024x1024 anime jigsaw artwork, one complete scene. Create recognizable fan art specifically from Chainsaw Man. Subject and setting: Makima, recognizable red braided hair, amber concentric-ring eyes, fully buttoned white shirt, black tie, black trousers and long black overcoat, at a Tokyo railway platform with patterned sunset light; calm professional portrait. Preserve the named character’s recognizable face, hair, signature accessories and the anime’s visual identity. Polished authentic anime cel shading (Arcane: its distinctive painterly animation look), cinematic lighting, expressive face, varied clearly readable details across the whole square for a puzzle. A neutral character/adventure illustration, fully clothed in opaque clothing, no sexual content, no suggestive posing, no nudity, no fetish imagery, no body-part emphasis, no blood, no gore, no tobacco, no alcohol. No text, no letters, no logos, no watermark, no panels, no border. Distinct composition, not a generic fantasy city or an invented substitute character.",
+  "source": "C:\\Users\\Владик\\.codex\\generated_images\\01a14683-5c54-7d90-ad07-51ee89ba7d14\\exec-394943fa-36ba-41de-ab28-a28605008b71.png",
+  "method": "image_gen"
+}

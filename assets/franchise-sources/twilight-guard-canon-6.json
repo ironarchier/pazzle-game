@@ -1,0 +1,10 @@
+{
+  "id": "twilight-guard-canon-6",
+  "albumId": "twilight-guard",
+  "title": "Ичиго · Банкай",
+  "titleEn": "Ichigo · Bankai",
+  "output": "public/images/franchises/twilight-guard-6.jpg",
+  "prompt": "Use case: illustration-story. Asset type: square 1024x1024 anime jigsaw artwork, one complete scene. Create recognizable fan art specifically from Bleach. Subject and setting: Ichigo Kurosaki in recognizable long black Bankai coat, black sword held safely downward, a vast Soul Society skyline and swirling blue spiritual energy with cherry blossom petals at sunrise, dramatic full scene, no blood, no injuries, no gore. Preserve the named character’s recognizable face, hair, signature accessories and the anime’s visual identity. Polished authentic anime cel shading (Arcane: its distinctive painterly animation look), cinematic lighting, expressive face, varied clearly readable details across the whole square for a puzzle. A neutral character/adventure illustration, fully clothed in opaque clothing, no sexual content, no suggestive posing, no nudity, no fetish imagery, no body-part emphasis, no blood, no gore, no tobacco, no alcohol. No text, no letters, no logos, no watermark, no panels, no border. Distinct composition, not a generic fantasy city or an invented substitute character.",
+  "source": "C:\\Users\\Владик\\.codex\\generated_images\\01a14683-5c54-7d90-ad07-51ee89ba7d14\\exec-672802b8-0383-4bcb-a0ec-3c36a4a058bf.png",
+  "method": "image_gen"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "pact-city-canon-1",
+  "albumId": "pact-city",
+  "title": "Дэндзи",
+  "titleEn": "Denji",
+  "output": "public/images/franchises/pact-city-1.jpg",
+  "prompt": "Use case: illustration-story. Asset type: square 1024x1024 anime jigsaw artwork, one complete scene. Create recognizable fan art specifically from Chainsaw Man. Subject and setting: Denji, recognizable blond teenage boy with sharp triangular teeth, white buttoned shirt, black tie and black trousers, standing with orange dog Pochita beside a sunlit Tokyo side street; upbeat adventure portrait, no transformation wounds. Preserve the named character’s recognizable face, hair, signature accessories and the anime’s visual identity. Polished authentic anime cel shading (Arcane: its distinctive painterly animation look), cinematic lighting, expressive face, varied clearly readable details across the whole square for a puzzle. A neutral character/adventure illustration, fully clothed in opaque clothing, no sexual content, no suggestive posing, no nudity, no fetish imagery, no body-part emphasis, no blood, no gore, no tobacco, no alcohol. No text, no letters, no logos, no watermark, no panels, no border. Distinct composition, not a generic fantasy city or an invented substitute character.",
+  "source": "C:\\Users\\Владик\\.codex\\generated_images\\01a14683-5c54-7d90-ad07-51ee89ba7d14\\exec-f5c0943a-872a-4ae1-84b5-1842568e758b.png",
+  "method": "image_gen"
+}

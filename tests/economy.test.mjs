@@ -6,9 +6,10 @@ import { ALBUMS, FREE_ALBUMS, SHOP_ALBUMS, LEVELS, SAVE_STORAGE_KEY, getAlbumLev
 import { ECONOMY } from '../src/economy/config.ts';
 import { offerState } from '../src/economy/offer.ts';
 import { updateSettings } from '../src/settings.ts';
+import { CATALOGUE_REVISION } from '../src/catalogueMigration.ts';
 
 function fixture(balance = 0, extra = {}) {
-  const data = { [SAVE_STORAGE_KEY]: JSON.stringify({ version: 1, current: 0, completed: [], revision: 1, economy: { balance, purchasedAlbums: [], rewardedLevels: [], adReceipts: [], hintReceipts: [] }, ...extra }) };
+  const data = { [SAVE_STORAGE_KEY]: JSON.stringify({ version: 1, catalogueRevision: CATALOGUE_REVISION, current: 0, completed: [], revision: 1, economy: { balance, purchasedAlbums: [], rewardedLevels: [], adReceipts: [], hintReceipts: [] }, ...extra }) };
   const storage = { getItem: key => data[key] ?? null, setItem: (key, value) => { data[key] = value; } };
   return { store: new ProgressStore(storage), storage, data };
 }
@@ -155,5 +156,36 @@ test('storage failures retain atomic changes in memory and view failures never d
   assert.equal(store.useHint('hint', () => true), 'used');
   assert.equal(store.get().economy.balance, 0);
   assert.equal(ECONOMY.firstCompletionRewards.reduce((sum, n) => sum + n, 0), 150);
-  assert.equal(ALBUMS.length, 18);
+  assert.equal(ALBUMS.length, 12);
+});
+
+test('replacing the shop preserves free progress and owned replacements, refunds retired albums once', () => {
+  const oldActive = { level: 36, rows: 3, cols: 3, seed: 67, placed: [], groups: [], tray: Array.from({ length: 9 }, (_, i) => i), scroll: 0 };
+  const { store, storage } = fixture(75, { catalogueRevision: undefined, current: 36, completed: [0, 36, 37, 72], active: oldActive, economy: { balance: 75, purchasedAlbums: ['pact-city', 'night-bloom', 'night-bloom', 'huntress-atlas'], rewardedLevels: [0, 36, 37, 72], adReceipts: ['old-ad'], hintReceipts: ['old-hint'] } });
+  const migrated = store.get();
+  assert.equal(migrated.catalogueRevision, CATALOGUE_REVISION);
+  assert.equal(migrated.economy.balance, 475);
+  assert.deepEqual(migrated.completed, [0]);
+  assert.deepEqual(migrated.economy.rewardedLevels, [0]);
+  assert.deepEqual(migrated.economy.purchasedAlbums, ['pact-city']);
+  assert.equal(migrated.active, undefined);
+  assert.equal(store.rewardAd('old-ad'), false);
+  assert.equal(store.useHint('old-hint', () => { throw new Error('replayed'); }), 'duplicate');
+  assert.equal(store.rewardAd('new-ad'), true);
+  assert.equal(new ProgressStore(storage).get().economy.balance, 500);
+  assert.equal(store.complete(36), true);
+  assert.equal(new ProgressStore(storage).get().economy.balance, 510);
+  assert.deepEqual(new ProgressStore(storage).get().completed, [0, 36]);
+  assert.equal(new ProgressStore(storage).complete(36), false);
+  assert.equal(store.buyAlbum('night-bloom').status, 'invalid');
+});
+
+test('shop replacement keeps an in-progress free puzzle and never refunds a second time', () => {
+  const active = { level: 1, rows: 4, cols: 4, seed: 23, placed: [], groups: [], tray: Array.from({ length: 16 }, (_, i) => i), scroll: 0, hints: 2 };
+  const { store, storage } = fixture(25, { catalogueRevision: undefined, current: 1, completed: [0], active, economy: { balance: 25, purchasedAlbums: ['ink-trail'], rewardedLevels: [0], adReceipts: [], hintReceipts: [] } });
+  assert.deepEqual(store.get().active, active);
+  assert.equal(store.get().economy.balance, 225);
+  store.save(active);
+  assert.equal(new ProgressStore(storage).get().economy.balance, 225);
+  assert.deepEqual(new ProgressStore(storage).get().active, active);
 });

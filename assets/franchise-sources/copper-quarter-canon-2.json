@@ -1,0 +1,10 @@
+{
+  "id": "copper-quarter-canon-2",
+  "albumId": "copper-quarter",
+  "title": "Вай",
+  "titleEn": "Vi",
+  "output": "public/images/franchises/copper-quarter-2.jpg",
+  "prompt": "Use case: illustration-story. Asset type: square 1024x1024 anime jigsaw artwork, one complete scene. Create recognizable fan art specifically from Arcane. Subject and setting: adult Vi, recognizable short pink-red swept hair and eyebrow scar, fully covered red leather jacket and trousers, huge copper mechanical gauntlets, standing on a Piltover bridge under golden dusk light; strong heroic portrait. Preserve the named character’s recognizable face, hair, signature accessories and the anime’s visual identity. Polished authentic anime cel shading (Arcane: its distinctive painterly animation look), cinematic lighting, expressive face, varied clearly readable details across the whole square for a puzzle. A neutral character/adventure illustration, fully clothed in opaque clothing, no sexual content, no suggestive posing, no nudity, no fetish imagery, no body-part emphasis, no blood, no gore, no tobacco, no alcohol. No text, no letters, no logos, no watermark, no panels, no border. Distinct composition, not a generic fantasy city or an invented substitute character.",
+  "source": "C:\\Users\\Владик\\.codex\\generated_images\\01a14683-5c54-7d90-ad07-51ee89ba7d14\\exec-c03ec276-a0f2-419b-b354-ccdc0455e2ea.png",
+  "method": "image_gen"
+}

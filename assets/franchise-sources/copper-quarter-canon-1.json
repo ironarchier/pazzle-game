@@ -1,0 +1,10 @@
+{
+  "id": "copper-quarter-canon-1",
+  "albumId": "copper-quarter",
+  "title": "Джинкс",
+  "titleEn": "Jinx",
+  "output": "public/images/franchises/copper-quarter-1.jpg",
+  "prompt": "Use case: illustration-story. Asset type: square 1024x1024 anime jigsaw artwork, one complete scene. Create recognizable fan art specifically from Arcane. Subject and setting: adult later-timeline Jinx, recognizable long blue braids and sharp expressive face, fully covered opaque indigo streetwear jacket and full-length trousers, standing in a colorful Zaun workshop with glowing blue mechanical devices and painted graffiti; nonsexual mischievous inventor portrait, no weapon aimed at viewer. Preserve the named character’s recognizable face, hair, signature accessories and the anime’s visual identity. Polished authentic anime cel shading (Arcane: its distinctive painterly animation look), cinematic lighting, expressive face, varied clearly readable details across the whole square for a puzzle. A neutral character/adventure illustration, fully clothed in opaque clothing, no sexual content, no suggestive posing, no nudity, no fetish imagery, no body-part emphasis, no blood, no gore, no tobacco, no alcohol. No text, no letters, no logos, no watermark, no panels, no border. Distinct composition, not a generic fantasy city or an invented substitute character.",
+  "source": "C:\\Users\\Владик\\.codex\\generated_images\\01a14683-5c54-7d90-ad07-51ee89ba7d14\\exec-5f7bd971-1f40-4b06-8c01-0d592251553f.png",
+  "method": "image_gen"
+}

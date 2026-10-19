@@ -1,0 +1,10 @@
+{
+  "id": "reef-summer-canon-3",
+  "albumId": "reef-summer",
+  "title": "Тиса Котэгава",
+  "titleEn": "Chisa Kotegawa",
+  "output": "public/images/franchises/reef-summer-3.jpg",
+  "prompt": "Use case: illustration-story. Asset type: square 1024x1024 anime jigsaw artwork, one complete scene. Create recognizable fan art specifically from Grand Blue Dreaming. Subject and setting: adult Chisa Kotegawa, recognizable short dark brown hair and calm brown eyes, fully covered in an opaque full-length zipped diving wetsuit with a loose blue diving jacket, standing on a pier beside clear turquoise sea with a diving mask in hand; neutral sporty nonsexual portrait. Preserve the named character’s recognizable face, hair, signature accessories and the anime’s visual identity. Polished authentic anime cel shading (Arcane: its distinctive painterly animation look), cinematic lighting, expressive face, varied clearly readable details across the whole square for a puzzle. A neutral character/adventure illustration, fully clothed in opaque clothing, no sexual content, no suggestive posing, no nudity, no fetish imagery, no body-part emphasis, no blood, no gore, no tobacco, no alcohol. No text, no letters, no logos, no watermark, no panels, no border. Distinct composition, not a generic fantasy city or an invented substitute character.",
+  "source": "C:\\Users\\Владик\\.codex\\generated_images\\01a14683-5c54-7d90-ad07-51ee89ba7d14\\exec-365a895b-7b3c-4761-9645-0402d65e3d6b.png",
+  "method": "image_gen"
+}
