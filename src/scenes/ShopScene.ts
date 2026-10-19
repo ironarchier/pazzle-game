@@ -1,5 +1,5 @@
 import * as Phaser from 'phaser';
-import { CARD_RADIUS, FONT_FAMILY, SHOP_ALBUMS, getAlbumLevels } from '../constants';
+import { CARD_RADIUS, FONT_FAMILY, SHOP_AD_BUTTON_SCALE, SHOP_ALBUMS, getAlbumLevels } from '../constants';
 import { ECONOMY } from '../economy/config';
 import { ownsAlbum } from '../progress';
 import { rewardedAds } from '../platform/yandex';
@@ -55,7 +55,7 @@ export class ShopScene extends Phaser.Scene {
     new Button(this, 155, 1010, t('back'), () => restartScene(this, { page: this.page - 1 }), 0.68, 'secondary').setEnabled(this.page > 0);
     this.label(360, 1010, (this.page + 1) + ' / ' + count, 26);
     new Button(this, 565, 1010, t('next'), () => restartScene(this, { page: this.page + 1 }), 0.68, 'secondary').setEnabled(this.page < count - 1);
-    const watch = new Button(this, 360, 1150, t('watchAd', { coins: ECONOMY.rewardedVideoCoins }), () => { void this.watchAd(); }, 1.35);
+    const watch = new Button(this, 360, 1150, t('watchAd', { coins: ECONOMY.rewardedVideoCoins }), () => { void this.watchAd(); }, SHOP_AD_BUTTON_SCALE);
     const update = () => watch.setEnabled(!rewardedAds.busy).setLabel(rewardedAds.busy ? t('adLoading') : t('watchAd', { coins: ECONOMY.rewardedVideoCoins }));
     const unsubscribe = rewardedAds.subscribe(update); update();
     this.events.once('shutdown', unsubscribe);

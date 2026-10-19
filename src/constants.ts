@@ -125,6 +125,7 @@ export const DIALOG_WIDTH = 650;
 export const DIALOG_HEIGHT = 360;
 export const DIALOG_BUTTON_SCALE = 0.78;
 export const DIALOG_BUTTON_OFFSET = 150;
+export const SHOP_AD_BUTTON_SCALE = 1;
 export const ALBUM_PIECES_ICON_SIZE = 26;
 export const ALBUM_PIECES_ICON_GAP = 8;
 export const BLUR_SAMPLE_SIZE = 10;

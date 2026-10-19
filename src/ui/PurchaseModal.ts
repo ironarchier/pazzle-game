@@ -1,5 +1,5 @@
 import * as Phaser from 'phaser';
-import { CARD_RADIUS, FONT_FAMILY } from '../constants';
+import { CARD_RADIUS, DIALOG_BUTTON_SCALE, FONT_FAMILY } from '../constants';
 import { offerState, type PurchaseIntent } from '../economy/offer';
 import { buyAlbum, getProgress, subscribeProgress } from '../progress';
 import { rewardedAds } from '../platform/yandex';
@@ -40,7 +40,7 @@ export class PurchaseModal extends Phaser.GameObjects.Container {
     const balance = new CoinBadge(scene, 0, -5);
     const cost = this.label(0, 49, t(intent.kind === 'album' ? 'albumCost' : 'hintCost', { price: offerState(intent, 0).price }), 25, theme.textMuted);
     this.status = this.label(0, 95, '', 20, theme.accent);
-    this.action = new Button(scene, 0, 192, '', () => { void this.perform(); }, 1.35);
+    this.action = new Button(scene, 0, 192, '', () => { void this.perform(); }, DIALOG_BUTTON_SCALE);
     const close = this.label(0, 282, t('close'), 27, theme.textMuted).setPadding(30, 12).setInteractive({ useHandCursor: true });
     close.on('pointerup', () => { if (!rewardedAds.busy) this.destroy(); });
     this.add([shade, panel, this.heading, product, this.message, balanceTitle, balance, cost, this.status, this.action, close]);
