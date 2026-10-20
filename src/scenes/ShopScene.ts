@@ -1,5 +1,5 @@
 import * as Phaser from 'phaser';
-import { CARD_RADIUS, FONT_FAMILY, SHOP_AD_BUTTON_SCALE, SHOP_ALBUMS, getAlbumLevels } from '../constants';
+import { CARD_RADIUS, FONT_FAMILY, SHOP_AD_BUTTON_SCALE, SHOP_ALBUMS, SHOP_ROW_SPACING, getAlbumLevels } from '../constants';
 import { ECONOMY } from '../economy/config';
 import { ownsAlbum } from '../progress';
 import { rewardedAds } from '../platform/yandex';
@@ -35,7 +35,7 @@ export class ShopScene extends Phaser.Scene {
     this.label(360, 215, t('shopSubtitle', { price: ECONOMY.albumPrice }), 25, getTheme().textMuted);
     this.entries().forEach((album, index) => {
       const owned = ownsAlbum(album.id);
-      const x = 190 + index % 2 * 340, y = 420 + Math.floor(index / 2) * 350;
+      const x = 190 + index % 2 * 340, y = 420 + Math.floor(index / 2) * SHOP_ROW_SPACING;
       const card = createCard(this, x, y, 308, 310, () => {
         if (owned) { goToScene(this, 'Album', { albumId: album.id }); return; }
         if (album.ready === false) { showToast(this, t('albumUnavailable')); return; }
@@ -52,10 +52,10 @@ export class ShopScene extends Phaser.Scene {
       this.label(x, y + 178, t('shopReward', { count: getAlbumLevels(album.id).length, coins: ECONOMY.firstCompletionRewards.reduce((sum, value) => sum + value, 0) }), 21, getTheme().textMuted);
     });
     const count = Math.ceil(SHOP_ALBUMS.length / 4);
-    new Button(this, 155, 1010, t('back'), () => restartScene(this, { page: this.page - 1 }), 0.68, 'secondary').setEnabled(this.page > 0);
-    this.label(360, 1010, (this.page + 1) + ' / ' + count, 26);
-    new Button(this, 565, 1010, t('next'), () => restartScene(this, { page: this.page + 1 }), 0.68, 'secondary').setEnabled(this.page < count - 1);
-    const watch = new Button(this, 360, 1150, t('watchAd', { coins: ECONOMY.rewardedVideoCoins }), () => { void this.watchAd(); }, SHOP_AD_BUTTON_SCALE);
+    new Button(this, 155, 1040, t('back'), () => restartScene(this, { page: this.page - 1 }), 0.68, 'secondary').setEnabled(this.page > 0);
+    this.label(360, 1040, (this.page + 1) + ' / ' + count, 26);
+    new Button(this, 565, 1040, t('next'), () => restartScene(this, { page: this.page + 1 }), 0.68, 'secondary').setEnabled(this.page < count - 1);
+    const watch = new Button(this, 360, 1170, t('watchAd', { coins: ECONOMY.rewardedVideoCoins }), () => { void this.watchAd(); }, SHOP_AD_BUTTON_SCALE);
     const update = () => watch.setEnabled(!rewardedAds.busy).setLabel(rewardedAds.busy ? t('adLoading') : t('watchAd', { coins: ECONOMY.rewardedVideoCoins }));
     const unsubscribe = rewardedAds.subscribe(update); update();
     this.events.once('shutdown', unsubscribe);
