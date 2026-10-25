@@ -5,6 +5,7 @@ export interface Settings {
   music: boolean;
   theme: ThemeName;
   language: LanguageName;
+  tutorialDone: boolean;
 }
 
 const vkLanguage = (): string | null =>
@@ -16,7 +17,7 @@ const browserLanguage = (): LanguageName => {
   return typeof navigator === 'undefined' || navigator.language?.toLowerCase().startsWith('ru') ? 'ru' : 'en';
 };
 
-const DEFAULT_SETTINGS: Settings = { sound: true, music: true, theme: 'light', language: browserLanguage() };
+const DEFAULT_SETTINGS: Settings = { sound: true, music: true, theme: 'light', language: browserLanguage(), tutorialDone: false };
 
 let current = loadSettings();
 const listeners = new Set<() => void>();

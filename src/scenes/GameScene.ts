@@ -71,6 +71,8 @@ import { IconButton } from '../ui/IconButton';
 import { albumTitle, levelTitle, pieces, t } from '../i18n';
 import { CoinBadge } from '../ui/CoinBadge';
 import { hasPurchaseOffer, showPurchaseOffer } from '../ui/PurchaseModal';
+import { PuzzleTutorial } from '../ui/PuzzleTutorial';
+import { getSettings, updateSettings } from '../settings';
 import { createReceipt } from '../platform/RewardedAds';
 import { rewardedAds, setBannerVisible, setGameplayActive } from '../platform';
 
@@ -105,6 +107,7 @@ export class GameScene extends Phaser.Scene {
   private hintButton!: IconButton;
   private completeImage!: Phaser.GameObjects.Image;
   private winPanel?: Phaser.GameObjects.Container;
+  private tutorial?: PuzzleTutorial;
   private pendingMoves = new Map<PuzzlePiece, [number, number]>();
   private get imageWidth(): number { return this.cols * PIECE_SIZE; }
   private get imageHeight(): number { return this.rows * PIECE_SIZE; }
@@ -152,6 +155,7 @@ export class GameScene extends Phaser.Scene {
     this.won = false;
     this.preview = undefined;
     this.winPanel = undefined;
+    this.tutorial = undefined;
     this.edgesFirst = false;
     this.trayBeforeEdges = [];
     this.pendingMoves.clear();
@@ -184,6 +188,7 @@ export class GameScene extends Phaser.Scene {
     onResize(this, () => this.layout());
     this.restore();
     this.save();
+    this.startTutorial();
     setGameplayActive(true);
     setBannerVisible(false);
     const save = () => { this.layout(); this.save(); };
@@ -191,11 +196,20 @@ export class GameScene extends Phaser.Scene {
     window.addEventListener('pagehide', save);
     document.addEventListener('visibilitychange', visibility);
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
+      this.tutorial = undefined;
       setGameplayActive(false);
       setBannerVisible(true);
       this.save();
       window.removeEventListener('pagehide', save);
       document.removeEventListener('visibilitychange', visibility);
+    });
+  }
+
+  private startTutorial(): void {
+    if (getSettings().tutorialDone || getProgress().completed.length || this.pieces.some(p => p.state === 'placed')) return;
+    this.tutorial = new PuzzleTutorial(this, () => {
+      this.tutorial = undefined;
+      updateSettings({ tutorialDone: true });
     });
   }
 
@@ -379,6 +393,7 @@ export class GameScene extends Phaser.Scene {
     this.hintButton.setPosition(width - HEADER_PADDING - ICON_BUTTON_SIZE / 2, HEADER_BOTTOM_ROW_Y);
     this.sampleButton.setPosition(this.hintButton.x - ICON_BUTTON_SPACING, HEADER_BOTTOM_ROW_Y);
     this.edgesButton.setPosition(this.sampleButton.x - ICON_BUTTON_SPACING, HEADER_BOTTOM_ROW_Y);
+    this.tutorial?.layout();
 
     const trayTop = height - TRAY_HEIGHT;
     this.trayBg.clear()
@@ -576,6 +591,7 @@ export class GameScene extends Phaser.Scene {
 
   private pickUp(piece: PuzzlePiece): void {
     const fromTray = piece.state === 'tray';
+    this.tutorial?.pickedUp();
     playPickUp();
     const scale = this.dragScale(piece.group);
     for (const member of piece.group) {
@@ -764,6 +780,7 @@ export class GameScene extends Phaser.Scene {
       });
     });
     this.refreshLabels();
+    this.tutorial?.placed();
   }
 
   private targetOf(piece: PuzzlePiece): [number, number] {
@@ -800,6 +817,7 @@ export class GameScene extends Phaser.Scene {
   private showWin(): void {
     if (this.won) return;
     this.won = true;
+    this.tutorial?.finish();
     playWin();
     setGameplayActive(false);
     const balanceBefore = getProgress().economy.balance;
