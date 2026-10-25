@@ -11,6 +11,9 @@ npm run build      # проверка типов + сборка в dist/
 npm run preview    # посмотреть собранную версию
 npm run typecheck  # проверка TypeScript
 npm test           # тесты логики (Node.js 22.18+)
+npm run dev:vk     # dev-сервер VK-версии
+npm run build:vk   # сборка VK-версии в dist-vk/
+npm run deploy:vk  # сборка и загрузка на хостинг VK (app_id в vk-hosting-config.json)
 ```
 
 ## Публикация в Яндекс Игры
