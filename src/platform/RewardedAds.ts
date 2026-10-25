@@ -6,6 +6,7 @@ export const createReceipt = (): string => globalThis.crypto?.randomUUID?.() ?? 
 
 export class RewardedAds {
   busy = false;
+  available = true;
   private listeners = new Set<() => void>();
   private getSdk: () => Promise<RewardedSdk | undefined>;
   private credit: (receipt: string) => boolean;
@@ -17,9 +18,13 @@ export class RewardedAds {
     pause: () => (() => void) = () => () => {}, receipt: () => string = createReceipt, launchTimeoutMs = 15000,
   ) { this.getSdk = getSdk; this.credit = credit; this.pause = pause; this.receipt = receipt; this.launchTimeoutMs = launchTimeoutMs; }
   subscribe(listener: () => void): () => void { this.listeners.add(listener); return () => { this.listeners.delete(listener); }; }
-  private setBusy(value: boolean): void {
-    this.busy = value;
+  private notify(): void {
     for (const listener of this.listeners) { try { listener(); } catch { /* UI listeners cannot own the ad lifecycle. */ } }
+  }
+  private setBusy(value: boolean): void { this.busy = value; this.notify(); }
+  setAvailable(value: boolean): void {
+    if (this.available === value) return;
+    this.available = value; this.notify();
   }
   async show(): Promise<AdResult> {
     if (this.busy) return { status: 'busy', coins: 0 };

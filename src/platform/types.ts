@@ -17,6 +17,8 @@ export interface PlatformAdapter {
   ready: () => void;
   setGameplay: (active: boolean) => void;
   onVisibility?: (listener: (hidden: boolean) => void) => void;
+  onRewardedAvailability?: (listener: (available: boolean) => void) => void;
+  setBanner?: (visible: boolean) => void;
 }
 declare global {
   interface Window { YaGames?: { init: () => Promise<YandexSdk> } }

@@ -92,3 +92,16 @@ test('unresponsive SDK initialization times out without coins and leaves a retry
   assert.deepEqual(await ads.show(), { status: 'unavailable', coins: 0 });
   assert.equal(ads.busy, false);
 });
+
+test('availability changes notify listeners only when the state actually changes', () => {
+  const ads = new RewardedAds(async () => undefined, () => false);
+  let calls = 0;
+  ads.subscribe(() => calls++);
+  assert.equal(ads.available, true);
+  ads.setAvailable(true);
+  ads.setAvailable(false);
+  ads.setAvailable(false);
+  assert.equal(ads.available, false);
+  ads.setAvailable(true);
+  assert.equal(calls, 2);
+});

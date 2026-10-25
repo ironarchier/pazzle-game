@@ -65,6 +65,7 @@ export async function initializePlatform(owner: Phaser.Game): Promise<void> {
   game = owner;
   const platform = await loadAdapter();
   platform.onVisibility?.(onVisibility);
+  platform.onRewardedAvailability?.(available => rewardedAds.setAvailable(available));
   await platform.getSdk();
   let storageTimeout: ReturnType<typeof setTimeout> | undefined;
   try {
@@ -79,6 +80,9 @@ export async function initializePlatform(owner: Phaser.Game): Promise<void> {
 }
 export function platformReady(): void {
   current?.ready();
+}
+export function setBannerVisible(visible: boolean): void {
+  current?.setBanner?.(visible);
 }
 export function setGameplayActive(active: boolean): void {
   gameplay = active;

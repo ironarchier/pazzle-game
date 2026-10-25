@@ -351,3 +351,4 @@ export const VK_BRIDGE_TIMEOUT_MS = 8000;
 export const VK_STORAGE_CHUNK_SIZE = 4000;
 export const VK_STORAGE_MAX_CHUNKS = 90;
 export const VK_STORAGE_FLUSH_DELAY_MS = 1500;
+export const VK_REWARDED_RECHECK_MS = 30000;

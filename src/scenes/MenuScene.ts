@@ -34,7 +34,7 @@ import { TabBar } from '../ui/TabBar';
 import { Segmented } from '../ui/Segmented';
 import { Toggle } from '../ui/Toggle';
 import { CoinBadge } from '../ui/CoinBadge';
-import { platformReady } from '../platform';
+import { platformReady, setBannerVisible } from '../platform';
 
 type Page = 'home' | 'settings';
 
@@ -82,6 +82,7 @@ export class MenuScene extends Phaser.Scene {
     this.cameras.main.ignore(this.tabBar);
     this.showPage(data.page ?? 'home');
     platformReady();
+    setBannerVisible(true);
   }
 
   private showPage(page: Page): void {

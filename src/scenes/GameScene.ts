@@ -74,7 +74,7 @@ import { CoinBadge } from '../ui/CoinBadge';
 import { hasPurchaseOffer, showPurchaseOffer } from '../ui/PurchaseModal';
 import { ECONOMY } from '../economy/config';
 import { createReceipt } from '../platform/RewardedAds';
-import { rewardedAds, setGameplayActive } from '../platform';
+import { rewardedAds, setBannerVisible, setGameplayActive } from '../platform';
 
 interface Gesture {
   pointerId: number;
@@ -189,12 +189,14 @@ export class GameScene extends Phaser.Scene {
     this.restore();
     this.save();
     setGameplayActive(true);
+    setBannerVisible(false);
     const save = () => { this.layout(); this.save(); };
     const visibility = () => { if (document.hidden) save(); };
     window.addEventListener('pagehide', save);
     document.addEventListener('visibilitychange', visibility);
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
       setGameplayActive(false);
+      setBannerVisible(true);
       this.save();
       window.removeEventListener('pagehide', save);
       document.removeEventListener('visibilitychange', visibility);
