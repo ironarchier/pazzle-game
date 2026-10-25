@@ -34,7 +34,7 @@ import { TabBar } from '../ui/TabBar';
 import { Segmented } from '../ui/Segmented';
 import { Toggle } from '../ui/Toggle';
 import { CoinBadge } from '../ui/CoinBadge';
-import { platformReady } from '../platform/yandex';
+import { platformReady } from '../platform';
 
 type Page = 'home' | 'settings';
 

@@ -11,6 +11,13 @@ export interface YandexSdk extends RewardedSdk {
   getStorage?: () => Promise<StorageLike>;
   features?: { LoadingAPI?: { ready: () => void }; GameplayAPI?: { start: () => void; stop: () => void } };
 }
+export interface PlatformAdapter {
+  getSdk: () => Promise<RewardedSdk | undefined>;
+  getStorage: () => Promise<StorageLike | undefined>;
+  ready: () => void;
+  setGameplay: (active: boolean) => void;
+  onVisibility?: (listener: (hidden: boolean) => void) => void;
+}
 declare global {
   interface Window { YaGames?: { init: () => Promise<YandexSdk> } }
 }

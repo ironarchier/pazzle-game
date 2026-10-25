@@ -347,3 +347,7 @@ export const GAME_DEPTH = {
   headerControls: 7.5,
   overlay: 8,
 };
+export const VK_BRIDGE_TIMEOUT_MS = 8000;
+export const VK_STORAGE_CHUNK_SIZE = 4000;
+export const VK_STORAGE_MAX_CHUNKS = 90;
+export const VK_STORAGE_FLUSH_DELAY_MS = 1500;

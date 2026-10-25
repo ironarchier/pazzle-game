@@ -74,7 +74,7 @@ import { CoinBadge } from '../ui/CoinBadge';
 import { hasPurchaseOffer, showPurchaseOffer } from '../ui/PurchaseModal';
 import { ECONOMY } from '../economy/config';
 import { createReceipt } from '../platform/RewardedAds';
-import { rewardedAds, setGameplayActive } from '../platform/yandex';
+import { rewardedAds, setGameplayActive } from '../platform';
 
 interface Gesture {
   pointerId: number;

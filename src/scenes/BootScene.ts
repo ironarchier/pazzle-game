@@ -2,7 +2,7 @@ import * as Phaser from 'phaser';
 import { initAudio, preloadMusic } from '../audio';
 import { FONT_NAME, FONT_SAMPLE, GAME_ICON_SIZE, GAME_ICONS } from '../constants';
 import { hidePreloader } from '../preloader';
-import { initializePlatform } from '../platform/yandex';
+import { initializePlatform } from '../platform';
 
 export class BootScene extends Phaser.Scene {
   constructor() {

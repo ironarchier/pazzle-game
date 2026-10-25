@@ -7,8 +7,14 @@ export interface Settings {
   language: LanguageName;
 }
 
-const browserLanguage = (): LanguageName =>
-  typeof navigator === 'undefined' || navigator.language?.toLowerCase().startsWith('ru') ? 'ru' : 'en';
+const vkLanguage = (): string | null =>
+  typeof location === 'undefined' ? null : new URLSearchParams(location.search).get('vk_language');
+
+const browserLanguage = (): LanguageName => {
+  const vk = vkLanguage();
+  if (vk) return vk.toLowerCase().startsWith('ru') ? 'ru' : 'en';
+  return typeof navigator === 'undefined' || navigator.language?.toLowerCase().startsWith('ru') ? 'ru' : 'en';
+};
 
 const DEFAULT_SETTINGS: Settings = { sound: true, music: true, theme: 'light', language: browserLanguage() };
 

@@ -6,7 +6,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "dev:vk": "vite --mode vk",
     "build": "tsc --noEmit && vite build",
+    "build:yandex": "npm run build",
+    "build:vk": "tsc --noEmit && vite build --mode vk --outDir dist-vk",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
     "test": "node --import ./tests/register-typescript.mjs --test tests/*.test.mjs",
@@ -14,6 +17,7 @@
   },
   "dependencies": {
     "@fontsource/nunito": "^5.3.0",
+    "@vkontakte/vk-bridge": "^3.0.2",
     "phaser": "^4.2.1"
   },
   "devDependencies": {
