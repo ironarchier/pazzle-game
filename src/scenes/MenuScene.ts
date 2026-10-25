@@ -16,6 +16,9 @@ import {
   PAGE_TRANSITION_DURATION,
   SETTINGS_CARD_HEIGHT,
   SETTINGS_CARD_WIDTH,
+  SETTINGS_SUPPORT_SCALE,
+  SETTINGS_SUPPORT_Y,
+  SUPPORT_URL,
   getAlbumLevels,
   getLevelAlbum,
 } from '../constants';
@@ -176,8 +179,9 @@ export class MenuScene extends Phaser.Scene {
     });
 
     const card = createCard(this, centerX, 500, SETTINGS_CARD_WIDTH, SETTINGS_CARD_HEIGHT);
+    const support = new Button(this, centerX, SETTINGS_SUPPORT_Y, t('support'), () => window.open(SUPPORT_URL, '_blank', 'noopener'), SETTINGS_SUPPORT_SCALE, 'secondary');
 
-    return this.add.container(0, 0, [title, card, sound, music, darkTheme, language]);
+    return this.add.container(0, 0, [title, card, sound, music, darkTheme, language, support]);
   }
 
   private scheduleRestart(): void {
