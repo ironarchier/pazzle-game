@@ -29,7 +29,6 @@ import {
   HOVER_DURATION,
   HINT_FLIGHT_DURATION,
   HINT_SHAKE,
-  HINTS_PER_LEVEL,
   HOVER_EASE,
   ICON_BUTTON_SIZE,
   ICON_BUTTON_SPACING,
@@ -72,7 +71,6 @@ import { IconButton } from '../ui/IconButton';
 import { albumTitle, levelTitle, pieces, t } from '../i18n';
 import { CoinBadge } from '../ui/CoinBadge';
 import { hasPurchaseOffer, showPurchaseOffer } from '../ui/PurchaseModal';
-import { ECONOMY } from '../economy/config';
 import { createReceipt } from '../platform/RewardedAds';
 import { rewardedAds, setBannerVisible, setGameplayActive } from '../platform';
 
@@ -95,7 +93,6 @@ export class GameScene extends Phaser.Scene {
   private seed = 1;
   private restored?: Assembly;
   private won = false;
-  private hints = HINTS_PER_LEVEL;
   private preview?: Phaser.GameObjects.Image;
   private title!: Phaser.GameObjects.Text;
   private counter!: Phaser.GameObjects.Text;
@@ -142,7 +139,6 @@ export class GameScene extends Phaser.Scene {
     this.rows = this.restored?.rows ?? LEVELS[this.level].rows;
     this.cols = this.restored?.cols ?? LEVELS[this.level].cols;
     this.seed = this.restored?.seed ?? (Math.floor(Math.random() * 0xfffffffe) + 1);
-    this.hints = this.restored?.hints ?? HINTS_PER_LEVEL;
   }
 
   preload(): void {
@@ -180,7 +176,7 @@ export class GameScene extends Phaser.Scene {
     this.counter = this.label('', 28).setOrigin(0, 0.5).setDepth(GAME_DEPTH.header);
     this.sampleButton = new IconButton(this, 0, 0, GAME_ICONS.image, t('sample'), () => this.togglePreview()).setDepth(GAME_DEPTH.headerControls);
     this.edgesButton = new IconButton(this, 0, 0, GAME_ICONS.edges, t('edgesFirst'), () => this.toggleEdgesFirst()).setDepth(GAME_DEPTH.headerControls);
-    this.hintButton = new IconButton(this, 0, 0, GAME_ICONS.bulb, t('hint') + ' · ' + ECONOMY.hintPrice + ' ' + t('coins'), () => this.requestHint()).setDepth(GAME_DEPTH.headerControls);
+    this.hintButton = new IconButton(this, 0, 0, GAME_ICONS.bulb, t('hint'), () => this.requestHint()).setDepth(GAME_DEPTH.headerControls);
     this.coins = new CoinBadge(this, 0, 0).setDepth(GAME_DEPTH.headerControls);
     this.completeImage = this.add.image(0, 0, PUZZLE_SOURCE_KEY).setOrigin(0).setDepth(GAME_DEPTH.placedPieces + 0.5).setVisible(false);
     this.createPieces();
@@ -898,12 +894,12 @@ export class GameScene extends Phaser.Scene {
     this.counterBg.clear()
       .fillStyle(getTheme().hoverSurface, 1)
       .fillRoundedRect(HEADER_PADDING, HEADER_BOTTOM_ROW_Y - COUNTER_CHIP_HEIGHT / 2, chipWidth, COUNTER_CHIP_HEIGHT, COUNTER_CHIP_HEIGHT / 2);
-    this.hintButton.setBadge(this.hints);
+    this.hintButton.setBadge(getProgress().economy.freeHints);
   }
 
   private requestHint(): void {
     if (this.gesture || this.won || rewardedAds.busy || hasPurchaseOffer(this)) return;
-    if (this.hints <= 0 || !this.hintPiece()) { this.useHint(); return; }
+    if (getProgress().economy.freeHints > 0 || !this.hintPiece()) { this.useHint(); return; }
     this.hidePreview();
     showPurchaseOffer(this, { kind: 'hint' }, () => this.useHint());
   }
@@ -911,7 +907,7 @@ export class GameScene extends Phaser.Scene {
   private useHint(): void {
     if (this.gesture || this.won) return;
     const piece = this.hintPiece();
-    if (this.hints <= 0 || !piece) {
+    if (!piece) {
       this.tweens.killTweensOf(this.hintButton);
       this.hintButton.setX(this.scale.width - HEADER_PADDING - ICON_BUTTON_SIZE / 2);
       this.tweens.add({ targets: this.hintButton, x: this.hintButton.x + HINT_SHAKE.offset, duration: HINT_SHAKE.duration, yoyo: true, repeat: HINT_SHAKE.repeat });
@@ -919,7 +915,6 @@ export class GameScene extends Phaser.Scene {
     }
     const result = useHint(createReceipt(), () => {
       this.hidePreview();
-      this.hints--;
       if (piece.state === 'tray') {
         Phaser.Utils.Array.Remove(this.tray, piece);
         this.clampTrayScroll();
@@ -930,7 +925,7 @@ export class GameScene extends Phaser.Scene {
       this.place(piece.group, HINT_FLIGHT_DURATION);
       return true;
     });
-    if (result === 'used') this.save();
+    if (result === 'used') { this.save(); this.refreshLabels(); }
     else if (result === 'insufficient') this.requestHint();
   }
 
@@ -1014,7 +1009,7 @@ export class GameScene extends Phaser.Scene {
       piece.group.forEach(p => seen.add(p));
     }
     saveAssembly({ level: this.level, rows: this.rows, cols: this.cols, seed: this.seed,
-      placed: this.pieces.filter(p => p.state === 'placed').map(id), tray: this.tray.map(id), groups, scroll: this.trayScroll, hints: this.hints });
+      placed: this.pieces.filter(p => p.state === 'placed').map(id), tray: this.tray.map(id), groups, scroll: this.trayScroll });
   }
 
   private restore(): void {

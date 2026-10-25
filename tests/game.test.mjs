@@ -88,10 +88,11 @@ test('saves are committed on release, never on pointer movement', () => {
   assert.equal(getProgress().active.groups.length, 1);
 });
 
-test('three hints fly pieces to places allowed by the rules, then run out', () => {
+test('three free hints fly pieces to allowed places, then hints cost coins without a per-puzzle limit', () => {
   const scene = game();
-  while (getProgress().economy.balance < 75) rewardAd('scene-test-' + ++hintFunding);
+  while (getProgress().economy.balance < 50) rewardAd('scene-test-' + ++hintFunding);
   const balanceBefore = getProgress().economy.balance;
+  assert.equal(getProgress().economy.freeHints, 3);
   scene.refreshLabels();
   assert.equal(scene.hintButton.badge, 3);
   for (let used = 1; used <= 3; used++) {
@@ -100,18 +101,21 @@ test('three hints fly pieces to places allowed by the rules, then run out', () =
     const placed = scene.pieces.filter(p => p.state === 'placed');
     assert.equal(placed.length, used);
     assert.equal(scene.hintButton.badge, 3 - used);
-    assert.equal(getProgress().active.hints, 3 - used);
-    assert.equal(getProgress().economy.balance, balanceBefore - 25 * used);
+    assert.equal(getProgress().economy.freeHints, 3 - used);
+    assert.equal(getProgress().economy.balance, balanceBefore);
     for (const p of placed) assert.ok(p.row !== 1 || p.col !== 1 || placed.some(o => Math.abs(o.row - p.row) + Math.abs(o.col - p.col) === 1));
   }
-  assert.equal(scene.tray.length, 6);
-  scene.useHint();
-  scene.tweens.flush();
-  assert.equal(scene.pieces.filter(p => p.state === 'placed').length, 3);
-  assert.equal(getProgress().economy.balance, balanceBefore - 75);
+  for (let paid = 1; paid <= 2; paid++) {
+    scene.useHint();
+    scene.tweens.flush();
+    assert.equal(scene.pieces.filter(p => p.state === 'placed').length, 3 + paid);
+    assert.equal(getProgress().economy.balance, balanceBefore - 25 * paid);
+  }
+  assert.equal(getProgress().economy.freeHints, 0);
+  assert.equal(scene.tray.length, 4);
 });
 
-test('a hint places a whole board group and the remaining hints survive a reload', () => {
+test('a hint places a whole board group', () => {
   const scene = game();
   const a = scene.pieces[0], b = scene.pieces[1];
   drop(scene, a, 150, 700); drop(scene, b, 150 + scene.cellSize, 700);
@@ -121,10 +125,6 @@ test('a hint places a whole board group and the remaining hints survive a reload
   assert.equal(a.state, 'placed');
   assert.equal(b.state, 'placed');
   assert.deepEqual(scene.positionsOf([a, b]).get(b), scene.targetOf(b));
-  const reloaded = readProgress({ getItem: key => key === SAVE_STORAGE_KEY ? JSON.stringify(getProgress()) : null });
-  assert.equal(reloaded.active.hints, 2);
-  const invalid = readProgress({ getItem: key => key === SAVE_STORAGE_KEY ? JSON.stringify({ ...getProgress(), active: { ...reloaded.active, hints: 4 } }) : null });
-  assert.equal(invalid.active, undefined);
 });
 
 test('resize cancellation returns a tray piece and fits a board group without changing its shape', () => {

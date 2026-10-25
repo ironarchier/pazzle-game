@@ -282,7 +282,6 @@ export const PIECE_MARGIN = Math.ceil(PIECE_SIZE * KNOB_SIZE * (1 + KNOB_VARIATI
 export const PIECE_FRAME_SIZE = PIECE_SIZE + PIECE_MARGIN * 2;
 export const SNAP_DISTANCE = 40;
 export const SNAP_DURATION = 120;
-export const HINTS_PER_LEVEL = 3;
 export const HINT_FLIGHT_DURATION = 500;
 export const HINT_SHAKE = { offset: 8, duration: 60, repeat: 2 };
 export const SNAP_VIBRATION = 30;

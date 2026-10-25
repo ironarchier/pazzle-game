@@ -1,14 +1,14 @@
-import { ALBUMS, HINTS_PER_LEVEL, LEVELS, SAVE_STORAGE_KEY, getAlbumLevels } from './constants';
+import { ALBUMS, LEVELS, SAVE_STORAGE_KEY, getAlbumLevels } from './constants';
 import { ECONOMY } from './economy/config';
 import { CATALOGUE_REVISION, FREE_LEVEL_COUNT, RETIRED_ALBUM_IDS } from './catalogueMigration';
 
 export interface SavedGroup { ids: number[]; x: number; y: number }
 export interface Assembly {
   level: number; rows: number; cols: number; seed: number;
-  placed: number[]; tray: number[]; groups: SavedGroup[]; scroll: number; hints?: number;
+  placed: number[]; tray: number[]; groups: SavedGroup[]; scroll: number;
 }
 export interface Wallet {
-  balance: number; purchasedAlbums: string[]; rewardedLevels: number[];
+  balance: number; freeHints: number; purchasedAlbums: string[]; rewardedLevels: number[];
   adReceipts: string[]; hintReceipts: string[];
 }
 export interface Progress {
@@ -25,7 +25,7 @@ const finite = (v: unknown): v is number => typeof v === 'number' && Number.isFi
 const coins = (v: unknown): v is number => Number.isSafeInteger(v) && Number(v) >= 0;
 const receipt = (v: unknown): v is string => typeof v === 'string' && v.length > 0 && v.length <= 160;
 const receipts = (v: unknown): string[] => Array.isArray(v) ? [...new Set(v.filter(receipt))] : [];
-const emptyWallet = (): Wallet => ({ balance: 0, purchasedAlbums: [], rewardedLevels: [], adReceipts: [], hintReceipts: [] });
+const emptyWallet = (): Wallet => ({ balance: 0, freeHints: ECONOMY.freeHints, purchasedAlbums: [], rewardedLevels: [], adReceipts: [], hintReceipts: [] });
 
 export function ownsAlbum(albumId: string, purchased: readonly string[] = getProgress().economy.purchasedAlbums): boolean {
   const album = ALBUMS.find(item => item.id === albumId);
@@ -55,7 +55,6 @@ export function validateAssembly(value: unknown, completed: number[], purchased:
   const config = LEVELS[value.level];
   const allowedGrid = value.rows === config.rows && value.cols === config.cols;
   if (!allowedGrid || !Number.isInteger(value.seed) || Number(value.seed) < 1 || Number(value.seed) > 0xffffffff) return;
-  if (value.hints !== undefined && (!Number.isInteger(value.hints) || Number(value.hints) < 0 || Number(value.hints) > HINTS_PER_LEVEL)) return;
   if (!Array.isArray(value.placed) || !Array.isArray(value.tray) || !Array.isArray(value.groups) || !finite(value.scroll) || value.scroll < 0) return;
   const rows = value.rows as number, cols = value.cols as number, count = rows * cols, seen = new Set<number>();
   const take = (ids: unknown[]): ids is number[] => ids.every(id => {
@@ -95,6 +94,7 @@ export function readProgress(storage: StorageLike | undefined): Progress {
     const rewarded = Array.isArray(wallet.rewardedLevels) ? wallet.rewardedLevels.filter(validLevel).filter(id => completed.includes(id)) : [];
     const economy: Wallet = {
       balance: Number.isSafeInteger(balance + refund) ? balance + refund : balance, purchasedAlbums: purchased,
+      freeHints: Number.isInteger(wallet.freeHints) && Number(wallet.freeHints) >= 0 && Number(wallet.freeHints) <= ECONOMY.freeHints ? Number(wallet.freeHints) : ECONOMY.freeHints,
       rewardedLevels: [...new Set([...rewarded, ...completed])],
       adReceipts: receipts(wallet.adReceipts), hintReceipts: receipts(wallet.hintReceipts),
     };
@@ -213,9 +213,11 @@ export class ProgressStore {
     let result: HintResult = 'not-useful';
     this.transact('hint', draft => {
       if (!receipt(id) || draft.economy.hintReceipts.includes(id)) { result = 'duplicate'; return false; }
-      if (draft.economy.balance < ECONOMY.hintPrice) { result = 'insufficient'; return false; }
+      const free = draft.economy.freeHints > 0;
+      if (!free && draft.economy.balance < ECONOMY.hintPrice) { result = 'insufficient'; return false; }
       try { if (!apply()) return false; } catch { return false; }
-      draft.economy.balance -= ECONOMY.hintPrice; draft.economy.hintReceipts.push(id); result = 'used'; return true;
+      if (free) draft.economy.freeHints--; else draft.economy.balance -= ECONOMY.hintPrice;
+      draft.economy.hintReceipts.push(id); result = 'used'; return true;
     });
     return result;
   }

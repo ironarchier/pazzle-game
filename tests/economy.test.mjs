@@ -98,18 +98,23 @@ test('ad receipts survive reloads and shared-storage clients cannot replay a rec
   assert.equal(store.get().economy.balance, 5050);
 });
 
-test('hints charge only on a useful successful application; failure, cancellation and repeat are free', () => {
+test('three free hints are spent once per player, then only useful successful hints cost coins', () => {
   const { store, storage } = fixture(25);
+  assert.equal(store.get().economy.freeHints, 3);
   assert.equal(store.useHint('cancel', () => false), 'not-useful');
   assert.equal(store.useHint('error', () => { throw new Error('render failed'); }), 'not-useful');
-  assert.equal(store.get().economy.balance, 25);
+  assert.equal(store.get().economy.freeHints, 3);
   let applied = 0;
+  for (let i = 1; i <= 3; i++) assert.equal(store.useHint('free-' + i, () => { applied++; return true; }), 'used');
+  assert.equal(store.get().economy.freeHints, 0);
+  assert.equal(store.get().economy.balance, 25);
+  assert.equal(new ProgressStore(storage).get().economy.freeHints, 0);
   assert.equal(store.useHint('successful', () => { applied++; return true; }), 'used');
   assert.equal(store.get().economy.balance, 0);
   assert.equal(store.useHint('successful', () => { applied++; return true; }), 'duplicate');
   assert.equal(store.useHint('no-money', () => { applied++; return true; }), 'insufficient');
   assert.equal(new ProgressStore(storage).useHint('successful', () => true), 'duplicate');
-  assert.equal(applied, 1);
+  assert.equal(applied, 4);
 });
 
 test('offer calculations cover 150 to 175 to 200 and hint insufficiency without automatic spending', () => {
@@ -154,7 +159,8 @@ test('storage failures retain atomic changes in memory and view failures never d
   assert.equal(store.rewardAd('safe'), false);
   assert.equal(store.get().economy.balance, 25);
   assert.equal(store.useHint('hint', () => true), 'used');
-  assert.equal(store.get().economy.balance, 0);
+  assert.equal(store.get().economy.freeHints, 2);
+  assert.equal(store.get().economy.balance, 25);
   assert.equal(ECONOMY.firstCompletionRewards.reduce((sum, n) => sum + n, 0), 150);
   assert.equal(ALBUMS.length, 12);
 });
