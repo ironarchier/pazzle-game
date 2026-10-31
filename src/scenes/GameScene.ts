@@ -74,7 +74,7 @@ import { hasPurchaseOffer, showPurchaseOffer } from '../ui/PurchaseModal';
 import { PuzzleTutorial } from '../ui/PuzzleTutorial';
 import { getSettings, updateSettings } from '../settings';
 import { createReceipt } from '../platform/RewardedAds';
-import { rewardedAds, setBannerVisible, setGameplayActive } from '../platform';
+import { continueAfterLevel, rewardedAds, setBannerVisible, setGameplayActive } from '@game-platform';
 
 interface Gesture {
   pointerId: number;
@@ -195,6 +195,7 @@ export class GameScene extends Phaser.Scene {
     const visibility = () => { if (document.hidden) save(); };
     window.addEventListener('pagehide', save);
     document.addEventListener('visibilitychange', visibility);
+    this.events.on('platformpause', save);
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
       this.tutorial = undefined;
       setGameplayActive(false);
@@ -202,6 +203,7 @@ export class GameScene extends Phaser.Scene {
       this.save();
       window.removeEventListener('pagehide', save);
       document.removeEventListener('visibilitychange', visibility);
+      this.events.off('platformpause', save);
     });
   }
 
@@ -841,8 +843,8 @@ export class GameScene extends Phaser.Scene {
     const goalText = this.label(goal, 25).setY(WIN_PANEL.goalY);
     const next = nextLevel(progress.completed, this.level, progress.economy.purchasedAlbums);
     const albumDone = count === ids.length;
-    const action = new Button(this, -WIN_PANEL.buttonX, WIN_PANEL.buttonY, t(albumDone ? 'albums' : next === undefined ? 'toAlbum' : 'next'), () => albumDone ? goToScene(this, 'Album') : next === undefined ? goToScene(this, 'Album', { albumId: collection.id }) : restartScene(this, { level: next }), 0.78);
-    const album = new Button(this, WIN_PANEL.buttonX, WIN_PANEL.buttonY, t(albumDone ? 'toMenu' : 'album'), () => goToScene(this, albumDone ? 'Menu' : 'Album', { albumId: collection.id }), 0.78, 'secondary');
+    const action = new Button(this, -WIN_PANEL.buttonX, WIN_PANEL.buttonY, t(albumDone ? 'albums' : next === undefined ? 'toAlbum' : 'next'), () => continueAfterLevel(() => albumDone ? goToScene(this, 'Album') : next === undefined ? goToScene(this, 'Album', { albumId: collection.id }) : restartScene(this, { level: next })), 0.78);
+    const album = new Button(this, WIN_PANEL.buttonX, WIN_PANEL.buttonY, t(albumDone ? 'toMenu' : 'album'), () => continueAfterLevel(() => goToScene(this, albumDone ? 'Menu' : 'Album', { albumId: collection.id })), 0.78, 'secondary');
     const panelWidth = Math.min(this.scale.width, GAME_WIDTH);
     const r = GAME_PANEL_RADIUS;
     const bg = this.add.graphics()

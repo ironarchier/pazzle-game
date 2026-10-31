@@ -37,7 +37,9 @@ import { TabBar } from '../ui/TabBar';
 import { Segmented } from '../ui/Segmented';
 import { Toggle } from '../ui/Toggle';
 import { CoinBadge } from '../ui/CoinBadge';
-import { platformReady, setBannerVisible } from '../platform';
+import { platformReady, setBannerVisible } from '@game-platform';
+import { whenPreloaderHidden } from '../preloader';
+import { usesPlaygama } from '../platform/persistence';
 
 type Page = 'home' | 'settings';
 
@@ -84,7 +86,8 @@ export class MenuScene extends Phaser.Scene {
     );
     this.cameras.main.ignore(this.tabBar);
     this.showPage(data.page ?? 'home');
-    platformReady();
+    if (usesPlaygama) this.game.events.once('postrender', () => { void whenPreloaderHidden().then(platformReady); });
+    else platformReady();
     setBannerVisible(true);
   }
 

@@ -10,7 +10,7 @@ import { GAME_HEIGHT, GAME_WIDTH } from './constants';
 import { getTheme, toCss } from './theme';
 import { syncDocumentLanguage } from './i18n';
 import { subscribeSettings } from './settings';
-import { startPlatform } from './platform';
+import { startPlatform } from '@game-platform';
 
 startPlatform();
 syncDocumentLanguage();

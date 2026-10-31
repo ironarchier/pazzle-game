@@ -7,22 +7,28 @@
   "scripts": {
     "dev": "vite",
     "dev:vk": "vite --mode vk",
-    "build": "tsc --noEmit && vite build",
+    "build": "npm run typecheck && vite build",
+    "dev:playgama": "vite --mode playgama",
+    "build:playgama": "npm run typecheck && vite build --mode playgama && node scripts/check-playgama-build.mjs",
+    "preview:playgama": "vite preview --mode playgama",
+    "package:playgama": "npm run build:playgama && powershell -NoProfile -ExecutionPolicy Bypass -File scripts/package-playgama.ps1",
     "build:yandex": "npm run build",
-    "build:vk": "tsc --noEmit && vite build --mode vk --outDir dist-vk",
+    "build:vk": "npm run typecheck && vite build --mode vk --outDir dist-vk",
     "deploy:vk": "npm run build:vk && vk-miniapps-deploy",
     "preview": "vite preview",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "tsc --noEmit && tsc --noEmit -p tsconfig.node.json",
     "test": "node --import ./tests/register-typescript.mjs --test tests/*.test.mjs",
     "music:build": "node scripts/create-background-music.mjs",
     "promo:vk": "node scripts/create-vk-promo.mjs"
   },
   "dependencies": {
+    "@playgama/bridge": "2.3.1",
     "@fontsource/nunito": "^5.3.0",
     "@vkontakte/vk-bridge": "^3.0.2",
     "phaser": "^4.2.1"
   },
   "devDependencies": {
+    "@types/node": "26.6.6",
     "@breezystack/lamejs": "^1.2.7",
     "@vkontakte/vk-miniapps-deploy": "^1.0.3",
     "typescript": "^7.0.2",

@@ -1,4 +1,5 @@
 import { ALBUMS, LEVELS, SAVE_STORAGE_KEY, getAlbumLevels } from './constants';
+import { browserStorage as platformBrowserStorage } from './platform/persistence';
 import { ECONOMY } from './economy/config';
 import { CATALOGUE_REVISION, FREE_LEVEL_COUNT, RETIRED_ALBUM_IDS } from './catalogueMigration';
 
@@ -103,7 +104,7 @@ export function readProgress(storage: StorageLike | undefined): Progress {
 }
 function browserStorage(): StorageLike | undefined {
   if (typeof window === 'undefined') return;
-  try { return localStorage; } catch { return; }
+  return platformBrowserStorage();
 }
 
 export class ProgressStore {

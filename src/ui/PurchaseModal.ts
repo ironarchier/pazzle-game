@@ -2,7 +2,7 @@ import * as Phaser from 'phaser';
 import { CARD_RADIUS, DIALOG_BUTTON_SCALE, FONT_FAMILY } from '../constants';
 import { offerState, type PurchaseIntent } from '../economy/offer';
 import { buyAlbum, getProgress, subscribeProgress } from '../progress';
-import { rewardedAds } from '../platform';
+import { rewardedAds } from '@game-platform';
 import { getTheme, toCss } from '../theme';
 import { Button } from './Button';
 import { CoinBadge } from './CoinBadge';

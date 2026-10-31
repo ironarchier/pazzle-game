@@ -88,3 +88,4 @@ export function setGameplayActive(active: boolean): void {
   gameplay = active;
   current?.setGameplay(active && suspensions === 0 && !rewardedAds.busy);
 }
+export function continueAfterLevel(action: () => void): void { action(); }
