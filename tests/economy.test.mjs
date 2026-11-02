@@ -14,10 +14,10 @@ function fixture(balance = 0, extra = {}) {
   return { store: new ProgressStore(storage), storage, data };
 }
 
-test('incoming main free images, translations, order and difficulty remain unchanged by the economy', () => {
+test('free images, translations and order stay unchanged while new grids are smaller', () => {
   const old = JSON.parse(readFileSync(new URL('./fixtures/free-catalogue.json', import.meta.url), 'utf8'));
   assert.deepEqual(FREE_ALBUMS.slice(0, old.albums.length), old.albums);
-  assert.deepEqual(LEVELS.slice(0, old.levels.length), old.levels);
+  assert.deepEqual(LEVELS.slice(0, old.levels.length).map(({ rows, cols, ...level }) => level), old.levels.map(({ rows, cols, ...level }) => level));
   assert.equal(FREE_ALBUMS[5].id, 'hunter-x-hunter');
 });
 
@@ -98,21 +98,42 @@ test('ad receipts survive reloads and shared-storage clients cannot replay a rec
   assert.equal(store.get().economy.balance, 5050);
 });
 
-test('hints charge only on a useful successful application; failure, cancellation and repeat are free', () => {
+const freshAssembly = () => ({ level: 0, rows: 3, cols: 3, seed: 23, placed: [], tray: Array.from({ length: 9 }, (_, i) => i), groups: [], scroll: 0, hints: 3 });
+
+test('first hint is free per assembly; later hints need confirmed ad credits even with coins', () => {
   const { store, storage } = fixture(25);
+  store.save(freshAssembly());
   assert.equal(store.useHint('cancel', () => false), 'not-useful');
   assert.equal(store.useHint('error', () => { throw new Error('render failed'); }), 'not-useful');
   assert.equal(store.get().economy.balance, 25);
   let applied = 0;
   assert.equal(store.useHint('successful', () => { applied++; return true; }), 'used');
-  assert.equal(store.get().economy.balance, 0);
+  assert.equal(store.get().economy.balance, 25);
+  assert.equal(store.get().active.hints, 2);
   assert.equal(store.useHint('successful', () => { applied++; return true; }), 'duplicate');
-  assert.equal(store.useHint('no-money', () => { applied++; return true; }), 'insufficient');
+  assert.equal(store.useHint('needs-ad', () => { applied++; return true; }), 'ad-required');
   assert.equal(new ProgressStore(storage).useHint('successful', () => true), 'duplicate');
+  assert.equal(new ProgressStore(storage).useHint('after-reload', () => true), 'ad-required');
   assert.equal(applied, 1);
+  assert.equal(store.rewardHintAd('hint-ad'), true);
+  assert.equal(store.rewardHintAd('hint-ad'), false);
+  assert.equal(store.rewardAd('hint-ad'), false);
+  const reloaded = new ProgressStore(storage);
+  assert.equal(reloaded.get().economy.hintCredits, 1);
+  assert.equal(reloaded.useHint('failed-apply', () => false), 'not-useful');
+  assert.equal(reloaded.get().economy.hintCredits, 1);
+  assert.equal(reloaded.useHint('second', () => true), 'used');
+  assert.equal(reloaded.get().active.hints, 1);
+  assert.equal(reloaded.get().economy.hintCredits, 0);
+  assert.equal(reloaded.get().economy.balance, 25);
+  assert.equal(reloaded.rewardHintAd('hint-ad-2'), true);
+  assert.equal(reloaded.useHint('third', () => true), 'used');
+  assert.equal(reloaded.useHint('fourth', () => true), 'not-useful');
+  reloaded.save(freshAssembly());
+  assert.equal(reloaded.useHint('new-puzzle', () => true), 'used');
 });
 
-test('offer calculations cover 150 to 175 to 200 and hint insufficiency without automatic spending', () => {
+test('album offers retain coin prices while hint offers always use ad credits', () => {
   updateSettings({ language: 'ru' });
   const intent = { kind: 'album', albumId: SHOP_ALBUMS[0].id, title: SHOP_ALBUMS[0].title };
   assert.equal(offerState(intent, 150).shortfall, 50);
@@ -121,9 +142,10 @@ test('offer calculations cover 150 to 175 to 200 and hint insufficiency without 
   assert.equal(offerState(intent, 200).affordable, true);
   assert.equal(offerState(intent, 200).message, 'Теперь ты можешь открыть этот альбом!');
   assert.equal(offerState(intent, 200).button, 'Купить альбом · 200 🪙');
-  assert.equal(offerState({ kind: 'hint' }, 0).shortfall, 25);
-  assert.equal(offerState({ kind: 'hint' }, 24).shortfall, 1);
-  assert.equal(offerState({ kind: 'hint' }, 25).button, 'Купить подсказку · 25 🪙');
+  assert.equal(offerState({ kind: 'hint' }, 0).shortfall, 0);
+  assert.equal(offerState({ kind: 'hint' }, 200).affordable, false);
+  assert.equal(offerState({ kind: 'hint' }, 200).button, 'Реклама · +1 подсказка');
+  assert.equal(offerState({ kind: 'hint' }, 0, 1).button, 'Использовать подсказку');
 });
 
 test('malformed wallet values and duplicate records are sanitized without losing free progress', () => {
@@ -153,8 +175,9 @@ test('storage failures retain atomic changes in memory and view failures never d
   assert.equal(store.rewardAd('safe'), true);
   assert.equal(store.rewardAd('safe'), false);
   assert.equal(store.get().economy.balance, 25);
+  store.save(freshAssembly());
   assert.equal(store.useHint('hint', () => true), 'used');
-  assert.equal(store.get().economy.balance, 0);
+  assert.equal(store.get().economy.balance, 25);
   assert.equal(ECONOMY.firstCompletionRewards.reduce((sum, n) => sum + n, 0), 150);
   assert.equal(ALBUMS.length, 12);
 });

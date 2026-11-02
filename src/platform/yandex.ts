@@ -1,5 +1,5 @@
 import type * as Phaser from 'phaser';
-import { configureProgressStorage, rewardAd } from '../progress';
+import { configureProgressStorage, rewardAd, rewardHintAd } from '../progress';
 import { setAudioSuspended } from '../audio';
 import { RewardedAds } from './RewardedAds';
 import type { YandexSdk } from './types';
@@ -59,7 +59,7 @@ function pauseForAd(): () => void {
     if (gameplay) { try { sdk?.features?.GameplayAPI?.start(); } catch { /* Gameplay still resumes locally. */ } }
   };
 }
-export const rewardedAds = new RewardedAds(getYandexSdk, rewardAd, pauseForAd);
+export const rewardedAds = new RewardedAds(getYandexSdk, { coins: rewardAd, hint: rewardHintAd }, pauseForAd);
 
 export async function initializePlatform(owner: Phaser.Game): Promise<void> {
   game = owner;

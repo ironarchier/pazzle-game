@@ -129,7 +129,7 @@ export const SHOP_AD_BUTTON_SCALE = 1;
 export const SHOP_ROW_SPACING = 380;
 export const ALBUM_PIECES_ICON_SIZE = 26;
 export const ALBUM_PIECES_ICON_GAP = 8;
-export const BLUR_SAMPLE_SIZE = 10;
+export const BLUR_SAMPLE_SIZE = 6;
 export const GAME_PANEL_RADIUS = 32;
 export const BOARD_FRAME = 12;
 export const BOARD_FRAME_RADIUS = 24;
@@ -238,7 +238,9 @@ FREE_ALBUMS.push({ id: 'hunter-x-hunter', title: 'Hunter × Hunter', titleEn: 'H
 ] });
 export const SHOP_ALBUMS: Album[] = shopAlbums.map(album => ({ ...album, coverFocusY: 0.3 }));
 export const ALBUMS: Album[] = [...FREE_ALBUMS, ...SHOP_ALBUMS];
-export const LEVEL_GRIDS = [[3, 3], [4, 4], [5, 5], [6, 6], [7, 7], [8, 8]];
+export const LEVEL_GRIDS = [[3, 3], [3, 3], [4, 4], [4, 4], [4, 4], [5, 5]];
+// Existing assemblies keep their pieces and original grid until completed/replaced.
+export const LEGACY_LEVEL_GRIDS = [[3, 3], [4, 4], [5, 5], [6, 6], [7, 7], [8, 8]];
 export const LEVELS = ALBUMS.flatMap(album => album.characters.map((character, slot) => ({
   ...character, albumId: album.id, finale: slot === album.characters.length - 1,
   rows: LEVEL_GRIDS[slot][0],

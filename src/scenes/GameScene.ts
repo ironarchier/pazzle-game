@@ -72,9 +72,8 @@ import { IconButton } from '../ui/IconButton';
 import { albumTitle, levelTitle, pieces, t } from '../i18n';
 import { CoinBadge } from '../ui/CoinBadge';
 import { hasPurchaseOffer, showPurchaseOffer } from '../ui/PurchaseModal';
-import { ECONOMY } from '../economy/config';
 import { createReceipt } from '../platform/RewardedAds';
-import { rewardedAds, setGameplayActive } from '../platform/yandex';
+import { continueAfterLevel, rewardedAds, setGameplayActive } from '../platform/index';
 
 interface Gesture {
   pointerId: number;
@@ -180,7 +179,7 @@ export class GameScene extends Phaser.Scene {
     this.counter = this.label('', 28).setOrigin(0, 0.5).setDepth(GAME_DEPTH.header);
     this.sampleButton = new IconButton(this, 0, 0, GAME_ICONS.image, t('sample'), () => this.togglePreview()).setDepth(GAME_DEPTH.headerControls);
     this.edgesButton = new IconButton(this, 0, 0, GAME_ICONS.edges, t('edgesFirst'), () => this.toggleEdgesFirst()).setDepth(GAME_DEPTH.headerControls);
-    this.hintButton = new IconButton(this, 0, 0, GAME_ICONS.bulb, t('hint') + ' · ' + ECONOMY.hintPrice + ' ' + t('coins'), () => this.requestHint()).setDepth(GAME_DEPTH.headerControls);
+    this.hintButton = new IconButton(this, 0, 0, GAME_ICONS.bulb, t('hintHelp'), () => this.requestHint()).setDepth(GAME_DEPTH.headerControls);
     this.coins = new CoinBadge(this, 0, 0).setDepth(GAME_DEPTH.headerControls);
     this.completeImage = this.add.image(0, 0, PUZZLE_SOURCE_KEY).setOrigin(0).setDepth(GAME_DEPTH.placedPieces + 0.5).setVisible(false);
     this.createPieces();
@@ -193,11 +192,13 @@ export class GameScene extends Phaser.Scene {
     const visibility = () => { if (document.hidden) save(); };
     window.addEventListener('pagehide', save);
     document.addEventListener('visibilitychange', visibility);
+    this.events.on('platformpause', save);
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
       setGameplayActive(false);
       this.save();
       window.removeEventListener('pagehide', save);
       document.removeEventListener('visibilitychange', visibility);
+      this.events.off('platformpause', save);
     });
   }
 
@@ -825,8 +826,8 @@ export class GameScene extends Phaser.Scene {
     const goalText = this.label(goal, 25).setY(WIN_PANEL.goalY);
     const next = nextLevel(progress.completed, this.level, progress.economy.purchasedAlbums);
     const albumDone = count === ids.length;
-    const action = new Button(this, -WIN_PANEL.buttonX, WIN_PANEL.buttonY, t(albumDone ? 'albums' : next === undefined ? 'toAlbum' : 'next'), () => albumDone ? goToScene(this, 'Album') : next === undefined ? goToScene(this, 'Album', { albumId: collection.id }) : restartScene(this, { level: next }), 0.78);
-    const album = new Button(this, WIN_PANEL.buttonX, WIN_PANEL.buttonY, t(albumDone ? 'toMenu' : 'album'), () => goToScene(this, albumDone ? 'Menu' : 'Album', { albumId: collection.id }), 0.78, 'secondary');
+    const action = new Button(this, -WIN_PANEL.buttonX, WIN_PANEL.buttonY, t(albumDone ? 'albums' : next === undefined ? 'toAlbum' : 'next'), () => continueAfterLevel(() => albumDone ? goToScene(this, 'Album') : next === undefined ? goToScene(this, 'Album', { albumId: collection.id }) : restartScene(this, { level: next })), 0.78);
+    const album = new Button(this, WIN_PANEL.buttonX, WIN_PANEL.buttonY, t(albumDone ? 'toMenu' : 'album'), () => continueAfterLevel(() => goToScene(this, albumDone ? 'Menu' : 'Album', { albumId: collection.id })), 0.78, 'secondary');
     const panelWidth = Math.min(this.scale.width, GAME_WIDTH);
     const r = GAME_PANEL_RADIUS;
     const bg = this.add.graphics()
@@ -903,6 +904,7 @@ export class GameScene extends Phaser.Scene {
     if (this.gesture || this.won || rewardedAds.busy || hasPurchaseOffer(this)) return;
     if (this.hints <= 0 || !this.hintPiece()) { this.useHint(); return; }
     this.hidePreview();
+    if (this.hints === HINTS_PER_LEVEL || getProgress().economy.hintCredits > 0) { this.useHint(); return; }
     showPurchaseOffer(this, { kind: 'hint' }, () => this.useHint());
   }
 
@@ -929,7 +931,7 @@ export class GameScene extends Phaser.Scene {
       return true;
     });
     if (result === 'used') this.save();
-    else if (result === 'insufficient') this.requestHint();
+    else if (result === 'ad-required') this.requestHint();
   }
 
   private hintPiece(): PuzzlePiece | undefined {

@@ -2,7 +2,7 @@ import * as Phaser from 'phaser';
 import { CARD_RADIUS, FONT_FAMILY, SHOP_AD_BUTTON_SCALE, SHOP_ALBUMS, SHOP_ROW_SPACING, getAlbumLevels } from '../constants';
 import { ECONOMY } from '../economy/config';
 import { ownsAlbum } from '../progress';
-import { rewardedAds } from '../platform/yandex';
+import { rewardedAds } from '../platform/index';
 import { goToScene, restartScene } from '../crossfade';
 import { centerLayout } from '../layout';
 import { applyTheme, getTheme, toCss } from '../theme';

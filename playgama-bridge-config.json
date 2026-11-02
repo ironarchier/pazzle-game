@@ -1,0 +1,8 @@
+{
+  "advertisement": {
+    "minimumDelayBetweenInterstitial": 60,
+    "initialInterstitialDelay": 60,
+    "interstitial": { "placements": [{ "id": "level_completed" }] },
+    "rewarded": { "placements": [{ "id": "coins" }] }
+  }
+}

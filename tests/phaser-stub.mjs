@@ -15,7 +15,8 @@ export class Display extends EventEmitter {
   setInteractive() { return this; }
   disableInteractive() { return this; }
   setOrigin() { return this; }
-  setAlpha() { return this; }
+  setAlpha(alpha) { this.alpha = alpha; return this; }
+  setTint() { return this; }
   setDisplaySize() { return this; }
   setFillStyle() { return this; }
   setColor() { return this; }
@@ -28,14 +29,15 @@ export class Display extends EventEmitter {
   fillCircle() { return this; }
   strokeCircle() { return this; }
   strokeRect() { return this; }
+  strokePoints() { return this; }
   fillRoundedRect() { return this; }
   strokeRoundedRect() { return this; }
   explode() { return this; }
-  add(children) { this.list.push(...children); return this; }
+  add(children) { this.list.push(...(Array.isArray(children) ? children : [children])); return this; }
   destroy() { this.destroyed = true; }
 }
 export const GameObjects = { Image: Display, Container: Display };
-export const Math = { Clamp: (v, min, max) => globalThis.Math.max(min, globalThis.Math.min(max, v)), Between: () => 0, Distance: { Between: (x, y, a, b) => globalThis.Math.hypot(x - a, y - b) } };
+export const Math = { Vector2: class { constructor(x, y) { this.x = x; this.y = y; } }, Clamp: (v, min, max) => globalThis.Math.max(min, globalThis.Math.min(max, v)), Between: () => 0, Distance: { Between: (x, y, a, b) => globalThis.Math.hypot(x - a, y - b) } };
 export const Utils = { Array: { Remove: (array, value) => { const i = array.indexOf(value); if (i >= 0) array.splice(i, 1); }, Shuffle: a => a, GetRandom: a => a[0] } };
 export class Scene {
   constructor() {

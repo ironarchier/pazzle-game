@@ -10,6 +10,7 @@ Object.defineProperty(globalThis, 'localStorage', { configurable: true, value: {
 
 registerHooks({
   resolve(specifier, context, next) {
+    if (specifier === '@platform-adapter') return next(new URL('../src/platform/yandex.ts', import.meta.url).href, context);
     if (specifier === 'phaser') return next(new URL('./phaser-stub.mjs', import.meta.url).href, context);
     if (specifier.startsWith('.') && context.parentURL && !/\.[a-z]+$/i.test(specifier)) {
       const url = new URL(`${specifier}.ts`, context.parentURL);

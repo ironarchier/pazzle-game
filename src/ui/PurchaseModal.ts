@@ -2,7 +2,7 @@ import * as Phaser from 'phaser';
 import { CARD_RADIUS, DIALOG_BUTTON_SCALE, FONT_FAMILY } from '../constants';
 import { offerState, type PurchaseIntent } from '../economy/offer';
 import { buyAlbum, getProgress, subscribeProgress } from '../progress';
-import { rewardedAds } from '../platform/yandex';
+import { rewardedAds } from '../platform/index';
 import { getTheme, toCss } from '../theme';
 import { Button } from './Button';
 import { CoinBadge } from './CoinBadge';
@@ -30,20 +30,23 @@ export class PurchaseModal extends Phaser.GameObjects.Container {
   constructor(scene: Phaser.Scene, intent: PurchaseIntent, confirmed: () => void) {
     super(scene, scene.cameras.main.scrollX + scene.scale.width / 2, scene.cameras.main.scrollY + scene.scale.height / 2);
     this.intent = intent; this.confirmed = confirmed;
-    const theme = getTheme(), width = 640, height = 650;
+    const hint = intent.kind === 'hint';
+    const theme = getTheme(), width = 640, height = hint ? 460 : 650;
     const shade = scene.add.rectangle(0, 0, scene.scale.width, scene.scale.height, 0x000000, 0.65).setInteractive();
     const panel = scene.add.graphics().fillStyle(theme.surface, 1).fillRoundedRect(-width / 2, -height / 2, width, height, CARD_RADIUS);
-    this.heading = this.label(0, -252, '', 36).setFontStyle('bold');
-    const product = this.label(0, -202, intent.kind === 'album' ? intent.title : t('hintProduct'), 25, theme.textMuted);
-    this.message = this.label(0, -124, '', 28);
-    const balanceTitle = this.label(0, -54, t('yourBalance'), 23, theme.textMuted);
-    const balance = new CoinBadge(scene, 0, -5);
-    const cost = this.label(0, 49, t(intent.kind === 'album' ? 'albumCost' : 'hintCost', { price: offerState(intent, 0).price }), 25, theme.textMuted);
-    this.status = this.label(0, 95, '', 20, theme.accent);
-    this.action = new Button(scene, 0, 192, '', () => { void this.perform(); }, DIALOG_BUTTON_SCALE);
-    const close = this.label(0, 282, t('close'), 27, theme.textMuted).setPadding(30, 12).setInteractive({ useHandCursor: true });
+    this.heading = this.label(0, hint ? -165 : -252, '', 36).setFontStyle('bold');
+    const product = this.label(0, hint ? -115 : -202, intent.kind === 'album' ? intent.title : t('hintProduct'), 25, theme.textMuted);
+    this.message = this.label(0, hint ? -35 : -124, '', 28);
+    this.status = this.label(0, hint ? 42 : 95, '', 20, theme.accent);
+    this.action = new Button(scene, 0, hint ? 118 : 192, '', () => { void this.perform(); }, DIALOG_BUTTON_SCALE);
+    const close = this.label(0, hint ? 190 : 282, t('close'), 27, theme.textMuted).setPadding(30, 12).setInteractive({ useHandCursor: true });
     close.on('pointerup', () => { if (!rewardedAds.busy) this.destroy(); });
-    this.add([shade, panel, this.heading, product, this.message, balanceTitle, balance, cost, this.status, this.action, close]);
+    this.add([shade, panel, this.heading, product, this.message]);
+    if (!hint) this.add([
+      this.label(0, -54, t('yourBalance'), 23, theme.textMuted), new CoinBadge(scene, 0, -5),
+      this.label(0, 49, t('albumCost', { price: offerState(intent, 0).price }), 25, theme.textMuted),
+    ]);
+    this.add([this.status, this.action, close]);
     scene.add.existing(this); this.setDepth(1000);
     this.cleanup.push(subscribeProgress(() => this.refresh()), rewardedAds.subscribe(() => this.refresh()));
     const resize = () => {
@@ -59,13 +62,27 @@ export class PurchaseModal extends Phaser.GameObjects.Container {
   }
   private refresh(): void {
     if (this.closed) return;
-    const state = offerState(this.intent, getProgress().economy.balance);
+    const wallet = getProgress().economy;
+    const state = offerState(this.intent, wallet.balance, wallet.hintCredits);
     this.heading.setText(state.title); this.message.setText(state.message);
     this.action.setLabel(rewardedAds.busy ? t('adLoading') : state.button).setEnabled(!rewardedAds.busy);
   }
   private async perform(): Promise<void> {
     if (this.closed || rewardedAds.busy) return;
-    const state = offerState(this.intent, getProgress().economy.balance);
+    const wallet = getProgress().economy;
+    const state = offerState(this.intent, wallet.balance, wallet.hintCredits);
+    if (this.intent.kind === 'hint') {
+      if (!state.affordable) {
+        this.status.setText('');
+        const result = await rewardedAds.show('hint');
+        if (this.closed) return;
+        if (result.status !== 'rewarded') {
+          this.status.setText(t(result.status === 'closed' ? 'adClosed' : 'adUnavailable'));
+          this.refresh(); return;
+        }
+      }
+      const done = this.confirmed; this.destroy(); done(); return;
+    }
     if (!state.affordable) {
       this.status.setText('');
       const result = await rewardedAds.show();

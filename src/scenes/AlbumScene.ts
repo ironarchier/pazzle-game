@@ -46,7 +46,10 @@ export class AlbumScene extends Phaser.Scene {
     this.album = ALBUMS.find(album => album.id === data.albumId && ownsAlbum(album.id));
   }
   preload(): void {
-    const ids = this.album ? getAlbumLevels(this.album.id) : ALBUMS.filter(album => ownsAlbum(album.id)).map(album => this.coverLevel(album));
+    const progress = getProgress();
+    const ids = this.album
+      ? getAlbumLevels(this.album.id).filter(id => !LEVELS[id].finale || isUnlocked(id, progress.completed, progress.economy.purchasedAlbums))
+      : ALBUMS.filter(album => ownsAlbum(album.id)).map(album => this.coverLevel(album));
     ids.forEach(id => { if (!this.textures.exists(`album-${id}`)) this.load.image(`album-${id}`, LEVELS[id].image); });
   }
   create(): void {
@@ -105,13 +108,21 @@ export class AlbumScene extends Phaser.Scene {
       const imageY = top + LEVEL_CARD_IMAGE_HEIGHT / 2;
       const textY = top + LEVEL_CARD_IMAGE_HEIGHT;
       const card = createCard(this, 190 + index % 2 * 340, 450 + Math.floor(index / 2) * 295, LEVEL_CARD_WIDTH, LEVEL_CARD_HEIGHT, unlocked ? () => this.openLevel(id) : undefined, level.finale ? album.accent : undefined);
-      const texture = cardTexture(this, `album-${id}`, LEVEL_CARD_WIDTH, LEVEL_CARD_IMAGE_HEIGHT, { tl: CARD_RADIUS, tr: CARD_RADIUS, br: 0, bl: 0 }, hidden, album.coverFocusY);
-      card.add(this.add.image(0, imageY, texture).setAlpha(unlocked || hidden ? 1 : 0.35));
+      if (hidden) {
+        // The locked finale must not reveal even the silhouette or colors of its artwork.
+        card.add(this.add.graphics().fillStyle(theme.track, 1).fillRoundedRect(
+          -LEVEL_CARD_WIDTH / 2, top, LEVEL_CARD_WIDTH, LEVEL_CARD_IMAGE_HEIGHT,
+          { tl: CARD_RADIUS, tr: CARD_RADIUS, br: 0, bl: 0 },
+        ));
+      } else {
+        const texture = cardTexture(this, `album-${id}`, LEVEL_CARD_WIDTH, LEVEL_CARD_IMAGE_HEIGHT, { tl: CARD_RADIUS, tr: CARD_RADIUS, br: 0, bl: 0 }, !unlocked, album.coverFocusY);
+        card.add(this.add.image(0, imageY, texture).setAlpha(unlocked ? 1 : 0.55));
+      }
       if (!unlocked) {
         card.add(this.add.graphics().fillStyle(theme.surface, 0.9).fillCircle(0, imageY, LOCK_BADGE_RADIUS));
         card.add(this.add.image(0, imageY, GAME_ICONS.lock).setDisplaySize(LOCK_ICON_SIZE, LOCK_ICON_SIZE).setTint(theme.text));
       }
-      const name = hidden ? t('superPuzzle') : level.finale ? `★ ${levelTitle(id)}` : levelTitle(id);
+      const name = level.finale ? `★ ${levelTitle(id)}` : levelTitle(id);
       card.add(this.label(0, textY + 37, name, name.length > 23 ? 19 : 23, level.finale ? album.accent : theme.text));
       const statusY = textY + 73;
       if (active) card.add(this.label(0, statusY, t('continueAssembly'), 22, album.accent));

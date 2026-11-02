@@ -2,18 +2,18 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { GameScene } from '../src/scenes/GameScene.ts';
 import { PuzzlePiece } from '../src/puzzle/PuzzlePiece.ts';
-import { getProgress, completeLevel, readProgress, rewardAd } from '../src/progress.ts';
+import { getProgress, completeLevel, readProgress, rewardHintAd } from '../src/progress.ts';
 import { SAVE_STORAGE_KEY } from '../src/constants.ts';
 import { Display } from './phaser-stub.mjs';
 
 let hintFunding = 0;
 function game(rows = 3, cols = rows) {
-  if (getProgress().economy.balance < 25) rewardAd('scene-test-' + ++hintFunding);
   const scene = new GameScene();
   Object.assign(scene, { rows, cols, boardX: 20, boardY: 250, boardWidth: 680, boardHeight: 680, boardScale: 680 / (cols * 250), seed: 43 });
   for (const field of ['counter', 'counterBg', 'counterIcon', 'sampleButton', 'edgesButton', 'hintButton', 'hint', 'completeImage']) scene[field] = new Display(scene);
   scene.createPieces();
   scene.tray.forEach((piece, i) => piece.setPosition(90 + i * 140, 1170));
+  scene.save();
   return scene;
 }
 function drop(scene, piece, x, y) {
@@ -88,27 +88,27 @@ test('saves are committed on release, never on pointer movement', () => {
   assert.equal(getProgress().active.groups.length, 1);
 });
 
-test('three hints fly pieces to places allowed by the rules, then run out', () => {
+test('one free and two rewarded hints place pieces without spending coins, then run out', () => {
   const scene = game();
-  while (getProgress().economy.balance < 75) rewardAd('scene-test-' + ++hintFunding);
   const balanceBefore = getProgress().economy.balance;
   scene.refreshLabels();
   assert.equal(scene.hintButton.badge, 3);
   for (let used = 1; used <= 3; used++) {
+    if (used > 1) rewardHintAd('scene-hint-ad-' + ++hintFunding);
     scene.useHint();
     scene.tweens.flush();
     const placed = scene.pieces.filter(p => p.state === 'placed');
     assert.equal(placed.length, used);
     assert.equal(scene.hintButton.badge, 3 - used);
     assert.equal(getProgress().active.hints, 3 - used);
-    assert.equal(getProgress().economy.balance, balanceBefore - 25 * used);
+    assert.equal(getProgress().economy.balance, balanceBefore);
     for (const p of placed) assert.ok(p.row !== 1 || p.col !== 1 || placed.some(o => Math.abs(o.row - p.row) + Math.abs(o.col - p.col) === 1));
   }
   assert.equal(scene.tray.length, 6);
   scene.useHint();
   scene.tweens.flush();
   assert.equal(scene.pieces.filter(p => p.state === 'placed').length, 3);
-  assert.equal(getProgress().economy.balance, balanceBefore - 75);
+  assert.equal(getProgress().economy.balance, balanceBefore);
 });
 
 test('a hint places a whole board group and the remaining hints survive a reload', () => {
@@ -171,19 +171,19 @@ test('multiple snap callbacks commit a single win, without dimming or duplicate 
   assert.equal(getProgress().completed.length, 6);
 });
 
-test('fresh finale stays 8x8 on a narrow screen and the second puzzle is 4x4', () => {
+test('fresh finale is 5x5 on a narrow screen and the second puzzle is 3x3', () => {
   const previousWindow = globalThis.window;
   globalThis.window = { innerWidth: 390, innerHeight: 844 };
   try {
     for (let id = 0; id < 5; id++) completeLevel(id);
     const finale = new GameScene();
     finale.init({ level: 5 });
-    assert.equal(finale.rows, 8);
-    assert.equal(finale.cols, 8);
+    assert.equal(finale.rows, 5);
+    assert.equal(finale.cols, 5);
     const ordinary = new GameScene();
     ordinary.init({ level: 1 });
-    assert.equal(ordinary.rows, 4);
-    assert.equal(ordinary.cols, 4);
+    assert.equal(ordinary.rows, 3);
+    assert.equal(ordinary.cols, 3);
     const locked = new GameScene();
     locked.init({ level: 11 });
     assert.equal(locked.level, 0);

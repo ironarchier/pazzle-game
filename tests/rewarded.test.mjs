@@ -92,3 +92,28 @@ test('unresponsive SDK initialization times out without coins and leaves a retry
   assert.deepEqual(await ads.show(), { status: 'unavailable', coins: 0 });
   assert.equal(ads.busy, false);
 });
+
+test('hint ads persist one hint only onRewarded, never coins; cancellations and duplicate callbacks are safe', async () => {
+  const values = {};
+  const storage = { getItem: key => values[key] ?? null, setItem: (key, value) => { values[key] = value; } };
+  const store = new ProgressStore(storage);
+  let callbacks, requests = 0, ids = 0;
+  const ads = new RewardedAds(async () => ({ adv: { showRewardedVideo(options) { callbacks = options.callbacks; requests++; } } }),
+    { coins: id => store.rewardAd(id), hint: id => store.rewardHintAd(id) }, undefined, () => 'hint-ad-' + ++ids);
+  let pending = ads.show('hint'); await tick();
+  assert.deepEqual(await ads.show('coins'), { status: 'busy', coins: 0 });
+  callbacks.onOpen(); callbacks.onClose(); callbacks.onRewarded();
+  assert.equal((await pending).status, 'closed');
+  assert.equal(store.get().economy.hintCredits, 0);
+  pending = ads.show('hint'); await tick(); callbacks.onError();
+  assert.equal((await pending).status, 'error');
+  assert.equal(store.get().economy.hintCredits, 0);
+  pending = ads.show('hint'); await tick(); callbacks.onOpen();
+  callbacks.onRewarded(); callbacks.onRewarded();
+  assert.equal(new ProgressStore(storage).get().economy.hintCredits, 1);
+  assert.equal(store.get().economy.balance, 0);
+  callbacks.onClose(); callbacks.onRewarded();
+  assert.deepEqual(await pending, { status: 'rewarded', coins: 0 });
+  assert.equal(store.get().economy.hintCredits, 1);
+  assert.equal(requests, 3);
+});

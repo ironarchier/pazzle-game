@@ -2,27 +2,31 @@ import { ECONOMY } from '../economy/config';
 import type { RewardedSdk } from './types';
 
 export type AdResult = { status: 'rewarded' | 'closed' | 'unavailable' | 'error' | 'busy'; coins: number };
+export type AdReward = 'coins' | 'hint';
+type Rewards = { coins: (receipt: string) => boolean; hint?: (receipt: string) => boolean };
 export const createReceipt = (): string => globalThis.crypto?.randomUUID?.() ?? `${Date.now()}-${Math.random().toString(36).slice(2)}`;
 
 export class RewardedAds {
   busy = false;
   private listeners = new Set<() => void>();
   private getSdk: () => Promise<RewardedSdk | undefined>;
-  private credit: (receipt: string) => boolean;
+  private rewards: Rewards;
   private pause: () => (() => void);
   private receipt: () => string;
   private launchTimeoutMs: number;
   constructor(
-    getSdk: () => Promise<RewardedSdk | undefined>, credit: (receipt: string) => boolean,
+    getSdk: () => Promise<RewardedSdk | undefined>, credit: Rewards | Rewards['coins'],
     pause: () => (() => void) = () => () => {}, receipt: () => string = createReceipt, launchTimeoutMs = 15000,
-  ) { this.getSdk = getSdk; this.credit = credit; this.pause = pause; this.receipt = receipt; this.launchTimeoutMs = launchTimeoutMs; }
+  ) { this.getSdk = getSdk; this.rewards = typeof credit === 'function' ? { coins: credit } : credit; this.pause = pause; this.receipt = receipt; this.launchTimeoutMs = launchTimeoutMs; }
   subscribe(listener: () => void): () => void { this.listeners.add(listener); return () => { this.listeners.delete(listener); }; }
   private setBusy(value: boolean): void {
     this.busy = value;
     for (const listener of this.listeners) { try { listener(); } catch { /* UI listeners cannot own the ad lifecycle. */ } }
   }
-  async show(): Promise<AdResult> {
+  async show(reward: AdReward = 'coins'): Promise<AdResult> {
     if (this.busy) return { status: 'busy', coins: 0 };
+    const credit = this.rewards[reward];
+    if (!credit) return { status: 'unavailable', coins: 0 };
     this.setBusy(true);
     let sdk: RewardedSdk | undefined;
     let initializationTimeout: ReturnType<typeof setTimeout> | undefined;
@@ -40,7 +44,7 @@ export class RewardedAds {
         terminal = true; clearTimeout(timer);
         try { resume?.(); } catch { /* Restore the ad lock even if a scene has already shut down. */ } finally {
           this.setBusy(false);
-          resolve({ status: credited ? 'rewarded' : status, coins: credited ? ECONOMY.rewardedVideoCoins : 0 });
+          resolve({ status: credited ? 'rewarded' : status, coins: credited && reward === 'coins' ? ECONOMY.rewardedVideoCoins : 0 });
         }
       };
       try {
@@ -54,7 +58,7 @@ export class RewardedAds {
             if (terminal || rewarded) return;
             clearTimeout(timer);
             rewarded = true;
-            try { credited = this.credit(id); } catch { finish('error'); } // The only place where an ad may issue coins.
+            try { credited = credit(id); } catch { finish('error'); } // Only confirmed rewarded callbacks can grant either reward.
           },
           onClose: () => finish('closed'),
           onError: () => finish('error'),

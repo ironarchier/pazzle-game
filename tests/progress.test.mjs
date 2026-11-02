@@ -58,7 +58,8 @@ test('all five distinct ordinary levels are required for finale, in any order', 
   assert.deepEqual(result.completed, [0]);
   assert.equal(result.current, 1);
 });
-test('puzzles grow from 3x3 to an 8x8 finale inside every album with reproducible saves', () => {
+test('all albums use 3,3,4,4,4,5 grids with reproducible saves', () => {
+  assert.deepEqual(LEVEL_GRIDS, [[3, 3], [3, 3], [4, 4], [4, 4], [4, 4], [5, 5]]);
   const ordinary = LEVELS.flatMap((config, id) => config.finale ? [] : [id]);
   LEVELS.forEach((config, level) => {
     const slot = getAlbumLevels(config.albumId).indexOf(level);
@@ -84,6 +85,19 @@ test('completion is idempotent, clears assembly and unlocks entire album', () =>
   assert.equal(completeLevel(5), true);
   assert.equal(completeLevel(5), false);
   assert.equal(getProgress().completed.length, 6);
+});
+
+test('old larger assemblies keep their pieces, groups, hint usage and money after the grid update', () => {
+  const active = { level: 4, rows: 7, cols: 7, seed: 123, placed: [0], groups: [{ ids: [1, 2], x: 0.3, y: 0.7 }], tray: Array.from({ length: 46 }, (_, i) => i + 3), scroll: 80, hints: 1 };
+  const data = { [SAVE_STORAGE_KEY]: JSON.stringify({ version: 1, catalogueRevision: 2, current: 4, completed: [0, 1, 2, 3], active, economy: { balance: 70 } }) };
+  const progress = readProgress(storage(data));
+  assert.deepEqual(progress.active, active);
+  assert.deepEqual(progress.completed, [0, 1, 2, 3]);
+  assert.equal(progress.economy.balance, 70);
+  assert.equal(progress.economy.hintCredits, 0);
+  assert.equal(LEVELS[4].rows, 4);
+  const oldFinale = { ...active, level: 5, rows: 8, cols: 8, placed: [], groups: [], tray: Array.from({ length: 64 }, (_, i) => i) };
+  assert.deepEqual(validateAssembly(oldFinale, [0, 1, 2, 3, 4]), oldFinale);
 });
 
 test('browser persistence keeps anime saves separate and keeps playing when writes fail', () => {
