@@ -17,7 +17,7 @@ function fixture() {
   const modal = Object.assign(Object.create(PurchaseModal.prototype), {
     scene, closed: false, cleanup: [], intent: { kind: 'hint' },
     heading: new Display(scene), message: new Display(scene), status: new Display(scene),
-    action: { setLabel() { return this; }, setEnabled() { return this; } },
+    action: { setLabel() { return this; }, setEnabled() { return this; }, setVisible() { return this; } },
   });
   return modal;
 }

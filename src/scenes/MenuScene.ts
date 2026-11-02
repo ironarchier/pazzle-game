@@ -16,6 +16,9 @@ import {
   PAGE_TRANSITION_DURATION,
   SETTINGS_CARD_HEIGHT,
   SETTINGS_CARD_WIDTH,
+  SETTINGS_SUPPORT_SCALE,
+  SETTINGS_SUPPORT_Y,
+  SUPPORT_URL,
   getAlbumLevels,
   getLevelAlbum,
 } from '../constants';
@@ -34,8 +37,9 @@ import { TabBar } from '../ui/TabBar';
 import { Segmented } from '../ui/Segmented';
 import { Toggle } from '../ui/Toggle';
 import { CoinBadge } from '../ui/CoinBadge';
-import { platformReady } from '../platform/index';
+import { platformReady, setBannerVisible } from '@game-platform';
 import { whenPreloaderHidden } from '../preloader';
+import { usesPlaygama } from '../platform/persistence';
 
 type Page = 'home' | 'settings';
 
@@ -82,7 +86,9 @@ export class MenuScene extends Phaser.Scene {
     );
     this.cameras.main.ignore(this.tabBar);
     this.showPage(data.page ?? 'home');
-    this.game.events.once('postrender', () => { void whenPreloaderHidden().then(platformReady); });
+    if (usesPlaygama) this.game.events.once('postrender', () => { void whenPreloaderHidden().then(platformReady); });
+    else platformReady();
+    setBannerVisible(true);
   }
 
   private showPage(page: Page): void {
@@ -176,8 +182,9 @@ export class MenuScene extends Phaser.Scene {
     });
 
     const card = createCard(this, centerX, 500, SETTINGS_CARD_WIDTH, SETTINGS_CARD_HEIGHT);
+    const support = new Button(this, centerX, SETTINGS_SUPPORT_Y, t('support'), () => window.open(SUPPORT_URL, '_blank', 'noopener'), SETTINGS_SUPPORT_SCALE, 'secondary');
 
-    return this.add.container(0, 0, [title, card, sound, music, darkTheme, language]);
+    return this.add.container(0, 0, [title, card, sound, music, darkTheme, language, support]);
   }
 
   private scheduleRestart(): void {

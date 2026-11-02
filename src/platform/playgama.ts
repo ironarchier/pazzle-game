@@ -22,6 +22,8 @@ function pauseForAd(): () => void {
   return () => pause?.setPaused('ad', false);
 }
 export const rewardedAds = new RewardedAds(async () => ads?.busy || transitioning ? undefined : ads, { coins: rewardAd, hint: rewardHintAd }, pauseForAd);
+export function startPlatform(): void {}
+export function setBannerVisible(_visible: boolean): void {}
 
 export async function initializePlatform(game: Phaser.Game): Promise<void> {
   const bridge = globalThis.bridge;

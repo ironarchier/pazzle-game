@@ -94,6 +94,7 @@ export class IconButton extends Phaser.GameObjects.Container {
       .fillStyle(active ? theme.accent : theme.border, 1)
       .fillCircle(0, 0, ICON_BADGE.radius);
     this.badgeText.setText(String(value)).setColor(toCss(active ? theme.accentText : theme.textMuted));
+    this.badgeBg.setVisible(active); this.badgeText.setVisible(active);
     return this;
   }
 

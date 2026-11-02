@@ -76,6 +76,9 @@ const ru = {
   toAlbum: 'В альбом',
   next: 'Дальше',
   toMenu: 'В меню',
+  support: 'Написать в поддержку',
+  tutorialDrag: 'Перетащи деталь из лотка на картинку. На своём месте она закрепится сама.',
+  tutorialTools: 'Кнопки сверху помогут: образец картинки, сначала края и подсказка — первые 3 бесплатно.',
 };
 
 type Key = keyof typeof ru;
@@ -155,6 +158,9 @@ const en: Record<Key, string> = {
   toAlbum: 'To album',
   next: 'Next',
   toMenu: 'Menu',
+  support: 'Contact support',
+  tutorialDrag: 'Drag a piece from the tray onto the picture. It locks in when it reaches its place.',
+  tutorialTools: 'The buttons on top help: sample picture, edges first and hints — the first 3 are free.',
 };
 
 const PIECES = {

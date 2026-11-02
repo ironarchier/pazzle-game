@@ -4,6 +4,8 @@
 
 Отдельная сборка Playgama: `npm run package:playgama`. Адаптер, проверки, требования модерации и инструкция QA описаны в [PLAYGAMA.md](PLAYGAMA.md). Обычная команда `npm run build` сохраняет сборку Яндекс Игр.
 
+VK-сборка сохранена: `npm run build:vk`, запуск для разработки — `npm run dev:vk`. Публикация VK выполняется отдельно командой `npm run deploy:vk`.
+
 ## Команды
 
 ```bash

@@ -5,8 +5,8 @@ import { fileURLToPath } from 'node:url';
 
 export default defineConfig(({ mode }) => ({
   base: './',
-  resolve: { alias: { '@platform-adapter': fileURLToPath(new URL(mode === 'playgama' ? './src/platform/playgama.ts' : './src/platform/yandex.ts', import.meta.url)) } },
-  define: { 'import.meta.env.VITE_PLATFORM': JSON.stringify(mode === 'playgama' ? 'playgama' : 'yandex') },
+  resolve: { alias: { '@game-platform': fileURLToPath(new URL(mode === 'playgama' ? './src/platform/playgama.ts' : './src/platform/index.ts', import.meta.url)) } },
+  define: { 'import.meta.env.VITE_PLATFORM': JSON.stringify(mode === 'playgama' ? 'playgama' : mode === 'vk' ? 'vk' : 'yandex') },
   plugins: mode === 'playgama' ? [playgamaBridge({ mode: 'local' }), {
     name: 'playgama-distribution',
     transformIndexHtml(html) {

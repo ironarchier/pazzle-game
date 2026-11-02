@@ -2,7 +2,7 @@ import * as Phaser from 'phaser';
 import { CARD_RADIUS, FONT_FAMILY, SHOP_AD_BUTTON_SCALE, SHOP_ALBUMS, SHOP_ROW_SPACING, getAlbumLevels } from '../constants';
 import { ECONOMY } from '../economy/config';
 import { ownsAlbum } from '../progress';
-import { rewardedAds } from '../platform/index';
+import { rewardedAds } from '@game-platform';
 import { goToScene, restartScene } from '../crossfade';
 import { centerLayout } from '../layout';
 import { applyTheme, getTheme, toCss } from '../theme';
@@ -56,7 +56,7 @@ export class ShopScene extends Phaser.Scene {
     this.label(360, 1040, (this.page + 1) + ' / ' + count, 26);
     new Button(this, 565, 1040, t('next'), () => restartScene(this, { page: this.page + 1 }), 0.68, 'secondary').setEnabled(this.page < count - 1);
     const watch = new Button(this, 360, 1170, t('watchAd', { coins: ECONOMY.rewardedVideoCoins }), () => { void this.watchAd(); }, SHOP_AD_BUTTON_SCALE);
-    const update = () => watch.setEnabled(!rewardedAds.busy).setLabel(rewardedAds.busy ? t('adLoading') : t('watchAd', { coins: ECONOMY.rewardedVideoCoins }));
+    const update = () => watch.setVisible(rewardedAds.available || rewardedAds.busy).setEnabled(!rewardedAds.busy).setLabel(rewardedAds.busy ? t('adLoading') : t('watchAd', { coins: ECONOMY.rewardedVideoCoins }));
     const unsubscribe = rewardedAds.subscribe(update); update();
     this.events.once('shutdown', unsubscribe);
   }

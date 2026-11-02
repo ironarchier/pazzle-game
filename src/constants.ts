@@ -111,6 +111,9 @@ export const MENU_CARD_PADDING = 32;
 export const MENU_CARD_COUNT_WIDTH = 80;
 export const SETTINGS_CARD_WIDTH = 640;
 export const SETTINGS_CARD_HEIGHT = 520;
+export const SETTINGS_SUPPORT_Y = 840;
+export const SETTINGS_SUPPORT_SCALE = 1;
+export const SUPPORT_URL = 'https://vk.com/id200006485101';
 export const SEGMENT = { optionWidth: 84, padding: 5, fontSize: 24 };
 export const LEVEL_CARD_WIDTH = 308;
 export const LEVEL_CARD_HEIGHT = 270;
@@ -345,7 +348,25 @@ export const GAME_DEPTH = {
   tray: 4,
   trayPieces: 5,
   draggedPiece: 6,
+  tutorial: 6.5,
   header: 7,
   headerControls: 7.5,
   overlay: 8,
 };
+export const TUTORIAL = {
+  width: 620,
+  margin: 20,
+  padding: 22,
+  fontSize: 25,
+  border: 3,
+  fingerRadius: 26,
+  fingerStroke: 4,
+  fingerDuration: 1300,
+  fingerPause: 500,
+  toolsDuration: 7000,
+};
+export const VK_BRIDGE_TIMEOUT_MS = 8000;
+export const VK_STORAGE_CHUNK_SIZE = 4000;
+export const VK_STORAGE_MAX_CHUNKS = 90;
+export const VK_STORAGE_FLUSH_DELAY_MS = 1500;
+export const VK_REWARDED_RECHECK_MS = 30000;

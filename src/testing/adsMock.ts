@@ -1,8 +1,8 @@
 import { getTheme, toCss } from '../theme';
-import type { YandexSdk } from '../platform/types';
+import type { RewardedSdk } from '../platform/types';
 
 // This module is dynamically imported only by Vite DEV code and is absent from production.
-export function createDevelopmentSdk(): YandexSdk {
+export function createDevelopmentSdk(): RewardedSdk {
   return { adv: { showRewardedVideo({ callbacks }) {
     const theme = getTheme();
     const root = document.createElement('div');

@@ -8,6 +8,7 @@ export const createReceipt = (): string => globalThis.crypto?.randomUUID?.() ?? 
 
 export class RewardedAds {
   busy = false;
+  available = true;
   private listeners = new Set<() => void>();
   private getSdk: () => Promise<RewardedSdk | undefined>;
   private rewards: Rewards;
@@ -23,8 +24,14 @@ export class RewardedAds {
     this.busy = value;
     for (const listener of this.listeners) { try { listener(); } catch { /* UI listeners cannot own the ad lifecycle. */ } }
   }
+  setAvailable(value: boolean): void {
+    if (this.available === value) return;
+    this.available = value;
+    for (const listener of this.listeners) { try { listener(); } catch { /* Availability listeners cannot interrupt the SDK. */ } }
+  }
   async show(reward: AdReward = 'coins'): Promise<AdResult> {
     if (this.busy) return { status: 'busy', coins: 0 };
+    if (!this.available) return { status: 'unavailable', coins: 0 };
     const credit = this.rewards[reward];
     if (!credit) return { status: 'unavailable', coins: 0 };
     this.setBusy(true);

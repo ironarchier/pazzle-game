@@ -7,12 +7,19 @@ export interface Settings {
   music: boolean;
   theme: ThemeName;
   language: LanguageName;
+  tutorialDone: boolean;
 }
 
-const browserLanguage = (): LanguageName =>
-  typeof navigator === 'undefined' || navigator.language?.toLowerCase().startsWith('ru') ? 'ru' : 'en';
+const vkLanguage = (): string | null =>
+  typeof location === 'undefined' ? null : new URLSearchParams(location.search).get('vk_language');
 
-const DEFAULT_SETTINGS: Settings = { sound: true, music: true, theme: 'light', language: browserLanguage() };
+const browserLanguage = (): LanguageName => {
+  const vk = vkLanguage();
+  if (vk) return vk.toLowerCase().startsWith('ru') ? 'ru' : 'en';
+  return typeof navigator === 'undefined' || navigator.language?.toLowerCase().startsWith('ru') ? 'ru' : 'en';
+};
+
+const DEFAULT_SETTINGS: Settings = { sound: true, music: true, theme: 'light', language: browserLanguage(), tutorialDone: false };
 
 let storage: StorageLike | undefined;
 let current = loadSettings();
@@ -31,6 +38,7 @@ function loadSettings(): Settings {
     if (settings.theme !== 'light' && settings.theme !== 'dark') settings.theme = DEFAULT_SETTINGS.theme;
     if (typeof settings.sound !== 'boolean') settings.sound = true;
     if (typeof settings.music !== 'boolean') settings.music = true;
+    if (typeof settings.tutorialDone !== 'boolean') settings.tutorialDone = false;
     return settings;
   } catch {
     return { ...DEFAULT_SETTINGS };
@@ -40,7 +48,6 @@ function loadSettings(): Settings {
 export function configureSettingsStorage(provider: StorageLike, platformLanguage: string): void {
   storage = provider;
   current = loadSettings();
-  // The platform supplies the initial language; an explicit player selection wins.
   const raw = provider.getItem(SETTINGS_STORAGE_KEY);
   let language: unknown;
   try { language = raw ? JSON.parse(raw)?.language : undefined; } catch { /* Use platform language. */ }

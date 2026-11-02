@@ -3,7 +3,7 @@
     "target": "ES2020",
     "module": "ESNext",
     "moduleResolution": "bundler",
-    "paths": { "@platform-adapter": ["./src/platform/yandex.ts"] },
+    "paths": { "@game-platform": ["./src/platform/index.ts"] },
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "types": ["vite/client"],
     "strict": true,

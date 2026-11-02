@@ -2,7 +2,7 @@ import * as Phaser from 'phaser';
 import { CARD_RADIUS, DIALOG_BUTTON_SCALE, FONT_FAMILY } from '../constants';
 import { offerState, type PurchaseIntent } from '../economy/offer';
 import { buyAlbum, getProgress, subscribeProgress } from '../progress';
-import { rewardedAds } from '../platform/index';
+import { rewardedAds } from '@game-platform';
 import { getTheme, toCss } from '../theme';
 import { Button } from './Button';
 import { CoinBadge } from './CoinBadge';
@@ -24,6 +24,7 @@ export class PurchaseModal extends Phaser.GameObjects.Container {
   private status: Phaser.GameObjects.Text;
   private action: Button;
   private closed = false;
+  private adNotice = false;
   private cleanup: (() => void)[] = [];
   private intent: PurchaseIntent;
   private confirmed: () => void;
@@ -65,7 +66,11 @@ export class PurchaseModal extends Phaser.GameObjects.Container {
     const wallet = getProgress().economy;
     const state = offerState(this.intent, wallet.balance, wallet.hintCredits);
     this.heading.setText(state.title); this.message.setText(state.message);
-    this.action.setLabel(rewardedAds.busy ? t('adLoading') : state.button).setEnabled(!rewardedAds.busy);
+    this.action.setLabel(rewardedAds.busy ? t('adLoading') : state.button).setEnabled(!rewardedAds.busy && (state.affordable || rewardedAds.available));
+    const noAd = !state.affordable && !rewardedAds.busy && !rewardedAds.available;
+    this.action.setVisible(!noAd);
+    if (noAd) { this.status.setText(t('adUnavailable')); this.adNotice = true; }
+    else if (this.adNotice) { this.status.setText(''); this.adNotice = false; }
   }
   private async perform(): Promise<void> {
     if (this.closed || rewardedAds.busy) return;
@@ -73,7 +78,7 @@ export class PurchaseModal extends Phaser.GameObjects.Container {
     const state = offerState(this.intent, wallet.balance, wallet.hintCredits);
     if (this.intent.kind === 'hint') {
       if (!state.affordable) {
-        this.status.setText('');
+        this.status.setText(''); this.adNotice = false;
         const result = await rewardedAds.show('hint');
         if (this.closed) return;
         if (result.status !== 'rewarded') {
@@ -84,7 +89,7 @@ export class PurchaseModal extends Phaser.GameObjects.Container {
       const done = this.confirmed; this.destroy(); done(); return;
     }
     if (!state.affordable) {
-      this.status.setText('');
+      this.status.setText(''); this.adNotice = false;
       const result = await rewardedAds.show();
       if (this.closed) return;
       this.status.setText(result.status === 'rewarded' ? '+' + result.coins + ' ' + t('coins') : t(result.status === 'closed' ? 'adClosed' : 'adUnavailable'));

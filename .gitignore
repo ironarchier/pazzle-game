@@ -1,5 +1,6 @@
 node_modules/
 dist/
+dist-vk/
 dist-playgama/
 *.zip
 *.log
