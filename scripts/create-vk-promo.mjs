@@ -1,4 +1,4 @@
-// Renders VK catalogue artwork (icons, snippet, screenshots) to promo/vk/ with headless Chrome.
+// Renders catalogue artwork with headless Chrome: `node scripts/create-vk-promo.mjs [vk|pikabu]` → promo/<target>/.
 import { execFileSync } from 'node:child_process';
 import { mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
@@ -6,9 +6,11 @@ import { join, resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 
 const root = resolve(import.meta.dirname, '..');
-const out = join(root, 'promo', 'vk');
+const target = process.argv[2] ?? 'vk';
+if (!['vk', 'pikabu'].includes(target)) throw new Error('Usage: node scripts/create-vk-promo.mjs [vk|pikabu]');
+const out = join(root, 'promo', target);
 const chrome = process.env.CHROME_PATH ?? 'C:/Program Files/Google/Chrome/Application/chrome.exe';
-const title = 'Аниме пазлы';
+const title = target === 'pikabu' ? 'Аниме-пазлы' : 'Аниме пазлы';
 const slogan = 'Собери своего героя!';
 
 const dataUri = (path, type) => `data:${type};base64,${readFileSync(join(root, path)).toString('base64')}`;
@@ -87,14 +89,24 @@ const pages = {
     <i class="spark" style="left:1110px;top:470px;width:44px;height:44px"></i>`],
 };
 
+// Pikabu Games wants a 1024 square icon and 16:9 art from 1920×1080. The VK compositions are reused:
+// the 1120×630 snippet is already 16:9, the 1200×600 screenshots are centred on a 1200×675 canvas; both are zoomed to 1920 wide.
+const zoomed = (width, height, body) => `<div style="position:absolute;left:0;top:0;width:${width}px;height:${height}px;zoom:${1920 / width}">${body}</div>`;
+const centred = body => `<div style="position:absolute;left:0;top:37.5px;width:1200px;height:600px">${body}</div>`;
+const pikabu = {
+  'icon-1024.png': [1024, 1024, `<img src="${icon()}" style="width:100%;height:100%">`],
+  'cover-1920x1080.png': [1920, 1080, zoomed(1120, 630, pages['snippet-1120x630.png'][2])],
+  ...Object.fromEntries([1, 2, 3].map(n => [`screenshot-${n}-1920x1080.png`, [1920, 1080, zoomed(1200, 675, centred(pages[`screenshot-${n}-1200x600.png`][2]))]])),
+};
+
 mkdirSync(out, { recursive: true });
 const work = mkdtempSync(join(tmpdir(), 'vk-promo-'));
 try {
-  for (const [file, [width, height, body]] of Object.entries(pages)) {
+  for (const [file, [width, height, body]] of Object.entries(target === 'pikabu' ? pikabu : pages)) {
     const html = join(work, file.replace(/\.png$/, '.html'));
     writeFileSync(html, `<!doctype html><meta charset="utf-8"><style>${base}</style><body>${body}</body>`);
     execFileSync(chrome, ['--headless=new', '--disable-gpu', '--hide-scrollbars', '--force-device-scale-factor=1', '--virtual-time-budget=3000',
       `--window-size=${width},${height}`, `--screenshot=${join(out, file)}`, pathToFileURL(html).href], { stdio: 'ignore' });
-    console.log(`promo/vk/${file}`);
+    console.log(`promo/${target}/${file}`);
   }
 } finally { rmSync(work, { recursive: true, force: true }); }

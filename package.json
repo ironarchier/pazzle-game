@@ -21,7 +21,8 @@
     "typecheck": "tsc --noEmit && tsc --noEmit -p tsconfig.node.json",
     "test": "node --import ./tests/register-typescript.mjs --test tests/*.test.mjs",
     "music:build": "node scripts/create-background-music.mjs",
-    "promo:vk": "node scripts/create-vk-promo.mjs"
+    "promo:vk": "node scripts/create-vk-promo.mjs",
+    "promo:pikabu": "node scripts/create-vk-promo.mjs pikabu"
   },
   "dependencies": {
     "@playgama/bridge": "2.3.1",
