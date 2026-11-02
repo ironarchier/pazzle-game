@@ -39,7 +39,7 @@ import { Toggle } from '../ui/Toggle';
 import { CoinBadge } from '../ui/CoinBadge';
 import { platformReady, setBannerVisible } from '@game-platform';
 import { whenPreloaderHidden } from '../preloader';
-import { usesPlaygama } from '../platform/persistence';
+import { usesHostSdk } from '../platform/persistence';
 
 type Page = 'home' | 'settings';
 
@@ -86,7 +86,7 @@ export class MenuScene extends Phaser.Scene {
     );
     this.cameras.main.ignore(this.tabBar);
     this.showPage(data.page ?? 'home');
-    if (usesPlaygama) this.game.events.once('postrender', () => { void whenPreloaderHidden().then(platformReady); });
+    if (usesHostSdk) this.game.events.once('postrender', () => { void whenPreloaderHidden().then(platformReady); });
     else platformReady();
     setBannerVisible(true);
   }

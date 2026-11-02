@@ -1,10 +1,10 @@
 import type { StorageLike } from '../progress';
 
-// Playgama must hydrate Bridge Storage before the first playable scene.
-// Yandex keeps the existing browser/SDK storage path.
-export const usesPlaygama = import.meta.env?.VITE_PLATFORM === 'playgama';
+// Playgama and Pikabu hydrate their cloud storage before the first playable scene
+// and report readiness after the preloader. Yandex/VK keep the browser/SDK storage path.
+export const usesHostSdk = ['playgama', 'pikabu'].includes(import.meta.env?.VITE_PLATFORM ?? '');
 
 export function browserStorage(): StorageLike | undefined {
-  if (usesPlaygama) return;
+  if (usesHostSdk) return;
   try { return globalThis.localStorage; } catch { return; }
 }
